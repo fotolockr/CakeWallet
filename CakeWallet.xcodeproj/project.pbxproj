@@ -1,0 +1,1589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0C056A6C200663800016AEF1 /* libboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C056A6B2006637F0016AEF1 /* libboost.a */; };
+		0C0A314E1F9F8D4B001B96BC /* WalletUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A314D1F9F8D4B001B96BC /* WalletUITableViewCell.swift */; };
+		0C0F87911FCC37CC00570312 /* MoneroPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F87901FCC37CC00570312 /* MoneroPendingTransaction.swift */; };
+		0C0F87931FCC455C00570312 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F87921FCC455B00570312 /* TransactionCell.swift */; };
+		0C0F87951FCC457200570312 /* TransactionUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F87941FCC457200570312 /* TransactionUITableViewCell.swift */; };
+		0C1718872003E91A00EA1B02 /* libunbound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718832003E91A00EA1B02 /* libunbound.a */; };
+		0C1718882003E91A00EA1B02 /* libeasylogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718842003E91A00EA1B02 /* libeasylogging.a */; };
+		0C1718892003E91A00EA1B02 /* libepee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718852003E91A00EA1B02 /* libepee.a */; };
+		0C17188A2003E91A00EA1B02 /* libwallet_merged.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718862003E91A00EA1B02 /* libwallet_merged.a */; };
+		0C17188B2003F34700EA1B02 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEEE3501FEDE23200F8C4C9 /* libcrypto.a */; };
+		0C17188C2003F34700EA1B02 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEEE3511FEDE23200F8C4C9 /* libssl.a */; };
+		0C1D34681FB9D620005F2B86 /* TransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1D34671FB9D620005F2B86 /* TransactionHistory.swift */; };
+		0C1D348E1FBC7C29005F2B86 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1D348C1FBC7C28005F2B86 /* LoginViewController.swift */; };
+		0C22E4831F8D34CB00C12A14 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4611F8D34CB00C12A14 /* PinView.swift */; };
+		0C22E4841F8D34CB00C12A14 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4621F8D34CB00C12A14 /* PrimaryButton.swift */; };
+		0C22E4851F8D34CB00C12A14 /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4631F8D34CB00C12A14 /* SecondaryButton.swift */; };
+		0C22E4861F8D34CB00C12A14 /* Roundable+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4641F8D34CB00C12A14 /* Roundable+UIView.swift */; };
+		0C22E4871F8D34CB00C12A14 /* Roundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4651F8D34CB00C12A14 /* Roundable.swift */; };
+		0C22E4891F8D34CB00C12A14 /* SeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E46A1F8D34CB00C12A14 /* SeedView.swift */; };
+		0C22E48A1F8D34CB00C12A14 /* SeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E46B1F8D34CB00C12A14 /* SeedViewController.swift */; };
+		0C22E48B1F8D34CB00C12A14 /* NewWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E46D1F8D34CB00C12A14 /* NewWalletView.swift */; };
+		0C22E48C1F8D34CB00C12A14 /* NewWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E46E1F8D34CB00C12A14 /* NewWalletViewController.swift */; };
+		0C22E48D1F8D34CB00C12A14 /* PasswordKeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4701F8D34CB00C12A14 /* PasswordKeyboardKey.swift */; };
+		0C22E48E1F8D34CB00C12A14 /* PasswordKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4711F8D34CB00C12A14 /* PasswordKeyboardView.swift */; };
+		0C22E48F1F8D34CB00C12A14 /* PinPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4721F8D34CB00C12A14 /* PinPasswordView.swift */; };
+		0C22E4901F8D34CB00C12A14 /* PinPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4731F8D34CB00C12A14 /* PinPasswordViewController.swift */; };
+		0C22E4911F8D34CB00C12A14 /* ReceiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4751F8D34CB00C12A14 /* ReceiveView.swift */; };
+		0C22E4921F8D34CB00C12A14 /* ReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4761F8D34CB00C12A14 /* ReceiveViewController.swift */; };
+		0C22E4931F8D34CB00C12A14 /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4781F8D34CB00C12A14 /* SendView.swift */; };
+		0C22E4941F8D34CB00C12A14 /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4791F8D34CB00C12A14 /* SendViewController.swift */; };
+		0C22E4951F8D34CB00C12A14 /* WalletsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E47B1F8D34CB00C12A14 /* WalletsView.swift */; };
+		0C22E4961F8D34CB00C12A14 /* WalletsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E47C1F8D34CB00C12A14 /* WalletsViewController.swift */; };
+		0C22E4971F8D34CB00C12A14 /* UIAlertController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E47D1F8D34CB00C12A14 /* UIAlertController+extensions.swift */; };
+		0C22E4981F8D34CB00C12A14 /* UIColor+colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E47E1F8D34CB00C12A14 /* UIColor+colors.swift */; };
+		0C22E4991F8D34CB00C12A14 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E47F1F8D34CB00C12A14 /* UIColor+hex.swift */; };
+		0C22E49A1F8D34CB00C12A14 /* UITableViewCell+identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4801F8D34CB00C12A14 /* UITableViewCell+identifier.swift */; };
+		0C22E49B1F8D34CB00C12A14 /* UIViewController+isModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4811F8D34CB00C12A14 /* UIViewController+isModal.swift */; };
+		0C22E4AE1F8D3B6D00C12A14 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4AC1F8D3B6C00C12A14 /* BaseView.swift */; };
+		0C22E4AF1F8D3B6D00C12A14 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22E4AD1F8D3B6D00C12A14 /* BaseViewController.swift */; };
+		0C289FE21F87CF4A003C1826 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C289FE11F87CF4A003C1826 /* AppDelegate.swift */; };
+		0C289FE91F87CF4B003C1826 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C289FE81F87CF4B003C1826 /* Assets.xcassets */; };
+		0C289FF71F87CF4B003C1826 /* WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C289FF61F87CF4B003C1826 /* WalletTests.swift */; };
+		0C2FA6781FD69B5000D5D3E6 /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2FA6771FD69B5000D5D3E6 /* KeychainKey.swift */; };
+		0C3048A01FCF6E0C001F8009 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30489F1FCF6E0C001F8009 /* DependencyContainer.swift */; };
+		0C33020E1FDDD8FA008F58A4 /* StandartTitledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C33020D1FDDD8FA008F58A4 /* StandartTitledView.swift */; };
+		0C36F56E1FBF0B0500234495 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36F56D1FBF0B0500234495 /* ChangePasswordViewController.swift */; };
+		0C36F5721FBF585500234495 /* PinKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36F5711FBF585500234495 /* PinKeyButton.swift */; };
+		0C4626531F891A39004675C6 /* MoneroWalleteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4626521F891A39004675C6 /* MoneroWalleteError.m */; };
+		0C4D2E161FF81E2D00019B6E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C4D2E151FF81E2D00019B6E /* Launch Screen.storyboard */; };
+		0C60515F1FD0AAEB0041D2D4 /* TransactionCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C60515E1FD0AAEB0041D2D4 /* TransactionCredentials.swift */; };
+		0C6051881FD0BBB40041D2D4 /* MoneroTransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051871FD0BBB40041D2D4 /* MoneroTransactionHistory.swift */; };
+		0C60518A1FD0BBF20041D2D4 /* TransactionDescription+SectionModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051891FD0BBF20041D2D4 /* TransactionDescription+SectionModelType.swift */; };
+		0C60518F1FD0BCCD0041D2D4 /* KeychainStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C60518E1FD0BCCD0041D2D4 /* KeychainStorageError.swift */; };
+		0C6051911FD0BCE50041D2D4 /* KeychainStorageImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051901FD0BCE50041D2D4 /* KeychainStorageImpl.swift */; };
+		0C6051941FD0BD5C0041D2D4 /* TransactionPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051931FD0BD5C0041D2D4 /* TransactionPriority.swift */; };
+		0C6051961FD0BD6B0041D2D4 /* TransactionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051951FD0BD6B0041D2D4 /* TransactionDescription.swift */; };
+		0C6051981FD0BD790041D2D4 /* Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051971FD0BD790041D2D4 /* Transfer.swift */; };
+		0C60519A1FD0BD880041D2D4 /* TransactionDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051991FD0BD880041D2D4 /* TransactionDirection.swift */; };
+		0C60519C1FD0BD940041D2D4 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C60519B1FD0BD940041D2D4 /* TransactionStatus.swift */; };
+		0C60519F1FD0BDBF0041D2D4 /* PendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C60519E1FD0BDBF0041D2D4 /* PendingTransaction.swift */; };
+		0C6051A11FD0BDD70041D2D4 /* PendingTransactionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051A01FD0BDD70041D2D4 /* PendingTransactionDescription.swift */; };
+		0C6051A71FD0C1150041D2D4 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051A61FD0C1150041D2D4 /* WelcomeViewController.swift */; };
+		0C6051A91FD0C1330041D2D4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051A81FD0C1330041D2D4 /* WelcomeView.swift */; };
+		0C6051AB1FD0C1680041D2D4 /* UITabBarController+viewControllersInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051AA1FD0C1680041D2D4 /* UITabBarController+viewControllersInit.swift */; };
+		0C6051AE1FD0C1940041D2D4 /* SetupPinPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051AD1FD0C1940041D2D4 /* SetupPinPasswordViewController.swift */; };
+		0C6051B01FD0C1CA0041D2D4 /* VoidEmptyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051AF1FD0C1CA0041D2D4 /* VoidEmptyHandler.swift */; };
+		0C6051B31FD0C21E0041D2D4 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051B21FD0C21E0041D2D4 /* Flow.swift */; };
+		0C6051B51FD0C22E0041D2D4 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051B41FD0C22E0041D2D4 /* RouteType.swift */; };
+		0C6051B71FD0C23E0041D2D4 /* SignUpFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051B61FD0C23E0041D2D4 /* SignUpFlow.swift */; };
+		0C6051B91FD0C2540041D2D4 /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051B81FD0C2540041D2D4 /* MainFlow.swift */; };
+		0C6051BB1FD0C2760041D2D4 /* RootFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051BA1FD0C2760041D2D4 /* RootFlow.swift */; };
+		0C6105FA1F9FE2EB009EEBB3 /* AddWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6105F91F9FE2EB009EEBB3 /* AddWalletView.swift */; };
+		0C6105FC1F9FE4CF009EEBB3 /* AddWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6105FB1F9FE4CF009EEBB3 /* AddWalletViewController.swift */; };
+		0C616C001F93DA33007AD9A4 /* RecoveryWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C616BFF1F93DA33007AD9A4 /* RecoveryWalletViewController.swift */; };
+		0C616C021F93DA3F007AD9A4 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C616C011F93DA3F007AD9A4 /* RecoveryView.swift */; };
+		0C62EA7F20224A1A005A8F2E /* EmptyTransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62EA7E20224A1A005A8F2E /* EmptyTransactionHistory.swift */; };
+		0C62EA8120225089005A8F2E /* Stringify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62EA8020225088005A8F2E /* Stringify.swift */; };
+		0C62EA83202251E6005A8F2E /* SettingsPickerUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62EA82202251E6005A8F2E /* SettingsPickerUITableViewCell.swift */; };
+		0C62EA85202253A2005A8F2E /* ErrorPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62EA84202253A2005A8F2E /* ErrorPresentable.swift */; };
+		0C62FBA0202295AE005A8F2E /* EstimatedFeeCalculable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FB9F202295AE005A8F2E /* EstimatedFeeCalculable.swift */; };
+		0C62FBA2202295C4005A8F2E /* Wallets+EstimatedFeeCalculable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBA1202295C4005A8F2E /* Wallets+EstimatedFeeCalculable.swift */; };
+		0C62FBA42022A149005A8F2E /* RateTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBA32022A149005A8F2E /* RateTicker.swift */; };
+		0C62FBA62022A2D1005A8F2E /* MoneroRateTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBA52022A2D1005A8F2E /* MoneroRateTicker.swift */; };
+		0C62FBA82022BCD5005A8F2E /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBA72022BCD5005A8F2E /* TransactionError.swift */; };
+		0C62FBB32022C1E8005A8F2E /* Proxable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBB22022C1E8005A8F2E /* Proxable.swift */; };
+		0C62FBB52022C1F8005A8F2E /* WalletProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBB42022C1F8005A8F2E /* WalletProxy.swift */; };
+		0C62FBB72022C21F005A8F2E /* UTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBB62022C21F005A8F2E /* UTimer.swift */; };
+		0C62FBBD2022D261005A8F2E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBBC2022D261005A8F2E /* Configurations.swift */; };
+		0C62FBBF2022D8C9005A8F2E /* UserDefaults+Stringify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBBE2022D8C9005A8F2E /* UserDefaults+Stringify.swift */; };
+		0C62FBD02022FAC4005A8F2E /* Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC12022FAC4005A8F2E /* Amount.swift */; };
+		0C62FBD12022FAC4005A8F2E /* BlockchainStatusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC22022FAC4005A8F2E /* BlockchainStatusInfo.swift */; };
+		0C62FBD22022FAC4005A8F2E /* EmptyWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC32022FAC4005A8F2E /* EmptyWallet.swift */; };
+		0C62FBD32022FAC4005A8F2E /* MoneroAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC42022FAC4005A8F2E /* MoneroAmount.swift */; };
+		0C62FBD42022FAC4005A8F2E /* MoneroWalletChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC52022FAC4005A8F2E /* MoneroWalletChange.swift */; };
+		0C62FBD52022FAC4005A8F2E /* MoneroWalletGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC62022FAC4005A8F2E /* MoneroWalletGateway.swift */; };
+		0C62FBD62022FAC4005A8F2E /* MoneroWalletType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC72022FAC4005A8F2E /* MoneroWalletType.swift */; };
+		0C62FBD72022FAC4005A8F2E /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC82022FAC4005A8F2E /* NetworkStatus.swift */; };
+		0C62FBD82022FAC4005A8F2E /* TransactionCreatableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBC92022FAC4005A8F2E /* TransactionCreatableProtocol.swift */; };
+		0C62FBD92022FAC4005A8F2E /* WalletDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBCA2022FAC4005A8F2E /* WalletDescription.swift */; };
+		0C62FBDA2022FAC4005A8F2E /* WalletError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBCB2022FAC4005A8F2E /* WalletError.swift */; };
+		0C62FBDB2022FAC4005A8F2E /* WalletGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBCC2022FAC4005A8F2E /* WalletGateway.swift */; };
+		0C62FBDC2022FAC4005A8F2E /* WalletIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBCD2022FAC4005A8F2E /* WalletIndex.swift */; };
+		0C62FBDD2022FAC4005A8F2E /* WalletProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBCE2022FAC4005A8F2E /* WalletProtocol.swift */; };
+		0C62FBDE2022FAC4005A8F2E /* WalletType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C62FBCF2022FAC4005A8F2E /* WalletType.swift */; };
+		0C634065201B7A090031B509 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C634064201B7A090031B509 /* IconView.swift */; };
+		0C634067201B7A240031B509 /* BalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C634066201B7A240031B509 /* BalanceView.swift */; };
+		0C634069201B7A3C0031B509 /* IconContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C634068201B7A3C0031B509 /* IconContainerView.swift */; };
+		0C63406B201B7B520031B509 /* TitledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C63406A201B7B520031B509 /* TitledView.swift */; };
+		0C639AD21FDAD8B70097C68C /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C639AD11FDAD8B70097C68C /* StatusView.swift */; };
+		0C868FA41F94CB5600EA5FD1 /* UIWindow+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C868FA31F94CB5600EA5FD1 /* UIWindow+extensions.swift */; };
+		0C8AFF711F96A43B00F4C356 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8AFF701F96A43B00F4C356 /* PaddingLabel.swift */; };
+		0C8CBE9B1FB4DB0600E1A0B7 /* Dictionary+IntIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8CBE9A1FB4DB0600E1A0B7 /* Dictionary+IntIndex.swift */; };
+		0C8CBE9D1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8CBE9C1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift */; };
+		0C8CBEA11FB503F200E1A0B7 /* EmptyInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8CBEA01FB503F200E1A0B7 /* EmptyInitializable.swift */; };
+		0C96B78C1FC76E6700A9C50F /* LoadWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C96B78B1FC76E6700A9C50F /* LoadWalletViewController.swift */; };
+		0C96B7911FC7761A00A9C50F /* VerifyPinPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C96B7901FC7761A00A9C50F /* VerifyPinPasswordViewController.swift */; };
+		0C96CD832019FDB300BB26C3 /* Terms_of_Use.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0C96CD822019FDB300BB26C3 /* Terms_of_Use.rtf */; };
+		0C9C2F341F8C00FF009C4C2E /* MoneroWalletHistoryAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C9C2F331F8C00FE009C4C2E /* MoneroWalletHistoryAdapter.mm */; };
+		0C9D2E7A1F9668B10031B3D7 /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D2E791F9668B10031B3D7 /* UILabel+extension.swift */; };
+		0CB035B4201906F80010B631 /* DisclaimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB035B3201906F80010B631 /* DisclaimerView.swift */; };
+		0CB035B6201907040010B631 /* DisclaimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB035B5201907040010B631 /* DisclaimerViewController.swift */; };
+		0CB2CA2D1FD82A1C002EF5D0 /* TransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB2CA2C1FD82A1C002EF5D0 /* TransactionDetailsView.swift */; };
+		0CB2CA2F1FD82A4A002EF5D0 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB2CA2E1FD82A4A002EF5D0 /* TransactionDetailsViewController.swift */; };
+		0CB2CA331FD84C28002EF5D0 /* TransactionDetailsUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB2CA321FD84C28002EF5D0 /* TransactionDetailsUITableViewCell.swift */; };
+		0CBC9C362006A3F500EC57E8 /* NodeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBC9C352006A3F500EC57E8 /* NodeSettingsView.swift */; };
+		0CBC9C382006A40C00EC57E8 /* NodeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBC9C372006A40C00EC57E8 /* NodeSettingsViewController.swift */; };
+		0CC827FC1FD0D4C5002A5796 /* WalletsCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC827FB1FD0D4C5002A5796 /* WalletsCreating.swift */; };
+		0CC827FE1FD0D4E4002A5796 /* WalletsRecoverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC827FD1FD0D4E4002A5796 /* WalletsRecoverable.swift */; };
+		0CC828001FD0D4FF002A5796 /* WalletsLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC827FF1FD0D4FF002A5796 /* WalletsLoadable.swift */; };
+		0CC828021FD0D526002A5796 /* WalletsRemovable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC828011FD0D526002A5796 /* WalletsRemovable.swift */; };
+		0CC828041FD0D54E002A5796 /* Wallets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC828031FD0D54E002A5796 /* Wallets.swift */; };
+		0CC828061FD0D743002A5796 /* Wallets+WalletsLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC828051FD0D743002A5796 /* Wallets+WalletsLoadable.swift */; };
+		0CC828081FD0D75E002A5796 /* Wallets+WalletsCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC828071FD0D75E002A5796 /* Wallets+WalletsCreating.swift */; };
+		0CC8280A1FD0D774002A5796 /* Wallets+WalletsRecoverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC828091FD0D774002A5796 /* Wallets+WalletsRecoverable.swift */; };
+		0CC8280C1FD0D78B002A5796 /* Wallets+WalletsRemovable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC8280B1FD0D78B002A5796 /* Wallets+WalletsRemovable.swift */; };
+		0CC828201FD0DDB9002A5796 /* AuthenticationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC8281F1FD0DDB9002A5796 /* AuthenticationError.swift */; };
+		0CC828281FD0E2F3002A5796 /* WalletsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC828271FD0E2F3002A5796 /* WalletsList.swift */; };
+		0CCAFF391F97CEC70081FE57 /* CellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCAFF381F97CEC70081FE57 /* CellItem.swift */; };
+		0CCAFF3B1F97CEE60081FE57 /* UITableView+CellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCAFF3A1F97CEE60081FE57 /* UITableView+CellItem.swift */; };
+		0CDA573A1FCB589E0052CF5A /* MoneroAmountParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CDA57391FCB589E0052CF5A /* MoneroAmountParser.mm */; };
+		0CDA57461FCB5D3F0052CF5A /* MoneroTransactionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDA57451FCB5D3F0052CF5A /* MoneroTransactionDescription.swift */; };
+		0CE2AD872021081D0069756A /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2AD862021081D0069756A /* Account.swift */; };
+		0CE2AD8920211DD40069756A /* AccountError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2AD8820211DD40069756A /* AccountError.swift */; };
+		0CE2AD8B20211DE30069756A /* AccountImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2AD8A20211DE30069756A /* AccountImpl.swift */; };
+		0CE2AD8D20211E120069756A /* AccountImpl+AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2AD8C20211E120069756A /* AccountImpl+AuthenticationProtocol.swift */; };
+		0CE2AD8F20211E2E0069756A /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2AD8E20211E2E0069756A /* AuthenticationProtocol.swift */; };
+		0CE2AD93202125A00069756A /* BiometricLoginPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2AD92202125A00069756A /* BiometricLoginPresentable.swift */; };
+		0CE2AD9920213B9E0069756A /* ConnectionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2AD9820213B9E0069756A /* ConnectionSettings.swift */; };
+		0CE7392B1FA9EB2E00F6DDDC /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE739291FA9EB2E00F6DDDC /* DashboardView.swift */; };
+		0CE7392C1FA9EB2E00F6DDDC /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE7392A1FA9EB2E00F6DDDC /* DashboardViewController.swift */; };
+		0CE7392F1FA9EC2900F6DDDC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE7392E1FA9EC2900F6DDDC /* SettingsView.swift */; };
+		0CE739311FA9EC4100F6DDDC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE739301FA9EC4100F6DDDC /* SettingsViewController.swift */; };
+		0CE8531E1FC486D800E1D556 /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8531D1FC486D800E1D556 /* KeychainStorage.swift */; };
+		0CFCAFE41FD5EFE7004EF698 /* WalletsSeedFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFCAFE31FD5EFE7004EF698 /* WalletsSeedFetchable.swift */; };
+		0CFCAFE61FD5F3A2004EF698 /* Wallets+WalletsSeedFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFCAFE51FD5F3A2004EF698 /* Wallets+WalletsSeedFetchable.swift */; };
+		7D688A03F774B0C06AB7D747 /* Pods_CakeWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CECAE07ED95A367F0CB6700 /* Pods_CakeWallet.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0C289FF31F87CF4B003C1826 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C289FD61F87CF4A003C1826 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0C289FDD1F87CF4A003C1826;
+			remoteInfo = Wallet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0C056A6B2006637F0016AEF1 /* libboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost.a; path = External/ofxiOSBoost/libs/boost/ios/libboost.a; sourceTree = "<group>"; };
+		0C0A314D1F9F8D4B001B96BC /* WalletUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUITableViewCell.swift; sourceTree = "<group>"; };
+		0C0F00451F8CC4BE002A595C /* MoneroTransferAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroTransferAdapter.h; sourceTree = "<group>"; };
+		0C0F00461F8CC521002A595C /* MoneroTransferAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MoneroTransferAdapter.mm; sourceTree = "<group>"; };
+		0C0F87901FCC37CC00570312 /* MoneroPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneroPendingTransaction.swift; sourceTree = "<group>"; };
+		0C0F87921FCC455B00570312 /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		0C0F87941FCC457200570312 /* TransactionUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionUITableViewCell.swift; sourceTree = "<group>"; };
+		0C1718832003E91A00EA1B02 /* libunbound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunbound.a; path = "External/monero-gui/monero/lib-ios/libunbound.a"; sourceTree = "<group>"; };
+		0C1718842003E91A00EA1B02 /* libeasylogging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeasylogging.a; path = "External/monero-gui/monero/lib-ios/libeasylogging.a"; sourceTree = "<group>"; };
+		0C1718852003E91A00EA1B02 /* libepee.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libepee.a; path = "External/monero-gui/monero/lib-ios/libepee.a"; sourceTree = "<group>"; };
+		0C1718862003E91A00EA1B02 /* libwallet_merged.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwallet_merged.a; path = "External/monero-gui/monero/lib-ios/libwallet_merged.a"; sourceTree = "<group>"; };
+		0C1D34671FB9D620005F2B86 /* TransactionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistory.swift; sourceTree = "<group>"; };
+		0C1D348C1FBC7C28005F2B86 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0C22E4611F8D34CB00C12A14 /* PinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
+		0C22E4621F8D34CB00C12A14 /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		0C22E4631F8D34CB00C12A14 /* SecondaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
+		0C22E4641F8D34CB00C12A14 /* Roundable+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Roundable+UIView.swift"; sourceTree = "<group>"; };
+		0C22E4651F8D34CB00C12A14 /* Roundable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Roundable.swift; sourceTree = "<group>"; };
+		0C22E46A1F8D34CB00C12A14 /* SeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedView.swift; sourceTree = "<group>"; };
+		0C22E46B1F8D34CB00C12A14 /* SeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedViewController.swift; sourceTree = "<group>"; };
+		0C22E46D1F8D34CB00C12A14 /* NewWalletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWalletView.swift; sourceTree = "<group>"; };
+		0C22E46E1F8D34CB00C12A14 /* NewWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWalletViewController.swift; sourceTree = "<group>"; };
+		0C22E4701F8D34CB00C12A14 /* PasswordKeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordKeyboardKey.swift; sourceTree = "<group>"; };
+		0C22E4711F8D34CB00C12A14 /* PasswordKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordKeyboardView.swift; sourceTree = "<group>"; };
+		0C22E4721F8D34CB00C12A14 /* PinPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinPasswordView.swift; sourceTree = "<group>"; };
+		0C22E4731F8D34CB00C12A14 /* PinPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinPasswordViewController.swift; sourceTree = "<group>"; };
+		0C22E4751F8D34CB00C12A14 /* ReceiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveView.swift; sourceTree = "<group>"; };
+		0C22E4761F8D34CB00C12A14 /* ReceiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
+		0C22E4781F8D34CB00C12A14 /* SendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
+		0C22E4791F8D34CB00C12A14 /* SendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
+		0C22E47B1F8D34CB00C12A14 /* WalletsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletsView.swift; sourceTree = "<group>"; };
+		0C22E47C1F8D34CB00C12A14 /* WalletsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletsViewController.swift; sourceTree = "<group>"; };
+		0C22E47D1F8D34CB00C12A14 /* UIAlertController+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+extensions.swift"; sourceTree = "<group>"; };
+		0C22E47E1F8D34CB00C12A14 /* UIColor+colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+colors.swift"; sourceTree = "<group>"; };
+		0C22E47F1F8D34CB00C12A14 /* UIColor+hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
+		0C22E4801F8D34CB00C12A14 /* UITableViewCell+identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+identifier.swift"; sourceTree = "<group>"; };
+		0C22E4811F8D34CB00C12A14 /* UIViewController+isModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+isModal.swift"; sourceTree = "<group>"; };
+		0C22E4AC1F8D3B6C00C12A14 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		0C22E4AD1F8D3B6D00C12A14 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		0C289FDE1F87CF4A003C1826 /* CakeWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakeWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C289FE11F87CF4A003C1826 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0C289FE81F87CF4B003C1826 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0C289FED1F87CF4B003C1826 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C289FF21F87CF4B003C1826 /* CakeWalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CakeWalletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C289FF61F87CF4B003C1826 /* WalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTests.swift; sourceTree = "<group>"; };
+		0C289FF81F87CF4C003C1826 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C2FA6771FD69B5000D5D3E6 /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
+		0C30489F1FCF6E0C001F8009 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = SOURCE_ROOT; };
+		0C33020D1FDDD8FA008F58A4 /* StandartTitledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandartTitledView.swift; sourceTree = "<group>"; };
+		0C36F56D1FBF0B0500234495 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		0C36F5711FBF585500234495 /* PinKeyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinKeyButton.swift; sourceTree = "<group>"; };
+		0C4626511F891A06004675C6 /* MoneroWalletError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroWalletError.h; sourceTree = "<group>"; };
+		0C4626521F891A39004675C6 /* MoneroWalleteError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoneroWalleteError.m; sourceTree = "<group>"; };
+		0C4D2E151FF81E2D00019B6E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		0C54447F1F8814DB00B8CC02 /* CakeWallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CakeWallet-Bridging-Header.h"; sourceTree = "<group>"; };
+		0C5444801F8814DC00B8CC02 /* MoneroWalletAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MoneroWalletAdapter.mm; sourceTree = "<group>"; };
+		0C5444821F88151100B8CC02 /* MoneroWalletAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroWalletAdapter.h; sourceTree = "<group>"; };
+		0C60515E1FD0AAEB0041D2D4 /* TransactionCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCredentials.swift; sourceTree = "<group>"; };
+		0C6051871FD0BBB40041D2D4 /* MoneroTransactionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneroTransactionHistory.swift; sourceTree = "<group>"; };
+		0C6051891FD0BBF20041D2D4 /* TransactionDescription+SectionModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionDescription+SectionModelType.swift"; sourceTree = "<group>"; };
+		0C60518E1FD0BCCD0041D2D4 /* KeychainStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorageError.swift; sourceTree = "<group>"; };
+		0C6051901FD0BCE50041D2D4 /* KeychainStorageImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorageImpl.swift; sourceTree = "<group>"; };
+		0C6051931FD0BD5C0041D2D4 /* TransactionPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionPriority.swift; sourceTree = "<group>"; };
+		0C6051951FD0BD6B0041D2D4 /* TransactionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDescription.swift; sourceTree = "<group>"; };
+		0C6051971FD0BD790041D2D4 /* Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfer.swift; sourceTree = "<group>"; };
+		0C6051991FD0BD880041D2D4 /* TransactionDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDirection.swift; sourceTree = "<group>"; };
+		0C60519B1FD0BD940041D2D4 /* TransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatus.swift; sourceTree = "<group>"; };
+		0C60519E1FD0BDBF0041D2D4 /* PendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingTransaction.swift; sourceTree = "<group>"; };
+		0C6051A01FD0BDD70041D2D4 /* PendingTransactionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingTransactionDescription.swift; sourceTree = "<group>"; };
+		0C6051A61FD0C1150041D2D4 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		0C6051A81FD0C1330041D2D4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		0C6051AA1FD0C1680041D2D4 /* UITabBarController+viewControllersInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+viewControllersInit.swift"; sourceTree = "<group>"; };
+		0C6051AD1FD0C1940041D2D4 /* SetupPinPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPinPasswordViewController.swift; sourceTree = "<group>"; };
+		0C6051AF1FD0C1CA0041D2D4 /* VoidEmptyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidEmptyHandler.swift; sourceTree = "<group>"; };
+		0C6051B21FD0C21E0041D2D4 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
+		0C6051B41FD0C22E0041D2D4 /* RouteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteType.swift; sourceTree = "<group>"; };
+		0C6051B61FD0C23E0041D2D4 /* SignUpFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFlow.swift; sourceTree = "<group>"; };
+		0C6051B81FD0C2540041D2D4 /* MainFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
+		0C6051BA1FD0C2760041D2D4 /* RootFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFlow.swift; sourceTree = "<group>"; };
+		0C6105F91F9FE2EB009EEBB3 /* AddWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWalletView.swift; sourceTree = "<group>"; };
+		0C6105FB1F9FE4CF009EEBB3 /* AddWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWalletViewController.swift; sourceTree = "<group>"; };
+		0C616BFF1F93DA33007AD9A4 /* RecoveryWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletViewController.swift; sourceTree = "<group>"; };
+		0C616C011F93DA3F007AD9A4 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
+		0C62EA7E20224A1A005A8F2E /* EmptyTransactionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTransactionHistory.swift; sourceTree = "<group>"; };
+		0C62EA8020225088005A8F2E /* Stringify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stringify.swift; sourceTree = "<group>"; };
+		0C62EA82202251E6005A8F2E /* SettingsPickerUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPickerUITableViewCell.swift; sourceTree = "<group>"; };
+		0C62EA84202253A2005A8F2E /* ErrorPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentable.swift; sourceTree = "<group>"; };
+		0C62FB9F202295AE005A8F2E /* EstimatedFeeCalculable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimatedFeeCalculable.swift; sourceTree = "<group>"; };
+		0C62FBA1202295C4005A8F2E /* Wallets+EstimatedFeeCalculable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallets+EstimatedFeeCalculable.swift"; sourceTree = "<group>"; };
+		0C62FBA32022A149005A8F2E /* RateTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateTicker.swift; sourceTree = "<group>"; };
+		0C62FBA52022A2D1005A8F2E /* MoneroRateTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneroRateTicker.swift; sourceTree = "<group>"; };
+		0C62FBA72022BCD5005A8F2E /* TransactionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
+		0C62FBB22022C1E8005A8F2E /* Proxable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proxable.swift; sourceTree = "<group>"; };
+		0C62FBB42022C1F8005A8F2E /* WalletProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletProxy.swift; sourceTree = "<group>"; };
+		0C62FBB62022C21F005A8F2E /* UTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTimer.swift; sourceTree = "<group>"; };
+		0C62FBBC2022D261005A8F2E /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
+		0C62FBBE2022D8C9005A8F2E /* UserDefaults+Stringify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Stringify.swift"; sourceTree = "<group>"; };
+		0C62FBC12022FAC4005A8F2E /* Amount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Amount.swift; sourceTree = "<group>"; };
+		0C62FBC22022FAC4005A8F2E /* BlockchainStatusInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainStatusInfo.swift; sourceTree = "<group>"; };
+		0C62FBC32022FAC4005A8F2E /* EmptyWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyWallet.swift; sourceTree = "<group>"; };
+		0C62FBC42022FAC4005A8F2E /* MoneroAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneroAmount.swift; sourceTree = "<group>"; };
+		0C62FBC52022FAC4005A8F2E /* MoneroWalletChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneroWalletChange.swift; sourceTree = "<group>"; };
+		0C62FBC62022FAC4005A8F2E /* MoneroWalletGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneroWalletGateway.swift; sourceTree = "<group>"; };
+		0C62FBC72022FAC4005A8F2E /* MoneroWalletType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneroWalletType.swift; sourceTree = "<group>"; };
+		0C62FBC82022FAC4005A8F2E /* NetworkStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
+		0C62FBC92022FAC4005A8F2E /* TransactionCreatableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCreatableProtocol.swift; sourceTree = "<group>"; };
+		0C62FBCA2022FAC4005A8F2E /* WalletDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletDescription.swift; sourceTree = "<group>"; };
+		0C62FBCB2022FAC4005A8F2E /* WalletError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletError.swift; sourceTree = "<group>"; };
+		0C62FBCC2022FAC4005A8F2E /* WalletGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletGateway.swift; sourceTree = "<group>"; };
+		0C62FBCD2022FAC4005A8F2E /* WalletIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletIndex.swift; sourceTree = "<group>"; };
+		0C62FBCE2022FAC4005A8F2E /* WalletProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletProtocol.swift; sourceTree = "<group>"; };
+		0C62FBCF2022FAC4005A8F2E /* WalletType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletType.swift; sourceTree = "<group>"; };
+		0C634064201B7A090031B509 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		0C634066201B7A240031B509 /* BalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceView.swift; sourceTree = "<group>"; };
+		0C634068201B7A3C0031B509 /* IconContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconContainerView.swift; sourceTree = "<group>"; };
+		0C63406A201B7B520031B509 /* TitledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledView.swift; sourceTree = "<group>"; };
+		0C639AD11FDAD8B70097C68C /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		0C7849231F9937F4001CB5DA /* MoneroPendingTransactionWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroPendingTransactionWrapper.h; sourceTree = "<group>"; };
+		0C868FA31F94CB5600EA5FD1 /* UIWindow+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+extensions.swift"; sourceTree = "<group>"; };
+		0C8AFF701F96A43B00F4C356 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		0C8CBE9A1FB4DB0600E1A0B7 /* Dictionary+IntIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+IntIndex.swift"; sourceTree = "<group>"; };
+		0C8CBE9C1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+walletDirectory.swift"; sourceTree = "<group>"; };
+		0C8CBEA01FB503F200E1A0B7 /* EmptyInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInitializable.swift; sourceTree = "<group>"; };
+		0C96B78B1FC76E6700A9C50F /* LoadWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadWalletViewController.swift; sourceTree = "<group>"; };
+		0C96B7901FC7761A00A9C50F /* VerifyPinPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPinPasswordViewController.swift; sourceTree = "<group>"; };
+		0C96CD822019FDB300BB26C3 /* Terms_of_Use.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Terms_of_Use.rtf; sourceTree = "<group>"; };
+		0C9C2F2F1F8BFFA6009C4C2E /* MoneroTransactionInfoAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MoneroTransactionInfoAdapter.mm; sourceTree = "<group>"; };
+		0C9C2F311F8BFFBA009C4C2E /* MoneroTransactionInfoAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroTransactionInfoAdapter.h; sourceTree = "<group>"; };
+		0C9C2F321F8C0022009C4C2E /* MoneroWalletHistoryAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroWalletHistoryAdapter.h; sourceTree = "<group>"; };
+		0C9C2F331F8C00FE009C4C2E /* MoneroWalletHistoryAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MoneroWalletHistoryAdapter.mm; sourceTree = "<group>"; };
+		0C9D2E791F9668B10031B3D7 /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
+		0CB035B3201906F80010B631 /* DisclaimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerView.swift; sourceTree = "<group>"; };
+		0CB035B5201907040010B631 /* DisclaimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerViewController.swift; sourceTree = "<group>"; };
+		0CB2CA2C1FD82A1C002EF5D0 /* TransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsView.swift; sourceTree = "<group>"; };
+		0CB2CA2E1FD82A4A002EF5D0 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
+		0CB2CA321FD84C28002EF5D0 /* TransactionDetailsUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsUITableViewCell.swift; sourceTree = "<group>"; };
+		0CBC9C352006A3F500EC57E8 /* NodeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeSettingsView.swift; sourceTree = "<group>"; };
+		0CBC9C372006A40C00EC57E8 /* NodeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeSettingsViewController.swift; sourceTree = "<group>"; };
+		0CC106892001658200C31F9C /* libwallet_merged.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwallet_merged.a; path = "External/monero-core/monero/lib-arm64/libwallet_merged.a"; sourceTree = "<group>"; };
+		0CC1068D2001A1A300C31F9C /* libboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost.a; path = External/Boost/build/libs/boost/lib/arm64/libboost.a; sourceTree = "<group>"; };
+		0CC827FB1FD0D4C5002A5796 /* WalletsCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsCreating.swift; sourceTree = "<group>"; };
+		0CC827FD1FD0D4E4002A5796 /* WalletsRecoverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsRecoverable.swift; sourceTree = "<group>"; };
+		0CC827FF1FD0D4FF002A5796 /* WalletsLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsLoadable.swift; sourceTree = "<group>"; };
+		0CC828011FD0D526002A5796 /* WalletsRemovable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsRemovable.swift; sourceTree = "<group>"; };
+		0CC828031FD0D54E002A5796 /* Wallets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallets.swift; sourceTree = "<group>"; };
+		0CC828051FD0D743002A5796 /* Wallets+WalletsLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallets+WalletsLoadable.swift"; sourceTree = "<group>"; };
+		0CC828071FD0D75E002A5796 /* Wallets+WalletsCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallets+WalletsCreating.swift"; sourceTree = "<group>"; };
+		0CC828091FD0D774002A5796 /* Wallets+WalletsRecoverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallets+WalletsRecoverable.swift"; sourceTree = "<group>"; };
+		0CC8280B1FD0D78B002A5796 /* Wallets+WalletsRemovable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallets+WalletsRemovable.swift"; sourceTree = "<group>"; };
+		0CC8281F1FD0DDB9002A5796 /* AuthenticationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationError.swift; sourceTree = "<group>"; };
+		0CC828271FD0E2F3002A5796 /* WalletsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsList.swift; sourceTree = "<group>"; };
+		0CCAFF381F97CEC70081FE57 /* CellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItem.swift; sourceTree = "<group>"; };
+		0CCAFF3A1F97CEE60081FE57 /* UITableView+CellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+CellItem.swift"; sourceTree = "<group>"; };
+		0CDA57381FCB57FD0052CF5A /* MoneroAmountParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroAmountParser.h; sourceTree = "<group>"; };
+		0CDA57391FCB589E0052CF5A /* MoneroAmountParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MoneroAmountParser.mm; sourceTree = "<group>"; };
+		0CDA57451FCB5D3F0052CF5A /* MoneroTransactionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneroTransactionDescription.swift; sourceTree = "<group>"; };
+		0CDA57471FCB6B620052CF5A /* MoneroPendingTransactionAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroPendingTransactionAdapter.h; sourceTree = "<group>"; };
+		0CDA57501FCB90300052CF5A /* MoneroPendingTransactionAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MoneroPendingTransactionAdapter.mm; sourceTree = "<group>"; };
+		0CE2AD862021081D0069756A /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		0CE2AD8820211DD40069756A /* AccountError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountError.swift; sourceTree = "<group>"; };
+		0CE2AD8A20211DE30069756A /* AccountImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountImpl.swift; sourceTree = "<group>"; };
+		0CE2AD8C20211E120069756A /* AccountImpl+AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountImpl+AuthenticationProtocol.swift"; sourceTree = "<group>"; };
+		0CE2AD8E20211E2E0069756A /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
+		0CE2AD92202125A00069756A /* BiometricLoginPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricLoginPresentable.swift; sourceTree = "<group>"; };
+		0CE2AD9820213B9E0069756A /* ConnectionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSettings.swift; sourceTree = "<group>"; };
+		0CE739291FA9EB2E00F6DDDC /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		0CE7392A1FA9EB2E00F6DDDC /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		0CE7392E1FA9EC2900F6DDDC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		0CE739301FA9EC4100F6DDDC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0CE8531D1FC486D800E1D556 /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
+		0CEEE3461FEDE21000F8C4C9 /* libboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost.a; path = External/Boost/libs/boost/ios/libboost.a; sourceTree = "<group>"; };
+		0CEEE3481FEDE22100F8C4C9 /* libepee.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libepee.a; path = "External/monero-core/monero/lib-ios/libepee.a"; sourceTree = "<group>"; };
+		0CEEE3491FEDE22100F8C4C9 /* libeasylogging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeasylogging.a; path = "External/monero-core/monero/lib-ios/libeasylogging.a"; sourceTree = "<group>"; };
+		0CEEE34A1FEDE22100F8C4C9 /* libwallet_merged.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwallet_merged.a; path = "External/monero-core/monero/lib-ios/libwallet_merged.a"; sourceTree = "<group>"; };
+		0CEEE34B1FEDE22100F8C4C9 /* libunbound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunbound.a; path = "External/monero-core/monero/lib-ios/libunbound.a"; sourceTree = "<group>"; };
+		0CEEE3501FEDE23200F8C4C9 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = External/OpenSSL/lib/libcrypto.a; sourceTree = "<group>"; };
+		0CEEE3511FEDE23200F8C4C9 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = External/OpenSSL/lib/libssl.a; sourceTree = "<group>"; };
+		0CFCAFE31FD5EFE7004EF698 /* WalletsSeedFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsSeedFetchable.swift; sourceTree = "<group>"; };
+		0CFCAFE51FD5F3A2004EF698 /* Wallets+WalletsSeedFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallets+WalletsSeedFetchable.swift"; sourceTree = "<group>"; };
+		1CECAE07ED95A367F0CB6700 /* Pods_CakeWallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CakeWallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E8F7670784216B44298E7B4 /* Pods-Cryptonist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptonist.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cryptonist/Pods-Cryptonist.release.xcconfig"; sourceTree = "<group>"; };
+		3848B085667C2AC96BB45F12 /* Pods-CakeWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet.debug.xcconfig"; sourceTree = "<group>"; };
+		561E69E83825EF25D7339410 /* Pods_Cryptonist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cryptonist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B2E0790F3452626194635C0 /* Pods-Cryptonist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptonist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cryptonist/Pods-Cryptonist.debug.xcconfig"; sourceTree = "<group>"; };
+		EF2E4D4FA0EC153C68BE6226 /* Pods-CakeWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0C289FDB1F87CF4A003C1826 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C056A6C200663800016AEF1 /* libboost.a in Frameworks */,
+				0C17188B2003F34700EA1B02 /* libcrypto.a in Frameworks */,
+				0C17188C2003F34700EA1B02 /* libssl.a in Frameworks */,
+				0C1718872003E91A00EA1B02 /* libunbound.a in Frameworks */,
+				0C1718882003E91A00EA1B02 /* libeasylogging.a in Frameworks */,
+				0C1718892003E91A00EA1B02 /* libepee.a in Frameworks */,
+				0C17188A2003E91A00EA1B02 /* libwallet_merged.a in Frameworks */,
+				7D688A03F774B0C06AB7D747 /* Pods_CakeWallet.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0C289FEF1F87CF4B003C1826 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0C1D348A1FBC7C28005F2B86 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0C1D348C1FBC7C28005F2B86 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		0C22E45E1F8D34CB00C12A14 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				0C62EA8620225840005A8F2E /* Views */,
+				0C6051BC1FD0C2B60041D2D4 /* Cells */,
+				0C22E45F1F8D34CB00C12A14 /* Controls */,
+				0C6051B11FD0C2150041D2D4 /* Flows */,
+				0C22E4661F8D34CB00C12A14 /* Screens */,
+				0C639AD11FDAD8B70097C68C /* StatusView.swift */,
+				0C22E4AD1F8D3B6D00C12A14 /* BaseViewController.swift */,
+				0C62EA84202253A2005A8F2E /* ErrorPresentable.swift */,
+				0CE2AD92202125A00069756A /* BiometricLoginPresentable.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		0C22E45F1F8D34CB00C12A14 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				0C22E4621F8D34CB00C12A14 /* PrimaryButton.swift */,
+				0C22E4631F8D34CB00C12A14 /* SecondaryButton.swift */,
+				0C36F5711FBF585500234495 /* PinKeyButton.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		0C22E4661F8D34CB00C12A14 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				0CB035B2201904FD0010B631 /* Disclaimer */,
+				0CBC9C342006A3E300EC57E8 /* NodeSettings */,
+				0CB2CA2B1FD82A01002EF5D0 /* TransactionDetails */,
+				0C6051AC1FD0C18B0041D2D4 /* SetupPinPassword */,
+				0C6051A51FD0C10A0041D2D4 /* Welcome */,
+				0C96B78F1FC7761000A9C50F /* VerifyPinPassword */,
+				0C96B78A1FC76E5800A9C50F /* LoadWallet */,
+				0C36F56A1FBF0AD400234495 /* ChangePassword */,
+				0C1D348A1FBC7C28005F2B86 /* Login */,
+				0CE7392D1FA9EC2100F6DDDC /* Settings */,
+				0CE739281FA9EB2E00F6DDDC /* Dashboard */,
+				0C6105F81F9FE2E4009EEBB3 /* AddWallet */,
+				0C616BFE1F93DA27007AD9A4 /* Recovery */,
+				0C22E4691F8D34CB00C12A14 /* Seed */,
+				0C22E46C1F8D34CB00C12A14 /* NewWallet */,
+				0C22E46F1F8D34CB00C12A14 /* PinPassword */,
+				0C22E4741F8D34CB00C12A14 /* Receive */,
+				0C22E4771F8D34CB00C12A14 /* Send */,
+				0C22E47A1F8D34CB00C12A14 /* WalletsList */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		0C22E4691F8D34CB00C12A14 /* Seed */ = {
+			isa = PBXGroup;
+			children = (
+				0C22E46A1F8D34CB00C12A14 /* SeedView.swift */,
+				0C22E46B1F8D34CB00C12A14 /* SeedViewController.swift */,
+			);
+			path = Seed;
+			sourceTree = "<group>";
+		};
+		0C22E46C1F8D34CB00C12A14 /* NewWallet */ = {
+			isa = PBXGroup;
+			children = (
+				0C22E46D1F8D34CB00C12A14 /* NewWalletView.swift */,
+				0C22E46E1F8D34CB00C12A14 /* NewWalletViewController.swift */,
+			);
+			path = NewWallet;
+			sourceTree = "<group>";
+		};
+		0C22E46F1F8D34CB00C12A14 /* PinPassword */ = {
+			isa = PBXGroup;
+			children = (
+				0C22E4701F8D34CB00C12A14 /* PasswordKeyboardKey.swift */,
+				0C22E4711F8D34CB00C12A14 /* PasswordKeyboardView.swift */,
+				0C22E4721F8D34CB00C12A14 /* PinPasswordView.swift */,
+				0C22E4731F8D34CB00C12A14 /* PinPasswordViewController.swift */,
+			);
+			path = PinPassword;
+			sourceTree = "<group>";
+		};
+		0C22E4741F8D34CB00C12A14 /* Receive */ = {
+			isa = PBXGroup;
+			children = (
+				0C22E4751F8D34CB00C12A14 /* ReceiveView.swift */,
+				0C22E4761F8D34CB00C12A14 /* ReceiveViewController.swift */,
+			);
+			path = Receive;
+			sourceTree = "<group>";
+		};
+		0C22E4771F8D34CB00C12A14 /* Send */ = {
+			isa = PBXGroup;
+			children = (
+				0C22E4781F8D34CB00C12A14 /* SendView.swift */,
+				0C22E4791F8D34CB00C12A14 /* SendViewController.swift */,
+			);
+			path = Send;
+			sourceTree = "<group>";
+		};
+		0C22E47A1F8D34CB00C12A14 /* WalletsList */ = {
+			isa = PBXGroup;
+			children = (
+				0C22E47B1F8D34CB00C12A14 /* WalletsView.swift */,
+				0C22E47C1F8D34CB00C12A14 /* WalletsViewController.swift */,
+			);
+			path = WalletsList;
+			sourceTree = "<group>";
+		};
+		0C289FD51F87CF4A003C1826 = {
+			isa = PBXGroup;
+			children = (
+				0C289FE01F87CF4A003C1826 /* CakeWallet */,
+				0C289FF51F87CF4B003C1826 /* CryptonistTests */,
+				0C289FDF1F87CF4A003C1826 /* Products */,
+				EC9F9D3ADA216C5B6CB770FC /* Pods */,
+				7E8099D1BF3D5573A4A7316D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+			usesTabs = 0;
+		};
+		0C289FDF1F87CF4A003C1826 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0C289FDE1F87CF4A003C1826 /* CakeWallet.app */,
+				0C289FF21F87CF4B003C1826 /* CakeWalletTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0C289FE01F87CF4A003C1826 /* CakeWallet */ = {
+			isa = PBXGroup;
+			children = (
+				0C6051771FD0B8D10041D2D4 /* Lib */,
+				0C22E45E1F8D34CB00C12A14 /* Presentation */,
+				0C54447A1F88139600B8CC02 /* Domain */,
+				0C289FE11F87CF4A003C1826 /* AppDelegate.swift */,
+				0C54447F1F8814DB00B8CC02 /* CakeWallet-Bridging-Header.h */,
+				0C30489F1FCF6E0C001F8009 /* DependencyContainer.swift */,
+				0C62FBBC2022D261005A8F2E /* Configurations.swift */,
+				0C289FE81F87CF4B003C1826 /* Assets.xcassets */,
+				0C289FED1F87CF4B003C1826 /* Info.plist */,
+				0C4D2E151FF81E2D00019B6E /* Launch Screen.storyboard */,
+				0C96CD822019FDB300BB26C3 /* Terms_of_Use.rtf */,
+			);
+			path = CakeWallet;
+			sourceTree = "<group>";
+		};
+		0C289FF51F87CF4B003C1826 /* CryptonistTests */ = {
+			isa = PBXGroup;
+			children = (
+				0C289FF61F87CF4B003C1826 /* WalletTests.swift */,
+				0C289FF81F87CF4C003C1826 /* Info.plist */,
+			);
+			path = CryptonistTests;
+			sourceTree = "<group>";
+		};
+		0C36F56A1FBF0AD400234495 /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				0C36F56D1FBF0B0500234495 /* ChangePasswordViewController.swift */,
+			);
+			path = ChangePassword;
+			sourceTree = "<group>";
+		};
+		0C54447A1F88139600B8CC02 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				0C62FBC02022FAC4005A8F2E /* Wallet */,
+				0CC827F91FD0D4AF002A5796 /* Wallets */,
+				0C62FBBB2022C2FE005A8F2E /* EstimatedFee */,
+				0C62FBBA2022C2E3005A8F2E /* RateTicker */,
+				0C62FBB12022C1DE005A8F2E /* WalletProxy */,
+				0C62FBAB2022C052005A8F2E /* Account */,
+				0C6051921FD0BD400041D2D4 /* Transactions */,
+				0C60518D1FD0BCBA0041D2D4 /* KeychainStorage */,
+				0C54447E1F8814AB00B8CC02 /* Monero */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		0C54447E1F8814AB00B8CC02 /* Monero */ = {
+			isa = PBXGroup;
+			children = (
+				0C5444801F8814DC00B8CC02 /* MoneroWalletAdapter.mm */,
+				0C5444821F88151100B8CC02 /* MoneroWalletAdapter.h */,
+				0C4626511F891A06004675C6 /* MoneroWalletError.h */,
+				0C4626521F891A39004675C6 /* MoneroWalleteError.m */,
+				0C9C2F2F1F8BFFA6009C4C2E /* MoneroTransactionInfoAdapter.mm */,
+				0C9C2F311F8BFFBA009C4C2E /* MoneroTransactionInfoAdapter.h */,
+				0C9C2F321F8C0022009C4C2E /* MoneroWalletHistoryAdapter.h */,
+				0C9C2F331F8C00FE009C4C2E /* MoneroWalletHistoryAdapter.mm */,
+				0C0F00451F8CC4BE002A595C /* MoneroTransferAdapter.h */,
+				0C0F00461F8CC521002A595C /* MoneroTransferAdapter.mm */,
+				0C7849231F9937F4001CB5DA /* MoneroPendingTransactionWrapper.h */,
+				0CDA57381FCB57FD0052CF5A /* MoneroAmountParser.h */,
+				0CDA57391FCB589E0052CF5A /* MoneroAmountParser.mm */,
+				0CDA57471FCB6B620052CF5A /* MoneroPendingTransactionAdapter.h */,
+				0CDA57501FCB90300052CF5A /* MoneroPendingTransactionAdapter.mm */,
+			);
+			path = Monero;
+			sourceTree = "<group>";
+		};
+		0C6051771FD0B8D10041D2D4 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				0C22E47F1F8D34CB00C12A14 /* UIColor+hex.swift */,
+				0C8CBE9A1FB4DB0600E1A0B7 /* Dictionary+IntIndex.swift */,
+				0C8CBEA01FB503F200E1A0B7 /* EmptyInitializable.swift */,
+				0C6051AF1FD0C1CA0041D2D4 /* VoidEmptyHandler.swift */,
+				0C62EA8020225088005A8F2E /* Stringify.swift */,
+				0C8CBE9C1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift */,
+				0C6051891FD0BBF20041D2D4 /* TransactionDescription+SectionModelType.swift */,
+				0C62FBB62022C21F005A8F2E /* UTimer.swift */,
+				0C63406A201B7B520031B509 /* TitledView.swift */,
+				0C868FA31F94CB5600EA5FD1 /* UIWindow+extensions.swift */,
+				0C22E4651F8D34CB00C12A14 /* Roundable.swift */,
+				0CCAFF381F97CEC70081FE57 /* CellItem.swift */,
+				0C22E47D1F8D34CB00C12A14 /* UIAlertController+extensions.swift */,
+				0C22E47E1F8D34CB00C12A14 /* UIColor+colors.swift */,
+				0C22E4641F8D34CB00C12A14 /* Roundable+UIView.swift */,
+				0C9D2E791F9668B10031B3D7 /* UILabel+extension.swift */,
+				0C6051AA1FD0C1680041D2D4 /* UITabBarController+viewControllersInit.swift */,
+				0CCAFF3A1F97CEE60081FE57 /* UITableView+CellItem.swift */,
+				0C22E4801F8D34CB00C12A14 /* UITableViewCell+identifier.swift */,
+				0C22E4811F8D34CB00C12A14 /* UIViewController+isModal.swift */,
+				0C62FBBE2022D8C9005A8F2E /* UserDefaults+Stringify.swift */,
+				0C33020D1FDDD8FA008F58A4 /* StandartTitledView.swift */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		0C60518C1FD0BCA50041D2D4 /* TransactionDescription */ = {
+			isa = PBXGroup;
+			children = (
+				0C60515E1FD0AAEB0041D2D4 /* TransactionCredentials.swift */,
+				0C6051931FD0BD5C0041D2D4 /* TransactionPriority.swift */,
+				0C6051951FD0BD6B0041D2D4 /* TransactionDescription.swift */,
+				0C6051971FD0BD790041D2D4 /* Transfer.swift */,
+				0C6051991FD0BD880041D2D4 /* TransactionDirection.swift */,
+				0C60519B1FD0BD940041D2D4 /* TransactionStatus.swift */,
+			);
+			path = TransactionDescription;
+			sourceTree = "<group>";
+		};
+		0C60518D1FD0BCBA0041D2D4 /* KeychainStorage */ = {
+			isa = PBXGroup;
+			children = (
+				0CE8531D1FC486D800E1D556 /* KeychainStorage.swift */,
+				0C60518E1FD0BCCD0041D2D4 /* KeychainStorageError.swift */,
+				0C6051901FD0BCE50041D2D4 /* KeychainStorageImpl.swift */,
+				0C2FA6771FD69B5000D5D3E6 /* KeychainKey.swift */,
+			);
+			path = KeychainStorage;
+			sourceTree = "<group>";
+		};
+		0C6051921FD0BD400041D2D4 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				0C60518C1FD0BCA50041D2D4 /* TransactionDescription */,
+				0C6051871FD0BBB40041D2D4 /* MoneroTransactionHistory.swift */,
+				0C0F87901FCC37CC00570312 /* MoneroPendingTransaction.swift */,
+				0CDA57451FCB5D3F0052CF5A /* MoneroTransactionDescription.swift */,
+				0C62FBA72022BCD5005A8F2E /* TransactionError.swift */,
+				0C60519E1FD0BDBF0041D2D4 /* PendingTransaction.swift */,
+				0C6051A01FD0BDD70041D2D4 /* PendingTransactionDescription.swift */,
+				0C62EA7E20224A1A005A8F2E /* EmptyTransactionHistory.swift */,
+				0C1D34671FB9D620005F2B86 /* TransactionHistory.swift */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
+		0C6051A51FD0C10A0041D2D4 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				0C6051A61FD0C1150041D2D4 /* WelcomeViewController.swift */,
+				0C6051A81FD0C1330041D2D4 /* WelcomeView.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		0C6051AC1FD0C18B0041D2D4 /* SetupPinPassword */ = {
+			isa = PBXGroup;
+			children = (
+				0C6051AD1FD0C1940041D2D4 /* SetupPinPasswordViewController.swift */,
+			);
+			path = SetupPinPassword;
+			sourceTree = "<group>";
+		};
+		0C6051B11FD0C2150041D2D4 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				0C6051B61FD0C23E0041D2D4 /* SignUpFlow.swift */,
+				0C6051B21FD0C21E0041D2D4 /* Flow.swift */,
+				0C6051B41FD0C22E0041D2D4 /* RouteType.swift */,
+				0C6051B81FD0C2540041D2D4 /* MainFlow.swift */,
+				0C6051BA1FD0C2760041D2D4 /* RootFlow.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		0C6051BC1FD0C2B60041D2D4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0C0A314D1F9F8D4B001B96BC /* WalletUITableViewCell.swift */,
+				0C0F87921FCC455B00570312 /* TransactionCell.swift */,
+				0C0F87941FCC457200570312 /* TransactionUITableViewCell.swift */,
+				0CB2CA321FD84C28002EF5D0 /* TransactionDetailsUITableViewCell.swift */,
+				0C62EA82202251E6005A8F2E /* SettingsPickerUITableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0C6105F81F9FE2E4009EEBB3 /* AddWallet */ = {
+			isa = PBXGroup;
+			children = (
+				0C6105F91F9FE2EB009EEBB3 /* AddWalletView.swift */,
+				0C6105FB1F9FE4CF009EEBB3 /* AddWalletViewController.swift */,
+			);
+			path = AddWallet;
+			sourceTree = "<group>";
+		};
+		0C616BFE1F93DA27007AD9A4 /* Recovery */ = {
+			isa = PBXGroup;
+			children = (
+				0C616BFF1F93DA33007AD9A4 /* RecoveryWalletViewController.swift */,
+				0C616C011F93DA3F007AD9A4 /* RecoveryView.swift */,
+			);
+			path = Recovery;
+			sourceTree = "<group>";
+		};
+		0C62EA8620225840005A8F2E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0C634066201B7A240031B509 /* BalanceView.swift */,
+				0C634068201B7A3C0031B509 /* IconContainerView.swift */,
+				0C634064201B7A090031B509 /* IconView.swift */,
+				0C8AFF701F96A43B00F4C356 /* PaddingLabel.swift */,
+				0C22E4AC1F8D3B6C00C12A14 /* BaseView.swift */,
+				0C22E4611F8D34CB00C12A14 /* PinView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0C62FBAB2022C052005A8F2E /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				0CE2AD9820213B9E0069756A /* ConnectionSettings.swift */,
+				0CE2AD862021081D0069756A /* Account.swift */,
+				0CE2AD8A20211DE30069756A /* AccountImpl.swift */,
+				0CE2AD8820211DD40069756A /* AccountError.swift */,
+				0CE2AD8C20211E120069756A /* AccountImpl+AuthenticationProtocol.swift */,
+				0CC8281F1FD0DDB9002A5796 /* AuthenticationError.swift */,
+				0CE2AD8E20211E2E0069756A /* AuthenticationProtocol.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		0C62FBB12022C1DE005A8F2E /* WalletProxy */ = {
+			isa = PBXGroup;
+			children = (
+				0C62FBB22022C1E8005A8F2E /* Proxable.swift */,
+				0C62FBB42022C1F8005A8F2E /* WalletProxy.swift */,
+			);
+			path = WalletProxy;
+			sourceTree = "<group>";
+		};
+		0C62FBBA2022C2E3005A8F2E /* RateTicker */ = {
+			isa = PBXGroup;
+			children = (
+				0C62FBA32022A149005A8F2E /* RateTicker.swift */,
+				0C62FBA52022A2D1005A8F2E /* MoneroRateTicker.swift */,
+			);
+			path = RateTicker;
+			sourceTree = "<group>";
+		};
+		0C62FBBB2022C2FE005A8F2E /* EstimatedFee */ = {
+			isa = PBXGroup;
+			children = (
+				0C62FB9F202295AE005A8F2E /* EstimatedFeeCalculable.swift */,
+			);
+			path = EstimatedFee;
+			sourceTree = "<group>";
+		};
+		0C62FBC02022FAC4005A8F2E /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				0C62FBC12022FAC4005A8F2E /* Amount.swift */,
+				0C62FBC22022FAC4005A8F2E /* BlockchainStatusInfo.swift */,
+				0C62FBC32022FAC4005A8F2E /* EmptyWallet.swift */,
+				0C62FBC42022FAC4005A8F2E /* MoneroAmount.swift */,
+				0C62FBC52022FAC4005A8F2E /* MoneroWalletChange.swift */,
+				0C62FBC62022FAC4005A8F2E /* MoneroWalletGateway.swift */,
+				0C62FBC72022FAC4005A8F2E /* MoneroWalletType.swift */,
+				0C62FBC82022FAC4005A8F2E /* NetworkStatus.swift */,
+				0C62FBC92022FAC4005A8F2E /* TransactionCreatableProtocol.swift */,
+				0C62FBCA2022FAC4005A8F2E /* WalletDescription.swift */,
+				0C62FBCB2022FAC4005A8F2E /* WalletError.swift */,
+				0C62FBCC2022FAC4005A8F2E /* WalletGateway.swift */,
+				0C62FBCD2022FAC4005A8F2E /* WalletIndex.swift */,
+				0C62FBCE2022FAC4005A8F2E /* WalletProtocol.swift */,
+				0C62FBCF2022FAC4005A8F2E /* WalletType.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		0C96B78A1FC76E5800A9C50F /* LoadWallet */ = {
+			isa = PBXGroup;
+			children = (
+				0C96B78B1FC76E6700A9C50F /* LoadWalletViewController.swift */,
+			);
+			path = LoadWallet;
+			sourceTree = "<group>";
+		};
+		0C96B78F1FC7761000A9C50F /* VerifyPinPassword */ = {
+			isa = PBXGroup;
+			children = (
+				0C96B7901FC7761A00A9C50F /* VerifyPinPasswordViewController.swift */,
+			);
+			path = VerifyPinPassword;
+			sourceTree = "<group>";
+		};
+		0CB035B2201904FD0010B631 /* Disclaimer */ = {
+			isa = PBXGroup;
+			children = (
+				0CB035B3201906F80010B631 /* DisclaimerView.swift */,
+				0CB035B5201907040010B631 /* DisclaimerViewController.swift */,
+			);
+			path = Disclaimer;
+			sourceTree = "<group>";
+		};
+		0CB2CA2B1FD82A01002EF5D0 /* TransactionDetails */ = {
+			isa = PBXGroup;
+			children = (
+				0CB2CA2C1FD82A1C002EF5D0 /* TransactionDetailsView.swift */,
+				0CB2CA2E1FD82A4A002EF5D0 /* TransactionDetailsViewController.swift */,
+			);
+			path = TransactionDetails;
+			sourceTree = "<group>";
+		};
+		0CBC9C342006A3E300EC57E8 /* NodeSettings */ = {
+			isa = PBXGroup;
+			children = (
+				0CBC9C352006A3F500EC57E8 /* NodeSettingsView.swift */,
+				0CBC9C372006A40C00EC57E8 /* NodeSettingsViewController.swift */,
+			);
+			path = NodeSettings;
+			sourceTree = "<group>";
+		};
+		0CC827F91FD0D4AF002A5796 /* Wallets */ = {
+			isa = PBXGroup;
+			children = (
+				0CC827FA1FD0D4B5002A5796 /* Protocols */,
+				0CC828031FD0D54E002A5796 /* Wallets.swift */,
+				0CC828051FD0D743002A5796 /* Wallets+WalletsLoadable.swift */,
+				0CC828071FD0D75E002A5796 /* Wallets+WalletsCreating.swift */,
+				0CC828091FD0D774002A5796 /* Wallets+WalletsRecoverable.swift */,
+				0CC8280B1FD0D78B002A5796 /* Wallets+WalletsRemovable.swift */,
+				0CFCAFE51FD5F3A2004EF698 /* Wallets+WalletsSeedFetchable.swift */,
+				0CC828271FD0E2F3002A5796 /* WalletsList.swift */,
+				0C62FBA1202295C4005A8F2E /* Wallets+EstimatedFeeCalculable.swift */,
+			);
+			path = Wallets;
+			sourceTree = "<group>";
+		};
+		0CC827FA1FD0D4B5002A5796 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0CC827FB1FD0D4C5002A5796 /* WalletsCreating.swift */,
+				0CC827FD1FD0D4E4002A5796 /* WalletsRecoverable.swift */,
+				0CC827FF1FD0D4FF002A5796 /* WalletsLoadable.swift */,
+				0CC828011FD0D526002A5796 /* WalletsRemovable.swift */,
+				0CFCAFE31FD5EFE7004EF698 /* WalletsSeedFetchable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		0CE739281FA9EB2E00F6DDDC /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				0CE739291FA9EB2E00F6DDDC /* DashboardView.swift */,
+				0CE7392A1FA9EB2E00F6DDDC /* DashboardViewController.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		0CE7392D1FA9EC2100F6DDDC /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0CE7392E1FA9EC2900F6DDDC /* SettingsView.swift */,
+				0CE739301FA9EC4100F6DDDC /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		7E8099D1BF3D5573A4A7316D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C056A6B2006637F0016AEF1 /* libboost.a */,
+				0C1718842003E91A00EA1B02 /* libeasylogging.a */,
+				0C1718852003E91A00EA1B02 /* libepee.a */,
+				0C1718832003E91A00EA1B02 /* libunbound.a */,
+				0C1718862003E91A00EA1B02 /* libwallet_merged.a */,
+				0CC1068D2001A1A300C31F9C /* libboost.a */,
+				0CC106892001658200C31F9C /* libwallet_merged.a */,
+				0CEEE3501FEDE23200F8C4C9 /* libcrypto.a */,
+				0CEEE3511FEDE23200F8C4C9 /* libssl.a */,
+				0CEEE3491FEDE22100F8C4C9 /* libeasylogging.a */,
+				0CEEE3481FEDE22100F8C4C9 /* libepee.a */,
+				0CEEE34B1FEDE22100F8C4C9 /* libunbound.a */,
+				0CEEE34A1FEDE22100F8C4C9 /* libwallet_merged.a */,
+				0CEEE3461FEDE21000F8C4C9 /* libboost.a */,
+				561E69E83825EF25D7339410 /* Pods_Cryptonist.framework */,
+				1CECAE07ED95A367F0CB6700 /* Pods_CakeWallet.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC9F9D3ADA216C5B6CB770FC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9B2E0790F3452626194635C0 /* Pods-Cryptonist.debug.xcconfig */,
+				1E8F7670784216B44298E7B4 /* Pods-Cryptonist.release.xcconfig */,
+				3848B085667C2AC96BB45F12 /* Pods-CakeWallet.debug.xcconfig */,
+				EF2E4D4FA0EC153C68BE6226 /* Pods-CakeWallet.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0C289FDD1F87CF4A003C1826 /* CakeWallet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C289FFB1F87CF4C003C1826 /* Build configuration list for PBXNativeTarget "CakeWallet" */;
+			buildPhases = (
+				D67DA56A2B5D03B264CCC15B /* [CP] Check Pods Manifest.lock */,
+				0C289FDA1F87CF4A003C1826 /* Sources */,
+				0C289FDB1F87CF4A003C1826 /* Frameworks */,
+				0C289FDC1F87CF4A003C1826 /* Resources */,
+				25E9E6BC27D55A3871E3DAEB /* [CP] Copy Pods Resources */,
+				134425624B13E029A415AD0C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CakeWallet;
+			productName = Wallet;
+			productReference = 0C289FDE1F87CF4A003C1826 /* CakeWallet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0C289FF11F87CF4B003C1826 /* CakeWalletTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C289FFE1F87CF4C003C1826 /* Build configuration list for PBXNativeTarget "CakeWalletTests" */;
+			buildPhases = (
+				0C289FEE1F87CF4B003C1826 /* Sources */,
+				0C289FEF1F87CF4B003C1826 /* Frameworks */,
+				0C289FF01F87CF4B003C1826 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0C289FF41F87CF4B003C1826 /* PBXTargetDependency */,
+			);
+			name = CakeWalletTests;
+			productName = WalletTests;
+			productReference = 0C289FF21F87CF4B003C1826 /* CakeWalletTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0C289FD61F87CF4A003C1826 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "Mykola Misiura";
+				TargetAttributes = {
+					0C289FDD1F87CF4A003C1826 = {
+						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+					};
+					0C289FF11F87CF4B003C1826 = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0C289FDD1F87CF4A003C1826;
+					};
+				};
+			};
+			buildConfigurationList = 0C289FD91F87CF4A003C1826 /* Build configuration list for PBXProject "CakeWallet" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0C289FD51F87CF4A003C1826;
+			productRefGroup = 0C289FDF1F87CF4A003C1826 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0C289FDD1F87CF4A003C1826 /* CakeWallet */,
+				0C289FF11F87CF4B003C1826 /* CakeWalletTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0C289FDC1F87CF4A003C1826 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C4D2E161FF81E2D00019B6E /* Launch Screen.storyboard in Resources */,
+				0C96CD832019FDB300BB26C3 /* Terms_of_Use.rtf in Resources */,
+				0C289FE91F87CF4B003C1826 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0C289FF01F87CF4B003C1826 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		134425624B13E029A415AD0C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
+				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCodeReader.swift/QRCodeReader.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesome_swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCodeReader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		25E9E6BC27D55A3871E3DAEB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D67DA56A2B5D03B264CCC15B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CakeWallet-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0C289FDA1F87CF4A003C1826 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C96B78C1FC76E6700A9C50F /* LoadWalletViewController.swift in Sources */,
+				0CBC9C382006A40C00EC57E8 /* NodeSettingsViewController.swift in Sources */,
+				0CE2AD93202125A00069756A /* BiometricLoginPresentable.swift in Sources */,
+				0C62FBD92022FAC4005A8F2E /* WalletDescription.swift in Sources */,
+				0C2FA6781FD69B5000D5D3E6 /* KeychainKey.swift in Sources */,
+				0C616C001F93DA33007AD9A4 /* RecoveryWalletViewController.swift in Sources */,
+				0C62FBDE2022FAC4005A8F2E /* WalletType.swift in Sources */,
+				0C22E4971F8D34CB00C12A14 /* UIAlertController+extensions.swift in Sources */,
+				0C62FBDB2022FAC4005A8F2E /* WalletGateway.swift in Sources */,
+				0C22E4851F8D34CB00C12A14 /* SecondaryButton.swift in Sources */,
+				0C62FBB32022C1E8005A8F2E /* Proxable.swift in Sources */,
+				0C22E4831F8D34CB00C12A14 /* PinView.swift in Sources */,
+				0C8CBE9B1FB4DB0600E1A0B7 /* Dictionary+IntIndex.swift in Sources */,
+				0CB035B4201906F80010B631 /* DisclaimerView.swift in Sources */,
+				0C62FBB72022C21F005A8F2E /* UTimer.swift in Sources */,
+				0CC828281FD0E2F3002A5796 /* WalletsList.swift in Sources */,
+				0C22E4941F8D34CB00C12A14 /* SendViewController.swift in Sources */,
+				0C22E48A1F8D34CB00C12A14 /* SeedViewController.swift in Sources */,
+				0C6051941FD0BD5C0041D2D4 /* TransactionPriority.swift in Sources */,
+				0CFCAFE61FD5F3A2004EF698 /* Wallets+WalletsSeedFetchable.swift in Sources */,
+				0CE7392C1FA9EB2E00F6DDDC /* DashboardViewController.swift in Sources */,
+				0C22E4AF1F8D3B6D00C12A14 /* BaseViewController.swift in Sources */,
+				0C22E4871F8D34CB00C12A14 /* Roundable.swift in Sources */,
+				0C6051BB1FD0C2760041D2D4 /* RootFlow.swift in Sources */,
+				0C8CBEA11FB503F200E1A0B7 /* EmptyInitializable.swift in Sources */,
+				0C22E48C1F8D34CB00C12A14 /* NewWalletViewController.swift in Sources */,
+				0CE8531E1FC486D800E1D556 /* KeychainStorage.swift in Sources */,
+				0C0A314E1F9F8D4B001B96BC /* WalletUITableViewCell.swift in Sources */,
+				0C22E48D1F8D34CB00C12A14 /* PasswordKeyboardKey.swift in Sources */,
+				0C60515F1FD0AAEB0041D2D4 /* TransactionCredentials.swift in Sources */,
+				0C62FBA2202295C4005A8F2E /* Wallets+EstimatedFeeCalculable.swift in Sources */,
+				0CC828001FD0D4FF002A5796 /* WalletsLoadable.swift in Sources */,
+				0CDA573A1FCB589E0052CF5A /* MoneroAmountParser.mm in Sources */,
+				0CE2AD8D20211E120069756A /* AccountImpl+AuthenticationProtocol.swift in Sources */,
+				0CC828041FD0D54E002A5796 /* Wallets.swift in Sources */,
+				0C60519A1FD0BD880041D2D4 /* TransactionDirection.swift in Sources */,
+				0CE2AD9920213B9E0069756A /* ConnectionSettings.swift in Sources */,
+				0C0F87931FCC455C00570312 /* TransactionCell.swift in Sources */,
+				0C62EA83202251E6005A8F2E /* SettingsPickerUITableViewCell.swift in Sources */,
+				0CE739311FA9EC4100F6DDDC /* SettingsViewController.swift in Sources */,
+				0C6051A71FD0C1150041D2D4 /* WelcomeViewController.swift in Sources */,
+				0C6051B91FD0C2540041D2D4 /* MainFlow.swift in Sources */,
+				0CE2AD872021081D0069756A /* Account.swift in Sources */,
+				0C9D2E7A1F9668B10031B3D7 /* UILabel+extension.swift in Sources */,
+				0C22E4891F8D34CB00C12A14 /* SeedView.swift in Sources */,
+				0C6051B01FD0C1CA0041D2D4 /* VoidEmptyHandler.swift in Sources */,
+				0C22E4841F8D34CB00C12A14 /* PrimaryButton.swift in Sources */,
+				0C36F5721FBF585500234495 /* PinKeyButton.swift in Sources */,
+				0CCAFF391F97CEC70081FE57 /* CellItem.swift in Sources */,
+				0C62FBD72022FAC4005A8F2E /* NetworkStatus.swift in Sources */,
+				0C96B7911FC7761A00A9C50F /* VerifyPinPasswordViewController.swift in Sources */,
+				0C6051961FD0BD6B0041D2D4 /* TransactionDescription.swift in Sources */,
+				0CCAFF3B1F97CEE60081FE57 /* UITableView+CellItem.swift in Sources */,
+				0C9C2F341F8C00FF009C4C2E /* MoneroWalletHistoryAdapter.mm in Sources */,
+				0C22E4961F8D34CB00C12A14 /* WalletsViewController.swift in Sources */,
+				0C22E48E1F8D34CB00C12A14 /* PasswordKeyboardView.swift in Sources */,
+				0C22E4981F8D34CB00C12A14 /* UIColor+colors.swift in Sources */,
+				0C0F87951FCC457200570312 /* TransactionUITableViewCell.swift in Sources */,
+				0C0F87911FCC37CC00570312 /* MoneroPendingTransaction.swift in Sources */,
+				0C22E4861F8D34CB00C12A14 /* Roundable+UIView.swift in Sources */,
+				0C62FBD22022FAC4005A8F2E /* EmptyWallet.swift in Sources */,
+				0CC828081FD0D75E002A5796 /* Wallets+WalletsCreating.swift in Sources */,
+				0C22E49A1F8D34CB00C12A14 /* UITableViewCell+identifier.swift in Sources */,
+				0C62FBD82022FAC4005A8F2E /* TransactionCreatableProtocol.swift in Sources */,
+				0C22E4911F8D34CB00C12A14 /* ReceiveView.swift in Sources */,
+				0C36F56E1FBF0B0500234495 /* ChangePasswordViewController.swift in Sources */,
+				0CC8280A1FD0D774002A5796 /* Wallets+WalletsRecoverable.swift in Sources */,
+				0C8AFF711F96A43B00F4C356 /* PaddingLabel.swift in Sources */,
+				0C33020E1FDDD8FA008F58A4 /* StandartTitledView.swift in Sources */,
+				0C60518A1FD0BBF20041D2D4 /* TransactionDescription+SectionModelType.swift in Sources */,
+				0C4626531F891A39004675C6 /* MoneroWalleteError.m in Sources */,
+				0C6051A91FD0C1330041D2D4 /* WelcomeView.swift in Sources */,
+				0C22E4901F8D34CB00C12A14 /* PinPasswordViewController.swift in Sources */,
+				0C22E4991F8D34CB00C12A14 /* UIColor+hex.swift in Sources */,
+				0CE2AD8F20211E2E0069756A /* AuthenticationProtocol.swift in Sources */,
+				0C6051AE1FD0C1940041D2D4 /* SetupPinPasswordViewController.swift in Sources */,
+				0C6051A11FD0BDD70041D2D4 /* PendingTransactionDescription.swift in Sources */,
+				0C8CBE9D1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift in Sources */,
+				0C6105FC1F9FE4CF009EEBB3 /* AddWalletViewController.swift in Sources */,
+				0C6105FA1F9FE2EB009EEBB3 /* AddWalletView.swift in Sources */,
+				0C62EA7F20224A1A005A8F2E /* EmptyTransactionHistory.swift in Sources */,
+				0C868FA41F94CB5600EA5FD1 /* UIWindow+extensions.swift in Sources */,
+				0CC827FE1FD0D4E4002A5796 /* WalletsRecoverable.swift in Sources */,
+				0CB2CA2D1FD82A1C002EF5D0 /* TransactionDetailsView.swift in Sources */,
+				0C616C021F93DA3F007AD9A4 /* RecoveryView.swift in Sources */,
+				0C62FBDA2022FAC4005A8F2E /* WalletError.swift in Sources */,
+				0C62FBB52022C1F8005A8F2E /* WalletProxy.swift in Sources */,
+				0CE2AD8920211DD40069756A /* AccountError.swift in Sources */,
+				0C62EA8120225089005A8F2E /* Stringify.swift in Sources */,
+				0C1D348E1FBC7C29005F2B86 /* LoginViewController.swift in Sources */,
+				0C62FBD42022FAC4005A8F2E /* MoneroWalletChange.swift in Sources */,
+				0C22E48F1F8D34CB00C12A14 /* PinPasswordView.swift in Sources */,
+				0CB2CA331FD84C28002EF5D0 /* TransactionDetailsUITableViewCell.swift in Sources */,
+				0C22E49B1F8D34CB00C12A14 /* UIViewController+isModal.swift in Sources */,
+				0C6051B51FD0C22E0041D2D4 /* RouteType.swift in Sources */,
+				0CBC9C362006A3F500EC57E8 /* NodeSettingsView.swift in Sources */,
+				0C6051B71FD0C23E0041D2D4 /* SignUpFlow.swift in Sources */,
+				0C6051AB1FD0C1680041D2D4 /* UITabBarController+viewControllersInit.swift in Sources */,
+				0C62FBA62022A2D1005A8F2E /* MoneroRateTicker.swift in Sources */,
+				0C62FBBF2022D8C9005A8F2E /* UserDefaults+Stringify.swift in Sources */,
+				0CE7392F1FA9EC2900F6DDDC /* SettingsView.swift in Sources */,
+				0CE2AD8B20211DE30069756A /* AccountImpl.swift in Sources */,
+				0CDA57461FCB5D3F0052CF5A /* MoneroTransactionDescription.swift in Sources */,
+				0C60518F1FD0BCCD0041D2D4 /* KeychainStorageError.swift in Sources */,
+				0C22E4951F8D34CB00C12A14 /* WalletsView.swift in Sources */,
+				0C62FBA42022A149005A8F2E /* RateTicker.swift in Sources */,
+				0C62FBD12022FAC4005A8F2E /* BlockchainStatusInfo.swift in Sources */,
+				0C62FBA82022BCD5005A8F2E /* TransactionError.swift in Sources */,
+				0C62FBDC2022FAC4005A8F2E /* WalletIndex.swift in Sources */,
+				0CFCAFE41FD5EFE7004EF698 /* WalletsSeedFetchable.swift in Sources */,
+				0C634065201B7A090031B509 /* IconView.swift in Sources */,
+				0C60519C1FD0BD940041D2D4 /* TransactionStatus.swift in Sources */,
+				0CC827FC1FD0D4C5002A5796 /* WalletsCreating.swift in Sources */,
+				0C62FBDD2022FAC4005A8F2E /* WalletProtocol.swift in Sources */,
+				0CB2CA2F1FD82A4A002EF5D0 /* TransactionDetailsViewController.swift in Sources */,
+				0C6051981FD0BD790041D2D4 /* Transfer.swift in Sources */,
+				0C62FBD02022FAC4005A8F2E /* Amount.swift in Sources */,
+				0C22E4921F8D34CB00C12A14 /* ReceiveViewController.swift in Sources */,
+				0C6051911FD0BCE50041D2D4 /* KeychainStorageImpl.swift in Sources */,
+				0CC828061FD0D743002A5796 /* Wallets+WalletsLoadable.swift in Sources */,
+				0C62FBBD2022D261005A8F2E /* Configurations.swift in Sources */,
+				0C3048A01FCF6E0C001F8009 /* DependencyContainer.swift in Sources */,
+				0C62FBD52022FAC4005A8F2E /* MoneroWalletGateway.swift in Sources */,
+				0C1D34681FB9D620005F2B86 /* TransactionHistory.swift in Sources */,
+				0CB035B6201907040010B631 /* DisclaimerViewController.swift in Sources */,
+				0C22E48B1F8D34CB00C12A14 /* NewWalletView.swift in Sources */,
+				0C639AD21FDAD8B70097C68C /* StatusView.swift in Sources */,
+				0C62FBA0202295AE005A8F2E /* EstimatedFeeCalculable.swift in Sources */,
+				0C634067201B7A240031B509 /* BalanceView.swift in Sources */,
+				0C63406B201B7B520031B509 /* TitledView.swift in Sources */,
+				0C60519F1FD0BDBF0041D2D4 /* PendingTransaction.swift in Sources */,
+				0C634069201B7A3C0031B509 /* IconContainerView.swift in Sources */,
+				0C62FBD62022FAC4005A8F2E /* MoneroWalletType.swift in Sources */,
+				0C6051881FD0BBB40041D2D4 /* MoneroTransactionHistory.swift in Sources */,
+				0CC828021FD0D526002A5796 /* WalletsRemovable.swift in Sources */,
+				0C22E4AE1F8D3B6D00C12A14 /* BaseView.swift in Sources */,
+				0C62EA85202253A2005A8F2E /* ErrorPresentable.swift in Sources */,
+				0C62FBD32022FAC4005A8F2E /* MoneroAmount.swift in Sources */,
+				0C22E4931F8D34CB00C12A14 /* SendView.swift in Sources */,
+				0C6051B31FD0C21E0041D2D4 /* Flow.swift in Sources */,
+				0C289FE21F87CF4A003C1826 /* AppDelegate.swift in Sources */,
+				0CC8280C1FD0D78B002A5796 /* Wallets+WalletsRemovable.swift in Sources */,
+				0CC828201FD0DDB9002A5796 /* AuthenticationError.swift in Sources */,
+				0CE7392B1FA9EB2E00F6DDDC /* DashboardView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0C289FEE1F87CF4B003C1826 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C289FF71F87CF4B003C1826 /* WalletTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0C289FF41F87CF4B003C1826 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0C289FDD1F87CF4A003C1826 /* CakeWallet */;
+			targetProxy = 0C289FF31F87CF4B003C1826 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0C289FF91F87CF4C003C1826 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0C289FFA1F87CF4C003C1826 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0C289FFC1F87CF4C003C1826 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3848B085667C2AC96BB45F12 /* Pods-CakeWallet.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/include",
+					"$(PROJECT_DIR)/External/OpenSSL/include",
+					"$(PROJECT_DIR)/External/monero-gui/monero/src",
+					"$(PROJECT_DIR)/External/monero-gui/monero/external",
+					"$(PROJECT_DIR)/External/monero-gui/monero/contrib/epee/include",
+					"$(PROJECT_DIR)/External/monero-gui/monero/external/easylogging++",
+					"$(PROJECT_DIR)/External/monero-gui/monero/external/unbound",
+				);
+				INFOPLIST_FILE = CakeWallet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External/OpenSSL/lib",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib-ios",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/contrib/epee/src",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/external/db_drivers/liblmdb",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/external/easylogging++",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/external/miniupnpc",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/external/unbound",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/lib",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/blockchain_db",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/blocks",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/checkpoints",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/common",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/crypto",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/cryptonote_basic",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/cryptonote_core",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/cryptonote_protocol",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/mnemonics",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/multisig",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/ringct",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/rpc",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/serialization",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib-arm64",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib-armv7",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib-armv8-a",
+					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/ios",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fotolockr.cakewallet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CakeWallet/CakeWallet-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = "";
+			};
+			name = Debug;
+		};
+		0C289FFD1F87CF4C003C1826 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF2E4D4FA0EC153C68BE6226 /* Pods-CakeWallet.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/include",
+					"$(PROJECT_DIR)/External/OpenSSL/include",
+					"$(PROJECT_DIR)/External/monero-gui/monero/src",
+					"$(PROJECT_DIR)/External/monero-gui/monero/external",
+					"$(PROJECT_DIR)/External/monero-gui/monero/contrib/epee/include",
+					"$(PROJECT_DIR)/External/monero-gui/monero/external/easylogging++",
+					"$(PROJECT_DIR)/External/monero-gui/monero/external/unbound",
+				);
+				INFOPLIST_FILE = CakeWallet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External/OpenSSL/lib",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib-ios",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/contrib/epee/src",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/external/db_drivers/liblmdb",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/external/easylogging++",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/external/miniupnpc",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/external/unbound",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/lib",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/blockchain_db",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/blocks",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/checkpoints",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/common",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/crypto",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/cryptonote_basic",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/cryptonote_core",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/cryptonote_protocol",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/mnemonics",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/multisig",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/ringct",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/rpc",
+					"$(PROJECT_DIR)/External/monero-gui/monero/build/release/src/serialization",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib-arm64",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib-armv7",
+					"$(PROJECT_DIR)/External/monero-gui/monero/lib-armv8-a",
+					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/ios",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.fotolockr.cakewallet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CakeWallet/CakeWallet-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = "";
+			};
+			name = Release;
+		};
+		0C289FFF1F87CF4C003C1826 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 32J6BB6VUS;
+				INFOPLIST_FILE = WalletTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fotolockr.WalletTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CakeWallet.app/CakeWallet";
+			};
+			name = Debug;
+		};
+		0C28A0001F87CF4C003C1826 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 32J6BB6VUS;
+				INFOPLIST_FILE = WalletTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fotolockr.WalletTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CakeWallet.app/CakeWallet";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0C289FD91F87CF4A003C1826 /* Build configuration list for PBXProject "CakeWallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C289FF91F87CF4C003C1826 /* Debug */,
+				0C289FFA1F87CF4C003C1826 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0C289FFB1F87CF4C003C1826 /* Build configuration list for PBXNativeTarget "CakeWallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C289FFC1F87CF4C003C1826 /* Debug */,
+				0C289FFD1F87CF4C003C1826 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0C289FFE1F87CF4C003C1826 /* Build configuration list for PBXNativeTarget "CakeWalletTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C289FFF1F87CF4C003C1826 /* Debug */,
+				0C28A0001F87CF4C003C1826 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0C289FD61F87CF4A003C1826 /* Project object */;
+}

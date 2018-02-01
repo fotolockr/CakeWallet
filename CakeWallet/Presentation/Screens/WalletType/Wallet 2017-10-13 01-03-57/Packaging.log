@@ -1,0 +1,575 @@
+2017-10-12 22:03:20 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x7fc110529d90; archive(resolved)='<IDEArchive: 0x7fc110f778c0>', distributionTask(resolved)='2', distributionMethod(resolved)='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team(resolved)='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	Chain (11, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x7fc110529d90; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionProcessingPipelineContext: 0x7fc111558040; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionContext: 0x7fc10cc11ff0; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionContext: 0x7fc10be79e60; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionContext: 0x7fc10e6a1b30; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionContext: 0x7fc11099d3f0; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionContext: 0x7fc111066530; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionContext: 0x7fc11075bed0; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionContext: 0x7fc111c1b760; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='<IDEProvisioningBasicTeam 0x7fc111c4d510: teamID: 32J6BB6VUS, teamName: Fotolockr LLC>'>
+	<IDEDistributionContext: 0x7fc121a2c260; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='<IDEDistributionMethodAdHoc: 0x7fc10b0cf9c0>', team='(null)'>
+	<IDEDistributionContext: 0x7fc10d3f3a90; archive = '<IDEArchive: 0x7fc110f778c0>', distributionMethod='(null)', team='(null)'>
+</IDEDistributionProcessingPipelineContext: 0x7fc110529d90>
+2017-10-12 22:03:20 +0000  Processing step: IDEDistributionCreateDestRootStep
+2017-10-12 22:03:20 +0000  Processing step: IDEDistributionCopyItemStep
+2017-10-12 22:03:20 +0000  Running /usr/bin/ditto '-V' '/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app'
+2017-10-12 22:03:20 +0000  >>> Copying /Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app 
+2017-10-12 22:03:20 +0000  copying file ./_CodeSignature/CodeResources ... 
+2017-10-12 22:03:20 +0000  20471 bytes for ./_CodeSignature/CodeResources
+2017-10-12 22:03:20 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+2017-10-12 22:03:20 +0000  1136 bytes for ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+copying file ./Base.lproj/LaunchScreen.storyboardc/Info.plist ... 
+2017-10-12 22:03:20 +0000  258 bytes for ./Base.lproj/LaunchScreen.storyboardc/Info.plist
+copying file ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+2017-10-12 22:03:20 +0000  832 bytes for ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib
+copying file ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib ... 
+2017-10-12 22:03:20 +0000  1136 bytes for ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+copying file ./Base.lproj/Main.storyboardc/Info.plist ... 
+2017-10-12 22:03:20 +0000  258 bytes for ./Base.lproj/Main.storyboardc/Info.plist
+copying file ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib ... 
+2017-10-12 22:03:20 +0000  929 bytes for ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+copying file ./embedded.mobileprovision ... 
+2017-10-12 22:03:20 +0000  9902 bytes for ./embedded.mobileprovision
+2017-10-12 22:03:20 +0000  copying file ./Frameworks/CryptoSwift.framework/_CodeSignature/CodeResources ... 
+2017-10-12 22:03:20 +0000  2202 bytes for ./Frameworks/CryptoSwift.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/CryptoSwift.framework/CryptoSwift ... 
+2017-10-12 22:03:20 +0000  2038832 bytes for ./Frameworks/CryptoSwift.framework/CryptoSwift
+copying file ./Frameworks/CryptoSwift.framework/Info.plist ... 
+2017-10-12 22:03:20 +0000  757 bytes for ./Frameworks/CryptoSwift.framework/Info.plist
+copying file ./Frameworks/FontAwesome.framework/_CodeSignature/CodeResources ... 
+2498 bytes for ./Frameworks/FontAwesome.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/FontAwesome.framework/FontAwesome ... 
+1567072 bytes for ./Frameworks/FontAwesome.framework/FontAwesome
+copying file ./Frameworks/FontAwesome.framework/FontAwesome.otf ... 
+134808 bytes for ./Frameworks/FontAwesome.framework/FontAwesome.otf
+copying file ./Frameworks/FontAwesome.framework/Info.plist ... 
+736 bytes for ./Frameworks/FontAwesome.framework/Info.plist
+copying file ./Frameworks/libswiftCore.dylib ... 
+2017-10-12 22:03:20 +0000  21045712 bytes for ./Frameworks/libswiftCore.dylib
+copying file ./Frameworks/libswiftCoreData.dylib ... 
+361584 bytes for ./Frameworks/libswiftCoreData.dylib
+copying file ./Frameworks/libswiftCoreFoundation.dylib ... 
+2017-10-12 22:03:20 +0000  208304 bytes for ./Frameworks/libswiftCoreFoundation.dylib
+copying file ./Frameworks/libswiftCoreGraphics.dylib ... 
+577760 bytes for ./Frameworks/libswiftCoreGraphics.dylib
+copying file ./Frameworks/libswiftCoreImage.dylib ... 
+208864 bytes for ./Frameworks/libswiftCoreImage.dylib
+copying file ./Frameworks/libswiftDarwin.dylib ... 
+303072 bytes for ./Frameworks/libswiftDarwin.dylib
+copying file ./Frameworks/libswiftDispatch.dylib ... 
+1009248 bytes for ./Frameworks/libswiftDispatch.dylib
+copying file ./Frameworks/libswiftFoundation.dylib ... 
+2017-10-12 22:03:20 +0000  8525728 bytes for ./Frameworks/libswiftFoundation.dylib
+copying file ./Frameworks/libswiftMetal.dylib ... 
+251264 bytes for ./Frameworks/libswiftMetal.dylib
+copying file ./Frameworks/libswiftObjectiveC.dylib ... 
+258944 bytes for ./Frameworks/libswiftObjectiveC.dylib
+copying file ./Frameworks/libswiftos.dylib ... 
+248912 bytes for ./Frameworks/libswiftos.dylib
+copying file ./Frameworks/libswiftQuartzCore.dylib ... 
+212208 bytes for ./Frameworks/libswiftQuartzCore.dylib
+copying file ./Frameworks/libswiftUIKit.dylib ... 
+361488 bytes for ./Frameworks/libswiftUIKit.dylib
+copying file ./Frameworks/QRCode.framework/_CodeSignature/CodeResources ... 
+2202 bytes for ./Frameworks/QRCode.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/QRCode.framework/Info.plist ... 
+729 bytes for ./Frameworks/QRCode.framework/Info.plist
+copying file ./Frameworks/QRCode.framework/QRCode ... 
+629280 bytes for ./Frameworks/QRCode.framework/QRCode
+copying file ./Frameworks/RxCocoa.framework/_CodeSignature/CodeResources ... 
+2534 bytes for ./Frameworks/RxCocoa.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/RxCocoa.framework/Info.plist ... 
+725 bytes for ./Frameworks/RxCocoa.framework/Info.plist
+copying file ./Frameworks/RxCocoa.framework/RxCocoa ... 
+6638432 bytes for ./Frameworks/RxCocoa.framework/RxCocoa
+copying file ./Frameworks/RxCocoa.framework/SharedSequence+Operators+arity.tt ... 
+4943 bytes for ./Frameworks/RxCocoa.framework/SharedSequence+Operators+arity.tt
+copying file ./Frameworks/RxDataSources.framework/_CodeSignature/CodeResources ... 
+2202 bytes for ./Frameworks/RxDataSources.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/RxDataSources.framework/Info.plist ... 
+740 bytes for ./Frameworks/RxDataSources.framework/Info.plist
+copying file ./Frameworks/RxDataSources.framework/RxDataSources ... 
+2231664 bytes for ./Frameworks/RxDataSources.framework/RxDataSources
+copying file ./Frameworks/RxSwift.framework/_CodeSignature/CodeResources ... 
+3112 bytes for ./Frameworks/RxSwift.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/RxSwift.framework/CombineLatest+arity.tt ... 
+4729 bytes for ./Frameworks/RxSwift.framework/CombineLatest+arity.tt
+copying file ./Frameworks/RxSwift.framework/Info.plist ... 
+725 bytes for ./Frameworks/RxSwift.framework/Info.plist
+copying file ./Frameworks/RxSwift.framework/PrimitiveSequence+Zip+arity.tt ... 
+2397 bytes for ./Frameworks/RxSwift.framework/PrimitiveSequence+Zip+arity.tt
+copying file ./Frameworks/RxSwift.framework/RxSwift ... 
+2017-10-12 22:03:20 +0000  10668160 bytes for ./Frameworks/RxSwift.framework/RxSwift
+copying file ./Frameworks/RxSwift.framework/Zip+arity.tt ... 
+4937 bytes for ./Frameworks/RxSwift.framework/Zip+arity.tt
+copying file ./Frameworks/SkyFloatingLabelTextField.framework/_CodeSignature/CodeResources ... 
+3007 bytes for ./Frameworks/SkyFloatingLabelTextField.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/SkyFloatingLabelTextField.framework/Base.lproj/SkyFloatingLabelTextField.strings ... 
+183 bytes for ./Frameworks/SkyFloatingLabelTextField.framework/Base.lproj/SkyFloatingLabelTextField.strings
+copying file ./Frameworks/SkyFloatingLabelTextField.framework/he.lproj/SkyFloatingLabelTextField.strings ... 
+376 bytes for ./Frameworks/SkyFloatingLabelTextField.framework/he.lproj/SkyFloatingLabelTextField.strings
+copying file ./Frameworks/SkyFloatingLabelTextField.framework/Info.plist ... 
+772 bytes for ./Frameworks/SkyFloatingLabelTextField.framework/Info.plist
+copying file ./Frameworks/SkyFloatingLabelTextField.framework/SkyFloatingLabelTextField ... 
+1374528 bytes for ./Frameworks/SkyFloatingLabelTextField.framework/SkyFloatingLabelTextField
+copying file ./Frameworks/SnapKit.framework/_CodeSignature/CodeResources ... 
+2202 bytes for ./Frameworks/SnapKit.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/SnapKit.framework/Info.plist ... 
+738 bytes for ./Frameworks/SnapKit.framework/Info.plist
+copying file ./Frameworks/SnapKit.framework/SnapKit ... 
+1361856 bytes for ./Frameworks/SnapKit.framework/SnapKit
+copying file ./Info.plist ... 
+1168 bytes for ./Info.plist
+copying file ./PkgInfo ... 
+8 bytes for ./PkgInfo
+copying file ./Wallet ... 
+2017-10-12 22:03:21 +0000  10394336 bytes for ./Wallet
+2017-10-12 22:03:21 +0000  /usr/bin/ditto exited with 0
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionEmbedProfileStep
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc110714500 'com.krzyzanowskim.CryptoSwift' '<DVTFilePath:0x7fc10fd71420:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/CryptoSwift.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc111b060f0 'im.thi.FontAwesome' '<DVTFilePath:0x7fc1110ab590:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/FontAwesome.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc12379e750 'com.aschuch.QRCode' '<DVTFilePath:0x7fc10bff3630:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/QRCode.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc1106d5700 'io.rx.RxCocoa' '<DVTFilePath:0x7fc111035c90:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxCocoa.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc11186b910 'kzaher.RxDataSources' '<DVTFilePath:0x7fc1101f55e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxDataSources.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc12827f730 'io.rx.RxSwift' '<DVTFilePath:0x7fc1110ebf30:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxSwift.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc11d5cea80 'net.skyscanner.SkyFloatingLabelTextField' '<DVTFilePath:0x7fc12a312a70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc10bf81460 'io.snapkit.SnapKit' '<DVTFilePath:0x7fc110f59b70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SnapKit.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc110fe4280 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fc1100bb050:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCore.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc111617990 'com.apple.dt.runtime.swiftCoreData' '<DVTFilePath:0x7fc125f0e8e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreData.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc1115c9d20 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fc110dd3510:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreFoundation.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc110ed8210 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fc12207b170:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreGraphics.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc1286dd3a0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fc1102c75b0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreImage.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc1219b94d0 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fc1112c5000:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDarwin.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc121f1d050 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fc11120e8d0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDispatch.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc1106cee10 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fc11054a310:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftFoundation.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc110c61cb0 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fc10e431ad0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftMetal.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc110ff4a50 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fc11132a440:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftObjectiveC.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc110714e60 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fc10e419690:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftQuartzCore.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc10cd66820 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fc11055d070:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftUIKit.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping profile for item: <IDEDistributionItem: 0x7fc111316c70 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fc111325710:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftos.dylib'>'>
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionSymbolsStep
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionAppThinningStep
+2017-10-12 22:03:21 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionODRStep
+2017-10-12 22:03:21 +0000  Processing step: IDEDistributionStripXattrsStep
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc110714500 'com.krzyzanowskim.CryptoSwift' '<DVTFilePath:0x7fc10fd71420:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/CryptoSwift.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc111b060f0 'im.thi.FontAwesome' '<DVTFilePath:0x7fc1110ab590:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/FontAwesome.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc12379e750 'com.aschuch.QRCode' '<DVTFilePath:0x7fc10bff3630:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/QRCode.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc1106d5700 'io.rx.RxCocoa' '<DVTFilePath:0x7fc111035c90:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxCocoa.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc11186b910 'kzaher.RxDataSources' '<DVTFilePath:0x7fc1101f55e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxDataSources.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc12827f730 'io.rx.RxSwift' '<DVTFilePath:0x7fc1110ebf30:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxSwift.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc11d5cea80 'net.skyscanner.SkyFloatingLabelTextField' '<DVTFilePath:0x7fc12a312a70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc10bf81460 'io.snapkit.SnapKit' '<DVTFilePath:0x7fc110f59b70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SnapKit.framework'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc110fe4280 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fc1100bb050:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCore.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc111617990 'com.apple.dt.runtime.swiftCoreData' '<DVTFilePath:0x7fc125f0e8e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreData.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc1115c9d20 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fc110dd3510:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreFoundation.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc110ed8210 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fc12207b170:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreGraphics.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc1286dd3a0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fc1102c75b0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreImage.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc1219b94d0 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fc1112c5000:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDarwin.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc121f1d050 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fc11120e8d0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDispatch.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc1106cee10 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fc11054a310:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftFoundation.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc110c61cb0 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fc10e431ad0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftMetal.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc110ff4a50 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fc11132a440:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftObjectiveC.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc110714e60 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fc10e419690:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftQuartzCore.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc10cd66820 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fc11055d070:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftUIKit.dylib'>'>
+2017-10-12 22:03:21 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7fc111316c70 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fc111325710:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftos.dylib'>'>
+2017-10-12 22:03:21 +0000  Running /usr/bin/xattr '-cr' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app'
+2017-10-12 22:03:22 +0000  /usr/bin/xattr exited with 0
+2017-10-12 22:03:22 +0000  Processing step: IDEDistributionCodesignStep
+2017-10-12 22:03:22 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc110714500 'com.krzyzanowskim.CryptoSwift' '<DVTFilePath:0x7fc10fd71420:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/CryptoSwift.framework'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10b576830>: {
+}
+2017-10-12 22:03:22 +0000  Entitlements for <IDEDistributionItem: 0x7fc110714500 'com.krzyzanowskim.CryptoSwift' '<DVTFilePath:0x7fc10fd71420:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/CryptoSwift.framework'>'>: {
+}
+2017-10-12 22:03:22 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc110714500 'com.krzyzanowskim.CryptoSwift' '<DVTFilePath:0x7fc10fd71420:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/CryptoSwift.framework'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsHsSPK8
+2017-10-12 22:03:22 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsHsSPK8' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/CryptoSwift.framework'
+2017-10-12 22:03:22 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/CryptoSwift.framework: replacing existing signature
+2017-10-12 22:03:22 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/CryptoSwift.framework: signed bundle with Mach-O universal (i386 armv7 x86_64 arm64) [com.krzyzanowskim.CryptoSwift]
+2017-10-12 22:03:22 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:22 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc111b060f0 'im.thi.FontAwesome' '<DVTFilePath:0x7fc1110ab590:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/FontAwesome.framework'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10e3039c0>: {
+}
+2017-10-12 22:03:22 +0000  Entitlements for <IDEDistributionItem: 0x7fc111b060f0 'im.thi.FontAwesome' '<DVTFilePath:0x7fc1110ab590:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/FontAwesome.framework'>'>: {
+}
+2017-10-12 22:03:22 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc111b060f0 'im.thi.FontAwesome' '<DVTFilePath:0x7fc1110ab590:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/FontAwesome.framework'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsawUu6I
+2017-10-12 22:03:22 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsawUu6I' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/FontAwesome.framework'
+2017-10-12 22:03:23 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/FontAwesome.framework: replacing existing signature
+2017-10-12 22:03:23 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/FontAwesome.framework: signed bundle with Mach-O universal (i386 armv7 x86_64 arm64) [im.thi.FontAwesome]
+2017-10-12 22:03:23 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:23 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc12379e750 'com.aschuch.QRCode' '<DVTFilePath:0x7fc10bff3630:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/QRCode.framework'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc110408b10>: {
+}
+2017-10-12 22:03:23 +0000  Entitlements for <IDEDistributionItem: 0x7fc12379e750 'com.aschuch.QRCode' '<DVTFilePath:0x7fc10bff3630:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/QRCode.framework'>'>: {
+}
+2017-10-12 22:03:23 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc12379e750 'com.aschuch.QRCode' '<DVTFilePath:0x7fc10bff3630:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/QRCode.framework'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsWgD8Jz
+2017-10-12 22:03:23 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsWgD8Jz' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/QRCode.framework'
+2017-10-12 22:03:23 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/QRCode.framework: replacing existing signature
+2017-10-12 22:03:23 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/QRCode.framework: signed bundle with Mach-O universal (i386 armv7 x86_64 arm64) [com.aschuch.QRCode]
+2017-10-12 22:03:23 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:23 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc1106d5700 'io.rx.RxCocoa' '<DVTFilePath:0x7fc111035c90:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxCocoa.framework'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10be92170>: {
+}
+2017-10-12 22:03:23 +0000  Entitlements for <IDEDistributionItem: 0x7fc1106d5700 'io.rx.RxCocoa' '<DVTFilePath:0x7fc111035c90:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxCocoa.framework'>'>: {
+}
+2017-10-12 22:03:23 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc1106d5700 'io.rx.RxCocoa' '<DVTFilePath:0x7fc111035c90:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxCocoa.framework'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsNXHVE2
+2017-10-12 22:03:23 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsNXHVE2' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxCocoa.framework'
+2017-10-12 22:03:23 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxCocoa.framework: replacing existing signature
+2017-10-12 22:03:23 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxCocoa.framework: signed bundle with Mach-O universal (i386 armv7 x86_64 arm64) [io.rx.RxCocoa]
+2017-10-12 22:03:23 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:23 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc11186b910 'kzaher.RxDataSources' '<DVTFilePath:0x7fc1101f55e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxDataSources.framework'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10f203af0>: {
+}
+2017-10-12 22:03:23 +0000  Entitlements for <IDEDistributionItem: 0x7fc11186b910 'kzaher.RxDataSources' '<DVTFilePath:0x7fc1101f55e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxDataSources.framework'>'>: {
+}
+2017-10-12 22:03:23 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc11186b910 'kzaher.RxDataSources' '<DVTFilePath:0x7fc1101f55e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxDataSources.framework'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsHzWcNG
+2017-10-12 22:03:23 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsHzWcNG' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxDataSources.framework'
+2017-10-12 22:03:23 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxDataSources.framework: replacing existing signature
+2017-10-12 22:03:23 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxDataSources.framework: signed bundle with Mach-O universal (i386 armv7 x86_64 arm64) [kzaher.RxDataSources]
+2017-10-12 22:03:23 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:23 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc12827f730 'io.rx.RxSwift' '<DVTFilePath:0x7fc1110ebf30:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxSwift.framework'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10f26ff10>: {
+}
+2017-10-12 22:03:23 +0000  Entitlements for <IDEDistributionItem: 0x7fc12827f730 'io.rx.RxSwift' '<DVTFilePath:0x7fc1110ebf30:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxSwift.framework'>'>: {
+}
+2017-10-12 22:03:23 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc12827f730 'io.rx.RxSwift' '<DVTFilePath:0x7fc1110ebf30:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/RxSwift.framework'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsOkpmkf
+2017-10-12 22:03:23 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsOkpmkf' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxSwift.framework'
+2017-10-12 22:03:24 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxSwift.framework: replacing existing signature
+2017-10-12 22:03:24 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/RxSwift.framework: signed bundle with Mach-O universal (i386 armv7 x86_64 arm64) [io.rx.RxSwift]
+2017-10-12 22:03:24 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:24 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc11d5cea80 'net.skyscanner.SkyFloatingLabelTextField' '<DVTFilePath:0x7fc12a312a70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10be37040>: {
+}
+2017-10-12 22:03:24 +0000  Entitlements for <IDEDistributionItem: 0x7fc11d5cea80 'net.skyscanner.SkyFloatingLabelTextField' '<DVTFilePath:0x7fc12a312a70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework'>'>: {
+}
+2017-10-12 22:03:24 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc11d5cea80 'net.skyscanner.SkyFloatingLabelTextField' '<DVTFilePath:0x7fc12a312a70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlements47irjh
+2017-10-12 22:03:24 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlements47irjh' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework'
+2017-10-12 22:03:24 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework: replacing existing signature
+2017-10-12 22:03:24 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework: signed bundle with Mach-O universal (i386 armv7 x86_64 arm64) [net.skyscanner.SkyFloatingLabelTextField]
+2017-10-12 22:03:24 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:24 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc10bf81460 'io.snapkit.SnapKit' '<DVTFilePath:0x7fc110f59b70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SnapKit.framework'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc11ea9c400>: {
+}
+2017-10-12 22:03:24 +0000  Entitlements for <IDEDistributionItem: 0x7fc10bf81460 'io.snapkit.SnapKit' '<DVTFilePath:0x7fc110f59b70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SnapKit.framework'>'>: {
+}
+2017-10-12 22:03:24 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc10bf81460 'io.snapkit.SnapKit' '<DVTFilePath:0x7fc110f59b70:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/SnapKit.framework'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsFeZXUc
+2017-10-12 22:03:24 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsFeZXUc' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/SnapKit.framework'
+2017-10-12 22:03:24 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/SnapKit.framework: replacing existing signature
+2017-10-12 22:03:24 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/SnapKit.framework: signed bundle with Mach-O universal (i386 armv7 x86_64 arm64) [io.snapkit.SnapKit]
+2017-10-12 22:03:24 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:24 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc110fe4280 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fc1100bb050:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCore.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10cc1e230>: {
+}
+2017-10-12 22:03:24 +0000  Entitlements for <IDEDistributionItem: 0x7fc110fe4280 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fc1100bb050:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCore.dylib'>'>: {
+}
+2017-10-12 22:03:24 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc110fe4280 'com.apple.dt.runtime.swiftCore' '<DVTFilePath:0x7fc1100bb050:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCore.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsY4OQKI
+2017-10-12 22:03:24 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsY4OQKI' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCore.dylib'
+2017-10-12 22:03:24 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCore.dylib: replacing existing signature
+2017-10-12 22:03:25 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCore.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCore]
+2017-10-12 22:03:25 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:25 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc111617990 'com.apple.dt.runtime.swiftCoreData' '<DVTFilePath:0x7fc125f0e8e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreData.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10be822f0>: {
+}
+2017-10-12 22:03:25 +0000  Entitlements for <IDEDistributionItem: 0x7fc111617990 'com.apple.dt.runtime.swiftCoreData' '<DVTFilePath:0x7fc125f0e8e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreData.dylib'>'>: {
+}
+2017-10-12 22:03:25 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc111617990 'com.apple.dt.runtime.swiftCoreData' '<DVTFilePath:0x7fc125f0e8e0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreData.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlements1jFeUu
+2017-10-12 22:03:25 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlements1jFeUu' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreData.dylib'
+2017-10-12 22:03:25 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreData.dylib: replacing existing signature
+2017-10-12 22:03:25 +0000  
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreData.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCoreData]
+2017-10-12 22:03:26 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:26 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc1115c9d20 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fc110dd3510:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreFoundation.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10e12f3c0>: {
+}
+2017-10-12 22:03:26 +0000  Entitlements for <IDEDistributionItem: 0x7fc1115c9d20 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fc110dd3510:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreFoundation.dylib'>'>: {
+}
+2017-10-12 22:03:26 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc1115c9d20 'com.apple.dt.runtime.swiftCoreFoundation' '<DVTFilePath:0x7fc110dd3510:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreFoundation.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsiikIim
+2017-10-12 22:03:26 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsiikIim' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreFoundation.dylib'
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreFoundation.dylib: replacing existing signature
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreFoundation.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCoreFoundation]
+2017-10-12 22:03:26 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:26 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc110ed8210 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fc12207b170:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreGraphics.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10d0acbc0>: {
+}
+2017-10-12 22:03:26 +0000  Entitlements for <IDEDistributionItem: 0x7fc110ed8210 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fc12207b170:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreGraphics.dylib'>'>: {
+}
+2017-10-12 22:03:26 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc110ed8210 'com.apple.dt.runtime.swiftCoreGraphics' '<DVTFilePath:0x7fc12207b170:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreGraphics.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsFAZR4X
+2017-10-12 22:03:26 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsFAZR4X' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreGraphics.dylib'
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreGraphics.dylib: replacing existing signature
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreGraphics.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCoreGraphics]
+2017-10-12 22:03:26 +0000  
+2017-10-12 22:03:26 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:26 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc1286dd3a0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fc1102c75b0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreImage.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10b08e5d0>: {
+}
+2017-10-12 22:03:26 +0000  Entitlements for <IDEDistributionItem: 0x7fc1286dd3a0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fc1102c75b0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreImage.dylib'>'>: {
+}
+2017-10-12 22:03:26 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc1286dd3a0 'com.apple.dt.runtime.swiftCoreImage' '<DVTFilePath:0x7fc1102c75b0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftCoreImage.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsXEs8Gz
+2017-10-12 22:03:26 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsXEs8Gz' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreImage.dylib'
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreImage.dylib: replacing existing signature
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftCoreImage.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftCoreImage]
+2017-10-12 22:03:26 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:26 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc1219b94d0 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fc1112c5000:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDarwin.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10d078cc0>: {
+}
+2017-10-12 22:03:26 +0000  Entitlements for <IDEDistributionItem: 0x7fc1219b94d0 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fc1112c5000:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDarwin.dylib'>'>: {
+}
+2017-10-12 22:03:26 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc1219b94d0 'com.apple.dt.runtime.swiftDarwin' '<DVTFilePath:0x7fc1112c5000:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDarwin.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlements7Tqs2l
+2017-10-12 22:03:26 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlements7Tqs2l' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftDarwin.dylib'
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftDarwin.dylib: replacing existing signature
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftDarwin.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftDarwin]
+2017-10-12 22:03:26 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:26 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc121f1d050 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fc11120e8d0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDispatch.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10e1c1f30>: {
+}
+2017-10-12 22:03:26 +0000  Entitlements for <IDEDistributionItem: 0x7fc121f1d050 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fc11120e8d0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDispatch.dylib'>'>: {
+}
+2017-10-12 22:03:26 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc121f1d050 'com.apple.dt.runtime.swiftDispatch' '<DVTFilePath:0x7fc11120e8d0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftDispatch.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsZ1wkFR
+2017-10-12 22:03:26 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsZ1wkFR' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftDispatch.dylib'
+2017-10-12 22:03:26 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftDispatch.dylib: replacing existing signature
+2017-10-12 22:03:27 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftDispatch.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftDispatch]
+2017-10-12 22:03:27 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:27 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc1106cee10 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fc11054a310:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftFoundation.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc11111fa20>: {
+}
+2017-10-12 22:03:27 +0000  Entitlements for <IDEDistributionItem: 0x7fc1106cee10 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fc11054a310:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftFoundation.dylib'>'>: {
+}
+2017-10-12 22:03:27 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc1106cee10 'com.apple.dt.runtime.swiftFoundation' '<DVTFilePath:0x7fc11054a310:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftFoundation.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsJpx2vS
+2017-10-12 22:03:27 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsJpx2vS' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftFoundation.dylib'
+2017-10-12 22:03:27 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftFoundation.dylib: replacing existing signature
+2017-10-12 22:03:27 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftFoundation.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftFoundation]
+2017-10-12 22:03:27 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:27 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc110c61cb0 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fc10e431ad0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftMetal.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10d77b620>: {
+}
+2017-10-12 22:03:27 +0000  Entitlements for <IDEDistributionItem: 0x7fc110c61cb0 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fc10e431ad0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftMetal.dylib'>'>: {
+}
+2017-10-12 22:03:27 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc110c61cb0 'com.apple.dt.runtime.swiftMetal' '<DVTFilePath:0x7fc10e431ad0:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftMetal.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsNyNTv9
+2017-10-12 22:03:27 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsNyNTv9' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftMetal.dylib'
+2017-10-12 22:03:27 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftMetal.dylib: replacing existing signature
+2017-10-12 22:03:27 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftMetal.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftMetal]
+2017-10-12 22:03:27 +0000  
+2017-10-12 22:03:27 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:27 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc110ff4a50 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fc11132a440:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftObjectiveC.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10d781770>: {
+}
+2017-10-12 22:03:27 +0000  Entitlements for <IDEDistributionItem: 0x7fc110ff4a50 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fc11132a440:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftObjectiveC.dylib'>'>: {
+}
+2017-10-12 22:03:27 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc110ff4a50 'com.apple.dt.runtime.swiftObjectiveC' '<DVTFilePath:0x7fc11132a440:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftObjectiveC.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsG8X94V
+2017-10-12 22:03:27 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsG8X94V' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftObjectiveC.dylib'
+2017-10-12 22:03:27 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftObjectiveC.dylib: replacing existing signature
+2017-10-12 22:03:28 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftObjectiveC.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftObjectiveC]
+2017-10-12 22:03:28 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:28 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc110714e60 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fc10e419690:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftQuartzCore.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10f027a10>: {
+}
+2017-10-12 22:03:28 +0000  Entitlements for <IDEDistributionItem: 0x7fc110714e60 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fc10e419690:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftQuartzCore.dylib'>'>: {
+}
+2017-10-12 22:03:28 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc110714e60 'com.apple.dt.runtime.swiftQuartzCore' '<DVTFilePath:0x7fc10e419690:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftQuartzCore.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsF8XyCT
+2017-10-12 22:03:28 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsF8XyCT' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftQuartzCore.dylib'
+2017-10-12 22:03:28 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftQuartzCore.dylib: replacing existing signature
+2017-10-12 22:03:28 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftQuartzCore.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftQuartzCore]
+2017-10-12 22:03:28 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:28 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc10cd66820 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fc11055d070:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftUIKit.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc1224672c0>: {
+}
+2017-10-12 22:03:28 +0000  Entitlements for <IDEDistributionItem: 0x7fc10cd66820 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fc11055d070:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftUIKit.dylib'>'>: {
+}
+2017-10-12 22:03:28 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc10cd66820 'com.apple.dt.runtime.swiftUIKit' '<DVTFilePath:0x7fc11055d070:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftUIKit.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsr6fd9v
+2017-10-12 22:03:28 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsr6fd9v' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftUIKit.dylib'
+2017-10-12 22:03:28 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftUIKit.dylib: replacing existing signature
+2017-10-12 22:03:28 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftUIKit.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftUIKit]
+2017-10-12 22:03:28 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:28 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc111316c70 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fc111325710:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftos.dylib'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10e350400>: {
+}
+2017-10-12 22:03:28 +0000  Entitlements for <IDEDistributionItem: 0x7fc111316c70 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fc111325710:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftos.dylib'>'>: {
+}
+2017-10-12 22:03:28 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc111316c70 'com.apple.dt.runtime.swiftos' '<DVTFilePath:0x7fc111325710:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app/Frameworks/libswiftos.dylib'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementspYUbGU
+2017-10-12 22:03:28 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementspYUbGU' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftos.dylib'
+2017-10-12 22:03:28 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftos.dylib: replacing existing signature
+2017-10-12 22:03:28 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app/Frameworks/libswiftos.dylib: signed Mach-O universal (armv7 armv7s arm64) [com.apple.dt.runtime.swiftos]
+2017-10-12 22:03:28 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:28 +0000  Applying entitlements delta for <IDEDistributionItem: 0x7fc11096e940 'com.fotolockr.Wallet' '<DVTFilePath:0x7fc1110f8b90:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app'>'> from <IDEiCloudEntitlementsProcessor: 0x7fc10e382200>: {
+}
+2017-10-12 22:03:28 +0000  Entitlements for <IDEDistributionItem: 0x7fc11096e940 'com.fotolockr.Wallet' '<DVTFilePath:0x7fc1110f8b90:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app'>'>: {
+    "application-identifier" = "32J6BB6VUS.com.fotolockr.Wallet";
+    "com.apple.developer.team-identifier" = 32J6BB6VUS;
+    "get-task-allow" = 0;
+    "keychain-access-groups" =     (
+        "32J6BB6VUS.com.fotolockr.Wallet"
+    );
+}
+2017-10-12 22:03:28 +0000  Writing entitlements for <IDEDistributionItem: 0x7fc11096e940 'com.fotolockr.Wallet' '<DVTFilePath:0x7fc1110f8b90:'/Users/m/Library/Developer/Xcode/Archives/2017-10-13/Wallet 13.10.17, 00.57.xcarchive/Products/Applications/Wallet.app'>'> to: /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsUGOjT3
+2017-10-12 22:03:28 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '002A9624C8502BF3DF8CAAB2E27ECB826A4B1077' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/entitlementsUGOjT3' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app'
+2017-10-12 22:03:28 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app: replacing existing signature
+2017-10-12 22:03:29 +0000  /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root/Payload/Wallet.app: signed app bundle with Mach-O thin (arm64) [com.fotolockr.Wallet]
+2017-10-12 22:03:29 +0000  /usr/bin/codesign exited with 0
+2017-10-12 22:03:29 +0000  Processing step: IDEDistributionStreamingZipItemStep
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2017-10-12 22:03:29 +0000  Processing step: IDEDistributionCreateIPAStep
+2017-10-12 22:03:29 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root' '/var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Packages/Wallet.ipa'
+2017-10-12 22:03:29 +0000  >>> Copying /var/folders/dm/v94sf6nj7192v76ymc5yvd1m0000gn/T/XcodeDistPipeline.Ak2/Root 
+2017-10-12 22:03:29 +0000  copying file ./Payload/Wallet.app/_CodeSignature/CodeResources ... 
+2017-10-12 22:03:29 +0000  20471 bytes for ./Payload/Wallet.app/_CodeSignature/CodeResources
+2017-10-12 22:03:29 +0000  copying file ./Payload/Wallet.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+1136 bytes for ./Payload/Wallet.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+copying file ./Payload/Wallet.app/Base.lproj/LaunchScreen.storyboardc/Info.plist ... 
+2017-10-12 22:03:29 +0000  258 bytes for ./Payload/Wallet.app/Base.lproj/LaunchScreen.storyboardc/Info.plist
+copying file ./Payload/Wallet.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+832 bytes for ./Payload/Wallet.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib
+copying file ./Payload/Wallet.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib ... 
+2017-10-12 22:03:29 +0000  1136 bytes for ./Payload/Wallet.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib
+copying file ./Payload/Wallet.app/Base.lproj/Main.storyboardc/Info.plist ... 
+258 bytes for ./Payload/Wallet.app/Base.lproj/Main.storyboardc/Info.plist
+copying file ./Payload/Wallet.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib ... 
+929 bytes for ./Payload/Wallet.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib
+2017-10-12 22:03:29 +0000  copying file ./Payload/Wallet.app/embedded.mobileprovision ... 
+2017-10-12 22:03:29 +0000  7895 bytes for ./Payload/Wallet.app/embedded.mobileprovision
+copying file ./Payload/Wallet.app/Frameworks/CryptoSwift.framework/_CodeSignature/CodeResources ... 
+2017-10-12 22:03:29 +0000  2202 bytes for ./Payload/Wallet.app/Frameworks/CryptoSwift.framework/_CodeSignature/CodeResources
+copying file ./Payload/Wallet.app/Frameworks/CryptoSwift.framework/CryptoSwift ... 
+2017-10-12 22:03:30 +0000  2039136 bytes for ./Payload/Wallet.app/Frameworks/CryptoSwift.framework/CryptoSwift
+copying file ./Payload/Wallet.app/Frameworks/CryptoSwift.framework/Info.plist ... 
+757 bytes for ./Payload/Wallet.app/Frameworks/CryptoSwift.framework/Info.plist
+2017-10-12 22:03:30 +0000  copying file ./Payload/Wallet.app/Frameworks/FontAwesome.framework/_CodeSignature/CodeResources ... 
+2498 bytes for ./Payload/Wallet.app/Frameworks/FontAwesome.framework/_CodeSignature/CodeResources
+copying file ./Payload/Wallet.app/Frameworks/FontAwesome.framework/FontAwesome ... 
+2017-10-12 22:03:30 +0000  1567376 bytes for ./Payload/Wallet.app/Frameworks/FontAwesome.framework/FontAwesome
+copying file ./Payload/Wallet.app/Frameworks/FontAwesome.framework/FontAwesome.otf ... 
+2017-10-12 22:03:30 +0000  134808 bytes for ./Payload/Wallet.app/Frameworks/FontAwesome.framework/FontAwesome.otf
+copying file ./Payload/Wallet.app/Frameworks/FontAwesome.framework/Info.plist ... 
+2017-10-12 22:03:30 +0000  736 bytes for ./Payload/Wallet.app/Frameworks/FontAwesome.framework/Info.plist
+copying file ./Payload/Wallet.app/Frameworks/libswiftCore.dylib ... 
+2017-10-12 22:03:32 +0000  21046080 bytes for ./Payload/Wallet.app/Frameworks/libswiftCore.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftCoreData.dylib ... 
+2017-10-12 22:03:32 +0000  394704 bytes for ./Payload/Wallet.app/Frameworks/libswiftCoreData.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftCoreFoundation.dylib ... 
+2017-10-12 22:03:32 +0000  208656 bytes for ./Payload/Wallet.app/Frameworks/libswiftCoreFoundation.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftCoreGraphics.dylib ... 
+2017-10-12 22:03:32 +0000  578112 bytes for ./Payload/Wallet.app/Frameworks/libswiftCoreGraphics.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftCoreImage.dylib ... 
+2017-10-12 22:03:32 +0000  209216 bytes for ./Payload/Wallet.app/Frameworks/libswiftCoreImage.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftDarwin.dylib ... 
+2017-10-12 22:03:32 +0000  303424 bytes for ./Payload/Wallet.app/Frameworks/libswiftDarwin.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftDispatch.dylib ... 
+2017-10-12 22:03:32 +0000  1009616 bytes for ./Payload/Wallet.app/Frameworks/libswiftDispatch.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftFoundation.dylib ... 
+2017-10-12 22:03:34 +0000  8526096 bytes for ./Payload/Wallet.app/Frameworks/libswiftFoundation.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftMetal.dylib ... 
+2017-10-12 22:03:34 +0000  251616 bytes for ./Payload/Wallet.app/Frameworks/libswiftMetal.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftObjectiveC.dylib ... 
+2017-10-12 22:03:34 +0000  259296 bytes for ./Payload/Wallet.app/Frameworks/libswiftObjectiveC.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftos.dylib ... 
+2017-10-12 22:03:34 +0000  249264 bytes for ./Payload/Wallet.app/Frameworks/libswiftos.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftQuartzCore.dylib ... 
+2017-10-12 22:03:34 +0000  212560 bytes for ./Payload/Wallet.app/Frameworks/libswiftQuartzCore.dylib
+copying file ./Payload/Wallet.app/Frameworks/libswiftUIKit.dylib ... 
+2017-10-12 22:03:34 +0000  361840 bytes for ./Payload/Wallet.app/Frameworks/libswiftUIKit.dylib
+copying file ./Payload/Wallet.app/Frameworks/QRCode.framework/_CodeSignature/CodeResources ... 
+2202 bytes for ./Payload/Wallet.app/Frameworks/QRCode.framework/_CodeSignature/CodeResources
+copying file ./Payload/Wallet.app/Frameworks/QRCode.framework/Info.plist ... 
+729 bytes for ./Payload/Wallet.app/Frameworks/QRCode.framework/Info.plist
+copying file ./Payload/Wallet.app/Frameworks/QRCode.framework/QRCode ... 
+629584 bytes for ./Payload/Wallet.app/Frameworks/QRCode.framework/QRCode
+copying file ./Payload/Wallet.app/Frameworks/RxCocoa.framework/_CodeSignature/CodeResources ... 
+2534 bytes for ./Payload/Wallet.app/Frameworks/RxCocoa.framework/_CodeSignature/CodeResources
+copying file ./Payload/Wallet.app/Frameworks/RxCocoa.framework/Info.plist ... 
+725 bytes for ./Payload/Wallet.app/Frameworks/RxCocoa.framework/Info.plist
+copying file ./Payload/Wallet.app/Frameworks/RxCocoa.framework/RxCocoa ... 
+2017-10-12 22:03:35 +0000  6638736 bytes for ./Payload/Wallet.app/Frameworks/RxCocoa.framework/RxCocoa
+copying file ./Payload/Wallet.app/Frameworks/RxCocoa.framework/SharedSequence+Operators+arity.tt ... 
+4943 bytes for ./Payload/Wallet.app/Frameworks/RxCocoa.framework/SharedSequence+Operators+arity.tt
+copying file ./Payload/Wallet.app/Frameworks/RxDataSources.framework/_CodeSignature/CodeResources ... 
+2202 bytes for ./Payload/Wallet.app/Frameworks/RxDataSources.framework/_CodeSignature/CodeResources
+copying file ./Payload/Wallet.app/Frameworks/RxDataSources.framework/Info.plist ... 
+740 bytes for ./Payload/Wallet.app/Frameworks/RxDataSources.framework/Info.plist
+copying file ./Payload/Wallet.app/Frameworks/RxDataSources.framework/RxDataSources ... 
+2017-10-12 22:03:35 +0000  2231968 bytes for ./Payload/Wallet.app/Frameworks/RxDataSources.framework/RxDataSources
+2017-10-12 22:03:35 +0000  copying file ./Payload/Wallet.app/Frameworks/RxSwift.framework/_CodeSignature/CodeResources ... 
+3112 bytes for ./Payload/Wallet.app/Frameworks/RxSwift.framework/_CodeSignature/CodeResources
+copying file ./Payload/Wallet.app/Frameworks/RxSwift.framework/CombineLatest+arity.tt ... 
+2017-10-12 22:03:35 +0000  4729 bytes for ./Payload/Wallet.app/Frameworks/RxSwift.framework/CombineLatest+arity.tt
+copying file ./Payload/Wallet.app/Frameworks/RxSwift.framework/Info.plist ... 
+2017-10-12 22:03:36 +0000  725 bytes for ./Payload/Wallet.app/Frameworks/RxSwift.framework/Info.plist
+copying file ./Payload/Wallet.app/Frameworks/RxSwift.framework/PrimitiveSequence+Zip+arity.tt ... 
+2017-10-12 22:03:36 +0000  2397 bytes for ./Payload/Wallet.app/Frameworks/RxSwift.framework/PrimitiveSequence+Zip+arity.tt
+copying file ./Payload/Wallet.app/Frameworks/RxSwift.framework/RxSwift ... 
+2017-10-12 22:03:37 +0000  10668464 bytes for ./Payload/Wallet.app/Frameworks/RxSwift.framework/RxSwift
+copying file ./Payload/Wallet.app/Frameworks/RxSwift.framework/Zip+arity.tt ... 
+4937 bytes for ./Payload/Wallet.app/Frameworks/RxSwift.framework/Zip+arity.tt
+copying file ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/_CodeSignature/CodeResources ... 
+3007 bytes for ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/_CodeSignature/CodeResources
+copying file ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/Base.lproj/SkyFloatingLabelTextField.strings ... 
+183 bytes for ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/Base.lproj/SkyFloatingLabelTextField.strings
+2017-10-12 22:03:37 +0000  copying file ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/he.lproj/SkyFloatingLabelTextField.strings ... 
+376 bytes for ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/he.lproj/SkyFloatingLabelTextField.strings
+2017-10-12 22:03:37 +0000  copying file ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/Info.plist ... 
+772 bytes for ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/Info.plist
+copying file ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/SkyFloatingLabelTextField ... 
+2017-10-12 22:03:38 +0000  1374832 bytes for ./Payload/Wallet.app/Frameworks/SkyFloatingLabelTextField.framework/SkyFloatingLabelTextField
+2017-10-12 22:03:38 +0000  copying file ./Payload/Wallet.app/Frameworks/SnapKit.framework/_CodeSignature/CodeResources ... 
+2202 bytes for ./Payload/Wallet.app/Frameworks/SnapKit.framework/_CodeSignature/CodeResources
+copying file ./Payload/Wallet.app/Frameworks/SnapKit.framework/Info.plist ... 
+738 bytes for ./Payload/Wallet.app/Frameworks/SnapKit.framework/Info.plist
+copying file ./Payload/Wallet.app/Frameworks/SnapKit.framework/SnapKit ... 
+2017-10-12 22:03:38 +0000  1362160 bytes for ./Payload/Wallet.app/Frameworks/SnapKit.framework/SnapKit
+copying file ./Payload/Wallet.app/Info.plist ... 
+1168 bytes for ./Payload/Wallet.app/Info.plist
+copying file ./Payload/Wallet.app/PkgInfo ... 
+8 bytes for ./Payload/Wallet.app/PkgInfo
+copying file ./Payload/Wallet.app/Wallet ... 
+2017-10-12 22:03:40 +0000  10394336 bytes for ./Payload/Wallet.app/Wallet
+2017-10-12 22:03:40 +0000  /usr/bin/ditto exited with 0
+2017-10-12 22:03:40 +0000  Processing step: IDEDistributionCreateManifestStep
