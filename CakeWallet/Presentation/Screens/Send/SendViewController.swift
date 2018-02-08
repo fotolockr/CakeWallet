@@ -2,8 +2,8 @@
 //  SendViewController.swift
 //  Wallet
 //
-//  Created by FotoLockr on 02.10.17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 02.10.17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -84,18 +84,17 @@ final class SendViewController: BaseViewController<SendView> {
     @objc
     private func scanAddressFromQr() {
         readerVC.completionBlock = { [weak self] result in
-            // FIX-ME: HARDCODED VALUES FOR MONERO
-            
-            if
-                var address = result?.value,
-                address.hasPrefix("monero:"),
-                let range = address.range(of: "monero:") {
-                address.removeSubrange(range)
-                self?.contentView.addressTextField.text = address
-                self?.address = address
-            } else if let address = result?.value {
-                self?.contentView.addressTextField.text = address
-                self?.address = address
+            if let value = result?.value {
+                let result = MoneroQRResult(value: value)
+                self?.setAddress(result.address)
+                
+                if let amount = result.amount {
+                    self?.setAmount(amount)
+                }
+                
+                if let paymentId = result.paymentId {
+                    self?.setPaymentId(paymentId)
+                }
             }
             
             self?.readerVC.stopScanning()
@@ -141,6 +140,25 @@ final class SendViewController: BaseViewController<SendView> {
         rateAmount = textField.text ?? ""
         amount = convertUSDtoXMR(amount: rateAmount, rate: rateTicker.rate)
         contentView.amountInMoneroTextField.text = amount
+    }
+    
+    private func setAmount(_ amount: Amount) {
+        contentView.amountInMoneroTextField.text = amount.formatted()
+        self.amount = amount.formatted()
+        onAmountTextChange(contentView.amountInMoneroTextField)
+    }
+    
+    private func setPaymentId(_ paymentId: String?) {
+        contentView.paymenyIdTextField.text = paymentId
+        
+        if let paymentId = paymentId {
+            self.paymentId = paymentId
+        }
+    }
+    
+    private func setAddress(_ address: String) {
+        contentView.addressTextField.text = address
+        self.address = address
     }
     
     private func createTransaction() {

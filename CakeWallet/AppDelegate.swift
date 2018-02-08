@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  Wallet
 //
-//  Created by FotoLockr on 06.10.17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 06.10.17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit

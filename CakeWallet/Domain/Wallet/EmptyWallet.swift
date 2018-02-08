@@ -2,8 +2,8 @@
 //  EmptyWallet.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 31.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 31.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import PromiseKit

@@ -2,8 +2,8 @@
 //  SettingsView.swift
 //  Wallet
 //
-//  Created by FotoLockr on 01.11.17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 01.11.17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit

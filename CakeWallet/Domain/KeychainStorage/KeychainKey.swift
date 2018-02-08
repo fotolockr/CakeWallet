@@ -2,8 +2,8 @@
 //  KeychainKey.swift
 //  Wallet
 //
-//  Created by FotoLockr on 12/5/17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 12/5/17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import Foundation

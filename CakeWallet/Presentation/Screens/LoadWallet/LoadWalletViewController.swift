@@ -2,8 +2,8 @@
 //  LoadWalletViewController.swift
 //  Wallet
 //
-//  Created by FotoLockr on 11/23/17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 11/23/17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -26,6 +26,9 @@ final class LoadWalletViewController: BaseViewController<BaseView> {
     }
     
     override func configureBinds() {
+        verifyPasswordViewController.onClose = { [weak self] in
+            self?.dismiss(animated: true)
+        }
         verifyPasswordViewController.onVerified = {
             let alert = UIAlertController.showSpinner(message: "Loading wallet - \(self.walletName)")
             self.present(alert, animated: true)

@@ -56,6 +56,7 @@
 		0C36F5721FBF585500234495 /* PinKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36F5711FBF585500234495 /* PinKeyButton.swift */; };
 		0C4626531F891A39004675C6 /* MoneroWalleteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4626521F891A39004675C6 /* MoneroWalleteError.m */; };
 		0C4D2E161FF81E2D00019B6E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C4D2E151FF81E2D00019B6E /* Launch Screen.storyboard */; };
+		0C5BD398202C788100992E17 /* Terms_of_Use.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0C5BD397202C788100992E17 /* Terms_of_Use.rtf */; };
 		0C60515F1FD0AAEB0041D2D4 /* TransactionCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C60515E1FD0AAEB0041D2D4 /* TransactionCredentials.swift */; };
 		0C6051881FD0BBB40041D2D4 /* MoneroTransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051871FD0BBB40041D2D4 /* MoneroTransactionHistory.swift */; };
 		0C60518A1FD0BBF20041D2D4 /* TransactionDescription+SectionModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6051891FD0BBF20041D2D4 /* TransactionDescription+SectionModelType.swift */; };
@@ -121,9 +122,10 @@
 		0C8CBE9B1FB4DB0600E1A0B7 /* Dictionary+IntIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8CBE9A1FB4DB0600E1A0B7 /* Dictionary+IntIndex.swift */; };
 		0C8CBE9D1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8CBE9C1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift */; };
 		0C8CBEA11FB503F200E1A0B7 /* EmptyInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8CBEA01FB503F200E1A0B7 /* EmptyInitializable.swift */; };
+		0C8D551D202CABE4002B30BE /* String+slice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D551C202CABE4002B30BE /* String+slice.swift */; };
+		0C8D551F202CAC44002B30BE /* MoneroQRResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D551E202CAC44002B30BE /* MoneroQRResult.swift */; };
 		0C96B78C1FC76E6700A9C50F /* LoadWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C96B78B1FC76E6700A9C50F /* LoadWalletViewController.swift */; };
 		0C96B7911FC7761A00A9C50F /* VerifyPinPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C96B7901FC7761A00A9C50F /* VerifyPinPasswordViewController.swift */; };
-		0C96CD832019FDB300BB26C3 /* Terms_of_Use.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0C96CD822019FDB300BB26C3 /* Terms_of_Use.rtf */; };
 		0C9C2F341F8C00FF009C4C2E /* MoneroWalletHistoryAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C9C2F331F8C00FE009C4C2E /* MoneroWalletHistoryAdapter.mm */; };
 		0C9D2E7A1F9668B10031B3D7 /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D2E791F9668B10031B3D7 /* UILabel+extension.swift */; };
 		0CB035B4201906F80010B631 /* DisclaimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB035B3201906F80010B631 /* DisclaimerView.swift */; };
@@ -233,6 +235,7 @@
 		0C54447F1F8814DB00B8CC02 /* CakeWallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CakeWallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		0C5444801F8814DC00B8CC02 /* MoneroWalletAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MoneroWalletAdapter.mm; sourceTree = "<group>"; };
 		0C5444821F88151100B8CC02 /* MoneroWalletAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroWalletAdapter.h; sourceTree = "<group>"; };
+		0C5BD397202C788100992E17 /* Terms_of_Use.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Terms_of_Use.rtf; sourceTree = "<group>"; };
 		0C60515E1FD0AAEB0041D2D4 /* TransactionCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCredentials.swift; sourceTree = "<group>"; };
 		0C6051871FD0BBB40041D2D4 /* MoneroTransactionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneroTransactionHistory.swift; sourceTree = "<group>"; };
 		0C6051891FD0BBF20041D2D4 /* TransactionDescription+SectionModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionDescription+SectionModelType.swift"; sourceTree = "<group>"; };
@@ -299,9 +302,10 @@
 		0C8CBE9A1FB4DB0600E1A0B7 /* Dictionary+IntIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+IntIndex.swift"; sourceTree = "<group>"; };
 		0C8CBE9C1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+walletDirectory.swift"; sourceTree = "<group>"; };
 		0C8CBEA01FB503F200E1A0B7 /* EmptyInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInitializable.swift; sourceTree = "<group>"; };
+		0C8D551C202CABE4002B30BE /* String+slice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+slice.swift"; sourceTree = "<group>"; };
+		0C8D551E202CAC44002B30BE /* MoneroQRResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneroQRResult.swift; sourceTree = "<group>"; };
 		0C96B78B1FC76E6700A9C50F /* LoadWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadWalletViewController.swift; sourceTree = "<group>"; };
 		0C96B7901FC7761A00A9C50F /* VerifyPinPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPinPasswordViewController.swift; sourceTree = "<group>"; };
-		0C96CD822019FDB300BB26C3 /* Terms_of_Use.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Terms_of_Use.rtf; sourceTree = "<group>"; };
 		0C9C2F2F1F8BFFA6009C4C2E /* MoneroTransactionInfoAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MoneroTransactionInfoAdapter.mm; sourceTree = "<group>"; };
 		0C9C2F311F8BFFBA009C4C2E /* MoneroTransactionInfoAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroTransactionInfoAdapter.h; sourceTree = "<group>"; };
 		0C9C2F321F8C0022009C4C2E /* MoneroWalletHistoryAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneroWalletHistoryAdapter.h; sourceTree = "<group>"; };
@@ -529,6 +533,7 @@
 		0C289FE01F87CF4A003C1826 /* CakeWallet */ = {
 			isa = PBXGroup;
 			children = (
+				0C5BD394202C74E600992E17 /* Resources */,
 				0C6051771FD0B8D10041D2D4 /* Lib */,
 				0C22E45E1F8D34CB00C12A14 /* Presentation */,
 				0C54447A1F88139600B8CC02 /* Domain */,
@@ -539,7 +544,6 @@
 				0C289FE81F87CF4B003C1826 /* Assets.xcassets */,
 				0C289FED1F87CF4B003C1826 /* Info.plist */,
 				0C4D2E151FF81E2D00019B6E /* Launch Screen.storyboard */,
-				0C96CD822019FDB300BB26C3 /* Terms_of_Use.rtf */,
 			);
 			path = CakeWallet;
 			sourceTree = "<group>";
@@ -599,6 +603,14 @@
 			path = Monero;
 			sourceTree = "<group>";
 		};
+		0C5BD394202C74E600992E17 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0C5BD397202C788100992E17 /* Terms_of_Use.rtf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		0C6051771FD0B8D10041D2D4 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +636,8 @@
 				0C22E4811F8D34CB00C12A14 /* UIViewController+isModal.swift */,
 				0C62FBBE2022D8C9005A8F2E /* UserDefaults+Stringify.swift */,
 				0C33020D1FDDD8FA008F58A4 /* StandartTitledView.swift */,
+				0C8D551C202CABE4002B30BE /* String+slice.swift */,
+				0C8D551E202CAC44002B30BE /* MoneroQRResult.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1013,7 +1027,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C4D2E161FF81E2D00019B6E /* Launch Screen.storyboard in Resources */,
-				0C96CD832019FDB300BB26C3 /* Terms_of_Use.rtf in Resources */,
+				0C5BD398202C788100992E17 /* Terms_of_Use.rtf in Resources */,
 				0C289FE91F87CF4B003C1826 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1106,6 +1120,7 @@
 			files = (
 				0C96B78C1FC76E6700A9C50F /* LoadWalletViewController.swift in Sources */,
 				0CBC9C382006A40C00EC57E8 /* NodeSettingsViewController.swift in Sources */,
+				0C8D551D202CABE4002B30BE /* String+slice.swift in Sources */,
 				0CE2AD93202125A00069756A /* BiometricLoginPresentable.swift in Sources */,
 				0C62FBD92022FAC4005A8F2E /* WalletDescription.swift in Sources */,
 				0C2FA6781FD69B5000D5D3E6 /* KeychainKey.swift in Sources */,
@@ -1188,6 +1203,7 @@
 				0C868FA41F94CB5600EA5FD1 /* UIWindow+extensions.swift in Sources */,
 				0CC827FE1FD0D4E4002A5796 /* WalletsRecoverable.swift in Sources */,
 				0CB2CA2D1FD82A1C002EF5D0 /* TransactionDetailsView.swift in Sources */,
+				0C8D551F202CAC44002B30BE /* MoneroQRResult.swift in Sources */,
 				0C616C021F93DA3F007AD9A4 /* RecoveryView.swift in Sources */,
 				0C62FBDA2022FAC4005A8F2E /* WalletError.swift in Sources */,
 				0C62FBB52022C1F8005A8F2E /* WalletProxy.swift in Sources */,
