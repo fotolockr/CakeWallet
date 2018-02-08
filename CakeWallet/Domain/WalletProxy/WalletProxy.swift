@@ -19,7 +19,6 @@ private let backgroundConnectionTimerQueue = DispatchQueue(
     attributes: .concurrent)
 private let failedConnectionDelay: TimeInterval = 120 // 2 mins
 private var timer: UTimer?
-//private let timer = UTimer(deadline: .now(), repeating: .seconds(3), queue: backgroundConnectionTimerQueue)
 
 final class WalletProxy: Proxable, WalletProtocol {
     var name: String {
