@@ -21,3 +21,4 @@ External/
 
 # VS Code
 .vscode/
+.vscode/*
