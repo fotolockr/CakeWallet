@@ -83,6 +83,11 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setStatus(wallet.status)
+    }
+    
     func presentModal(_ viewController: UIViewController) {
         viewController.modalPresentationStyle = .custom
         viewController.transitioningDelegate = self
@@ -160,7 +165,7 @@ final class DashboardViewController: BaseViewController<DashboardView>,
     private func setStatus(_ status: NetworkStatus) {
         self.contentView.statusViewContainer.contentView.update(status: status)
         let iconView = contentView.statusViewContainer.iconView
-        
+
         switch status {
         case .connecting, .startUpdating, .updating(_), .failedConnection(_):
             if !iconView.isRoutating {

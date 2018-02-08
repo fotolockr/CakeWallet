@@ -67,4 +67,8 @@ final class EmptyWallet: WalletProtocol {
         // FIX-ME: Not implemented
         return EmptyTransactionHistory()
     }
+    
+    func clear() {
+        // FIX-ME: Not implemented
+    }
 }

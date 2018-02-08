@@ -9,7 +9,13 @@
 import Foundation
 
 final class UTimer {
-    var listener: (() -> Void)?
+    var listener: (() -> Void)? {
+        didSet {
+            timer.setEventHandler { [weak self] in
+                self?.listener?()
+            }
+        }
+    }
     
     private enum State {
         case suspended
@@ -20,13 +26,10 @@ final class UTimer {
     private var state: State = .suspended
     
     init(deadline deadlineTime: DispatchTime, repeating repeatingTime: DispatchTimeInterval,
-         queue: DispatchQueue? = nil,  eventHandler: (() -> Void)?) {
-        self.listener = eventHandler
+         queue: DispatchQueue? = nil,  eventHandler: (() -> Void)? = nil) {
         timer = DispatchSource.makeTimerSource(queue: queue)
         timer.schedule(deadline: deadlineTime, repeating: repeatingTime)
-        timer.setEventHandler(handler: { [weak self] in
-            self?.listener?()
-        })
+        self.listener = eventHandler
     }
     
     deinit {
