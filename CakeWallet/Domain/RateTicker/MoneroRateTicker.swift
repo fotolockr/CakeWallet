@@ -2,8 +2,8 @@
 //  MoneroRateTicker.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 27.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 27.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import Foundation

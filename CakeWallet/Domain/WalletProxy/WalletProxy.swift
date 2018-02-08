@@ -2,19 +2,19 @@
 //  WalletProxy.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 27.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 27.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import Foundation
 import PromiseKit
 
 private let backgroundConnectionQueue = DispatchQueue(
-    label: "com.fotolockr.com.cakewallet.backgroundConnectionQueue",
+    label: "io.cakewallet.backgroundConnectionQueue",
     qos: .background,
     attributes: .concurrent)
 private let backgroundConnectionTimerQueue = DispatchQueue(
-    label: "com.fotolockr.com.cakewallet.backgroundConnectionTimerQueue",
+    label: "io.cakewallet.backgroundConnectionTimerQueue",
     qos: .background,
     attributes: .concurrent)
 private let failedConnectionDelay: TimeInterval = 120 // 2 mins
