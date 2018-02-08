@@ -18,10 +18,8 @@ private let backgroundConnectionTimerQueue = DispatchQueue(
     qos: .background,
     attributes: .concurrent)
 private let failedConnectionDelay: TimeInterval = 120 // 2 mins
-
-private let timer = UTimer(deadline: .now(), repeating: .seconds(3), queue: backgroundConnectionTimerQueue) {
-    
-}
+private var timer: UTimer?
+//private let timer = UTimer(deadline: .now(), repeating: .seconds(3), queue: backgroundConnectionTimerQueue)
 
 final class WalletProxy: Proxable, WalletProtocol {
     var name: String {
@@ -67,7 +65,7 @@ final class WalletProxy: Proxable, WalletProtocol {
     }
     
     func `switch`(origin: WalletProtocol) {
-        self.origin.close()
+        self.origin.clear()
         self.origin = origin
         observeOrigin()
         onWalletChange()
@@ -107,6 +105,10 @@ final class WalletProxy: Proxable, WalletProtocol {
         return origin.transactionHistory()
     }
     
+    func clear() {
+        origin.clear()
+    }
+    
     private func observeOrigin() {
         origin.observe { [weak self] change, origin in
             DispatchQueue.main.async {
@@ -120,53 +122,55 @@ final class WalletProxy: Proxable, WalletProtocol {
         
         var isConnecting = false
         var isFirstConnect = true
-        timer.suspend()
-        timer.listener = { [weak self] in
-            guard let this = self else {
+        timer = UTimer(deadline: .now(), repeating: .seconds(3), queue: backgroundConnectionTimerQueue)
+        timer?.listener = { [weak self] in
+            guard
+                let isConnected = self?.isConnected,
+                let status = self?.status else {
                 return
             }
             
-            if isFirstConnect || (!this.isConnected && !isConnecting) {
+            if isFirstConnect || (!isConnected && !isConnecting) {
                 guard let settings = ConnectionSettings.loadSavedSettings() else {
                     return
                 }
                 
                 isConnecting = true
                 
-                this.connect(withSettings: settings, updateState: false)
+                self?.connect(withSettings: settings, updateState: false)
                     .always {
                         if isFirstConnect {
                             isFirstConnect = false
                         }
                     }.then { _ -> Void in
-                        this.startUpdate()
+                        self?.startUpdate()
                         isConnecting = false
-                        this.status = .connected
+                        self?.status = .connected
                     }.catch { error in
                         print("Connection error: \(error.localizedDescription)")
                         
-                        switch this.status {
+                        switch status {
                         case .failedConnection(_):
                             break
                         default:
                             let now = Date()
-                            this.status = .failedConnection(now)
+                            self?.status = .failedConnection(now)
                         }
                         
                         isConnecting = false
                 }
-            } else if this.isConnected {
-                switch this.status {
+            } else if isConnected {
+                switch status {
                 case .startUpdating, .updated, .updating(_):
                     break
                 default:
-                    this.startUpdate()
+                    self?.startUpdate()
                 }
-            } else if isConnecting && !this.isConnected {
+            } else if isConnecting && !isConnected {
                 isConnecting = false
             }
         }
         
-        timer.resume()
+        timer?.resume()
     }
 }

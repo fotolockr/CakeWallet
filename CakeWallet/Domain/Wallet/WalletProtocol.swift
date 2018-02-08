@@ -29,6 +29,7 @@ protocol WalletProtocol: ObservableWallet, TransactionCreatableProtocol {
     func save() -> Promise<Void>
     func connect(withSettings settings: ConnectionSettings, updateState: Bool) -> Promise<Void>
     func changePassword(oldPassword: String, newPassword: String) -> Promise<Void>
+    func clear()
     func close()
     func startUpdate()
     func transactionHistory() -> TransactionHistory

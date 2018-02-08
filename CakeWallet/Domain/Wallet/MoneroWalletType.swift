@@ -170,9 +170,14 @@ final class MoneroWalletType: WalletProtocol {
         }
     }
     
+    func clear() {
+        listeners = []
+        moneroAdapter.clear()
+        moneroAdapter.delegate = nil
+    }
+    
     func close() {
-        // Hardcode value: always save wallet on close.
-        self.moneroAdapter.close(true)
+        self.moneroAdapter.close()
     }
     
     func createTransaction(to address: String, withPaymentId paymentId: String,
@@ -255,7 +260,6 @@ extension MoneroWalletType: MoneroWalletAdapterDelegate {
             return _diff > 1.00 ? 1.00 : _diff
         }()
         let updatingProgress = UpdatingProgress(block: newBlock, progress: progress)
-        
         
         switch status {
         case .notConnected, .failedConnection(_):

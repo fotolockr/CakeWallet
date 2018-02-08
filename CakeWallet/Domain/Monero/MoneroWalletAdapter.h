@@ -49,7 +49,8 @@
 - (NSString *)printedBalance;
 - (NSString *)printedUnlockedBalance;
 - (BOOL)setPassword:(NSString *) password error:(NSError **) error;
-- (void)close:(BOOL) store;
+- (void)close;
+- (void)clear;
 - (BOOL)lightWalletLogin: (BOOL) isNewWallet error:(NSError **) error;
 @end
 

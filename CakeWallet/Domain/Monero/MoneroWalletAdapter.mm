@@ -330,7 +330,7 @@ struct MoneroWalletAdapterMember {
     return true;
 }
 
-- (void)close:(BOOL) store
+- (void)close
 {
     member->wallet->pauseRefresh();
     member->listener->wallet = NULL;
@@ -338,9 +338,15 @@ struct MoneroWalletAdapterMember {
     member->wallet->close();
 }
 
+- (void)clear
+{
+    member->listener->wallet = NULL;
+    member->wallet->setListener(NULL);
+}
+
+
 - (void)dealloc
 {
-    [self close: NO];
     delete member->wallet;
     delete member->listener;
     free(member);

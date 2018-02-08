@@ -8,4 +8,4 @@
 
 #import "MoneroWalletError.h"
 
-NSString *const MoneroWalletErrorDomain = @"com.fotolockr.wallet";
+NSString *const MoneroWalletErrorDomain = @"com.fotolockr.cakewallet";
