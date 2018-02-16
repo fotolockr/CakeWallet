@@ -11,7 +11,7 @@ import PromiseKit
 
 private let backgroundConnectionQueue = DispatchQueue(
     label: "io.cakewallet.backgroundConnectionQueue",
-    qos: .background,
+    qos: .utility,
     attributes: .concurrent)
 private let backgroundConnectionTimerQueue = DispatchQueue(
     label: "io.cakewallet.backgroundConnectionTimerQueue",
@@ -54,6 +54,15 @@ final class WalletProxy: Proxable, WalletProtocol {
     var isConnected: Bool {
         return origin.isConnected
     }
+    var spendKey: WalletKey {
+        return origin.spendKey
+    }
+    var viewKey: WalletKey {
+        return origin.viewKey
+    }
+    var isWatchOnly: Bool {
+        return origin.isWatchOnly
+    }
     
     private(set) var origin: WalletProtocol
     private var listeners: [ChangeHandler]
@@ -64,6 +73,7 @@ final class WalletProxy: Proxable, WalletProtocol {
     }
     
     func `switch`(origin: WalletProtocol) {
+        self.origin.close()
         self.origin.clear()
         self.origin = origin
         observeOrigin()
@@ -75,6 +85,7 @@ final class WalletProxy: Proxable, WalletProtocol {
     }
     
     func connect(withSettings settings: ConnectionSettings, updateState: Bool) -> Promise<Void> {
+        print("Connect CALLED")
         return origin.connect(withSettings: settings, updateState: updateState)
     }
     

@@ -10,7 +10,10 @@ import Foundation
 import PromiseKit
 
 let moneroBlockSize = 1000
-private let updateQueue = DispatchQueue(label: "com.fotolockr.com.cakewallet.updateQueue", qos: .background)
+private let updateQueue = DispatchQueue(
+    label: "io.cakewallet.updateQueue",
+    qos: .utility,
+    attributes: .concurrent)
 
 final class MoneroWalletType: WalletProtocol {
     var name: String {
@@ -56,18 +59,31 @@ final class MoneroWalletType: WalletProtocol {
         }
     }
     
-    private(set) var currentHeight: UInt64
+    var spendKey: WalletKey {
+        return WalletKey(pub: self.moneroAdapter.publicSpendKey(), sec: self.moneroAdapter.secretSpendKey())
+    }
+    
+    var viewKey: WalletKey {
+        return WalletKey(pub: self.moneroAdapter.publicViewKey(), sec: self.moneroAdapter.secretViewKey())
+    }
+    
+    var isWatchOnly: Bool {
+        return spendKey.sec.range(of: "^0*$", options: .regularExpression, range: nil, locale: nil) != nil
+    }
+    
     var status: NetworkStatus {
         didSet {
             self.emit(.changedStatus(status))
             
-            if case NetworkStatus.updated = status {
+            if case NetworkStatus.updated = status {                
                 if isNew {
                     isNew = false
                 }
             }
         }
     }
+    
+    private(set) var currentHeight: UInt64
     
     private(set) var isNew: Bool {
         didSet {
@@ -85,6 +101,7 @@ final class MoneroWalletType: WalletProtocol {
     private(set) var isRecovery: Bool
     private var password: String
     private var listeners: [ChangeHandler]
+    private var initialCurrentHeight: UInt64
     private var _moneroTransactionHistory: MoneroTransactionHistory?
     private let moneroAdapter: MoneroWalletAdapter
     private let keychainStorage: KeychainStorage
@@ -98,6 +115,7 @@ final class MoneroWalletType: WalletProtocol {
         listeners = []
         status = .notConnected
         isNew = true
+        initialCurrentHeight = 0
         
         if
             let isNewStr = try? self.keychainStorage.fetch(forKey: .isNew(WalletIndex(name: name))),
@@ -233,15 +251,6 @@ final class MoneroWalletType: WalletProtocol {
     }
     
     func fetchBlockChainHeight() -> UInt64 {
-//        let now = Date().timeIntervalSince1970
-//
-//        if (_cachedBlockChainHeight == 0 ||
-//            currentHeight > _cachedBlockChainHeight ||
-//            now - blockChainHeightUpdateInterval > 60) {
-//            _cachedBlockChainHeight = moneroAdapter.daemonBlockChainHeight()
-//            blockChainHeightUpdateInterval = now
-//        }
-        
         return moneroAdapter.daemonBlockChainHeight()
     }
     
@@ -252,14 +261,16 @@ final class MoneroWalletType: WalletProtocol {
 
 extension MoneroWalletType: MoneroWalletAdapterDelegate {
     func newBlock(_ block: UInt64) {
+        if initialCurrentHeight == 0 {
+            initialCurrentHeight = block
+        }
         self.currentHeight = block
         let newBlock = Block(height: block)
         let blockchainHeight = self.fetchBlockChainHeight()
-        let progress = { () -> Float in
-            let _diff = Float(block) / Float(blockchainHeight)
-            return _diff > 1.00 ? 1.00 : _diff
-        }()
-        let updatingProgress = UpdatingProgress(block: newBlock, progress: progress)
+        let updatingProgress = NewBlockUpdate(
+            block: newBlock,
+            initialBlock: Block(height: initialCurrentHeight),
+            lastBlock: Block(height: blockchainHeight))
         
         switch status {
         case .notConnected, .failedConnection(_):
@@ -283,7 +294,7 @@ extension MoneroWalletType: MoneroWalletAdapterDelegate {
             let diff: Int = Int(blockChainHeight) - Int(self.currentHeight)
             self.emit(.changedBalance(self.balance))
             self.emit(.changedUnlockedBalance(self.unlockedBalance))
-            
+
             switch self.status {
             case .failedConnection(_), .notConnected, .connecting:
                 break

@@ -30,7 +30,7 @@ final class VerifyPinPasswordViewController: BaseViewController<BaseView>, Biome
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if account.biometricAuthenticationIsAllow() {
+        if account.biometricAuthenticationIsAllow() && !account.isPasswordRemembered {
             self.biometricLogin() { self.onVerified?() }
         }
     }

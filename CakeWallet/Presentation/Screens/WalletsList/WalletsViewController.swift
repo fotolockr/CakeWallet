@@ -14,7 +14,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     
     var presentLoadWalletScreen: ((WalletIndex) -> Void)?
     var presentSeedWalletScreen: ((WalletIndex) -> Void)?
-    var presentRemoveWalletScreen: ((WalletIndex) -> Void)?
+    var presentRemoveWalletScreen: ((WalletIndex, (() -> Void)?) -> Void)?
     var presentNewWalletScreen: (() -> Void)?
     
     private var cachedHeaders: [WalletType: UIView]
@@ -30,11 +30,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        account.walletsList()
-            .then { [weak self] walletsList -> Void in
-                self?.walletsList = walletsList
-                self?.contentView.table.reloadData()
-            }
+        updateWalletsList()
     }
     
     override func configureBinds() {
@@ -58,12 +54,13 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         let item = walletsList[indexPath.section].value[indexPath.row]
 
         guard let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath) as? WalletDescription.CellType else {
-                return UITableViewCell()
+            return UITableViewCell()
         }
 
         if item.name == account.currentWalletName {
             cell.textLabel?.textColor = .white
             cell.contentView.backgroundColor = .lightGreen
+            cell.selectionStyle = .none
         } else {
             cell.textLabel?.textColor = .black
             cell.contentView.backgroundColor = .clear
@@ -110,7 +107,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         guard getWallet(at: indexPath).name != account.currentWalletName else {
-            return nil
+                return []
         }
 
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (_, indexPath) in
@@ -127,35 +124,64 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
 
     private func showMenuForWallet(atIndexPath indexPath: IndexPath) {
         let wallet = getWallet(at: indexPath)
+        
+        guard wallet.name != account.currentWalletName else {
+            return
+        }
+        
         let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             self.contentView.table.deselectRow(at: indexPath, animated: true)
         }
         let showSeecAction = UIAlertAction(title: "Show seed", style: .default) { _ in
-            self.presentSeedWalletScreen?(wallet.index)
+            self.showSeed(for: wallet)
         }
-
+        let loadWalletAction = UIAlertAction(title: "Load wallet", style: .default) { _ in
+            self.presentLoadWalletScreen?(wallet.index)
+        }
+        
         alertViewController.modalPresentationStyle = .overFullScreen
         alertViewController.addAction(showSeecAction)
         alertViewController.addAction(cancelAction)
-
-        if wallet.name != account.currentWalletName {
-            let loadWalletAction = UIAlertAction(title: "Load wallet", style: .default) { _ in
-                self.presentLoadWalletScreen?(wallet.index)
-            }
-
-            alertViewController.addAction(loadWalletAction)
-        }
-
+        alertViewController.addAction(loadWalletAction)
         present(alertViewController, animated: true)
+    }
+    
+    private func showSeed(for wallet: WalletDescription) {
+        guard !wallet.isWatchOnly else {
+            let _ = UIAlertController.showInfo(message: "Can't show seed for watch-only wallet", presentOn: self)
+            return
+        }
+        
+        self.presentSeedWalletScreen?(wallet.index)
     }
 
     private func removeWallet(at indexPath: IndexPath) {
         let wallet = getWallet(at: indexPath)
-        presentRemoveWalletScreen?(wallet.index)
+        let alert = UIAlertController(
+            title: "Remove wallet",
+            message: "Are you sure that you want to delete selected wallet ?",
+            preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+            self?.presentRemoveWalletScreen?(wallet.index) {
+                self?.updateWalletsList()
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        present(alert, animated: true)
     }
 
     private func getWallet(at indexPath: IndexPath) -> WalletDescription {
         return  walletsList[indexPath.section].value[indexPath.row]
+    }
+    
+    private func updateWalletsList() {
+        account.walletsList()
+            .then { [weak self] walletsList -> Void in
+                self?.walletsList = walletsList
+                self?.contentView.table.reloadData()
+        }
     }
 }

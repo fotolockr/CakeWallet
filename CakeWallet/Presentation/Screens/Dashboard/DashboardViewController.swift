@@ -68,7 +68,12 @@ final class DashboardViewController: BaseViewController<DashboardView>,
                 self.setStatus(wallet.status)
                 self.contentView.balanceViewContainer.contentView.balance = wallet.balance.formatted()
                 self.contentView.balanceViewContainer.contentView.unlockedBalance = wallet.unlockedBalance.formatted()
-                self.contentView.titleViewHeader.title = wallet.name
+                
+                if wallet.isWatchOnly {
+                    self.contentView.titleViewHeader.title = "\(wallet.name) (watch-only)"
+                } else {
+                    self.contentView.titleViewHeader.title = wallet.name
+                }
                 // FIX-ME: Unnamed constant
                 self.contentView.titleViewHeader.subtitle = "Monero"
                 self._transactions = wallet.transactionHistory().transactions.toDatesSections()
@@ -187,6 +192,13 @@ final class DashboardViewController: BaseViewController<DashboardView>,
     
     @objc
     private func onPresentSendScreen() {
+        guard !wallet.isWatchOnly else {
+            let _ = UIAlertController.showInfo(
+                message: "You cannot send from a watch only wallet.",
+                presentOn: self)
+            return
+        }
+        
         presentSendScreen?()
     }
     

@@ -16,6 +16,7 @@ protocol AccountSettingsConfigurable {
     var connectionSettings: ConnectionSettings { get }
     
     func change(connectionSettings: ConnectionSettings) -> Promise<Void>
+    func resetConnectionSettings() -> ConnectionSettings
 }
 
 protocol Account: class, AccountSettingsConfigurable {

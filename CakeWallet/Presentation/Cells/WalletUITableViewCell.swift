@@ -27,7 +27,11 @@ final class WalletUITableViewCell: UITableViewCell {
         }
     }
     
-    func configure(name: String) {
-        textLabel?.text = name
+    func configure(name: String, isWatchOnly: Bool) {
+        if isWatchOnly {
+            textLabel?.text = "\(name) (watch-only)"
+        } else {
+            textLabel?.text = name
+        }
     }
 }

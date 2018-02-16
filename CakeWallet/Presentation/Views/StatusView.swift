@@ -11,8 +11,7 @@ import UIKit
 protocol StatusView {
     func initProgress(description: String, initialProgress: Float, icon: UIImage?)
     func initProgress(description: String, initialProgress: Float)
-    func updateProgress(_ progress: Float, text: String)
-    func updateProgress(_ progress: Float)
+    func updateProgress(_ updatingProgress: NewBlockUpdate)
     func finishProgress(withText text: String)
     func finishProgress(withText text: String, icon: UIImage?)
     func finishProgress()
@@ -114,10 +113,11 @@ extension StatusViewImpl: StatusView {
         descriptionLabel.text = text
     }
     
-    func updateProgress(_ progress: Float) {
+    func updateProgress(_ updatingProgress: NewBlockUpdate) {
+        let progress = updatingProgress.calculateProgress()
         let percents = progress * 100
         progressView.progress = progress
-        descriptionLabel.text = "Progress: \(String(format: "%.2f", percents))%"
+        descriptionLabel.text = "Blocks remaining: \(updatingProgress.blocksRemaining) (\(String(format: "%.2f", percents))%)"
         
         if progressView.isHidden {
             progressView.isHidden = false
@@ -186,7 +186,7 @@ extension StatusViewImpl: StatusView {
                     size: CGSize(width: 15, height: 15)))
             
         case let .updating(status):
-            updateProgress(status.progress)
+            updateProgress(status)
         }
     }
     

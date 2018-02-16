@@ -11,7 +11,7 @@ import FontAwesome_swift
 
 final class SettingsViewController: BaseViewController<SettingsView>, UITableViewDelegate, UITableViewDataSource {
     enum SettingsSections: Int {
-        case personal, wallets
+        case wallets, personal
     }
     
     struct SettingsCellItem: CellItem {
@@ -89,14 +89,17 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     var presentChangePasswordScreen: VoidEmptyHandler
     var presentNodeSettingsScreen: VoidEmptyHandler
     var presentWalletsScreen: VoidEmptyHandler
-    
+    var presentWalletKeys: VoidEmptyHandler
+    var presentWalletSeed: VoidEmptyHandler
     
     private var sections: [SettingsSections: [CellAnyItem]]
     private var accountSettings: AccountSettingsConfigurable
+    private var showSeedIsAllow: Bool
     
-    init(accountSettings: AccountSettingsConfigurable) {
+    init(accountSettings: AccountSettingsConfigurable, showSeedIsAllow: Bool) {
         self.accountSettings = accountSettings
-        self.sections = [.personal: [], .wallets: []]
+        self.showSeedIsAllow = showSeedIsAllow
+        self.sections = [.wallets: [], .personal: []]
         super.init()
     }
 
@@ -168,15 +171,41 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             feePriorityPicker
         ]
         
-        sections[.wallets] = [SettingsCellItem(
-            title: "Wallets",
+        let wallets = SettingsCellItem(
+            title: "Add or switch wallets",
             image: UIImage.fontAwesomeIcon(
                 name: .addressBook,
-                textColor: UIColor(hex: 0xFDE74C), // FIX-ME: Unnamed constant
+                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
                 size: CGSize(width: 32, height: 32)),
             action: { [weak self] in
                 self?.presentWalletsScreen?()
-        })]
+        })
+        
+        let showKeys = SettingsCellItem(
+            title: "Show keys",
+            image: UIImage.fontAwesomeIcon(
+                name: .key,
+                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
+                size: CGSize(width: 32, height: 32)),
+            action: { [weak self] in
+                self?.presentWalletKeys?()
+        })
+        
+        sections[.wallets] = [wallets, showKeys]
+        
+        if showSeedIsAllow {
+            let showSeed = SettingsCellItem(
+                title: "Show seed",
+                image: UIImage.fontAwesomeIcon(
+                    name: .creditCard,
+                    textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
+                    size: CGSize(width: 32, height: 32)),
+                action: { [weak self] in
+                    self?.presentWalletSeed?()
+            })
+            
+            sections[.wallets]?.append(showSeed)
+        }
     }
     
     // MARK: UITableViewDataSource

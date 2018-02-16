@@ -13,7 +13,7 @@ final class StandartTitledView: UIView {
     let subtitleLabel: UILabel
     
     init() {
-        titleLabel = UILabel(font: .avenirNextMedium(size: 32))
+        titleLabel = UILabel(font: .avenirNextMedium(size: 28))
         subtitleLabel = UILabel(font: .avenirNextMedium(size: 14))
         super.init(frame: .zero)
         configureView()

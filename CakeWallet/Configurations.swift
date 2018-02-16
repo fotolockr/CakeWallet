@@ -37,7 +37,7 @@ final class Configurations {
         }
     }
     
-    static let defaultNodeUri = "node.moneroworld.com:18089"
+    static let defaultNodeUri = "opennode.xmr-tw.org:18089"
     static var termsOfUseUrl: URL? {
         return Bundle.main.url(forResource: "Terms_of_Use", withExtension: "rtf")
     }
