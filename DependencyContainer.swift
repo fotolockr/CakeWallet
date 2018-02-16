@@ -80,7 +80,9 @@ extension DependencyContainer {
             
             // MARK: SeedViewController
             
-            container.register { (seed: String) in SeedViewController(seed: seed) }
+            container.register { SeedViewController(wallet: try! container.resolve() as WalletProxy) }
+            container.register { (wallet: WalletProtocol) in SeedViewController(wallet: wallet) }
+            container.register { (seed: String, name: String) in SeedViewController(seed: seed, name: name) }
             
             // MARK: SummaryViewController
             
@@ -108,10 +110,20 @@ extension DependencyContainer {
                 LoginViewController(account: account)
             }
             
+            // MARK: WalletKeyViewController
+            
+            container.register { WalletKeyViewController(wallet: try! container.resolve() as WalletProxy) }
+            container.register { (wallet: WalletProtocol) in WalletKeyViewController(wallet: wallet) }
+            container.register { (wallet) in WalletKeyViewController(wallet: wallet) }
+            container.register { (name: String, viewKey: WalletKey, spendKey: WalletKey) in WalletKeyViewController(name: name, viewKey: viewKey, spendKey: spendKey) }
+            
             // MARK: SettingsViewController
             
-            container.register { SettingsViewController(accountSettings: try! container.resolve() as AccountSettingsConfigurable) }
-                .resolvingProperties { (container: DependencyContainer, vc: SettingsViewController) in
+            container.register {
+                SettingsViewController(
+                    accountSettings: try! container.resolve() as AccountSettingsConfigurable,
+                    showSeedIsAllow: !(try! container.resolve() as WalletProxy).isWatchOnly)
+                }.resolvingProperties { (container: DependencyContainer, vc: SettingsViewController) in
                     vc.presentWalletsScreen = { [weak vc] in
                         let walletsListViewController = try! container.resolve() as WalletsViewController
                         vc?.navigationController?.pushViewController(walletsListViewController, animated: true)
@@ -128,6 +140,50 @@ extension DependencyContainer {
                     vc.presentNodeSettingsScreen = { [weak vc] in
                         let nodeSettingsViewController = try! container.resolve() as NodeSettingsViewController
                         vc?.navigationController?.pushViewController(nodeSettingsViewController, animated: true)
+                    }
+                    
+                    vc.presentWalletKeys = { [weak vc] in
+                        let verifyPinPasswordViewController = try! container.resolve() as VerifyPinPasswordViewController
+                        verifyPinPasswordViewController.onVerified = {
+                            let walletKeyViewController = try! container.resolve() as WalletKeyViewController
+                            let navController = UINavigationController(rootViewController: walletKeyViewController)
+                            verifyPinPasswordViewController.dismiss(animated: false) {
+                                vc?.present(navController, animated: true)
+                            }
+                        }
+                        
+                        vc?.present(verifyPinPasswordViewController, animated: true)
+                    }
+                    
+                    vc.presentWalletSeed = {
+                        let verifyPinPasswordViewController = try! container.resolve() as VerifyPinPasswordViewController
+                        
+                        if verifyPinPasswordViewController.canBePresented {
+                            let navController = UINavigationController(rootViewController: verifyPinPasswordViewController)
+                            verifyPinPasswordViewController.onVerified = {
+                                let seedViewController = try! container.resolve() as SeedViewController
+                                seedViewController.finishHandler = { [weak seedViewController] in
+                                    seedViewController?.dismiss(animated: true) {
+                                        navController.viewControllers = []
+                                    }
+                                }
+                                
+                                navController.setNavigationBarHidden(false, animated: false)
+                                navController.pushViewController(seedViewController, animated: true)
+                            }
+                            
+                            vc.present(navController, animated: true)
+                        } else {
+                            let seedViewController = try! container.resolve() as SeedViewController
+                            let navController = UINavigationController(rootViewController: seedViewController)
+                            seedViewController.finishHandler = { [weak seedViewController] in
+                                seedViewController?.dismiss(animated: true) {
+                                    navController.viewControllers = []
+                                }
+                            }
+                            
+                            vc.present(navController, animated: true)
+                        }
                     }
                 }
             
@@ -183,45 +239,72 @@ extension DependencyContainer {
                     
                     vc.presentSeedWalletScreen = { index in
                         let verifyPinPasswordViewController = try! container.resolve() as VerifyPinPasswordViewController
-                        let navController = UINavigationController(rootViewController: verifyPinPasswordViewController)
-                        verifyPinPasswordViewController.onVerified = { [weak verifyPinPasswordViewController] in
+                        
+                        if verifyPinPasswordViewController.canBePresented {
+                            let navController = UINavigationController(rootViewController: verifyPinPasswordViewController)
+                            verifyPinPasswordViewController.onVerified = { [weak verifyPinPasswordViewController] in
+                                let account = try! container.resolve() as Account
+                                let wallets = account.wallets()
+                                wallets.fetchSeed(for: index)
+                                    .then { seed -> Void in
+                                        let seedViewController = try! container.resolve(arguments: seed, index.name) as SeedViewController
+                                        seedViewController.finishHandler = { [weak seedViewController] in
+                                            seedViewController?.dismiss(animated: true) {
+                                                navController.viewControllers = []
+                                            }
+                                        }
+                                        
+                                        navController.setNavigationBarHidden(false, animated: false)
+                                        navController.pushViewController(seedViewController, animated: true)
+                                    }.catch { error in
+                                        verifyPinPasswordViewController?.showError(error)
+                                }
+                            }
+                            
+                            vc.present(navController, animated: true)
+                        } else {
                             let account = try! container.resolve() as Account
                             let wallets = account.wallets()
                             wallets.fetchSeed(for: index)
                                 .then { seed -> Void in
-                                    let seedViewController = try! container.resolve(arguments: seed) as SeedViewController
+                                    let seedViewController = try! container.resolve(arguments: seed, index.name) as SeedViewController
+                                    let navController = UINavigationController(rootViewController: seedViewController)
                                     seedViewController.finishHandler = { [weak seedViewController] in
                                         seedViewController?.dismiss(animated: true) {
                                             navController.viewControllers = []
                                         }
                                     }
                                     
-                                    navController.setNavigationBarHidden(false, animated: false)
-                                    navController.pushViewController(seedViewController, animated: true)
+                                    vc.present(navController, animated: true)
                                 }.catch { error in
-                                    verifyPinPasswordViewController?.showError(error)
+                                    vc.showError(error)
                             }
                         }
-                        
-                        vc.present(navController, animated: true)
                     }
                     
-                    vc.presentRemoveWalletScreen = { [weak vc] index in
+                    vc.presentRemoveWalletScreen = { [weak vc] index, completionHandler in
                         let verifyPinPasswordViewController = try! container.resolve() as VerifyPinPasswordViewController
                         verifyPinPasswordViewController.onVerified = {
                             let account = try! container.resolve() as Account
                             let wallets = account.wallets()
                             let alert = UIAlertController.showSpinner(message: "Removing wallet")
-                            verifyPinPasswordViewController.present(alert, animated: true)
+                            
+                            if verifyPinPasswordViewController.canBePresented {
+                                verifyPinPasswordViewController.present(alert, animated: true)
+                            } else {
+                                vc?.present(alert, animated: true)
+                            }
                             
                             wallets.removeWallet(withIndex: index)
                                 .then { _ in
                                     alert.dismiss(animated: false) {
                                         verifyPinPasswordViewController.dismiss(animated: true)
+                                        completionHandler?()
                                     }
                                 }.catch { error in
                                     alert.dismiss(animated: false) {
                                         verifyPinPasswordViewController.showError(error)
+                                        completionHandler?()
                                     }
                             }
                         }
@@ -265,6 +348,14 @@ extension DependencyContainer {
             // MARK: DisclaimerViewController
             
             container.register { DisclaimerViewController() }
+            
+            // MARK: RecoveryWalletOptionsViewController
+            
+            container.register { RecoveryWalletOptionsViewController() }
+            
+            // MARK: RecoveryWalletFromKeysViewController
+            
+            container.register { (wallets: Wallets) in RecoveryWalletFromKeysViewController(wallets: wallets) }
             
             // Flows
             

@@ -10,6 +10,7 @@ import Foundation
 
 struct WalletDescription {
     let name: String
+    let isWatchOnly: Bool
     
     var index: WalletIndex {
         return WalletIndex(name: name)
@@ -18,6 +19,6 @@ struct WalletDescription {
 
 extension WalletDescription: CellItem {
     func setup(cell: WalletUITableViewCell) {
-        cell.configure(name: name)
+        cell.configure(name: name, isWatchOnly: isWatchOnly)
     }
 }

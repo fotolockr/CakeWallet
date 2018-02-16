@@ -1,14 +1,14 @@
 //
-//  RecoveryWalletViewController.swift
-//  Wallet
+//  RecoveryWalletFromKeysViewController.swift
+//  CakeWallet
 //
-//  Created by Cake Technologies 15.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Created by Mykola Misiura on 14.02.2018.
+//  Copyright © 2018 Mykola Misiura. All rights reserved.
 //
 
 import UIKit
 
-final class RecoveryViewController: BaseViewController<RecoveryView> {
+final class RecoveryWalletFromKeysViewController: BaseViewController<RecoveryWalletFromKeysView> {
     
     // MARK: Property injections
     
@@ -16,10 +16,16 @@ final class RecoveryViewController: BaseViewController<RecoveryView> {
     
     private let wallets: WalletsRecoverable
     private var name: String {
-        return contentView.walletNameTextField.text ?? ""
+        return contentView.nameTextField.text ?? ""
     }
-    private var seed: String {
-        return contentView.seedTextView.text
+    private var publicKey: String {
+        return contentView.publicKeyTextField.text ?? ""
+    }
+    private var viewKey: String {
+        return contentView.viewKeyTextField.text ?? ""
+    }
+    private var spendKey: String {
+        return contentView.spendKeyTextField.text ?? ""
     }
     private weak var alert: UIAlertController?
     private var restoreHeight: UInt64 {
@@ -31,10 +37,11 @@ final class RecoveryViewController: BaseViewController<RecoveryView> {
         self.wallets = wallets
         super.init()
     }
-
+    
     override func configureBinds() {
         title = "Recover wallet"
         contentView.confirmButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
+        contentView.watchOnlyDescriptionLabel.text = "* Leave this blank for a watch only wallet."
     }
     
     @objc
@@ -47,7 +54,7 @@ final class RecoveryViewController: BaseViewController<RecoveryView> {
         alert = _alert
         present(_alert, animated: true)
         
-        wallets.recoveryWallet(withName: name, seed: seed, restoreHeight: restoreHeight)
+        wallets.recoveryWallet(withName: name, publicKey: publicKey, viewKey: viewKey, spendKey: spendKey, restoreHeight: restoreHeight)
             .then { [weak self ] _ in
                 self?.alert?.dismiss(animated: false) {
                     self?.onRecovered?()
@@ -60,6 +67,6 @@ final class RecoveryViewController: BaseViewController<RecoveryView> {
     }
     
     private func isValidForm() -> Bool {
-        return !name.isEmpty && !seed.isEmpty
+        return !name.isEmpty && !publicKey.isEmpty && !viewKey.isEmpty
     }
 }

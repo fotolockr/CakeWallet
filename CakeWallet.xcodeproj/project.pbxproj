@@ -165,6 +165,13 @@
 		0CFCAFE41FD5EFE7004EF698 /* WalletsSeedFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFCAFE31FD5EFE7004EF698 /* WalletsSeedFetchable.swift */; };
 		0CFCAFE61FD5F3A2004EF698 /* Wallets+WalletsSeedFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFCAFE51FD5F3A2004EF698 /* Wallets+WalletsSeedFetchable.swift */; };
 		7D688A03F774B0C06AB7D747 /* Pods_CakeWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CECAE07ED95A367F0CB6700 /* Pods_CakeWallet.framework */; };
+		CA4DF8B12034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */; };
+		CA4DF8B32034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */; };
+		CA4DF8B62034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */; };
+		CA4DF8B82034CC03002B0AB4 /* RecoveryWalletFromKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B72034CC03002B0AB4 /* RecoveryWalletFromKeysViewController.swift */; };
+		CAA82A942035DFA400D8FD92 /* WalletKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A932035DFA400D8FD92 /* WalletKey.swift */; };
+		CAA82A972035E45D00D8FD92 /* WalletKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A962035E45D00D8FD92 /* WalletKeysView.swift */; };
+		CAA82A992035E47400D8FD92 /* WalletKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A982035E47400D8FD92 /* WalletKeyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -364,6 +371,13 @@
 		3848B085667C2AC96BB45F12 /* Pods-CakeWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		561E69E83825EF25D7339410 /* Pods_Cryptonist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cryptonist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2E0790F3452626194635C0 /* Pods-Cryptonist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptonist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cryptonist/Pods-Cryptonist.debug.xcconfig"; sourceTree = "<group>"; };
+		CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletOptionsView.swift; sourceTree = "<group>"; };
+		CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletOptionsViewController.swift; sourceTree = "<group>"; };
+		CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletFromKeysView.swift; sourceTree = "<group>"; };
+		CA4DF8B72034CC03002B0AB4 /* RecoveryWalletFromKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletFromKeysViewController.swift; sourceTree = "<group>"; };
+		CAA82A932035DFA400D8FD92 /* WalletKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKey.swift; sourceTree = "<group>"; };
+		CAA82A962035E45D00D8FD92 /* WalletKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKeysView.swift; sourceTree = "<group>"; };
+		CAA82A982035E47400D8FD92 /* WalletKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKeyViewController.swift; sourceTree = "<group>"; };
 		EF2E4D4FA0EC153C68BE6226 /* Pods-CakeWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -409,7 +423,6 @@
 				0C22E45F1F8D34CB00C12A14 /* Controls */,
 				0C6051B11FD0C2150041D2D4 /* Flows */,
 				0C22E4661F8D34CB00C12A14 /* Screens */,
-				0C639AD11FDAD8B70097C68C /* StatusView.swift */,
 				0C22E4AD1F8D3B6D00C12A14 /* BaseViewController.swift */,
 				0C62EA84202253A2005A8F2E /* ErrorPresentable.swift */,
 				0CE2AD92202125A00069756A /* BiometricLoginPresentable.swift */,
@@ -430,6 +443,9 @@
 		0C22E4661F8D34CB00C12A14 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CAA82A952035E35D00D8FD92 /* WalleyKeys */,
+				CA4DF8B42034C9E4002B0AB4 /* RecoveryWalletFromKeys */,
+				CA4DF8AF2034C2BB002B0AB4 /* RecoveryWalletOptions */,
 				0CB035B2201904FD0010B631 /* Disclaimer */,
 				0CBC9C342006A3E300EC57E8 /* NodeSettings */,
 				0CB2CA2B1FD82A01002EF5D0 /* TransactionDetails */,
@@ -744,6 +760,7 @@
 		0C62EA8620225840005A8F2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0C639AD11FDAD8B70097C68C /* StatusView.swift */,
 				0C634066201B7A240031B509 /* BalanceView.swift */,
 				0C634068201B7A3C0031B509 /* IconContainerView.swift */,
 				0C634064201B7A090031B509 /* IconView.swift */,
@@ -812,6 +829,7 @@
 				0C62FBCD2022FAC4005A8F2E /* WalletIndex.swift */,
 				0C62FBCE2022FAC4005A8F2E /* WalletProtocol.swift */,
 				0C62FBCF2022FAC4005A8F2E /* WalletType.swift */,
+				CAA82A932035DFA400D8FD92 /* WalletKey.swift */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -926,6 +944,33 @@
 				1CECAE07ED95A367F0CB6700 /* Pods_CakeWallet.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CA4DF8AF2034C2BB002B0AB4 /* RecoveryWalletOptions */ = {
+			isa = PBXGroup;
+			children = (
+				CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */,
+				CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */,
+			);
+			path = RecoveryWalletOptions;
+			sourceTree = "<group>";
+		};
+		CA4DF8B42034C9E4002B0AB4 /* RecoveryWalletFromKeys */ = {
+			isa = PBXGroup;
+			children = (
+				CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */,
+				CA4DF8B72034CC03002B0AB4 /* RecoveryWalletFromKeysViewController.swift */,
+			);
+			path = RecoveryWalletFromKeys;
+			sourceTree = "<group>";
+		};
+		CAA82A952035E35D00D8FD92 /* WalleyKeys */ = {
+			isa = PBXGroup;
+			children = (
+				CAA82A962035E45D00D8FD92 /* WalletKeysView.swift */,
+				CAA82A982035E47400D8FD92 /* WalletKeyViewController.swift */,
+			);
+			path = WalleyKeys;
 			sourceTree = "<group>";
 		};
 		EC9F9D3ADA216C5B6CB770FC /* Pods */ = {
@@ -1125,6 +1170,7 @@
 				0C62FBD92022FAC4005A8F2E /* WalletDescription.swift in Sources */,
 				0C2FA6781FD69B5000D5D3E6 /* KeychainKey.swift in Sources */,
 				0C616C001F93DA33007AD9A4 /* RecoveryWalletViewController.swift in Sources */,
+				CA4DF8B62034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift in Sources */,
 				0C62FBDE2022FAC4005A8F2E /* WalletType.swift in Sources */,
 				0C22E4971F8D34CB00C12A14 /* UIAlertController+extensions.swift in Sources */,
 				0C62FBDB2022FAC4005A8F2E /* WalletGateway.swift in Sources */,
@@ -1172,6 +1218,7 @@
 				0C96B7911FC7761A00A9C50F /* VerifyPinPasswordViewController.swift in Sources */,
 				0C6051961FD0BD6B0041D2D4 /* TransactionDescription.swift in Sources */,
 				0CCAFF3B1F97CEE60081FE57 /* UITableView+CellItem.swift in Sources */,
+				CAA82A972035E45D00D8FD92 /* WalletKeysView.swift in Sources */,
 				0C9C2F341F8C00FF009C4C2E /* MoneroWalletHistoryAdapter.mm in Sources */,
 				0C22E4961F8D34CB00C12A14 /* WalletsViewController.swift in Sources */,
 				0C22E48E1F8D34CB00C12A14 /* PasswordKeyboardView.swift in Sources */,
@@ -1194,13 +1241,16 @@
 				0C22E4901F8D34CB00C12A14 /* PinPasswordViewController.swift in Sources */,
 				0C22E4991F8D34CB00C12A14 /* UIColor+hex.swift in Sources */,
 				0CE2AD8F20211E2E0069756A /* AuthenticationProtocol.swift in Sources */,
+				CAA82A942035DFA400D8FD92 /* WalletKey.swift in Sources */,
 				0C6051AE1FD0C1940041D2D4 /* SetupPinPasswordViewController.swift in Sources */,
 				0C6051A11FD0BDD70041D2D4 /* PendingTransactionDescription.swift in Sources */,
 				0C8CBE9D1FB4DB2D00E1A0B7 /* FileManager+walletDirectory.swift in Sources */,
+				CA4DF8B82034CC03002B0AB4 /* RecoveryWalletFromKeysViewController.swift in Sources */,
 				0C6105FC1F9FE4CF009EEBB3 /* AddWalletViewController.swift in Sources */,
 				0C6105FA1F9FE2EB009EEBB3 /* AddWalletView.swift in Sources */,
 				0C62EA7F20224A1A005A8F2E /* EmptyTransactionHistory.swift in Sources */,
 				0C868FA41F94CB5600EA5FD1 /* UIWindow+extensions.swift in Sources */,
+				CA4DF8B32034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift in Sources */,
 				0CC827FE1FD0D4E4002A5796 /* WalletsRecoverable.swift in Sources */,
 				0CB2CA2D1FD82A1C002EF5D0 /* TransactionDetailsView.swift in Sources */,
 				0C8D551F202CAC44002B30BE /* MoneroQRResult.swift in Sources */,
@@ -1239,6 +1289,7 @@
 				0C62FBD02022FAC4005A8F2E /* Amount.swift in Sources */,
 				0C22E4921F8D34CB00C12A14 /* ReceiveViewController.swift in Sources */,
 				0C6051911FD0BCE50041D2D4 /* KeychainStorageImpl.swift in Sources */,
+				CAA82A992035E47400D8FD92 /* WalletKeyViewController.swift in Sources */,
 				0CC828061FD0D743002A5796 /* Wallets+WalletsLoadable.swift in Sources */,
 				0C62FBBD2022D261005A8F2E /* Configurations.swift in Sources */,
 				0C3048A01FCF6E0C001F8009 /* DependencyContainer.swift in Sources */,
@@ -1253,6 +1304,7 @@
 				0C60519F1FD0BDBF0041D2D4 /* PendingTransaction.swift in Sources */,
 				0C634069201B7A3C0031B509 /* IconContainerView.swift in Sources */,
 				0C62FBD62022FAC4005A8F2E /* MoneroWalletType.swift in Sources */,
+				CA4DF8B12034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift in Sources */,
 				0C6051881FD0BBB40041D2D4 /* MoneroTransactionHistory.swift in Sources */,
 				0CC828021FD0D526002A5796 /* WalletsRemovable.swift in Sources */,
 				0C22E4AE1F8D3B6D00C12A14 /* BaseView.swift in Sources */,

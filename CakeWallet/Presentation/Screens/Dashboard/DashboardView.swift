@@ -97,7 +97,7 @@ final class DashboardView: BaseView {
             make.top.equalTo(receiveButton.snp.bottom)
             make.leading.equalToSuperview().offset(15)
             make.height.equalTo(titleViewHeader)
-            make.trailing.equalTo(receiveButton.snp.leading).offset(-10)
+            make.trailing.equalToSuperview().offset(-10)
         }
         
         receiveButton.snp.makeConstraints { make in

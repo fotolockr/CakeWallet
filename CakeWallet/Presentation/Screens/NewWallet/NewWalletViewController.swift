@@ -14,7 +14,7 @@ final class NewWalletViewController: BaseViewController<NewWalletView>, UITextFi
     
     // MARK: Property injections
     
-    var onWalletCreated: ((String) -> Void)?
+    var onWalletCreated: ((String, String) -> Void)?
     
     private let wallets: WalletsCreating
     private var name: String {
@@ -55,7 +55,7 @@ final class NewWalletViewController: BaseViewController<NewWalletView>, UITextFi
             return
         }
         
-        let _alert = UIAlertController.showSpinner(message: "Creating account")
+        let _alert = UIAlertController.showSpinner(message: "Creating wallet")
         alert = _alert
         present(_alert, animated: true)
         
@@ -90,11 +90,15 @@ final class NewWalletViewController: BaseViewController<NewWalletView>, UITextFi
     private func createWallet() {
         wallets.create(withName: name)
             .then { [weak self] seed -> Void in
-                self?.alert?.dismiss(animated: true)
-                self?.onWalletCreated?(seed)
+                self?.alert?.dismiss(animated: true) {
+                    if let name = self?.name {
+                        self?.onWalletCreated?(seed, name)
+                    }
+                }
             }.catch { [weak self] error in
-                self?.alert?.dismiss(animated: true)
-                self?.showError(error)
+                self?.alert?.dismiss(animated: true) {
+                    self?.showError(error)
+                }
         }
     }
 }

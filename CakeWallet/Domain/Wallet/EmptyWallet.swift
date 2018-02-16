@@ -18,6 +18,13 @@ final class EmptyWallet: WalletProtocol {
     let seed = "No seed"
     var status: NetworkStatus = .notConnected
     let isReadyToReceive = false
+    let isWatchOnly = true
+    var viewKey: WalletKey {
+        return WalletKey(pub: "", sec: "")
+    }
+    var spendKey: WalletKey {
+        return WalletKey(pub: "", sec: "")
+    }
     
     func save() -> Promise<Void> {
         // FIX-ME: Not implemented

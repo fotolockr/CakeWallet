@@ -68,8 +68,17 @@ final class SendViewController: BaseViewController<SendView> {
         contentView.feePriorityDescriptionLabel.text = "Currently the fee is set at \(priority.stringify()) priority. Transaction priority can be adjusted in the settings."
         
         estimatedFeeCalculation.calculateEstimatedFee(forPriority: priority)
-            .then(on: DispatchQueue.main) { [weak self] amount in
-                self?.contentView.estimatedValueLabel.text = amount.formatted()
+            .then(on: DispatchQueue.main) { [weak self] amount -> Void in
+                let estimatedValue: String
+                
+                if let rate = self?.rateTicker.rate {
+                    let ratedAmount = convertXMRtoUSD(amount: amount.formatted(), rate: rate)
+                    estimatedValue = "XMR \(amount.formatted()) ($ \(ratedAmount))"
+                } else {
+                    estimatedValue = "XMR \(amount.formatted())"
+                }
+                
+                self?.contentView.estimatedValueLabel.text = estimatedValue
             }.catch(on: DispatchQueue.main) { [weak self] error in
                 self?.showError(error)
         }

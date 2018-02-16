@@ -52,6 +52,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri) == nil {
             UserDefaults.standard.set(Configurations.defaultNodeUri, forKey: Configurations.DefaultsKeys.nodeUri)
         }
+        
+        // FIX-ME: Replce to migration and make migrations.
+        
+        let oldDefaultNodeUri = "node.moneroworld.com:18089"
+        
+        if UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri) == oldDefaultNodeUri {
+            UserDefaults.standard.set(Configurations.defaultNodeUri, forKey: Configurations.DefaultsKeys.nodeUri)
+        }
     }
     
     private func setAppearance() {

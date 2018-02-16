@@ -15,9 +15,15 @@ final class SeedViewController: BaseViewController<SeedView> {
     var finishHandler: VoidEmptyHandler
     private var walletIndex: WalletIndex?
     private let seed: String
+    private let name: String
     
-    init(seed: String) {
+    convenience init(wallet: WalletProtocol) {
+        self.init(seed: wallet.seed, name: wallet.name)
+    }
+    
+    init(seed: String, name: String) {
         self.seed = seed
+        self.name = name
         super.init()
     }
     
@@ -31,6 +37,7 @@ final class SeedViewController: BaseViewController<SeedView> {
         let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showMenu))
         navigationItem.rightBarButtonItem = shareButton
         contentView.seedTextView.text = seed
+        contentView.nameLabel.text = name
         
         if isModal {
             let closeButton = UIBarButtonItem(

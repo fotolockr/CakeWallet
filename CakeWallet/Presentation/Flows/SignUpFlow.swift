@@ -16,6 +16,8 @@ final class SignUpFlow: Flow {
         case addNewWallet
         case newWallet
         case recoveryWallet
+        case recoveryFromSeed
+        case recoveryFromKeys
     }
     
     var currentViewController: UIViewController {
@@ -44,6 +46,10 @@ final class SignUpFlow: Flow {
             setNewWalletRoute()
         case .recoveryWallet:
             setRecoverWalletRoute()
+        case .recoveryFromSeed:
+            setRecoveryWalletFromSeed()
+        case .recoveryFromKeys:
+            setRecoveryWalletFromKeys()
         }
     }
     
@@ -68,7 +74,7 @@ final class SignUpFlow: Flow {
     
     func setNewWalletRoute() {
         let newWalletViewController = try! container.resolve(arguments: wallets) as NewWalletViewController
-        newWalletViewController.onWalletCreated = { [weak newWalletViewController] seed in
+        newWalletViewController.onWalletCreated = { [weak newWalletViewController] seed, name in
             guard let newWalletViewController = newWalletViewController else {
                 return
             }
@@ -76,20 +82,33 @@ final class SignUpFlow: Flow {
             UIAlertController.showInfo(
                 message: "The next page will show you a seed. Please write these down just in case you lose or wipe your phone.\nYou can also see the seed again in the settings menu.",
                 presentOn: newWalletViewController) { _ in
-                    self.setSeedDisplayingRoute(seed: seed)
+                    self.setSeedDisplayingRoute(seed: seed, name: name)
             }
         }
         rootViewController.pushViewController(newWalletViewController, animated: true)
     }
     
     func setRecoverWalletRoute() {
+        let recoverWalletOptionsViewController = try! container.resolve() as RecoveryWalletOptionsViewController
+        recoverWalletOptionsViewController.presentRecoveryFromKeys = { self.changeRoute(.recoveryFromKeys) }
+        recoverWalletOptionsViewController.presentRecoveryFromSeed = { self.changeRoute(.recoveryFromSeed) }
+        rootViewController.pushViewController(recoverWalletOptionsViewController, animated: true)
+    }
+    
+    func setRecoveryWalletFromSeed() {
         let recoverWalletViewController = try! container.resolve(arguments: wallets) as RecoveryViewController
         recoverWalletViewController.onRecovered = { self.finalHandler?() }
         rootViewController.pushViewController(recoverWalletViewController, animated: true)
     }
     
-    func setSeedDisplayingRoute(seed: String) {
-        let seedViewController = try! container.resolve(arguments: seed) as SeedViewController
+    func setRecoveryWalletFromKeys() {
+        let recoverWalletViewController = try! container.resolve(arguments: wallets) as RecoveryWalletFromKeysViewController
+        recoverWalletViewController.onRecovered = { self.finalHandler?() }
+        rootViewController.pushViewController(recoverWalletViewController, animated: true)
+    }
+    
+    func setSeedDisplayingRoute(seed: String, name: String) {
+        let seedViewController = try! container.resolve(arguments: seed, name) as SeedViewController
         seedViewController.finishHandler = { self.finalHandler?() }
         rootViewController.pushViewController(seedViewController, animated: true)
     }

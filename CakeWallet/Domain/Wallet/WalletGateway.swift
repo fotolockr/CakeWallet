@@ -26,7 +26,8 @@ protocol WalletGateway: EmptyInitializable {
     static func fetchWalletsList() -> Promise<[WalletDescription]>
     func create(withCredentials credentials: WalletCreatingCredentials) -> Promise<WalletProtocol>
     func load(withCredentials credentials: WalletLoadingCredentials) -> Promise<WalletProtocol>
-    func recoveryWallet(withName name: String, andSeed seed: String, password: String) -> Promise<WalletProtocol>
+    func recoveryWallet(withName name: String, andSeed seed: String, password: String, restoreHeight: UInt64) -> Promise<WalletProtocol>
+    func recoveryWallet(withName name: String, publicKey: String, viewKey: String, spendKey: String, restoreHeight: UInt64, password: String) -> Promise<WalletProtocol>
     func remove(withName name: String, password: String) -> Promise<Void>
     func isExist(withName name: String) -> Bool
     func makePath(for walletName: String) -> String

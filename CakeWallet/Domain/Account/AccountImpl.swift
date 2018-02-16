@@ -115,6 +115,11 @@ final class AccountImpl: Account {
         return currentWallet.connect(withSettings: connectionSettings)
     }
     
+    func resetConnectionSettings() -> ConnectionSettings {
+        UserDefaults.standard.set(Configurations.defaultNodeUri, forKey: Configurations.DefaultsKeys.nodeUri)
+        return ConnectionSettings.loadSavedSettings() ?? ConnectionSettings(uri: Configurations.defaultNodeUri, login: "", password: "")
+    }
+    
     func loadCurrentWallet() -> Promise<Void> {
         guard let name = currentWalletName else {
             return Promise(error: AccountError.currentWalletIsNotSetup)
