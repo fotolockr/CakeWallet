@@ -54,7 +54,7 @@ final class EmptyWallet: WalletProtocol {
         // FIX-ME: Not implemented
     }
     
-    func createTransaction(to address: String, withPaymentId paymentId: String, amount: Amount, priority: TransactionPriority) -> Promise<PendingTransaction> {
+    func createTransaction(to address: String, withPaymentId paymentId: String, amount: Amount?, priority: TransactionPriority) -> Promise<PendingTransaction> {
         // FIX-ME: Not implemented
         
         return Promise { _, _ in

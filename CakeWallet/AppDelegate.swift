@@ -14,6 +14,7 @@ import IQKeyboardManagerSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var rememberedViewController: UIViewController?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.sharedManager().enable = true
@@ -37,11 +38,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        let account: Account & AuthenticationProtocol = try! container.resolve() as AccountImpl
+        
+        guard account.isAuthenticated() else {
+            return
+        }
+        
+        if let _ = window?.rootViewController?.presentationController {
+            window?.rootViewController?.dismiss(animated: false)
+            rememberedViewController = window?.rootViewController
+        } else if rememberedViewController != nil {
+            rememberedViewController = window?.rootViewController
+        }
+        
+        let authScreen = try! container.resolve(arguments: account) as AuthenticateViewController
+        authScreen.onLogined = {
+            self.window?.rootViewController = self.rememberedViewController
+        }
+        
+        window?.rootViewController = authScreen
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -51,6 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func initConfigurations() {
         if UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri) == nil {
             UserDefaults.standard.set(Configurations.defaultNodeUri, forKey: Configurations.DefaultsKeys.nodeUri)
+        }
+        
+        if UserDefaults.standard.value(forKey: Configurations.DefaultsKeys.currency.stringify()) == nil {
+            UserDefaults.standard.set(Configurations.defaultCurreny.rawValue, forKey: Configurations.DefaultsKeys.currency)
         }
         
         // FIX-ME: Replce to migration and make migrations.

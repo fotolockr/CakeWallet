@@ -199,7 +199,7 @@ final class MoneroWalletType: WalletProtocol {
     }
     
     func createTransaction(to address: String, withPaymentId paymentId: String,
-                           amount: Amount, priority: TransactionPriority) -> Promise<PendingTransaction> {
+                           amount: Amount?, priority: TransactionPriority) -> Promise<PendingTransaction> {
         return Promise { fulfill, reject in
             DispatchQueue.global(qos: .background).async {
                 do {
@@ -207,7 +207,7 @@ final class MoneroWalletType: WalletProtocol {
                     let moneroPendingTransactionAdapter = try self.moneroAdapter.createTransaction(
                         toAddress: address,
                         withPaymentId: paymentId,
-                        amountStr: amount.formatted(),
+                        amountStr: amount?.formatted(),
                         priority: priorityRaw)
                     let moneroPendingTransaction = MoneroPendingTransaction(moneroPendingTransactionAdapter: moneroPendingTransactionAdapter)
                     fulfill(moneroPendingTransaction)

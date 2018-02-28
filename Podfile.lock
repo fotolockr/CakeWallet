@@ -19,6 +19,7 @@ PODS:
   - SnapKit (4.0.0)
   - Starscream (3.0.3)
   - SwiftKeychainWrapper (3.0.1)
+  - SwiftSoup (1.6.1)
 
 DEPENDENCIES:
   - Dip
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.0)
   - Starscream (~> 3.0.2)
   - SwiftKeychainWrapper
+  - SwiftSoup
 
 SPEC CHECKSUMS:
   Dip: 316ad036509eaf3ef78e19699f32a9e01a5b3c3e
@@ -43,7 +45,8 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   Starscream: dfb1b3f39506717ee52b67fb48de0c8269504cbc
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
+  SwiftSoup: 1eedf56f751b36035ae6c95562f86944c9cfafee
 
-PODFILE CHECKSUM: a1164f5f17f282a88c878d9b54615115cb56876b
+PODFILE CHECKSUM: 729667f84c859f4cc31262aeeeac71f5394c0541
 
 COCOAPODS: 1.4.0

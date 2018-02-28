@@ -225,15 +225,22 @@ struct MoneroWalletAdapterMember {
 
 - (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority error: (NSError *__autoreleasing *) error
 {
-    uint64_t amount;
-    string amountStdString = [amount_str UTF8String];
+    
     string addressStdString = [address UTF8String];
     string paymentIdStdString = [paymentId UTF8String];
-    cryptonote::parse_amount(amount, amountStdString);
     uint32_t mixin = member->wallet->defaultMixin();
     
     Monero::PendingTransaction::Priority _priopity = static_cast<Monero::PendingTransaction::Priority>(priority);
-    Monero::PendingTransaction *tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity);
+    Monero::PendingTransaction *tx;
+    if (amount_str != nil) {
+        uint64_t amount;
+        string amountStdString = [amount_str UTF8String];
+        cryptonote::parse_amount(amount, amountStdString);
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity);
+    } else {
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, Monero::optional<uint64_t>(), mixin, _priopity);
+    }
+    
     int status = tx->status();
     
     if (status == Monero::PendingTransaction::Status::Status_Error

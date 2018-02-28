@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RateTicker {
-    typealias RateListener = (Double) -> Void
+    typealias RateListener = (Currency, Double) -> Void
     var rate: Double { get }
     
     func add(listener: @escaping  RateListener)

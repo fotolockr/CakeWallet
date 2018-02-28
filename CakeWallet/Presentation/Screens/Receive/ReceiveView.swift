@@ -58,8 +58,10 @@ final class ReceiveView: BaseView {
     private static let qrImageViewSize = CGSize(width: 175, height: 175)
     let qrImageView: UIImageView
     let addressLabel: UILabel
+    let amountTextField: UITextField
     
     required init() {
+        amountTextField = FloatingLabelTextField(placeholder: "Amount (optional)", title: "Amount")
         qrImageView = UIImageView()
         addressLabel = UILabel(font: .avenirNextMedium(size: 17))
         super.init()
@@ -72,8 +74,10 @@ final class ReceiveView: BaseView {
         addressLabel.numberOfLines = 0
         addressLabel.textAlignment = .center
         addressLabel.textColor = UIColor(hex: 0xA682FF) // FIX-ME: Unnamed constant
+        amountTextField.keyboardType = .decimalPad
         addSubview(qrImageView)
         addSubview(addressLabel)
+        addSubview(amountTextField)
     }
     
     override func configureConstraints() {
@@ -90,6 +94,12 @@ final class ReceiveView: BaseView {
             make.top.equalTo(qrImageView.snp.bottom).offset(25)
             make.leading.equalTo(25)
             make.trailing.equalTo(-25)
+        }
+        
+        amountTextField.snp.makeConstraints { make in
+            make.top.equalTo(addressLabel.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
         }
     }
 }

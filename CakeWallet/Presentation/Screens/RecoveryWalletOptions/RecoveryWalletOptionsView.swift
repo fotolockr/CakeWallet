@@ -14,8 +14,8 @@ final class RecoveryWalletOptionsView: BaseView {
     let keysButton: UIButton
     
     required init() {
-        seedButton = PrimaryButton(title: "Recovery from seed")
-        keysButton = PrimaryButton(title: "Recovery from keys")
+        seedButton = PrimaryButton(title: "Recover from seed")
+        keysButton = PrimaryButton(title: "Recover from keys")
         orLabel = UILabel(font: .avenirNextMedium(size: 17))
         super.init()
     }

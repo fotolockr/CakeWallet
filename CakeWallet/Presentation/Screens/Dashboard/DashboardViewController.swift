@@ -18,6 +18,7 @@ final class DashboardViewController: BaseViewController<DashboardView>,
     var presentReceiveScreen: VoidEmptyHandler
     var presentTransactionDetails: ((TransactionDescription) -> Void)?
     private let wallet: WalletProtocol
+    private let account: CurrencySettingsConfigurable
     private let rateTicker: RateTicker
     private var transactions: TransactionHistory
     private var _transactions: [Array<TransactionDescription>.SectionOfTransactions] {
@@ -28,7 +29,8 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         }
     }
     
-    init(wallet: WalletProtocol, rateTicker: RateTicker) {
+    init(account: CurrencySettingsConfigurable, wallet: WalletProtocol, rateTicker: RateTicker) {
+        self.account = account
         self.wallet = wallet
         self.rateTicker = rateTicker
         self.transactions = EmptyTransactionHistory()
@@ -83,13 +85,16 @@ final class DashboardViewController: BaseViewController<DashboardView>,
             }
         }
         
-        rateTicker.add { [weak self] _ in
+        rateTicker.add { [weak self] currency, _ in
+            self?.setCurrency(currency)
             self?.updateRateBalance()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setCurrency(account.currency)
+        updateRateBalance()
         setStatus(wallet.status)
     }
     
@@ -160,6 +165,10 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: halfSizePresentationController, action: #selector(halfSizePresentationController.hide))
         nav.topViewController?.navigationItem.leftBarButtonItem = doneButton
         return halfSizePresentationController
+    }
+    
+    private func setCurrency(_ currency: Currency) {
+        contentView.balanceViewContainer.contentView.setCurrency(currency)
     }
     
     private func updateRateBalance() {

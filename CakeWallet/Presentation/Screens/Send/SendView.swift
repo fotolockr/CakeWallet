@@ -7,39 +7,18 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
-
-final class FloatingLabelTextField: SkyFloatingLabelTextField {
-    convenience init(placeholder: String) {
-        self.init(placeholder: placeholder, title: placeholder)
-    }
-    
-    init(placeholder: String, title: String) {
-        super.init(frame: .zero)
-        self.placeholder = placeholder
-        self.title = title
-        configureView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func configureView() {
-        //        backgroundColor = .gray
-    }
-}
 
 final class SendView: BaseView {
     let addressTextField: UITextField
     let amountInMoneroTextField: UITextField
-    let amountInAnotherCuncurrencyTextField: UITextField
+    let amountInAnotherCuncurrencyTextField: FloatingLabelTextField
     let paymenyIdTextField: UITextField
     let sendButton: UIButton
     let qrScanButton: UIButton
     let estimatedTitleLabel: UILabel
     let estimatedValueLabel: UILabel
     let feePriorityDescriptionLabel: UILabel
+    let allAmountButton: UIButton
     
     required init() {
         addressTextField = FloatingLabelTextField(placeholder: "Monero address")
@@ -57,6 +36,7 @@ final class SendView: BaseView {
         estimatedTitleLabel = UILabel(font: .avenirNextMedium(size: 17))
         estimatedValueLabel = UILabel(font: .avenirNextMedium(size: 14))
         feePriorityDescriptionLabel = UILabel(font: .avenirNextMedium(size: 14))
+        allAmountButton = SecondaryButton(title: "All".uppercased())
         super.init()
     }
     
@@ -73,6 +53,7 @@ final class SendView: BaseView {
         addSubview(estimatedTitleLabel)
         addSubview(estimatedValueLabel)
         addSubview(feePriorityDescriptionLabel)
+        addSubview(allAmountButton)
         feePriorityDescriptionLabel.numberOfLines = 0
         feePriorityDescriptionLabel.textColor = .gray
         estimatedTitleLabel.text = "Estimated fee:"
@@ -80,6 +61,8 @@ final class SendView: BaseView {
     }
     
     override func configureConstraints() {
+        let allAmountButtonWidth = 75
+        
         addressTextField.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(25)
             make.leading.equalToSuperview().offset(20)
@@ -99,17 +82,24 @@ final class SendView: BaseView {
             make.trailing.equalToSuperview().offset(-20)
         }
         
+        allAmountButton.snp.makeConstraints { make in
+            make.top.equalTo(amountInMoneroTextField.snp.top)
+            make.leading.equalTo(amountInAnotherCuncurrencyTextField.snp.trailing).offset(10)
+            make.width.equalTo(allAmountButtonWidth)
+            make.height.equalTo(amountInMoneroTextField.snp.height)
+        }
+        
         amountInMoneroTextField.snp.makeConstraints { make in
             make.top.equalTo(paymenyIdTextField.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(20)
-            make.width.greaterThanOrEqualToSuperview().multipliedBy(0.5).inset(15)
+            make.width.greaterThanOrEqualToSuperview().multipliedBy(0.4).inset(10 + allAmountButtonWidth)
             make.trailing.equalTo(amountInAnotherCuncurrencyTextField.snp.leading).offset(-10)
         }
         
         amountInAnotherCuncurrencyTextField.snp.makeConstraints { make in
             make.top.equalTo(amountInMoneroTextField.snp.top)
             make.width.equalTo(amountInMoneroTextField.snp.width)
-            make.trailing.equalToSuperview().offset(-20)
+            make.trailing.equalToSuperview().offset(-25 + (allAmountButtonWidth * -1))
         }
         
         sendButton.snp.makeConstraints { make in

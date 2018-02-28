@@ -47,6 +47,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
         title = "Receive"
         let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showMenu))
         self.navigationItem.rightBarButtonItem = shareButton
+        contentView.amountTextField.addTarget(self, action: #selector(onAmountChange(_:)), for: .editingChanged)
         setAddress()
     }
     
@@ -65,9 +66,23 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
         }
     }
     
+    @objc
+    private func onAmountChange(_ textField: UITextField) {
+        guard let amountStr = textField.text else {
+            return
+        }
+        
+        let amount = MoneroAmount(amount: amountStr)
+        setQrCode(MoneroUri(address: address, amount: amount))
+    }
+    
     private func setAddress() {
         contentView.addressLabel.text = address
-        contentView.qrImageView.image = QRCode(address)?.image
+        setQrCode(MoneroUri(address: address))
+    }
+    
+    private func setQrCode(_ uri: MoneroUri) {
+        contentView.qrImageView.image = QRCode(uri.formatted())?.image
     }
     
     private func sendText(message: String) {
