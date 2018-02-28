@@ -77,3 +77,55 @@ final class LoginViewController: BaseViewController<BaseView>, BiometricAuthenti
         }
     }
 }
+
+final class AuthenticateViewController: BaseViewController<BaseView>, BiometricAuthenticationActions, BiometricLoginPresentable {
+    
+    // MARK: Property injections
+    
+    var onBiometricAuthenticate: () -> Promise<Void> {
+        return account.biometricAuthentication
+    }
+    
+    var onLogined: VoidEmptyHandler
+    private let account: Account & AuthenticationProtocol
+    private let pinViewController: PinPasswordViewController
+    
+    init(account: Account & AuthenticationProtocol) {
+        self.account = account
+        self.pinViewController = try! container.resolve(arguments: false) as PinPasswordViewController
+        super.init()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        pinViewController.pin { [weak self] in self?.authentication(withPassword: $0) }
+        view.addSubview(pinViewController.view)
+        pinViewController.view.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        if account.biometricAuthenticationIsAllow() {
+            biometricLogin() {
+                self.onLogined?()
+            }
+        }
+    }
+    
+    private func authentication(withPassword password: String) {
+        let alert =  UIAlertController.showSpinner(message: "Authenticating")
+        present(alert, animated: true)
+        
+        account.authenticate(password: password)
+            .then { [weak self] in
+                alert.dismiss(animated: false) {
+                    self?.onLogined?()
+                }
+            }.catch { [weak self] error in
+                alert.dismiss(animated: true) {
+                    self?.pinViewController.empty()
+                    self?.pinViewController.showError(error)
+                }
+        }
+    }
+}
+

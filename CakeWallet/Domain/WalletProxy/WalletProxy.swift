@@ -93,7 +93,7 @@ final class WalletProxy: Proxable, WalletProtocol {
         return origin.changePassword(oldPassword: oldPassword, newPassword: newPassword)
     }
     
-    func createTransaction(to address: String, withPaymentId paymentId: String, amount: Amount,
+    func createTransaction(to address: String, withPaymentId paymentId: String, amount: Amount?,
                            priority: TransactionPriority) -> Promise<PendingTransaction> {
         return origin.createTransaction(to: address, withPaymentId: paymentId, amount: amount, priority: priority)
     }
