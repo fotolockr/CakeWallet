@@ -169,6 +169,8 @@
 		CA4DF8B32034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */; };
 		CA4DF8B62034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */; };
 		CA4DF8B82034CC03002B0AB4 /* RecoveryWalletFromKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B72034CC03002B0AB4 /* RecoveryWalletFromKeysViewController.swift */; };
+		CA641B4020489FF000FFD6BA /* isNetworkReachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA641B3F20489FF000FFD6BA /* isNetworkReachable.swift */; };
+		CA641B422048A00400FFD6BA /* checkIsConnected.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA641B412048A00400FFD6BA /* checkIsConnected.swift */; };
 		CAA82A942035DFA400D8FD92 /* WalletKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A932035DFA400D8FD92 /* WalletKey.swift */; };
 		CAA82A972035E45D00D8FD92 /* WalletKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A962035E45D00D8FD92 /* WalletKeysView.swift */; };
 		CAA82A992035E47400D8FD92 /* WalletKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A982035E47400D8FD92 /* WalletKeyViewController.swift */; };
@@ -375,6 +377,8 @@
 		CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletOptionsViewController.swift; sourceTree = "<group>"; };
 		CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletFromKeysView.swift; sourceTree = "<group>"; };
 		CA4DF8B72034CC03002B0AB4 /* RecoveryWalletFromKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletFromKeysViewController.swift; sourceTree = "<group>"; };
+		CA641B3F20489FF000FFD6BA /* isNetworkReachable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isNetworkReachable.swift; sourceTree = "<group>"; };
+		CA641B412048A00400FFD6BA /* checkIsConnected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkIsConnected.swift; sourceTree = "<group>"; };
 		CAA82A932035DFA400D8FD92 /* WalletKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKey.swift; sourceTree = "<group>"; };
 		CAA82A962035E45D00D8FD92 /* WalletKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKeysView.swift; sourceTree = "<group>"; };
 		CAA82A982035E47400D8FD92 /* WalletKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKeyViewController.swift; sourceTree = "<group>"; };
@@ -654,6 +658,8 @@
 				0C33020D1FDDD8FA008F58A4 /* StandartTitledView.swift */,
 				0C8D551C202CABE4002B30BE /* String+slice.swift */,
 				0C8D551E202CAC44002B30BE /* MoneroQRResult.swift */,
+				CA641B3F20489FF000FFD6BA /* isNetworkReachable.swift */,
+				CA641B412048A00400FFD6BA /* checkIsConnected.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1187,6 +1193,7 @@
 				0CFCAFE61FD5F3A2004EF698 /* Wallets+WalletsSeedFetchable.swift in Sources */,
 				0CE7392C1FA9EB2E00F6DDDC /* DashboardViewController.swift in Sources */,
 				0C22E4AF1F8D3B6D00C12A14 /* BaseViewController.swift in Sources */,
+				CA641B4020489FF000FFD6BA /* isNetworkReachable.swift in Sources */,
 				0C22E4871F8D34CB00C12A14 /* Roundable.swift in Sources */,
 				0C6051BB1FD0C2760041D2D4 /* RootFlow.swift in Sources */,
 				0C8CBEA11FB503F200E1A0B7 /* EmptyInitializable.swift in Sources */,
@@ -1252,6 +1259,7 @@
 				0C868FA41F94CB5600EA5FD1 /* UIWindow+extensions.swift in Sources */,
 				CA4DF8B32034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift in Sources */,
 				0CC827FE1FD0D4E4002A5796 /* WalletsRecoverable.swift in Sources */,
+				CA641B422048A00400FFD6BA /* checkIsConnected.swift in Sources */,
 				0CB2CA2D1FD82A1C002EF5D0 /* TransactionDetailsView.swift in Sources */,
 				0C8D551F202CAC44002B30BE /* MoneroQRResult.swift in Sources */,
 				0C616C021F93DA3F007AD9A4 /* RecoveryView.swift in Sources */,

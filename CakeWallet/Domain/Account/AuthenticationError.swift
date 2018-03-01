@@ -13,3 +13,14 @@ enum AuthenticationError: Error {
     case exceededNumberOfFailedAuthorizations
 }
 
+extension AuthenticationError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .incorrectPassword:
+            return NSLocalizedString("Incorrect Pin password", comment: "")
+        case .exceededNumberOfFailedAuthorizations:
+            return NSLocalizedString("Exceeded number of failed authorizations", comment: "")
+        }
+    }
+}
+

@@ -134,11 +134,15 @@ final class WalletProxy: Proxable, WalletProtocol {
         var isFirstConnect = true
         timer = UTimer(deadline: .now(), repeating: .seconds(3), queue: backgroundConnectionTimerQueue)
         timer?.listener = { [weak self] in
+            print("start listener")
+            
             guard
                 let isConnected = self?.isConnected,
                 let status = self?.status else {
                 return
             }
+            
+            print("isConnected \(isConnected)")
             
             if isFirstConnect || (!isConnected && !isConnecting) {
                 guard let settings = ConnectionSettings.loadSavedSettings() else {
@@ -178,6 +182,16 @@ final class WalletProxy: Proxable, WalletProtocol {
                 }
             } else if isConnecting && !isConnected {
                 isConnecting = false
+                
+                if let status = self?.status {
+                    switch status {
+                    case .failedConnection, .notConnected:
+                        break
+                    default:
+                        let now = Date()
+                        self?.status = .failedConnection(now)
+                    }
+                }
             }
         }
         

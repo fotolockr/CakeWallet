@@ -105,20 +105,10 @@ final class MoneroWalletGateway: WalletGateway {
             DispatchQueue.global(qos: .background).async {
                 do {
                     let isRecovery = true
-                    var moneroAdapter = MoneroWalletAdapter()!
+                    let moneroAdapter = MoneroWalletAdapter()!
                     try moneroAdapter.recoveryFromKey(at: self.makePath(for: name), withPublicKey: publicKey, andViewKey: viewKey, andSpendKey: spendKey, withRestoreHeight: restoreHeight)
                     self.saveIsRecovery(for: name)
                     try moneroAdapter.setPassword(password)
-                    
-                    // HACK - START
-                    moneroAdapter.setIsRecovery(isRecovery)
-                    try moneroAdapter.save()
-                    moneroAdapter.close()
-                    
-                    moneroAdapter = MoneroWalletAdapter()!
-                    try moneroAdapter.loadWallet(withPath: self.makePath(for: name), andPassword: password)
-                    moneroAdapter.setIsRecovery(isRecovery)
-                    // HACK - END
                     
                     let moneroWallet = MoneroWalletType(moneroAdapter: moneroAdapter, password: password, isRecovery: isRecovery, keychainStorage: try! container.resolve() as KeychainStorage)
                     fulfill(moneroWallet)
