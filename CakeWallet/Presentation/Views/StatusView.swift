@@ -2,8 +2,8 @@
 //  StatusView.swift
 //  Wallet
 //
-//  Created by FotoLockr on 12/8/17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 12/8/17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -11,8 +11,7 @@ import UIKit
 protocol StatusView {
     func initProgress(description: String, initialProgress: Float, icon: UIImage?)
     func initProgress(description: String, initialProgress: Float)
-    func updateProgress(_ progress: Float, text: String)
-    func updateProgress(_ progress: Float)
+    func updateProgress(_ updatingProgress: NewBlockUpdate)
     func finishProgress(withText text: String)
     func finishProgress(withText text: String, icon: UIImage?)
     func finishProgress()
@@ -114,10 +113,11 @@ extension StatusViewImpl: StatusView {
         descriptionLabel.text = text
     }
     
-    func updateProgress(_ progress: Float) {
+    func updateProgress(_ updatingProgress: NewBlockUpdate) {
+        let progress = updatingProgress.calculateProgress()
         let percents = progress * 100
         progressView.progress = progress
-        descriptionLabel.text = "Progress: \(String(format: "%.2f", percents))%"
+        descriptionLabel.text = "Blocks remaining: \(updatingProgress.blocksRemaining) (\(String(format: "%.2f", percents))%)"
         
         if progressView.isHidden {
             progressView.isHidden = false
@@ -156,16 +156,18 @@ extension StatusViewImpl: StatusView {
             let formatter = DateComponentsFormatter()
             formatter.allowedUnits = [.hour, .minute, .second]
             formatter.unitsStyle = .short
-
-            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] _ in
-                let time = Date().timeIntervalSince(date)
-                
-                if let formattedDate = formatter.string(from: time) {
-                    self?.setDescription("Trying to connect to remote node (\(formattedDate)).", hideProgressBar: true)
-                } else {
-                    self?.setDescription("Trying to connect to remote node.", hideProgressBar: true)
-                }
-            })
+            
+            if self.timer == nil {
+                self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] _ in
+                    let time = Date().timeIntervalSince(date)
+                    
+                    if let formattedDate = formatter.string(from: time) {
+                        self?.setDescription("Trying to connect to remote node (\(formattedDate)).", hideProgressBar: true)
+                    } else {
+                        self?.setDescription("Trying to connect to remote node.", hideProgressBar: true)
+                    }
+                })
+            }
             // Failed connection to daemon.
             setDescription("Trying to connect to remote node.", hideProgressBar: true)
             self.timer?.fire()
@@ -186,7 +188,7 @@ extension StatusViewImpl: StatusView {
                     size: CGSize(width: 15, height: 15)))
             
         case let .updating(status):
-            updateProgress(status.progress)
+            updateProgress(status)
         }
     }
     

@@ -2,14 +2,20 @@
 //  UTimer.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 27.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 27.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import Foundation
 
 final class UTimer {
-    var listener: (() -> Void)?
+    var listener: (() -> Void)? {
+        didSet {
+            timer.setEventHandler { [weak self] in
+                self?.listener?()
+            }
+        }
+    }
     
     private enum State {
         case suspended
@@ -20,13 +26,10 @@ final class UTimer {
     private var state: State = .suspended
     
     init(deadline deadlineTime: DispatchTime, repeating repeatingTime: DispatchTimeInterval,
-         queue: DispatchQueue? = nil,  eventHandler: (() -> Void)?) {
-        self.listener = eventHandler
+         queue: DispatchQueue? = nil,  eventHandler: (() -> Void)? = nil) {
         timer = DispatchSource.makeTimerSource(queue: queue)
         timer.schedule(deadline: deadlineTime, repeating: repeatingTime)
-        timer.setEventHandler(handler: { [weak self] in
-            self?.listener?()
-        })
+        self.listener = eventHandler
     }
     
     deinit {

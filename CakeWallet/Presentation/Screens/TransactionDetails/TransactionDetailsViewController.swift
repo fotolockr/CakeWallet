@@ -2,8 +2,8 @@
 //  TransactionDetailsViewController.swift
 //  Wallet
 //
-//  Created by FotoLockr on 12/6/17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 12/6/17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -12,7 +12,7 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
                                               UITableViewDelegate,
                                               UITableViewDataSource {
     enum Row: Int, Stringify {
-        case id, paymentId, date, amount, fee
+        case id, paymentId, date, amount, height, fee
         
         func stringify() -> String {
             let str: String
@@ -28,6 +28,8 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
                 str = "Amount"
             case .fee:
                 str = "Fee"
+            case .height:
+                str = "Height"
             }
             
             return str
@@ -57,6 +59,7 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
         rows[.date] = dateFormatter.string(from: transaction.date)
         rows[.amount] = transaction.totalAmount.formatted()
         rows[.paymentId] = transaction.paymentId
+        rows[.height] = "\(transaction.height)"
         
         if transaction.direction != .incoming {
             rows[.fee] = transaction.fee.formatted()
@@ -64,6 +67,10 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
     }
     
     // MARK: UITableViewDataSource
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rows.count
@@ -74,7 +81,7 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
             let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionDetailsUITableViewCell", for: indexPath) as? TransactionDetailsUITableViewCell,
             let row = Row(rawValue: indexPath.row),
             let value = rows[row] else {
-            return UITableViewCell()
+                return UITableViewCell()
         }
         
         cell.configure(title: row.stringify(), value: value)
@@ -101,7 +108,7 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
         guard
             let row = Row(rawValue: indexPath.row),
             let value = rows[row] else {
-            return
+                return
         }
         
         UIPasteboard.general.string  = value

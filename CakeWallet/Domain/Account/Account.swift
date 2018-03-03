@@ -2,12 +2,18 @@
 //  Account.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 30.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 30.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import Foundation
 import PromiseKit
+
+protocol CurrencySettingsConfigurable {
+    var currency: Currency { get  set }
+    func subscribeOnRateChange(_ subscriber: @escaping (Double) -> Void)
+    func rate() -> Promise<Double>
+}
 
 protocol AccountSettingsConfigurable {
     var isBiometricalAuthAllow: Bool { get set }
@@ -16,9 +22,10 @@ protocol AccountSettingsConfigurable {
     var connectionSettings: ConnectionSettings { get }
     
     func change(connectionSettings: ConnectionSettings) -> Promise<Void>
+    func resetConnectionSettings() -> ConnectionSettings
 }
 
-protocol Account: class, AccountSettingsConfigurable {
+protocol Account: class, AccountSettingsConfigurable, CurrencySettingsConfigurable {
     var currentWallet: WalletProtocol { get }
     var currentWalletName: String? { get }
     
@@ -28,6 +35,7 @@ protocol Account: class, AccountSettingsConfigurable {
     func wallets() -> Wallets
     func walletsList() -> Promise<WalletsList>
     func loadCurrentWallet() -> Promise<Void>
+    func isAuthenticated() -> Bool
 }
 
 extension Account {

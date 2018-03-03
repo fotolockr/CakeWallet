@@ -2,8 +2,8 @@
 //  WalletUITableCell.swift
 //  Wallet
 //
-//  Created by FotoLockr on 24.10.17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 24.10.17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -27,7 +27,11 @@ final class WalletUITableViewCell: UITableViewCell {
         }
     }
     
-    func configure(name: String) {
-        textLabel?.text = name
+    func configure(name: String, isWatchOnly: Bool) {
+        if isWatchOnly {
+            textLabel?.text = "\(name) (watch-only)"
+        } else {
+            textLabel?.text = name
+        }
     }
 }

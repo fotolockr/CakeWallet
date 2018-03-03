@@ -2,8 +2,8 @@
 //  KeychainKey.swift
 //  Wallet
 //
-//  Created by FotoLockr on 12/5/17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 12/5/17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import Foundation
@@ -16,6 +16,7 @@ enum KeychainKey {
     case walletPassword(WalletIndex)
     case seed(WalletIndex)
     case isNew(WalletIndex)
+    case isWatchOnly(WalletIndex)
     
     var patch: String {
         switch self {
@@ -27,6 +28,8 @@ enum KeychainKey {
             return formattedWalletPasswordKey(forWalletName: index.name, andType: index.type)
         case let .isNew(index):
             return formattedIsNewKey(forWalletName: index.name, andType: index.type)
+        case let .isWatchOnly(index):
+            return formattedWalletIsWatchOnlyKey(forWalletName: index.name, andType: index.type)
         }
     }
     
@@ -39,6 +42,10 @@ enum KeychainKey {
     }
     
     private func formattedWalletSeedKey(forWalletName walletName: String, andType type: WalletType) -> String {
+        return formattedWalletKey(forWalletName: walletName, andType: type) + "_is_watch_only"
+    }
+    
+    private func formattedWalletIsWatchOnlyKey(forWalletName walletName: String, andType type: WalletType) -> String {
         return formattedWalletKey(forWalletName: walletName, andType: type) + "_seed"
     }
     

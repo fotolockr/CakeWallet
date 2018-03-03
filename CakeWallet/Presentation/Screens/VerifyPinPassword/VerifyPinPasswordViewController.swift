@@ -2,8 +2,8 @@
 //  VerifyPinPasswordViewController.swift
 //  Wallet
 //
-//  Created by FotoLockr on 11/23/17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 11/23/17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -14,6 +14,7 @@ final class VerifyPinPasswordViewController: BaseViewController<BaseView>, Biome
     // MARK: Property injections
     
     var onVerified: VoidEmptyHandler
+    var onClose: VoidEmptyHandler
     var onBiometricAuthenticate: () -> Promise<Void> {
         return account.biometricAuthentication
     }
@@ -29,7 +30,7 @@ final class VerifyPinPasswordViewController: BaseViewController<BaseView>, Biome
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if account.biometricAuthenticationIsAllow() {
+        if account.biometricAuthenticationIsAllow() && !account.isPasswordRemembered {
             self.biometricLogin() { self.onVerified?() }
         }
     }
@@ -41,7 +42,10 @@ final class VerifyPinPasswordViewController: BaseViewController<BaseView>, Biome
 
     override func configureBinds() {
         configureView()
-        pinPasswordViewController.onCloseHandler = { [weak self] in self?.dismiss(animated: true) }
+        pinPasswordViewController.onCloseHandler = { [weak self] in
+            self?.onClose?()
+            self?.dismiss(animated: true)
+        }
 
         pinPasswordViewController.pin { [weak self] pinPassword in
             let alert = UIAlertController.showSpinner(message: "Verifying password")

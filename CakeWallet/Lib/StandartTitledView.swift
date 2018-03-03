@@ -2,8 +2,8 @@
 //  DefaultTitledView.swift
 //  Wallet
 //
-//  Created by FotoLockr on 12/10/17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 12/10/17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -13,7 +13,7 @@ final class StandartTitledView: UIView {
     let subtitleLabel: UILabel
     
     init() {
-        titleLabel = UILabel(font: .avenirNextMedium(size: 32))
+        titleLabel = UILabel(font: .avenirNextMedium(size: 28))
         subtitleLabel = UILabel(font: .avenirNextMedium(size: 14))
         super.init(frame: .zero)
         configureView()
