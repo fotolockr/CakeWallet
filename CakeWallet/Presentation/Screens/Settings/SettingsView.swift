@@ -18,7 +18,6 @@ final class SettingsView: BaseView {
     
     override func configureView() {
         super.configureView()
-        table.sectionHeaderHeight = 50
         table.tableFooterView = UIView(frame: .zero)
         table.backgroundColor = .clear
         

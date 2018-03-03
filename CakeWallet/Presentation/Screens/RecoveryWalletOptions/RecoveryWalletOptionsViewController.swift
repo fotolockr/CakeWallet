@@ -2,8 +2,8 @@
 //  RecoveryWalletOptionsViewController.swift
 //  CakeWallet
 //
-//  Created by Mykola Misiura on 14.02.2018.
-//  Copyright © 2018 Mykola Misiura. All rights reserved.
+//  Created by Cake Technologies on 14.02.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import UIKit

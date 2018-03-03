@@ -15,4 +15,6 @@ target 'CakeWallet' do
     pod 'SnapKit', '~> 4.0.0'
     pod "PromiseKit", "~> 4.4"
     pod 'SkyFloatingLabelTextField', '~> 3.0'
+    
+    pod 'SwiftSoup'
 end

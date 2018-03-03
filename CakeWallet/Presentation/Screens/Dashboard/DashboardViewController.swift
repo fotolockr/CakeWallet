@@ -12,12 +12,14 @@ import FontAwesome_swift
 final class DashboardViewController: BaseViewController<DashboardView>,
                                      UITableViewDelegate,
                                      UIViewControllerTransitioningDelegate,
-                                     UITableViewDataSource {
+                                     UITableViewDataSource,
+                                     ModalPresentaly {
     var presentSettingsScreen: VoidEmptyHandler
     var presentSendScreen: VoidEmptyHandler
     var presentReceiveScreen: VoidEmptyHandler
     var presentTransactionDetails: ((TransactionDescription) -> Void)?
     private let wallet: WalletProtocol
+    private let account: CurrencySettingsConfigurable
     private let rateTicker: RateTicker
     private var transactions: TransactionHistory
     private var _transactions: [Array<TransactionDescription>.SectionOfTransactions] {
@@ -28,7 +30,8 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         }
     }
     
-    init(wallet: WalletProtocol, rateTicker: RateTicker) {
+    init(account: CurrencySettingsConfigurable, wallet: WalletProtocol, rateTicker: RateTicker) {
+        self.account = account
         self.wallet = wallet
         self.rateTicker = rateTicker
         self.transactions = EmptyTransactionHistory()
@@ -83,21 +86,17 @@ final class DashboardViewController: BaseViewController<DashboardView>,
             }
         }
         
-        rateTicker.add { [weak self] _ in
+        rateTicker.add { [weak self] currency, _ in
+            self?.setCurrency(currency)
             self?.updateRateBalance()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setCurrency(account.currency)
+        updateRateBalance()
         setStatus(wallet.status)
-    }
-    
-    func presentModal(_ viewController: UIViewController) {
-        viewController.modalPresentationStyle = .custom
-        viewController.transitioningDelegate = self
-       
-        self.present(viewController, animated: true)
     }
     
     // MARK: UITableViewDataSource
@@ -162,6 +161,10 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         return halfSizePresentationController
     }
     
+    private func setCurrency(_ currency: Currency) {
+        contentView.balanceViewContainer.contentView.setCurrency(currency)
+    }
+    
     private func updateRateBalance() {
         let rateBalance = convertXMRtoUSD(amount: wallet.balance.formatted(), rate: rateTicker.rate)
         contentView.balanceViewContainer.contentView.alternativeBalance = rateBalance
@@ -211,85 +214,5 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         UIAlertController.showInfo(
             message: "Do not send XMR to this address until the update is complete.\nPlease wait.",
             presentOn: self)
-    }
-}
-
-class HalfSizePresentationController: UIPresentationController {
-    static var offsetMultiplier: CGFloat {
-        // FIX-ME: HARDCODE
-        
-        let height = UIScreen.main.bounds.height
-        return height <= 568 ? 0 : 0.4
-    }
-    
-    lazy var backgroundView: UIView = {
-        let view = UIView(
-            frame: CGRect(
-                x: 0,
-                y: 0,
-                width: containerView!.bounds.width,
-                height: containerView!.bounds.height))
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hide))
-        view.addGestureRecognizer(tapGesture)
-        return view
-    }()
-    
-    override var frameOfPresentedViewInContainerView: CGRect {
-        let height = containerView!.bounds.height * (1.0 - type(of: self).offsetMultiplier)
-        let x: CGFloat = 0
-        let y = containerView!.bounds.height * type(of: self).offsetMultiplier
-        
-        return CGRect(
-            x: x,
-            y: y,
-            width: containerView!.bounds.width,
-            height: height)
-    }
-    
-    override func presentationTransitionWillBegin() {
-        if let containerView = self.containerView, let coordinator = presentingViewController.transitionCoordinator {
-            backgroundView.alpha = 0
-            containerView.addSubview(backgroundView)
-            
-            if
-                let nav = presentedViewController as? UINavigationController,
-                let vc = nav.viewControllers.last {
-                backgroundView.addSubview(vc.view)
-            } else {
-                backgroundView.addSubview(presentedViewController.view)
-            }
-            
-            coordinator.animate(alongsideTransition: { (context) -> Void in
-                self.backgroundView.alpha = 1
-            })
-        }
-    }
-    
-    override func dismissalTransitionWillBegin() {
-        if let coordinator = presentingViewController.transitionCoordinator {
-            coordinator.animate(alongsideTransition: { (context) -> Void in
-                self.backgroundView.alpha = 0
-            })
-        }
-    }
-    
-    override func dismissalTransitionDidEnd(_ completed: Bool) {
-        guard completed else {
-            return
-        }
-        
-        backgroundView.removeFromSuperview()
-    }
-    
-    @objc
-    func hide() {
-        if let nav = presentedViewController as? UINavigationController {
-            nav.viewControllers.last?.dismiss(animated: true) {
-                nav.viewControllers = []
-            }
-        } else {
-            presentedViewController.dismiss(animated: true)
-        }
     }
 }

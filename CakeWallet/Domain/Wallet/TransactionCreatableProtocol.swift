@@ -11,5 +11,5 @@ import PromiseKit
 
 protocol TransactionCreatableProtocol {
     func createTransaction(to address: String, withPaymentId paymentId: String,
-                           amount: Amount, priority: TransactionPriority) -> Promise<PendingTransaction>
+                           amount: Amount?, priority: TransactionPriority) -> Promise<PendingTransaction>
 }

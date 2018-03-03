@@ -23,7 +23,7 @@ final class RecoveryViewController: BaseViewController<RecoveryView> {
     }
     private weak var alert: UIAlertController?
     private var restoreHeight: UInt64 {
-        let heightStr = contentView.restoreHeightTextField.text ?? ""
+        let heightStr = contentView.restoreFromHeightView.restoreHeightTextField.text ?? ""
         return UInt64(heightStr) ?? 0
     }
     
@@ -31,10 +31,27 @@ final class RecoveryViewController: BaseViewController<RecoveryView> {
         self.wallets = wallets
         super.init()
     }
-
+    
     override func configureBinds() {
         title = "Recover wallet"
         contentView.confirmButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
+        contentView.restoreFromHeightView.datePicker.addTarget(self, action: #selector(onDateChange(_:)), for: .valueChanged)
+    }
+    
+    @objc
+    private func onDateChange(_ datePicker: UIDatePicker) {
+        let date = datePicker.date
+        
+        getHeight(from: date)
+            .then { [weak self] height -> Void in
+                guard height != 0 else {
+                    return
+                }
+                
+                self?.contentView.restoreFromHeightView.restoreHeightTextField.text = "\(height)"
+            }.catch { error in
+                print(error)
+        }
     }
     
     @objc

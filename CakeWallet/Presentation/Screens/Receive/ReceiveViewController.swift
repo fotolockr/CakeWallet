@@ -47,6 +47,8 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
         title = "Receive"
         let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showMenu))
         self.navigationItem.rightBarButtonItem = shareButton
+        contentView.amountTextField.addTarget(self, action: #selector(onAmountChange(_:)), for: .editingChanged)
+        contentView.copyAddressButton.addTarget(self, action: #selector(copyAction), for: .touchUpInside)
         setAddress()
     }
     
@@ -65,9 +67,23 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
         }
     }
     
+    @objc
+    private func onAmountChange(_ textField: UITextField) {
+        guard let amountStr = textField.text else {
+            return
+        }
+        
+        let amount = MoneroAmount(amount: amountStr)
+        setQrCode(MoneroUri(address: address, amount: amount))
+    }
+    
     private func setAddress() {
         contentView.addressLabel.text = address
-        contentView.qrImageView.image = QRCode(address)?.image
+        setQrCode(MoneroUri(address: address))
+    }
+    
+    private func setQrCode(_ uri: MoneroUri) {
+        contentView.qrImageView.image = QRCode(uri.formatted())?.image
     }
     
     private func sendText(message: String) {
@@ -135,5 +151,16 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
         alertViewController.addAction(sendTextMessageAction)
         alertViewController.addAction(cancelAction)
         present(alertViewController, animated: true)
+    }
+    
+    @objc
+    private func copyAction() {
+        UIPasteboard.general.string = address
+        let alert = UIAlertController(title: nil, message: "Copied", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        let time = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: time){
+            alert.dismiss(animated: true, completion: nil)
+        }
     }
 }

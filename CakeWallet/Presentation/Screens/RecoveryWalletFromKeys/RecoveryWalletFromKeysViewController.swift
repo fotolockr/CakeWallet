@@ -2,8 +2,8 @@
 //  RecoveryWalletFromKeysViewController.swift
 //  CakeWallet
 //
-//  Created by Mykola Misiura on 14.02.2018.
-//  Copyright © 2018 Mykola Misiura. All rights reserved.
+//  Created by Cake Technologies on 14.02.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -29,7 +29,7 @@ final class RecoveryWalletFromKeysViewController: BaseViewController<RecoveryWal
     }
     private weak var alert: UIAlertController?
     private var restoreHeight: UInt64 {
-        let heightStr = contentView.restoreHeightTextField.text ?? ""
+        let heightStr = contentView.restoreFromHeightView.restoreHeightTextField.text ?? ""
         return UInt64(heightStr) ?? 0
     }
     
@@ -42,6 +42,23 @@ final class RecoveryWalletFromKeysViewController: BaseViewController<RecoveryWal
         title = "Recover wallet"
         contentView.confirmButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
         contentView.watchOnlyDescriptionLabel.text = "* Leave this blank for a watch only wallet."
+        contentView.restoreFromHeightView.datePicker.addTarget(self, action: #selector(onDateChange(_:)), for: .valueChanged)
+    }
+    
+    @objc
+    private func onDateChange(_ datePicker: UIDatePicker) {
+        let date = datePicker.date
+        
+        getHeight(from: date)
+            .then { [weak self] height -> Void in
+                guard height != 0 else {
+                    return
+                }
+                
+                self?.contentView.restoreFromHeightView.restoreHeightTextField.text = "\(height)"
+            }.catch { error in
+                print(error)
+        }
     }
     
     @objc

@@ -38,10 +38,6 @@ final class PasswordKeyboardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        print("DEINIT PasswordKeyboardView")
-    }
-    
     private func drawKeyboardKeys() {
         var previousButtonWrapper: UIView? = nil
         var isNewRow = true

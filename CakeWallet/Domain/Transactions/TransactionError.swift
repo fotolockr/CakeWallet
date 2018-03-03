@@ -9,10 +9,10 @@
 import Foundation
 
 enum TransactionError: Error {
-    case insufficientFunds(Amount, Amount, Amount, Amount)
-    case overallBalance(Amount, Amount)
+    case insufficientFunds(Amount, Amount, Amount?, Amount)
+    case overallBalance(Amount, Amount?)
     
-    init?(from originError: NSError, amount: Amount, balance: Amount) {
+    init?(from originError: NSError, amount: Amount?, balance: Amount) {
         guard originError.code == 1006 else {
             return nil
         }
@@ -45,9 +45,9 @@ extension TransactionError: LocalizedError {
         
         switch self {
         case let .insufficientFunds(balcnce, totalAmount, amount, fee):
-            error = "Insufficient Funds.\nBalance is \(balcnce.formatted()).\nTotal required is \(totalAmount.formatted()) (amount: \(amount.formatted()) + fee: \(fee.formatted()))."
+            error = "Insufficient Funds.\nBalance is \(balcnce.formatted()).\nTotal required is \(totalAmount.formatted()) (amount: \(amount?.formatted()) + fee: \(fee.formatted()))."
         case let .overallBalance(balance, amount):
-            error = "Insufficient Balance.\nBalance is \(balance.formatted()).\nAmount is \(amount.formatted())"
+            error = "Insufficient Balance.\nBalance is \(balance.formatted()).\nAmount is \(amount?.formatted())"
         }
         
         return error

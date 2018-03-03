@@ -73,11 +73,14 @@ final class WalletProxy: Proxable, WalletProtocol {
     }
     
     func `switch`(origin: WalletProtocol) {
-        self.origin.close()
-        self.origin.clear()
+//        self.origin.close()
+//        self.origin.clear()
+        let oldWallet = self.origin
         self.origin = origin
         observeOrigin()
         onWalletChange()
+        oldWallet.close()
+        oldWallet.clear()
     }
     
     func save() -> Promise<Void> {
@@ -85,7 +88,6 @@ final class WalletProxy: Proxable, WalletProtocol {
     }
     
     func connect(withSettings settings: ConnectionSettings, updateState: Bool) -> Promise<Void> {
-        print("Connect CALLED")
         return origin.connect(withSettings: settings, updateState: updateState)
     }
     
@@ -93,7 +95,7 @@ final class WalletProxy: Proxable, WalletProtocol {
         return origin.changePassword(oldPassword: oldPassword, newPassword: newPassword)
     }
     
-    func createTransaction(to address: String, withPaymentId paymentId: String, amount: Amount,
+    func createTransaction(to address: String, withPaymentId paymentId: String, amount: Amount?,
                            priority: TransactionPriority) -> Promise<PendingTransaction> {
         return origin.createTransaction(to: address, withPaymentId: paymentId, amount: amount, priority: priority)
     }
@@ -132,17 +134,14 @@ final class WalletProxy: Proxable, WalletProtocol {
         
         var isConnecting = false
         var isFirstConnect = true
+        timer?.suspend()
         timer = UTimer(deadline: .now(), repeating: .seconds(3), queue: backgroundConnectionTimerQueue)
-        timer?.listener = { [weak self] in
-            print("start listener")
-            
+        timer?.listener = { [weak self] in            
             guard
                 let isConnected = self?.isConnected,
                 let status = self?.status else {
                 return
             }
-            
-            print("isConnected \(isConnected)")
             
             if isFirstConnect || (!isConnected && !isConnecting) {
                 guard let settings = ConnectionSettings.loadSavedSettings() else {

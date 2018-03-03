@@ -14,7 +14,7 @@ final class IconContainerView<ContentViewType: UIView>: UIView {
     let iconView: IconView
     
     convenience init(contentView: ContentViewType, fontAwesomeIcon: FontAwesome) {
-        let iconView = IconView.init(fontAwesomeIcon: fontAwesomeIcon)
+        let iconView = IconView(fontAwesomeIcon: fontAwesomeIcon)
         self.init(contentView: contentView, iconView: iconView)
     }
     

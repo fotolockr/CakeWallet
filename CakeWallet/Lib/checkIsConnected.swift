@@ -2,8 +2,8 @@
 //  checkIsConnected.swift
 //  CakeWallet
 //
-//  Created by Mykola Misiura on 01.03.2018.
-//  Copyright © 2018 Mykola Misiura. All rights reserved.
+//  Created by Cake Technologies on 01.03.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import Foundation
