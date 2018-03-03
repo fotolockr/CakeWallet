@@ -2,8 +2,8 @@
 //  BalanceView.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 26.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 26.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -64,7 +64,7 @@ final class BalanceView: BaseView {
         balanceDescriptionLabel.text = "Total balance (XMR)".uppercased()
         balanceDescriptionLabel.textColor = .lightGray
         balanceLabel.numberOfLines = 0
-        alternativeBalanceDescriptionLabel.text = "Rate balance (USD)".uppercased()
+        alternativeBalanceDescriptionLabel.text = "Rate balance".uppercased()
         alternativeBalanceDescriptionLabel.textColor = .lightGray
         unlockedBalanceDescriptionLabel.text = "Available  balance (XMR)".uppercased()
         unlockedBalanceDescriptionLabel.textColor = .lightGray
@@ -130,6 +130,10 @@ final class BalanceView: BaseView {
         self.snp.makeConstraints { make in
             make.bottom.equalTo(alternativeBalanceLabel.snp.bottom)
         }
+    }
+    
+    func setCurrency(_ currency: Currency) {
+        alternativeBalanceDescriptionLabel.text = "Rate balance (\(currency.symbol))".uppercased()
     }
 }
 

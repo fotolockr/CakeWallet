@@ -2,8 +2,8 @@
 //  MoneroRateTicker.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 27.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 27.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import Foundation
@@ -15,16 +15,19 @@ final class MoneroRateTicker: RateTicker {
             emit(rate: rate)
         }
     }
+    private var rateRaw: Double
     private var socket: WebSocket
     private var listeners: [RateListener]
+    private let account: CurrencySettingsConfigurable
     
-    init() {
-        
+    init(account: CurrencySettingsConfigurable) {
+        self.account = account
         // FIX-ME: Unnamed constant
         
         let url = URL(string: "wss://api.bitfinex.com/ws")!
         socket = WebSocket(url: url)
         rate = 0
+        rateRaw = 0
         listeners = []
         config()
         connect()
@@ -34,9 +37,9 @@ final class MoneroRateTicker: RateTicker {
         socket.disconnect()
     }
     
-    func add(listener: @escaping (Double) -> Void) {
+    func add(listener: @escaping (Currency, Double) -> Void) {
         listeners.append(listener)
-        listener(rate)
+        listener(account.currency, rate)
     }
     
     func connect() {
@@ -46,7 +49,18 @@ final class MoneroRateTicker: RateTicker {
     }
     
     private func emit(rate: Double) {
-        listeners.forEach { $0(rate) }
+        listeners.forEach { $0(account.currency, rate) }
+    }
+    
+    private func setRate(_ xmrusdRate: Double) {
+        rateRaw = xmrusdRate
+        
+        account.rate()
+            .then { currencyRate in
+                self.rate = xmrusdRate * currencyRate
+            }.catch { error in
+                print(error)
+        }
     }
     
     private func config() {
@@ -55,6 +69,13 @@ final class MoneroRateTicker: RateTicker {
             "channel": "ticker",
             "pair": "XMRUSD"
         ]
+        
+        account.subscribeOnRateChange { [weak self] currencyRate in
+            if let rateRaw = self?.rateRaw {
+                let rate = rateRaw * currencyRate
+                self?.rate = rate
+            }
+        }
         
         socket.onText = { text in
             DispatchQueue.global(qos: .background).async {
@@ -68,7 +89,7 @@ final class MoneroRateTicker: RateTicker {
                     let price = json[3]
                     
                     DispatchQueue.main.async {
-                        self.rate = price
+                        self.setRate(price)
                     }
                 } catch {
                     print(error.localizedDescription)

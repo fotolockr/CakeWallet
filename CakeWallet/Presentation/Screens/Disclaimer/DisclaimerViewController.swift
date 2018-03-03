@@ -2,8 +2,8 @@
 //  DisclaimerViewController.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 24.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 24.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -32,7 +32,7 @@ final class DisclaimerViewController: BaseViewController<DisclaimerView> {
     }
     
     private func loadAndDisplayDocument() {
-        if let docUrl = Bundle.main.url(forResource: "Terms_of_Use", withExtension: "rtf", subdirectory: nil, localization: nil)  {
+        if let docUrl = Configurations.termsOfUseUrl {
             do {
                 let attributedText = try NSAttributedString(
                     url: docUrl,

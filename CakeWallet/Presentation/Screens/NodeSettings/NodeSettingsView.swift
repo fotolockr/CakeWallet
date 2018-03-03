@@ -2,8 +2,8 @@
 //  NodeSettingsView.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 10.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 10.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -15,6 +15,7 @@ final class NodeSettingsView: BaseView {
     let passwordLabel: UITextField
     let connectButton: UIButton
     let descriptionLabel: UILabel
+    let resetSettings: UIButton
     
     required init() {
         nodeAddressLabel = FloatingLabelTextField(placeholder: "Daemon address")
@@ -23,6 +24,7 @@ final class NodeSettingsView: BaseView {
         passwordLabel = FloatingLabelTextField(placeholder: "Password (optional)")
         connectButton = PrimaryButton(title: "Connect")
         descriptionLabel = UILabel(font: .avenirNextMedium(size: 17))
+        resetSettings = SecondaryButton(title: "Reset settings")
         super.init()
     }
     
@@ -37,6 +39,7 @@ final class NodeSettingsView: BaseView {
         addSubview(passwordLabel)
         addSubview(connectButton)
         addSubview(descriptionLabel)
+        addSubview(resetSettings)
     }
     
     override func configureConstraints() {
@@ -70,6 +73,13 @@ final class NodeSettingsView: BaseView {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(descriptionLabel.snp.height)
+        }
+        
+        resetSettings.snp.makeConstraints { make in
+            make.bottom.equalTo(connectButton.snp.top).offset(-20)
+            make.leading.equalTo(connectButton.snp.leading)
+            make.trailing.equalTo(connectButton.snp.trailing)
+            make.height.equalTo(50)
         }
         
         connectButton.snp.makeConstraints { make in

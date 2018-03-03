@@ -2,8 +2,8 @@
 //  EmptyWallet.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 31.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 31.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import PromiseKit
@@ -18,6 +18,13 @@ final class EmptyWallet: WalletProtocol {
     let seed = "No seed"
     var status: NetworkStatus = .notConnected
     let isReadyToReceive = false
+    let isWatchOnly = true
+    var viewKey: WalletKey {
+        return WalletKey(pub: "", sec: "")
+    }
+    var spendKey: WalletKey {
+        return WalletKey(pub: "", sec: "")
+    }
     
     func save() -> Promise<Void> {
         // FIX-ME: Not implemented
@@ -47,7 +54,7 @@ final class EmptyWallet: WalletProtocol {
         // FIX-ME: Not implemented
     }
     
-    func createTransaction(to address: String, withPaymentId paymentId: String, amount: Amount, priority: TransactionPriority) -> Promise<PendingTransaction> {
+    func createTransaction(to address: String, withPaymentId paymentId: String, amount: Amount?, priority: TransactionPriority) -> Promise<PendingTransaction> {
         // FIX-ME: Not implemented
         
         return Promise { _, _ in
@@ -66,5 +73,9 @@ final class EmptyWallet: WalletProtocol {
     func transactionHistory() -> TransactionHistory {
         // FIX-ME: Not implemented
         return EmptyTransactionHistory()
+    }
+    
+    func clear() {
+        // FIX-ME: Not implemented
     }
 }

@@ -2,8 +2,8 @@
 //  OverviewView.swift
 //  Wallet
 //
-//  Created by FotoLockr on 15.10.17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 15.10.17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -97,7 +97,7 @@ final class DashboardView: BaseView {
             make.top.equalTo(receiveButton.snp.bottom)
             make.leading.equalToSuperview().offset(15)
             make.height.equalTo(titleViewHeader)
-            make.trailing.equalTo(receiveButton.snp.leading).offset(-10)
+            make.trailing.equalToSuperview().offset(-10)
         }
         
         receiveButton.snp.makeConstraints { make in

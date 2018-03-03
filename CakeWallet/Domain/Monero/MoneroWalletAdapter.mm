@@ -2,8 +2,8 @@
 //  MoneroWallet.m
 //  Wallet
 //
-//  Created by FotoLockr on 06.10.17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 06.10.17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -153,13 +153,50 @@ struct MoneroWalletAdapterMember {
     return [NSString stringWithUTF8String: addr.c_str()];
 }
 
-- (BOOL)recoveryAt:(NSString *)path mnemonic: (NSString *)seed error:(NSError **) error
+- (BOOL)recoveryAt:(NSString *)path mnemonic: (NSString *)seed restoreHeight: (uint64_t) restoreHeight error:(NSError **) error
 {
     string utf8Path = [path UTF8String];
     string utf8seed = [seed UTF8String];
+    
+    if(restoreHeight > 0) {
+        member->wallet->setRefreshFromBlockHeight(restoreHeight);
+    }
+    
     member->wallet->setRecoveringFromSeed(true);
     bool isRecovered = member->wallet->recover(utf8Path, utf8seed);
     
+    
+    if (!isRecovered) {
+        if (error != NULL) {
+            NSString* errorDescription = [NSString stringWithUTF8String: member->wallet->errorString().c_str()];
+            *error = [NSError errorWithDomain: MoneroWalletErrorDomain
+                                         code: MoneroWalletRecoveringError
+                                     userInfo: @{ NSLocalizedDescriptionKey: errorDescription }];
+        }
+        
+        return false;
+    }
+    
+    return true;
+}
+
+- (BOOL)recoveryFromKeyAt:(NSString *) path
+            withPublicKey:(NSString *) publicKey
+               andViewKey:(NSString *) viewKey
+              andSpendKey:(NSString *) spendKey
+        withRestoreHeight:(uint64_t) restoreHeight
+                    error:(NSError **) error
+{
+    string pathStdString = [path UTF8String];
+    string publicKeyStdString = [publicKey UTF8String];
+    string viewKeyStdString = [viewKey UTF8String];
+    string spendKeyStdString = [spendKey UTF8String];
+    
+    if(restoreHeight > 0){
+        member->wallet->setRefreshFromBlockHeight(restoreHeight);
+    }
+    
+    bool isRecovered = member->wallet->recoverFromKeys(pathStdString, [@"English" UTF8String], publicKeyStdString, viewKeyStdString, spendKeyStdString);
     
     if (!isRecovered) {
         if (error != NULL) {
@@ -188,15 +225,22 @@ struct MoneroWalletAdapterMember {
 
 - (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority error: (NSError *__autoreleasing *) error
 {
-    uint64_t amount;
-    string amountStdString = [amount_str UTF8String];
+    
     string addressStdString = [address UTF8String];
     string paymentIdStdString = [paymentId UTF8String];
-    cryptonote::parse_amount(amount, amountStdString);
     uint32_t mixin = member->wallet->defaultMixin();
     
     Monero::PendingTransaction::Priority _priopity = static_cast<Monero::PendingTransaction::Priority>(priority);
-    Monero::PendingTransaction *tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity);
+    Monero::PendingTransaction *tx;
+    if (amount_str != nil) {
+        uint64_t amount;
+        string amountStdString = [amount_str UTF8String];
+        cryptonote::parse_amount(amount, amountStdString);
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity);
+    } else {
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, Monero::optional<uint64_t>(), mixin, _priopity);
+    }
+    
     int status = tx->status();
     
     if (status == Monero::PendingTransaction::Status::Status_Error
@@ -263,6 +307,11 @@ struct MoneroWalletAdapterMember {
     member->wallet->init(utf8Host, 0, loginStdString, passwordStdString, false, false);
 }
 
+- (BOOL)rescanSpent
+{
+    return member->wallet->rescanSpent();
+}
+
 - (uint64_t)balance
 {
     return member->wallet->balance();
@@ -278,9 +327,33 @@ struct MoneroWalletAdapterMember {
     return member->wallet->blockChainHeight();
 }
 
+- (NSString *)secretViewKey
+{
+    NSString *secretViewKey = [NSString stringWithUTF8String: member->wallet->secretViewKey().c_str()];
+    return secretViewKey;
+}
+
+- (NSString *)publicViewKey
+{
+    NSString *publicViewKey = [NSString stringWithUTF8String: member->wallet->publicViewKey().c_str()];
+    return publicViewKey;
+}
+
+- (NSString *)secretSpendKey
+{
+    NSString *secretSpendKey = [NSString stringWithUTF8String: member->wallet->secretSpendKey().c_str()];
+    return secretSpendKey;
+}
+
+- (NSString *)publicSpendKey
+{
+    NSString *publicSpendKey = [NSString stringWithUTF8String: member->wallet->publicSpendKey().c_str()];
+    return publicSpendKey;
+}
+
 - (uint64_t)daemonBlockChainHeight
 {
-    return member->wallet->daemonBlockChainTargetHeight();
+    return member->wallet->daemonBlockChainHeight();
 }
 
 - (NSString *)errorString
@@ -330,17 +403,23 @@ struct MoneroWalletAdapterMember {
     return true;
 }
 
-- (void)close:(BOOL) store
+- (void)close
 {
     member->wallet->pauseRefresh();
-    member->listener->wallet = NULL;
-    member->wallet->setListener(NULL);
     member->wallet->close();
 }
 
+- (void)clear
+{
+    member->wallet->setListener(NULL);
+    member->listener->wallet = NULL;
+    member->listener = NULL;
+    member->wallet = NULL;
+}
+
+
 - (void)dealloc
 {
-    [self close: NO];
     delete member->wallet;
     delete member->listener;
     free(member);

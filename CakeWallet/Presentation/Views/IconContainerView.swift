@@ -2,8 +2,8 @@
 //  IconContainerView.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 26.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 26.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ final class IconContainerView<ContentViewType: UIView>: UIView {
     let iconView: IconView
     
     convenience init(contentView: ContentViewType, fontAwesomeIcon: FontAwesome) {
-        let iconView = IconView.init(fontAwesomeIcon: fontAwesomeIcon)
+        let iconView = IconView(fontAwesomeIcon: fontAwesomeIcon)
         self.init(contentView: contentView, iconView: iconView)
     }
     

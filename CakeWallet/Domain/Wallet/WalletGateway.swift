@@ -2,8 +2,8 @@
 //  WalletGateway.swift
 //  Wallet
 //
-//  Created by FotoLockr on 11/30/17.
-//  Copyright © 2017 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 11/30/17.
+//  Copyright © 2017 Cake Technologies. All rights reserved.
 //
 
 import Foundation
@@ -26,7 +26,8 @@ protocol WalletGateway: EmptyInitializable {
     static func fetchWalletsList() -> Promise<[WalletDescription]>
     func create(withCredentials credentials: WalletCreatingCredentials) -> Promise<WalletProtocol>
     func load(withCredentials credentials: WalletLoadingCredentials) -> Promise<WalletProtocol>
-    func recoveryWallet(withName name: String, andSeed seed: String, password: String) -> Promise<WalletProtocol>
+    func recoveryWallet(withName name: String, andSeed seed: String, password: String, restoreHeight: UInt64) -> Promise<WalletProtocol>
+    func recoveryWallet(withName name: String, publicKey: String, viewKey: String, spendKey: String, restoreHeight: UInt64, password: String) -> Promise<WalletProtocol>
     func remove(withName name: String, password: String) -> Promise<Void>
     func isExist(withName name: String) -> Bool
     func makePath(for walletName: String) -> String

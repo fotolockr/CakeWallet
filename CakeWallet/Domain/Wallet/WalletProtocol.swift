@@ -2,8 +2,8 @@
 //  WalletProtocol.swift
 //  CakeWallet
 //
-//  Created by FotoLockr on 27.01.2018.
-//  Copyright © 2018 FotoLockr. All rights reserved.
+//  Created by Cake Technologies 27.01.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import Foundation
@@ -15,7 +15,12 @@ protocol ObservableWallet {
     func observe(_ handler: @escaping ChangeHandler)
 }
 
-protocol WalletProtocol: ObservableWallet, TransactionCreatableProtocol {
+protocol WalletKeysPresent {
+    var viewKey: WalletKey { get }
+    var spendKey: WalletKey { get }
+}
+
+protocol WalletProtocol: ObservableWallet, TransactionCreatableProtocol, WalletKeysPresent {
     var name: String { get }
     var balance: Amount { get }
     var unlockedBalance: Amount { get }
@@ -25,10 +30,12 @@ protocol WalletProtocol: ObservableWallet, TransactionCreatableProtocol {
     var status: NetworkStatus { get set }
     var isConnected: Bool { get }
     var isReadyToReceive: Bool { get }
+    var isWatchOnly: Bool { get }
     
     func save() -> Promise<Void>
     func connect(withSettings settings: ConnectionSettings, updateState: Bool) -> Promise<Void>
     func changePassword(oldPassword: String, newPassword: String) -> Promise<Void>
+    func clear()
     func close()
     func startUpdate()
     func transactionHistory() -> TransactionHistory
