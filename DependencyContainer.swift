@@ -31,7 +31,11 @@ extension DependencyContainer {
             
             container.register(.singleton) {
                 AccountImpl(keychainStorage: try! container.resolve(), proxyWallet: try! container.resolve() as WalletProxy)
-                }.implements(AuthenticationProtocol.self, Account.self, AccountSettingsConfigurable.self)
+                }.implements(
+                    AuthenticationProtocol.self,
+                    Account.self,
+                    AccountSettingsConfigurable.self,
+                    CurrencySettingsConfigurable.self)
             
             // MARK: Wallets
             
@@ -46,7 +50,7 @@ extension DependencyContainer {
             
             // MARK: RateTicker
             
-            container.register(.singleton) { MoneroRateTicker() }
+            container.register(.singleton) { MoneroRateTicker(account: try! container.resolve() as AccountImpl) }
                 .implements(RateTicker.self)
             
             // MARK: WelcomeViewController
@@ -87,7 +91,7 @@ extension DependencyContainer {
             // MARK: SummaryViewController
             
             container.register { (wallet: WalletProtocol) in
-                DashboardViewController(wallet: wallet, rateTicker: try! container.resolve() as RateTicker)
+                DashboardViewController(account: try! container.resolve() as AccountImpl, wallet: wallet, rateTicker: try! container.resolve() as RateTicker)
             }
             
             // MARK: ReceiveViewController
@@ -98,7 +102,17 @@ extension DependencyContainer {
             
             container.register {
                 SendViewController(
-                    accountSettings: try! container.resolve() as AccountSettingsConfigurable,
+                    account: try! container.resolve() as AccountImpl,
+                    estimatedFeeCalculation: (try! container.resolve() as Account).wallets(),
+                    transactionCreation:  (try! container.resolve() as Account).currentWallet,
+                    rateTicker: try! container.resolve() as RateTicker)
+            }
+            
+            container.register { (address: String, amount: Amount) in
+                SendViewController(
+                    address: address,
+                    amount: amount,
+                    account: try! container.resolve() as AccountImpl,
                     estimatedFeeCalculation: (try! container.resolve() as Account).wallets(),
                     transactionCreation:  (try! container.resolve() as Account).currentWallet,
                     rateTicker: try! container.resolve() as RateTicker)
@@ -108,6 +122,12 @@ extension DependencyContainer {
             
             container.register { (account: Account & AuthenticationProtocol) in
                 LoginViewController(account: account)
+            }
+            
+            // MARK: AuthenticateViewController
+            
+            container.register { (account: Account & AuthenticationProtocol) in
+                AuthenticateViewController(account: account)
             }
             
             // MARK: WalletKeyViewController
@@ -121,7 +141,7 @@ extension DependencyContainer {
             
             container.register {
                 SettingsViewController(
-                    accountSettings: try! container.resolve() as AccountSettingsConfigurable,
+                    accountSettings: try! container.resolve() as AccountImpl,
                     showSeedIsAllow: !(try! container.resolve() as WalletProxy).isWatchOnly)
                 }.resolvingProperties { (container: DependencyContainer, vc: SettingsViewController) in
                     vc.presentWalletsScreen = { [weak vc] in
@@ -184,6 +204,11 @@ extension DependencyContainer {
                             
                             vc.present(navController, animated: true)
                         }
+                    }
+                    
+                    vc.presentDonation = {
+                        let donationViewController = try! container.resolve() as DonationViewController
+                        vc.navigationController?.pushViewController(donationViewController, animated: true)
                     }
                 }
             
@@ -356,6 +381,10 @@ extension DependencyContainer {
             // MARK: RecoveryWalletFromKeysViewController
             
             container.register { (wallets: Wallets) in RecoveryWalletFromKeysViewController(wallets: wallets) }
+            
+            // MARK: DonationViewController
+            
+            container.register { DonationViewController(canSend: !(try! container.resolve () as WalletProxy).isWatchOnly) }
             
             // Flows
             

@@ -45,6 +45,7 @@ final class MoneroWalletGateway: WalletGateway {
                 do {
                     let moneroAdapter = MoneroWalletAdapter()!
                     let isRecovery = false
+                    moneroAdapter.setDaemonAddress(Configurations.defaultNodeUri, login: "", password: "")
                     try moneroAdapter.generate(withPath: self.makePath(for: credentials.name), andPassword: credentials.password)
                     try moneroAdapter.save()
                     moneroAdapter.setIsRecovery(isRecovery)

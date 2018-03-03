@@ -156,16 +156,18 @@ extension StatusViewImpl: StatusView {
             let formatter = DateComponentsFormatter()
             formatter.allowedUnits = [.hour, .minute, .second]
             formatter.unitsStyle = .short
-
-            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] _ in
-                let time = Date().timeIntervalSince(date)
-                
-                if let formattedDate = formatter.string(from: time) {
-                    self?.setDescription("Trying to connect to remote node (\(formattedDate)).", hideProgressBar: true)
-                } else {
-                    self?.setDescription("Trying to connect to remote node.", hideProgressBar: true)
-                }
-            })
+            
+            if self.timer == nil {
+                self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] _ in
+                    let time = Date().timeIntervalSince(date)
+                    
+                    if let formattedDate = formatter.string(from: time) {
+                        self?.setDescription("Trying to connect to remote node (\(formattedDate)).", hideProgressBar: true)
+                    } else {
+                        self?.setDescription("Trying to connect to remote node.", hideProgressBar: true)
+                    }
+                })
+            }
             // Failed connection to daemon.
             setDescription("Trying to connect to remote node.", hideProgressBar: true)
             self.timer?.fire()

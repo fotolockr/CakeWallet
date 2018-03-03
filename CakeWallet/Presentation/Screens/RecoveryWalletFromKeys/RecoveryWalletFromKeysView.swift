@@ -2,8 +2,8 @@
 //  RecoveryWalletsFromKeysView.swift
 //  CakeWallet
 //
-//  Created by Mykola Misiura on 14.02.2018.
-//  Copyright © 2018 Mykola Misiura. All rights reserved.
+//  Created by Cake Technologies on 14.02.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import UIKit
@@ -13,8 +13,8 @@ final class RecoveryWalletFromKeysView: BaseView {
     let publicKeyTextField: UITextField
     let viewKeyTextField: UITextField
     let spendKeyTextField: UITextField
-    let restoreHeightTextField: UITextField
     let watchOnlyDescriptionLabel: UILabel
+    let restoreFromHeightView: RestoreFromHeightView
     let confirmButton: UIButton
     
     required init() {
@@ -22,21 +22,20 @@ final class RecoveryWalletFromKeysView: BaseView {
         publicKeyTextField = FloatingLabelTextField(placeholder: "Address")
         viewKeyTextField = FloatingLabelTextField(placeholder: "View key (private)")
         spendKeyTextField = FloatingLabelTextField(placeholder: "Spend key (private)")
-        restoreHeightTextField = FloatingLabelTextField(placeholder: "Restore height (optional)")
         confirmButton = PrimaryButton(title: "Recover")
         watchOnlyDescriptionLabel = UILabel(font: .avenirNextMedium(size: 14))
+        restoreFromHeightView = RestoreFromHeightView()
         super.init()
     }
     
     override func configureView() {
         super.configureView()
-        restoreHeightTextField.keyboardType = .numberPad
         watchOnlyDescriptionLabel.numberOfLines = 0
         addSubview(nameTextField)
         addSubview(publicKeyTextField)
         addSubview(viewKeyTextField)
         addSubview(spendKeyTextField)
-        addSubview(restoreHeightTextField)
+        addSubview(restoreFromHeightView)
         addSubview(watchOnlyDescriptionLabel)
         addSubview(confirmButton)
     }
@@ -77,10 +76,9 @@ final class RecoveryWalletFromKeysView: BaseView {
             make.top.equalTo(viewKeyTextField.snp.bottom).offset(20)
         }
         
-        restoreHeightTextField.snp.makeConstraints { make in
+        restoreFromHeightView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(50)
             make.top.equalTo(watchOnlyDescriptionLabel.snp.bottom).offset(5)
         }
         

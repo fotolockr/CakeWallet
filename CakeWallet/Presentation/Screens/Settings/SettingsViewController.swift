@@ -11,7 +11,7 @@ import FontAwesome_swift
 
 final class SettingsViewController: BaseViewController<SettingsView>, UITableViewDelegate, UITableViewDataSource {
     enum SettingsSections: Int {
-        case wallets, personal
+        case donation, wallets, personal, advanced
     }
     
     struct SettingsCellItem: CellItem {
@@ -68,19 +68,27 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         let image: UIImage?
         let pickerOptions: [PickerItem]
         let action: ((PickerItem) -> Void)?
+        let onFinish: ((PickerItem) -> Void)?
         private var selectedIndex: Int
         
-        init(title: String, image: UIImage? = nil, pickerOptions: [PickerItem], selectedAtIndex: Int, action: ((PickerItem) -> Void)? = nil) {
+        init(title: String,
+             image: UIImage? = nil,
+             pickerOptions: [PickerItem],
+             selectedAtIndex: Int,
+             action: ((PickerItem) -> Void)? = nil,
+             onFinish: ((PickerItem) -> Void)? = nil) {
             self.title = title
             self.image = image
             self.action = action
             self.pickerOptions = pickerOptions
             self.selectedIndex = selectedAtIndex
+            self.onFinish = onFinish
         }
         
         func setup(cell: SettingsPickerUITableViewCell<PickerItem>) {
             cell.configure(title: title, pickerOptions: pickerOptions, selectedOption: selectedIndex, action: action)
             cell.imageView?.image = image
+            cell.onFinish = onFinish
         }
     }
     
@@ -91,12 +99,13 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     var presentWalletsScreen: VoidEmptyHandler
     var presentWalletKeys: VoidEmptyHandler
     var presentWalletSeed: VoidEmptyHandler
+    var presentDonation: VoidEmptyHandler
     
     private var sections: [SettingsSections: [CellAnyItem]]
-    private var accountSettings: AccountSettingsConfigurable
+    private var accountSettings: AccountSettingsConfigurable & CurrencySettingsConfigurable
     private var showSeedIsAllow: Bool
     
-    init(accountSettings: AccountSettingsConfigurable, showSeedIsAllow: Bool) {
+    init(accountSettings: AccountSettingsConfigurable & CurrencySettingsConfigurable, showSeedIsAllow: Bool) {
         self.accountSettings = accountSettings
         self.showSeedIsAllow = showSeedIsAllow
         self.sections = [.wallets: [], .personal: []]
@@ -105,7 +114,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
 
     override func configureBinds() {
         title = "Settings"
-        contentView.table.register(items: [SettingsCellItem.self, SettingsPickerCellItem<TransactionPriority>.self])
+        contentView.table.register(items: [SettingsCellItem.self, SettingsPickerCellItem<TransactionPriority>.self, SettingsPickerCellItem<Currency>.self])
         contentView.table.delegate = self
         contentView.table.dataSource = self
         
@@ -163,12 +172,22 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 self?.presentNodeSettingsScreen?()
         })
         
+        let currencyPicker = SettingsPickerCellItem<Currency>(
+            title: "Currency",
+            image: UIImage.fontAwesomeIcon(
+                name: .ggCircle,
+                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
+                size: CGSize(width: 32, height: 32)),
+            pickerOptions: Currency.all,
+            selectedAtIndex: Currency.all.index(of: accountSettings.currency) ?? Configurations.defaultCurreny.rawValue,
+            onFinish:  { [weak self] pickedItem in
+                self?.accountSettings.currency = pickedItem
+        })
+        
         sections[.personal] = [
             changePin,
-            nodeSettings,
             biometricAuthSwitcher,
-            rememberPasswordSwitcher,
-            feePriorityPicker
+            rememberPasswordSwitcher
         ]
         
         let wallets = SettingsCellItem(
@@ -206,6 +225,22 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             
             sections[.wallets]?.append(showSeed)
         }
+        
+        sections[.wallets]?.append(currencyPicker)
+        sections[.wallets]?.append(feePriorityPicker)
+        
+        let supportUs = SettingsCellItem(
+            title: "Please donate to support us!",
+            image: UIImage.fontAwesomeIcon(
+                name: .asterisk,
+                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant,
+                size:  CGSize(width: 32, height: 32)),
+            action:  { [weak self] in
+                self?.presentDonation?()
+        })
+        
+        sections[.donation] = [supportUs]
+        sections[.advanced] = [nodeSettings]
     }
     
     // MARK: UITableViewDataSource
@@ -232,6 +267,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         }
         
         let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath)
+        cell.textLabel?.font = UIFont.avenirNextMedium(size: 15)
         return cell
     }
     
@@ -239,6 +275,18 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let section = SettingsSections(rawValue: section) else {
+            return 0
+        }
+        
+        if section != .donation {
+            return 50
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -249,17 +297,21 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         let view = UIView(frame:
             CGRect(
                 origin: .zero,
-                size: CGSize(width: tableView.frame.width, height: tableView.sectionHeaderHeight)))
+                size: CGSize(width: tableView.frame.width, height: 50)))
         let titleLabel = UILabel(frame: CGRect(origin: CGPoint(x: 20, y: 0), size: CGSize(width: view.frame.width - 20, height: view.frame.height)))
         titleLabel.font = UIFont.avenirNextMedium(size: 17)
-        view.backgroundColor = .clear
+        view.backgroundColor =  contentView.backgroundColor
         view.addSubview(titleLabel)
         
         switch section {
         case .personal:
-            titleLabel.text = "Personal" // FIX-ME: Unnamed constant
+            titleLabel.text = "Personal"
         case .wallets:
-            titleLabel.text = "Wallets" // FIX-ME: Unnamed constant
+            titleLabel.text = "Wallets"
+        case .advanced:
+            titleLabel.text = "Advanced"
+        default:
+            return nil
         }
         
         return view
