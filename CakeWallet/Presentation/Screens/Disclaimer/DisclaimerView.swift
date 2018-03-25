@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 24.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -24,8 +24,8 @@ final class DisclaimerView: BaseView {
     override func configureView() {
         super.configureView()
         textView.isEditable = false
-        acceptButton.titleLabel?.font = UIFont.avenirNextMedium(size: 17)
-        cancelButton.titleLabel?.font = UIFont.avenirNextMedium(size: 17)
+        acceptButton.titleLabel?.font = .avenirNextMedium(size: 17)
+        cancelButton.titleLabel?.font = .avenirNextMedium(size: 17)
         acceptButton.setTitleColor(.black, for: .normal)
         cancelButton.setTitleColor(.red, for: .normal)
         acceptButton.titleLabel?.textAlignment = .center

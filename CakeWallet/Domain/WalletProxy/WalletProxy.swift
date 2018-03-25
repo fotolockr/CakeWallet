@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 27.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import Foundation
@@ -119,6 +119,10 @@ final class WalletProxy: Proxable, WalletProtocol {
     
     func clear() {
         origin.clear()
+    }
+    
+    func integratedAddress(for paymentId: String) -> String {
+        return origin.integratedAddress(for: paymentId)
     }
     
     private func observeOrigin() {

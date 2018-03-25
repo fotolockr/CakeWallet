@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 02.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -31,24 +31,39 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
     
     // MARK: Property injections
     
-    private let address: String
+    private let wallet: WalletProtocol
+    private var paymentId: String?
+    private var amount: Amount?
     private weak var textMessageContainerVC: UIViewController?
     
-    convenience init(wallet: WalletProtocol) {
-        self.init(address: wallet.address)
-    }
-    
-    init(address: String) {
-        self.address = address
+    init(wallet: WalletProtocol) {
+        self.wallet = wallet
         super.init()
     }
     
-    override func configureBinds() {
+    override func configureDescription() {
         title = "Receive"
+        updateTabBarIcon(name: .inbox)
+    }
+    
+    override func configureBinds() {
         let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showMenu))
         self.navigationItem.rightBarButtonItem = shareButton
         contentView.amountTextField.addTarget(self, action: #selector(onAmountChange(_:)), for: .editingChanged)
         contentView.copyAddressButton.addTarget(self, action: #selector(copyAction), for: .touchUpInside)
+        contentView.copyIntegratedAddressButton.addTarget(self, action: #selector(copyIntegratedAddresAction), for: .touchUpInside)
+        contentView.copyPaymentIdButton.addTarget(self, action: #selector(copyPaymentIdAction), for: .touchUpInside)
+        contentView.generatePaymentIdButton.addTarget(self, action: #selector(generatePaymentId), for: .touchUpInside)
+        contentView.paymentIdTextField.addTarget(self, action: #selector(onPaymentIdTextFieldChange(_:)), for: .editingChanged)
+        wallet.observe { [weak self] change, wallet in
+            switch change {
+            case .reset, .changedAddress(_):
+                self?.setAddress()
+            default:
+                break
+            }
+        }
+        
         setAddress()
     }
     
@@ -68,18 +83,61 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
     }
     
     @objc
+    private func copyPaymentIdAction() {
+        if let paymentId = paymentId {
+            copy(text: paymentId)
+        }
+    }
+    
+    @objc
+    private func copyIntegratedAddresAction() {
+        if
+            let integratedAddress = contentView.integratedAddressTextField.text,
+            !integratedAddress.isEmpty {
+            copy(text: integratedAddress)
+        }
+    }
+    
+    @objc
+    private func generatePaymentId() {
+        // FIX-ME: We don't need know anout MoneroWalletAdapter, but it's should not be part of WalletProtocol.
+        guard let paymentId = MoneroWalletAdapter.generatePaymentId() else {
+            return
+        }
+        
+        self.paymentId = paymentId
+        let integratedAddress = wallet.integratedAddress(for: paymentId)
+        contentView.paymentIdTextField.text = paymentId
+        contentView.integratedAddressTextField.text = integratedAddress
+        setAddress()
+    }
+    
+    @objc
+    private func onPaymentIdTextFieldChange(_ textField: UITextField) {
+        self.paymentId = textField.text
+        
+        if let paymentId = self.paymentId {
+            let integratedAddress = wallet.integratedAddress(for: paymentId)
+            contentView.integratedAddressTextField.text = integratedAddress
+        }
+        
+        setAddress()
+    }
+    
+    @objc
     private func onAmountChange(_ textField: UITextField) {
         guard let amountStr = textField.text else {
             return
         }
         
-        let amount = MoneroAmount(amount: amountStr)
-        setQrCode(MoneroUri(address: address, amount: amount))
+        amount = MoneroAmount(amount: amountStr)
+        setQrCode(MoneroUri(address: wallet.address, paymentId: paymentId, amount: amount))
     }
     
     private func setAddress() {
+        let address = wallet.address
         contentView.addressLabel.text = address
-        setQrCode(MoneroUri(address: address))
+        setQrCode(MoneroUri(address: address, paymentId: paymentId, amount: amount))
     }
     
     private func setQrCode(_ uri: MoneroUri) {
@@ -127,7 +185,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
         let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let copyAction = UIAlertAction(title: "Copy", style: .default) { [weak self] _ in
-            UIPasteboard.general.string = self?.address
+            UIPasteboard.general.string = self?.wallet.address
         }
         
         let sendEmailAction = UIAlertAction(title: "Send email", style: .default) { [weak self] _ in
@@ -135,14 +193,14 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
                 return
             }
             
-            this.sendEmail(text: this.address)
+            this.sendEmail(text: this.wallet.address)
         }
         let sendTextMessageAction = UIAlertAction(title: "Send text message", style: .default) { [weak self] _ in
             guard let this = self else {
                 return
             }
             
-            this.sendText(message: this.address)
+            this.sendText(message: this.wallet.address)
         }
         
         alertViewController.modalPresentationStyle = .overFullScreen
@@ -155,7 +213,11 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, MFMailCompos
     
     @objc
     private func copyAction() {
-        UIPasteboard.general.string = address
+        copy(text: wallet.address)
+    }
+    
+    private func copy(text: String) {
+        UIPasteboard.general.string = text
         let alert = UIAlertController(title: nil, message: "Copied", preferredStyle: .alert)
         present(alert, animated: true, completion: nil)
         let time = DispatchTime.now() + 1

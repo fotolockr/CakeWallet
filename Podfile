@@ -17,4 +17,5 @@ target 'CakeWallet' do
     pod 'SkyFloatingLabelTextField', '~> 3.0'
     
     pod 'SwiftSoup'
+    pod 'SwiftyJSON'
 end

@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 15.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //w
 
 import UIKit
@@ -20,7 +20,7 @@ final class RecoveryView: BaseView {
         walletNameTextField = FloatingLabelTextField(placeholder: "Enter wallets name", title: "Wallet name")
         seedTextView = UITextView()
         confirmButton = PrimaryButton(title: "Recover")
-        placeholderLabel = UILabel(font: UIFont.avenirNextMedium(size: 17))
+        placeholderLabel = UILabel()
         restoreFromHeightView = RestoreFromHeightView()
         super.init()
     }
@@ -35,7 +35,7 @@ final class RecoveryView: BaseView {
         placeholderLabel.textColor = .lightGray
         placeholderLabel.isHidden = !seedTextView.text.isEmpty
         
-        seedTextView.font = UIFont.avenirNextMedium(size: 17)
+        seedTextView.font = .avenirNextMedium(size: 15)
         seedTextView.backgroundColor = .groupTableViewBackground
         seedTextView.layer.masksToBounds = true
         seedTextView.layer.cornerRadius = 10

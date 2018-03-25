@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 02.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -22,8 +22,13 @@ final class SendViewController: BaseViewController<SendView> {
     }()
     private let estimatedFeeCalculation: EstimatedFeeCalculable
     private let transactionCreation: TransactionCreatableProtocol
-    private let priority: TransactionPriority
-    private let currency: Currency
+    private var priority: TransactionPriority {
+        return account.transactionPriority
+    }
+    private var currency: Currency {
+        return account.currency
+    }
+    private let account: Account
     private let rateTicker: RateTicker
     private var address: String
     private var amount: String
@@ -48,32 +53,15 @@ final class SendViewController: BaseViewController<SendView> {
         }
     }
     
-    convenience init(account: Account, estimatedFeeCalculation: EstimatedFeeCalculable, transactionCreation: TransactionCreatableProtocol, rateTicker: RateTicker) {
-        self.init(
-            transactionPriority: account.transactionPriority,
-            wallet: account.currentWallet,
-            currency: account.currency,
-            estimatedFeeCalculation: estimatedFeeCalculation,
-            transactionCreation: transactionCreation,
-            rateTicker: rateTicker)
-    }
-    
     convenience init(address: String, amount: Amount, account: Account, estimatedFeeCalculation: EstimatedFeeCalculable, transactionCreation: TransactionCreatableProtocol, rateTicker: RateTicker) {
-        self.init(
-            transactionPriority: account.transactionPriority,
-            wallet: account.currentWallet,
-            currency: account.currency,
-            estimatedFeeCalculation: estimatedFeeCalculation,
-            transactionCreation: transactionCreation,
-            rateTicker: rateTicker)
+        self.init(account: account, estimatedFeeCalculation: estimatedFeeCalculation, transactionCreation: transactionCreation, rateTicker: rateTicker)
         setAddress(address)
         setAmount(amount)
     }
     
-    init(transactionPriority: TransactionPriority, wallet: WalletProtocol, currency: Currency, estimatedFeeCalculation: EstimatedFeeCalculable, transactionCreation: TransactionCreatableProtocol, rateTicker: RateTicker) {
-        self.priority = transactionPriority
-        self.wallet = wallet
-        self.currency = currency
+    init(account: Account, estimatedFeeCalculation: EstimatedFeeCalculable, transactionCreation: TransactionCreatableProtocol, rateTicker: RateTicker) {
+        self.account = account
+        self.wallet = account.currentWallet
         self.estimatedFeeCalculation = estimatedFeeCalculation
         self.transactionCreation = transactionCreation
         self.rateTicker = rateTicker
@@ -83,11 +71,12 @@ final class SendViewController: BaseViewController<SendView> {
         super.init()
     }
     
-    override func configureBinds() {
+    override func configureDescription() {
         title = "Send"
-        contentView.amountInAnotherCuncurrencyTextField.title = "\(currency.stringify().uppercased()) (approximate)"
-        contentView.amountInAnotherCuncurrencyTextField.placeholder = "\(currency.stringify().uppercased()): 0.00"
-        contentView.feePriorityDescriptionLabel.text = "Currently the fee is set at \(priority.stringify()) priority. Transaction priority can be adjusted in the settings."
+        updateTabBarIcon(name: .paperPlane)
+    }
+
+    override func configureBinds() {
         unlockedBalanceLabel.numberOfLines = 0
         
         wallet.observe { [weak self] (change, wallt) in
@@ -99,33 +88,23 @@ final class SendViewController: BaseViewController<SendView> {
             }
         }
         
+        calculateEstimatedFee()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: unlockedBalanceLabel)
         updateUnlockedBalance(wallet.unlockedBalance)
-        
-        estimatedFeeCalculation.calculateEstimatedFee(forPriority: priority)
-            .then(on: DispatchQueue.main) { [weak self] amount -> Void in
-                let estimatedValue: String
-                
-                if
-                    let rate = self?.rateTicker.rate,
-                    let currency = self?.currency {
-                    let ratedAmount = convertXMRtoUSD(amount: amount.formatted(), rate: rate)
-                    estimatedValue = "XMR \(amount.formatted()) (\(currency.symbol) \(ratedAmount))"
-                } else {
-                    estimatedValue = "XMR \(amount.formatted())"
-                }
-                
-                self?.contentView.estimatedValueLabel.text = estimatedValue
-            }.catch(on: DispatchQueue.main) { [weak self] error in
-                self?.showError(error)
-        }
-        
         contentView.sendButton.addTarget(self, action: #selector(send), for: .touchUpInside)
         contentView.qrScanButton.addTarget(self, action: #selector(scanAddressFromQr), for: .touchUpInside)
         contentView.addressTextField.addTarget(self, action: #selector(onAddressTextChange(_:)), for: .editingChanged)
         contentView.amountInMoneroTextField.addTarget(self, action: #selector(onAmountTextChange(_:)), for: .editingChanged)
         contentView.amountInAnotherCuncurrencyTextField.addTarget(self, action: #selector(onAlternativeAmountTextChange(_:)), for: .editingChanged)
         contentView.allAmountButton.addTarget(self, action: #selector(setAllAmount), for: .touchUpInside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        calculateEstimatedFee()
+        contentView.amountInAnotherCuncurrencyTextField.title = "\(currency.stringify().uppercased()) (approximate)"
+        contentView.amountInAnotherCuncurrencyTextField.placeholder = "\(currency.stringify().uppercased()): 0.00"
+        contentView.feePriorityDescriptionLabel.text = "Currently the fee is set at \(priority.stringify()) priority. Transaction priority can be adjusted in the settings."
     }
     
     private func updateUnlockedBalance(_ unlockedBalance: Amount) {
@@ -143,9 +122,7 @@ final class SendViewController: BaseViewController<SendView> {
                     self?.setAmount(amount)
                 }
                 
-                if let paymentId = result.paymentId {
-                    self?.setPaymentId(paymentId)
-                }
+                self?.setPaymentId(result.paymentId)
             }
             
             self?.readerVC.stopScanning()
@@ -279,6 +256,26 @@ final class SendViewController: BaseViewController<SendView> {
         let ok = UIAlertAction(title: "Ok", style: .default)
         alert.addAction(ok)
         parent?.present(alert, animated: true)
+    }
+    
+    private func calculateEstimatedFee() {
+        estimatedFeeCalculation.calculateEstimatedFee(forPriority: priority)
+            .then(on: DispatchQueue.main) { [weak self] amount -> Void in
+                let estimatedValue: String
+                
+                if
+                    let rate = self?.rateTicker.rate,
+                    let currency = self?.currency {
+                    let ratedAmount = convertXMRtoUSD(amount: amount.formatted(), rate: rate)
+                    estimatedValue = "XMR \(amount.formatted()) (\(currency.symbol) \(ratedAmount))"
+                } else {
+                    estimatedValue = "XMR \(amount.formatted())"
+                }
+                
+                self?.contentView.estimatedValueLabel.text = estimatedValue
+            }.catch(on: DispatchQueue.main) { [weak self] error in
+                self?.showError(error)
+        }
     }
 }
 

@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 12/1/17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -33,7 +33,7 @@ final class WelcomeView: BaseView {
     
     override func configureView() {
         super.configureView()
-        descriptionTextView.font = .avenirNextMedium(size: 17)
+        descriptionTextView.font = .avenirNextMedium(size: 15)
         descriptionTextView.isEditable = false
         descriptionTextView.layer.masksToBounds = true
         descriptionTextView.layer.cornerRadius = 10

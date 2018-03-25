@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 17.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import UIKit
 final class PaddingLabel: UILabel {
     let insets: UIEdgeInsets
     
-    init(insets: UIEdgeInsets, font: UIFont = UIFont.avenirNext(size: 17)) {
+    init(insets: UIEdgeInsets, font: UIFont = UIFont.avenirNext(size: 15)) {
         self.insets = insets
         super.init(frame: .zero)
         self.font =  font

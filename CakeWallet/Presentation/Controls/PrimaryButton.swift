@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 27.09.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -35,16 +35,14 @@ final class PrimaryButton: UIButton {
         
         // FIX-ME: Unnamed constant
         
-        backgroundColor = UIColor(hex: 0x8A4FFF)
+        backgroundColor = .pictonBlue
         setTitleColor(.white, for: .normal)
-//        layer.borderWidth = 1
-//        layer.borderColor = UIColor.lightGray.cgColor
         layer.masksToBounds = false
         layer.shadowRadius = 20
         layer.shadowOffset = CGSize(width: 2, height: 1)
         layer.shadowOpacity = 0.3
         layer.shadowColor = UIColor.lightGray.cgColor
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         contentHorizontalAlignment = .center
         titleLabel?.font = UIFont.avenirNextHeavy(size: 17)
     }
