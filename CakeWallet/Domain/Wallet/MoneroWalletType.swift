@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 31.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import Foundation
@@ -17,6 +17,10 @@ private let updateQueue = DispatchQueue(
     attributes: .concurrent)
 
 final class MoneroWalletType: WalletProtocol {
+    static func generatePaymentId() -> String {
+        return MoneroWalletAdapter.generatePaymentId()
+    }
+    
     var name: String {
         return moneroAdapter.name()
     }
@@ -167,6 +171,7 @@ final class MoneroWalletType: WalletProtocol {
                         self.status = .connected
                     }
                     
+                    
                     fulfill(())
                 } catch {
                     if updateState {
@@ -296,6 +301,10 @@ final class MoneroWalletType: WalletProtocol {
         } else {
             compilation(_blockchainHeight)
         }
+    }
+    
+    func integratedAddress(for paymentId: String) -> String {
+        return self.moneroAdapter.integratedAddress(for: paymentId)
     }
     
     private func emit(_ change: MoneroWalletChange) {

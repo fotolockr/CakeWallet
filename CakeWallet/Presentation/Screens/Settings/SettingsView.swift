@@ -3,27 +3,27 @@
 //  Wallet
 //
 //  Created by Cake Technologies 01.11.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
 
 final class SettingsView: BaseView {
     let table: UITableView
+    let footerLabel: UILabel
     
     required init() {
         table = UITableView(frame: .zero)
+        footerLabel = UILabel(frame: CGRect(origin: CGPoint(x: 20, y: 20), size: CGSize(width: 100, height: 100)))
         super.init()
     }
     
     override func configureView() {
         super.configureView()
-        table.tableFooterView = UIView(frame: .zero)
+        footerLabel.font = .avenirNextMedium(size: 15)
+        table.tableFooterView = footerLabel
         table.backgroundColor = .clear
-        
-        // FIX-ME: Unnamed constant
-        
-        backgroundColor = UIColor(hex: 0xF5F7F9) //UIColor(hex: 0xF7F7F2)
+        backgroundColor = .whiteSmoke
         addSubview(table)
     }
     

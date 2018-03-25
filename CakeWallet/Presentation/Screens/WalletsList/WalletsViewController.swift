@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 02.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -35,6 +35,8 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     
     override func configureBinds() {
         title = "Wallets"
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onPresentNewWalletScreen))
+        navigationItem.rightBarButtonItem = addButton
         contentView.table.delegate = self
         contentView.table.dataSource = self
         contentView.table.register(items: [WalletDescription.self])
@@ -88,17 +90,21 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
 
         let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: tableView.frame.width, height: tableView.sectionHeaderHeight)))
         view.backgroundColor = .groupTableViewBackground
-        let titleLabel = UILabel(font: UIFont.avenirNextHeavy(size: 17))
+        let titleLabel = UILabel(font: UIFont.avenirNextMedium(size: 17))
         titleLabel.frame = CGRect(origin: CGPoint(x: 10, y: 10), size: CGSize(width: view.frame.width - 45, height: 35))
         titleLabel.text = "\(walletType.stringify()) wallets"
-        let addButton =  PrimaryButton(title: "Add")
-        addButton.frame = CGRect(origin: CGPoint(x: view.frame.width - 110, y: 7), size: CGSize(width: 100, height: 35))
-        addButton.addTarget(self, action: #selector(onPresentNewWalletScreen), for: .touchUpInside)
-        view.addSubview(addButton)
+//        let addButton =  PrimaryButton(title: "Add")
+//        addButton.frame = CGRect(origin: CGPoint(x: view.frame.width - 110, y: 7), size: CGSize(width: 100, height: 35))
+//        addButton.addTarget(self, action: #selector(onPresentNewWalletScreen), for: .touchUpInside)
+//        view.addSubview(addButton)
         view.addSubview(titleLabel)
         cachedHeaders[walletType] = view
 
         return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

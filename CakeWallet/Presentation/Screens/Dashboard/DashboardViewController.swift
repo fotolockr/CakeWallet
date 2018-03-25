@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 15.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -14,17 +14,18 @@ final class DashboardViewController: BaseViewController<DashboardView>,
                                      UIViewControllerTransitioningDelegate,
                                      UITableViewDataSource,
                                      ModalPresentaly {
+    private static let transactionLimit = 5
     var presentSettingsScreen: VoidEmptyHandler
-    var presentSendScreen: VoidEmptyHandler
-    var presentReceiveScreen: VoidEmptyHandler
+    var presentTransactionsList: VoidEmptyHandler
     var presentTransactionDetails: ((TransactionDescription) -> Void)?
     private let wallet: WalletProtocol
     private let account: CurrencySettingsConfigurable
     private let rateTicker: RateTicker
     private var transactions: TransactionHistory
-    private var _transactions: [Array<TransactionDescription>.SectionOfTransactions] {
+    private var _transactions: [TransactionDescription] {
         didSet {
             if oldValue != _transactions {
+                contentView.showAllTransactionsButton.isHidden = DashboardViewController.transactionLimit > _transactions.count
                 contentView.tableView.reloadData()
             }
         }
@@ -39,48 +40,46 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         super.init()
     }
     
-    override func configureBinds() {        
-        let showSettingsButton = UIBarButtonItem(
-            image: UIImage.fontAwesomeIcon(
-                name: .cog,
-                textColor: .gray,
-                size: CGSize(width: 36, height: 36)),
-            style: UIBarButtonItemStyle.plain,
-            target: self,
-            action: #selector(onPresentSettings))
-        navigationItem.setRightBarButton(showSettingsButton, animated: false)
-        
+    override func configureDescription() {
+        title = "Dashboard"
+        tabBarItem.image = UIImage(named: "monero-logo-335.png")?.resized(to: CGSize(width: 32, height: 32))
+        tabBarItem.title = "Dashboard"
+    }
+    
+    override func configureBinds() {
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
         contentView.tableView.register(TransactionUITableViewCell.self, forCellReuseIdentifier: TransactionUITableViewCell.identifier)
-        contentView.receiveButton.addTarget(self, action: #selector(onPresentReceiveScreen), for: .touchUpInside)
-        contentView.newTransactionButton.addTarget(self, action: #selector(onPresentSendScreen), for: .touchUpInside)
+        contentView.showAllTransactionsButton.addTarget(self, action: #selector(showAllTransactionsList), for: .touchUpInside)
+        contentView.showAllTransactionsButton.isHidden = true
         
-        wallet.observe { change, wallet in
+        wallet.observe { [weak self] change, wallet in
             switch change {
             case let .changedStatus(status):
-                self.setStatus(status)
-                self._transactions = wallet.transactionHistory().transactions.toDatesSections()
+                self?.setStatus(status)
+                self?.setTransaction(wallet.transactionHistory().transactions)
             case let .changedUnlockedBalance(unlockedBalance):
-                self.contentView.balanceViewContainer.contentView.unlockedBalance = unlockedBalance.formatted()
+                self?.contentView.balanceViewContainer.contentView.balance = wallet.balance.formatted()
+                self?.contentView.balanceViewContainer.contentView.unlockedBalance = unlockedBalance.formatted()
+                self?.updateRateBalance()
             case let .changedBalance(balance):
-                self.contentView.balanceViewContainer.contentView.balance = balance.formatted()
-                self._transactions = wallet.transactionHistory().transactions.toDatesSections()
-                self.updateRateBalance()
+                self?.contentView.balanceViewContainer.contentView.balance = balance.formatted()
+                self?.contentView.balanceViewContainer.contentView.unlockedBalance = wallet.unlockedBalance.formatted()
+                self?.setTransaction(wallet.transactionHistory().transactions)
+                self?.updateRateBalance()
             case .reset:
-                self.setStatus(wallet.status)
-                self.contentView.balanceViewContainer.contentView.balance = wallet.balance.formatted()
-                self.contentView.balanceViewContainer.contentView.unlockedBalance = wallet.unlockedBalance.formatted()
+                self?.setStatus(wallet.status)
+                self?.contentView.balanceViewContainer.contentView.balance = wallet.balance.formatted()
+                self?.contentView.balanceViewContainer.contentView.unlockedBalance = wallet.unlockedBalance.formatted()
                 
                 if wallet.isWatchOnly {
-                    self.contentView.titleViewHeader.title = "\(wallet.name) (watch-only)"
+                    self?.navigationItem.title = "\(wallet.name) (watch-only)"
                 } else {
-                    self.contentView.titleViewHeader.title = wallet.name
+                    self?.navigationItem.title = wallet.name
                 }
-                // FIX-ME: Unnamed constant
-                self.contentView.titleViewHeader.subtitle = "Monero"
-                self._transactions = wallet.transactionHistory().transactions.toDatesSections()
-                self.updateRateBalance()
+                
+                self?.setTransaction(wallet.transactionHistory().transactions)
+                self?.updateRateBalance()
             default:
                 break
             }
@@ -102,53 +101,34 @@ final class DashboardViewController: BaseViewController<DashboardView>,
     // MARK: UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return _transactions.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _transactions[section].items.count
+        return _transactions.count > DashboardViewController.transactionLimit ? DashboardViewController.transactionLimit : _transactions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = _transactions[indexPath.section].items[indexPath.row]
+        let item = _transactions[indexPath.row]
         let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath)
+        
+        if let cell = cell as? TransactionDescription.CellType {
+            cell.short()
+        }
+        
         return cell
     }
     
     // MARK: UITableViewDelegate
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        let label = UILabel(font: .avenirNextMedium(size: 19))
-        let title: String
-        let date = _transactions[section].date
-        
-        if Calendar.current.isDateInToday(date) {
-            title = "Today"
-        } else if Calendar.current.isDateInYesterday(date) {
-            title = "Yesterday"
-        } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE, MMM d"
-            title = dateFormatter.string(from: date)
-        }
-
-        label.text = title
-        label.textColor = UIColor(hex: 0x303030) // FIX-ME: Unnamed constant
-        view.backgroundColor = tableView.backgroundColor
-        view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10)
-            make.centerY.equalToSuperview()
-        }
-        
-        return view
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let transaction = _transactions[indexPath.section].items[indexPath.row]
+        let transaction = _transactions[indexPath.row]
         presentTransactionDetails?(transaction)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     // MARK: UIViewControllerTransitioningDelegate
@@ -159,6 +139,15 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: halfSizePresentationController, action: #selector(halfSizePresentationController.hide))
         nav.topViewController?.navigationItem.leftBarButtonItem = doneButton
         return halfSizePresentationController
+    }
+    
+    @objc
+    private func showAllTransactionsList() {
+        presentTransactionsList?()
+    }
+    
+    private func setTransaction(_ transactions: [TransactionDescription]) {
+        _transactions = transactions.sorted(by: {  $0.date > $1.date })
     }
     
     private func setCurrency(_ currency: Currency) {
@@ -182,27 +171,6 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         default:
             iconView.stopRotate()
         }
-    }
-    
-    @objc
-    private func onPresentReceiveScreen() {
-        if wallet.isReadyToReceive {
-            presentReceiveScreen?()
-        } else {
-            showWarningOnReceive()
-        }
-    }
-    
-    @objc
-    private func onPresentSendScreen() {
-        guard !wallet.isWatchOnly else {
-            let _ = UIAlertController.showInfo(
-                message: "You cannot send from a watch only wallet.",
-                presentOn: self)
-            return
-        }
-        
-        presentSendScreen?()
     }
     
     @objc

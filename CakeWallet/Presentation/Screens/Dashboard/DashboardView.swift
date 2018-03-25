@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 15.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -11,37 +11,27 @@ import SnapKit
 import FontAwesome_swift
 
 final class DashboardView: BaseView {
-    static let tableViewHeaderHeight: CGFloat = 365
+    static let tableViewHeaderHeight: CGFloat = 270
     let tableView: UITableView
     let statusViewContainer: IconContainerView<StatusViewImpl>
     let tableViewHeader: UIView
     let innerTableViewHeader: UIView
-    let newTransactionButton: UIButton
-    let balanceViewContainer: IconContainerView<BalanceView>
-    let receiveButton: UIButton
-    let titleViewHeader: (TitledView & UIView)
-
+    let balanceViewContainer: IconImageContainerView<BalanceView>
+    let exchangeButton: UIView
+    let buyButton: UIView
+    let showAllTransactionsButton: UIButton
+    
     required init() {
         tableView = UITableView()
         statusViewContainer = IconContainerView<StatusViewImpl>(contentView: StatusViewImpl(), fontAwesomeIcon: .refresh)
         tableViewHeader = UIView()
         innerTableViewHeader = UIView()
-        let _newTransactionButton = SecondaryButton(title: "Send") //UIButton(type: .custom)
-        newTransactionButton = _newTransactionButton
-        _newTransactionButton.setLeftImage(
-            UIImage.fontAwesomeIcon(
-                name: .paperPlane,
-                textColor: .gray,
-                size: CGSize(width: 32, height: 32)))
-        balanceViewContainer = IconContainerView<BalanceView>(contentView: BalanceView(), fontAwesomeIcon: .areaChart)
-        let _receiveButton = SecondaryButton(title: "Receive")
-        receiveButton = _receiveButton
-        _receiveButton.setLeftImage(
-            UIImage.fontAwesomeIcon(
-                name: .inbox,
-                textColor: .gray,
-                size: CGSize(width: 32, height: 32)))
-        titleViewHeader = StandartTitledView()
+        balanceViewContainer = IconImageContainerView<BalanceView>(
+            contentView: BalanceView(),
+            iconImage: UIImage(named: "monero-logo-335.png")!.resized(to: CGSize(width: 64, height: 64)))
+        exchangeButton = IconView(fontAwesomeIcon: .exchange)
+        buyButton = IconView(fontAwesomeIcon: .shoppingCart)
+        showAllTransactionsButton = SecondaryButton(title: "Show all")
         super.init()
     }
     
@@ -49,26 +39,19 @@ final class DashboardView: BaseView {
         super.configureView()
         tableViewHeader.backgroundColor = .clear
         tableViewHeader.addSubview(innerTableViewHeader)
+        innerTableViewHeader.layer.masksToBounds = true
+        innerTableViewHeader.layer.cornerRadius = 10
         innerTableViewHeader.backgroundColor = .white
         innerTableViewHeader.addSubview(statusViewContainer)
         innerTableViewHeader.addSubview(balanceViewContainer)
-        innerTableViewHeader.addSubview(receiveButton)
-        innerTableViewHeader.addSubview(titleViewHeader)
-        innerTableViewHeader.addSubview(newTransactionButton)
-        
-        tableView.sectionHeaderHeight = 25
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(hex: 0xF5F7F9) // FIX-ME: Unnamed constant
+        tableView.backgroundColor = .whiteSmoke
         tableView.separatorStyle = .none
         tableView.tableHeaderView = tableViewHeader
         tableView.sectionHeaderHeight = 50
-       
+        tableView.tableFooterView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 75, height: 75)))
+        tableView.tableFooterView?.addSubview(showAllTransactionsButton)
         addSubview(tableView)
-        
-//        bringSubview(toFront: newTransactionButton)
-//        newTransactionButton.backgroundColor = UIColor(hex: 0x006494)
-//        newTransactionButton.layer.masksToBounds = true
-//        newTransactionButton.layer.cornerRadius = 28
     }
     
     override func layoutSubviews() {
@@ -87,28 +70,14 @@ final class DashboardView: BaseView {
         }
         
         innerTableViewHeader.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-5)
-        }
-        
-        titleViewHeader.snp.makeConstraints { make in
-            make.top.equalTo(receiveButton.snp.bottom)
+            make.top.equalToSuperview().offset(15)
             make.leading.equalToSuperview().offset(15)
-            make.height.equalTo(titleViewHeader)
-            make.trailing.equalToSuperview().offset(-10)
-        }
-        
-        receiveButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-15)
-            make.top.equalToSuperview().offset(10)
-            make.width.equalTo(115)
-            make.height.equalTo(35)
+            make.bottom.equalToSuperview().offset(-10)
         }
         
         balanceViewContainer.snp.makeConstraints { make in
-            make.top.equalTo(titleViewHeader.snp.bottom).offset(15)
+            make.top.equalToSuperview().offset(15)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalTo(balanceViewContainer.snp.height)
@@ -128,15 +97,10 @@ final class DashboardView: BaseView {
             make.bottom.equalToSuperview()
         }
         
-        newTransactionButton.snp.makeConstraints { make in
-            make.top.equalTo(receiveButton.snp.top)
-            make.trailing.equalTo(receiveButton.snp.leading).offset(-10)
-            make.width.equalTo(115)
-            make.height.equalTo(35)
-//            make.bottom.equalToSuperview().offset(-25)
-//            make.trailing.equalToSuperview().offset(-15)
-//            make.height.equalTo(56)
-//            make.width.equalTo(56)
+        showAllTransactionsButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
         }
     }
 }

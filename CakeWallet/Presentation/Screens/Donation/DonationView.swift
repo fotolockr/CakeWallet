@@ -3,12 +3,13 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies on 20.02.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
 
 final class DonationView: BaseView {
+    private static let qrImageViewSize = CGSize(width: 225, height: 225)
     let qrImageView: UIImageView
     let addressLabel: UILabel
     let amountTextField: UITextField
@@ -19,8 +20,8 @@ final class DonationView: BaseView {
         qrImageView = UIImageView()
         amountTextField = FloatingLabelTextField(placeholder: "Amount")
         submitButton = PrimaryButton(title: "Send something to us")
-        addressLabel = CopyableLabel(font: .avenirNextMedium(size: 17))
-        descriptionAddress = UILabel(font: .avenirNextBold(size: 15))
+        addressLabel = CopyableLabel(font: .avenirNextMedium(size: 15))
+        descriptionAddress = UILabel(font: .avenirNextBold(size: 12))
         super.init()
     }
     
@@ -42,9 +43,9 @@ final class DonationView: BaseView {
     override func configureConstraints() {
         qrImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
-            make.leading.equalToSuperview().offset(50)
-            make.trailing.equalToSuperview().offset(-50)
-            make.height.equalTo(qrImageView.snp.width)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(DonationView.qrImageViewSize.height)
+            make.width.equalTo(DonationView.qrImageViewSize.width)
         }
         
         amountTextField.snp.makeConstraints { make in
@@ -54,7 +55,7 @@ final class DonationView: BaseView {
         }
         
         submitButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-20)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-25)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(50)

@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 06.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 #import <Foundation/Foundation.h>
@@ -48,6 +48,12 @@ struct MoneroWalletAdapterMember {
 };
 
 @implementation MoneroWalletAdapter: NSObject
+
++ (NSString *) generatePaymentId
+{
+    NSString * paymentId = [NSString stringWithUTF8String: Monero::Wallet::genPaymentId().c_str()];
+    return paymentId;
+}
 
 - (id)init
 {
@@ -378,6 +384,13 @@ struct MoneroWalletAdapterMember {
 {
     uint64_t unlockedBalance = [self unlockedBalance];
     return [NSString stringWithUTF8String: cryptonote::print_money(unlockedBalance).c_str()];
+}
+
+- (NSString *)integratedAddressFor: (NSString *) paymentId
+{
+    string paymentIdUTF8 = [paymentId UTF8String];
+    NSString *intAddress = [NSString stringWithUTF8String: member->wallet->integratedAddress(paymentIdUTF8).c_str()];
+    return intAddress;
 }
 
 - (Monero::TransactionHistory *)rawHistory

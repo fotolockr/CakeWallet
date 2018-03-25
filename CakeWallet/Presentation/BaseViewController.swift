@@ -3,10 +3,11 @@
 //  Wallet
 //
 //  Created by Cake Technologies 02.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
+import FontAwesome_swift
 
 protocol PresentableAccessView {
     var canBePresented: Bool { get }
@@ -18,7 +19,7 @@ class BaseViewController<View: BaseView>: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        setTabbarIcon()
+        configureDescription()
     }
     
     @available(*, unavailable)
@@ -50,6 +51,15 @@ class BaseViewController<View: BaseView>: UIViewController {
         }
     }
     
-    func setTabbarIcon() {}
+    func updateTabBarIcon(name: FontAwesome) {
+        updateTabBarIcon(name: name, title: title ?? "")
+    }
+    
+    func updateTabBarIcon(name: FontAwesome, title: String) {
+        tabBarItem.image = UIImage.fontAwesomeIcon(name: name, textColor: .red, size: CGSize(width: 32, height: 32))
+        tabBarItem.title = title
+    }
+    
+    func configureDescription() {}
     func configureBinds() {}
 }

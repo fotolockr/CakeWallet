@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 06.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -28,30 +28,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
         let account: Account & AuthenticationProtocol = try! container.resolve() as AccountImpl
 
         guard account.isAuthenticated() && !(window?.rootViewController is AuthenticateViewController) else {
             return
         }
-
+        
         if window?.rootViewController?.presentedViewController?.modalPresentationStyle == .custom {
             window?.rootViewController?.dismiss(animated: false)
             rememberedViewController = window?.rootViewController
         } else if rememberedViewController == nil {
             rememberedViewController = window?.rootViewController
         }
-
+        
         let authScreen = try! container.resolve(arguments: account) as AuthenticateViewController
         authScreen.onLogined = {
             self.window?.rootViewController = self.rememberedViewController
         }
-
+        
         window?.rootViewController = authScreen
-    }
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -86,7 +84,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setAppearance() {
-        UITabBar.appearance().tintColor = UIColor(hex: 0xA682FF) // FIX-ME: Unnamed constant
+        UITabBar.appearance().tintColor = .pictonBlue
+//        UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor(hex: 0x006494) // FIX-ME: Unnamed constant
         UINavigationBar.appearance().titleTextAttributes = [

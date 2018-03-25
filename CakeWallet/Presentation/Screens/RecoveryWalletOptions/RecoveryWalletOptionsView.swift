@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies on 14.02.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -16,7 +16,7 @@ final class RecoveryWalletOptionsView: BaseView {
     required init() {
         seedButton = PrimaryButton(title: "Recover from seed")
         keysButton = PrimaryButton(title: "Recover from keys")
-        orLabel = UILabel(font: .avenirNextMedium(size: 17))
+        orLabel = UILabel()
         super.init()
     }
     

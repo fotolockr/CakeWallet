@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 10.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -64,7 +64,7 @@ final class NodeSettingsViewController: BaseViewController<NodeSettingsView> {
     
     @objc
     private func connect() {
-        let _alert = UIAlertController.showSpinner(message: "Connection")
+        let _alert = UIAlertController.showSpinner(message: "Connecting")
         present(_alert, animated: true)
         
         guard

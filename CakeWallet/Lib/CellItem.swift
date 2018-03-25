@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 18.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
