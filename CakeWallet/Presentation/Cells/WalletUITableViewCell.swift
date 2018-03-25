@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 24.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -17,6 +17,11 @@ final class WalletUITableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configureView() {
+        super.configureView()
+        textLabel?.font = UIFont.avenirNextMedium(size: 15)
     }
     
     override func configureConstraints() {

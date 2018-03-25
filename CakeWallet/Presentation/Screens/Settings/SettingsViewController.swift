@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 01.11.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -11,7 +11,30 @@ import FontAwesome_swift
 
 final class SettingsViewController: BaseViewController<SettingsView>, UITableViewDelegate, UITableViewDataSource {
     enum SettingsSections: Int {
-        case donation, wallets, personal, advanced
+        case donation, wallets, personal, advanced, contactUs
+    }
+    
+    struct SettingsTextViewCellItem: CellItem {
+        let attributedString: NSAttributedString
+        
+        init(attributedString: NSAttributedString) {
+            self.attributedString = attributedString
+        }
+        
+        func setup(cell: UITableViewCell) {
+            let textView = UITextView()
+            textView.isEditable = false
+            textView.attributedText = attributedString
+            cell.contentView.addSubview(textView)
+            cell.accessoryType = .none
+            
+            textView.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(15)
+                make.trailing.equalToSuperview()
+                make.top.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+        }
     }
     
     struct SettingsCellItem: CellItem {
@@ -111,19 +134,25 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         self.sections = [.wallets: [], .personal: []]
         super.init()
     }
+    
+    override func configureDescription() {
+        title = "Settings"
+        updateTabBarIcon(name: .cog)
+    }
 
     override func configureBinds() {
-        title = "Settings"
         contentView.table.register(items: [SettingsCellItem.self, SettingsPickerCellItem<TransactionPriority>.self, SettingsPickerCellItem<Currency>.self])
         contentView.table.delegate = self
         contentView.table.dataSource = self
         
+        if
+            let dictionary = Bundle.main.infoDictionary,
+            let version = dictionary["CFBundleShortVersionString"] as? String {
+            contentView.footerLabel.text = "Version \(version)"
+        }
+        
         let biometricAuthSwitcher = SettingsSwitchCellItem(
             title: "Allow biometric authentication",
-            image: UIImage.fontAwesomeIcon(
-                name: .idCard,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                size: CGSize(width: 32, height: 32)),
             isOn: accountSettings.isBiometricalAuthAllow,
             action: { [weak self] isOn in
                 self?.accountSettings.isBiometricalAuthAllow = isOn
@@ -131,10 +160,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         
         let rememberPasswordSwitcher = SettingsSwitchCellItem(
             title: "Remember pin",
-            image: UIImage.fontAwesomeIcon(
-                name: .eye,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                size: CGSize(width: 32, height: 32)),
             isOn: accountSettings.isPasswordRemembered) { [weak self] isOn in
                 self?.accountSettings.isPasswordRemembered = isOn
         }
@@ -143,10 +168,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         
         let feePriorityPicker = SettingsPickerCellItem<TransactionPriority>(
             title: "Fee priority",
-            image: UIImage.fontAwesomeIcon(
-                name: .flag,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                size: CGSize(width: 32, height: 32)),
             pickerOptions: options,
             selectedAtIndex: options.index(of: accountSettings.transactionPriority) ?? 0) { [weak self] pickedItem in
                 self?.accountSettings.transactionPriority = pickedItem
@@ -154,30 +175,18 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         
         let changePin = SettingsCellItem(
             title: "Change pin",
-            image: UIImage.fontAwesomeIcon(
-                name: .unlockAlt,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                size: CGSize(width: 32, height: 32)),
             action: { [weak self] in
                 self?.presentChangePasswordScreen?()
         })
         
         let nodeSettings = SettingsCellItem(
             title: "Daemon settings",
-            image: UIImage.fontAwesomeIcon(
-                name: .terminal,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                size: CGSize(width: 32, height: 32)),
             action: { [weak self] in
                 self?.presentNodeSettingsScreen?()
         })
         
         let currencyPicker = SettingsPickerCellItem<Currency>(
             title: "Currency",
-            image: UIImage.fontAwesomeIcon(
-                name: .ggCircle,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                size: CGSize(width: 32, height: 32)),
             pickerOptions: Currency.all,
             selectedAtIndex: Currency.all.index(of: accountSettings.currency) ?? Configurations.defaultCurreny.rawValue,
             onFinish:  { [weak self] pickedItem in
@@ -192,20 +201,12 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         
         let wallets = SettingsCellItem(
             title: "Add or switch wallets",
-            image: UIImage.fontAwesomeIcon(
-                name: .addressBook,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                size: CGSize(width: 32, height: 32)),
             action: { [weak self] in
                 self?.presentWalletsScreen?()
         })
         
         let showKeys = SettingsCellItem(
             title: "Show keys",
-            image: UIImage.fontAwesomeIcon(
-                name: .key,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                size: CGSize(width: 32, height: 32)),
             action: { [weak self] in
                 self?.presentWalletKeys?()
         })
@@ -215,10 +216,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         if showSeedIsAllow {
             let showSeed = SettingsCellItem(
                 title: "Show seed",
-                image: UIImage.fontAwesomeIcon(
-                    name: .creditCard,
-                    textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant
-                    size: CGSize(width: 32, height: 32)),
                 action: { [weak self] in
                     self?.presentWalletSeed?()
             })
@@ -231,16 +228,32 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         
         let supportUs = SettingsCellItem(
             title: "Please donate to support us!",
-            image: UIImage.fontAwesomeIcon(
-                name: .asterisk,
-                textColor: UIColor(hex: 0x2D93AD), // FIX-ME: Unnamed constant,
-                size:  CGSize(width: 32, height: 32)),
             action:  { [weak self] in
                 self?.presentDonation?()
         })
         
         sections[.donation] = [supportUs]
         sections[.advanced] = [nodeSettings]
+        
+        let email = "info@caketech.io"
+        let telegram = "https://t.me/cake_wallet"
+        let twitter = "cakewalletXMR"
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.paragraphSpacing = 5
+        paragraphStyle.lineSpacing = 5
+        let attributes = [
+            NSAttributedStringKey.font : UIFont.avenirNextMedium(size: 15),
+            NSAttributedStringKey.paragraphStyle: paragraphStyle
+        ]
+        let attributedString = NSMutableAttributedString(string: "Email: \(email)\nTelegram: \(telegram)\nTwitter: @\(twitter)", attributes: attributes)
+        let telegramAddressRange = attributedString.mutableString.range(of: telegram)
+        attributedString.addAttribute(.link, value: telegram, range: telegramAddressRange)
+        let twitterAddressRange = attributedString.mutableString.range(of: "@\(twitter)")
+        attributedString.addAttribute(.link, value: "https://twitter.com/\(twitter)", range: twitterAddressRange)
+        let emailAddressRange = attributedString.mutableString.range(of: email)
+        attributedString.addAttribute(.link, value: "mailto:\(email)", range: emailAddressRange)
+        
+        sections[.contactUs] = [SettingsTextViewCellItem(attributedString: attributedString)]
     }
     
     // MARK: UITableViewDataSource
@@ -274,6 +287,12 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard
+            let section = SettingsSections(rawValue: indexPath.section),
+            section != .contactUs else {
+            return 100
+        }
+        
         return 50
     }
     
@@ -310,6 +329,8 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             titleLabel.text = "Wallets"
         case .advanced:
             titleLabel.text = "Advanced"
+        case .contactUs:
+            titleLabel.text = "Contact us"
         default:
             return nil
         }

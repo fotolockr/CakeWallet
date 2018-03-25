@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 26.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -20,7 +20,7 @@ final class IconView: UIView {
         
         self.init(iconImage: UIImage.fontAwesomeIcon(
             name: fontAwesomeIcon,
-            textColor: UIColor(hex: 0xF5F7F9),
+            textColor: .whiteSmoke,
             size: IconView.defaultImageSize))
     }
     
@@ -51,7 +51,7 @@ final class IconView: UIView {
         
         // FIX-ME: Unnamed constant
         
-        backgroundColor = UIColor(hex: 0x2AB7CA) // UIColor(hex: 0x011627)
+        backgroundColor = .pictonBlue
         addSubview(imageView)
     }
     
@@ -59,8 +59,16 @@ final class IconView: UIView {
         imageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
+//            make.leading.equalToSuperview()
+//            make.trailing.equalToSuperview()
+//            make.top.equalToSuperview()
+//            make.bottom.equalToSuperview()
             make.size.equalTo(imageSize)
         }
+        
+//        snp.makeConstraints { make in
+//            make.size.equalTo(imageView.snp.size)
+//        }
     }
 }
 

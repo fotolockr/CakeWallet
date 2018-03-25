@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 31.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import PromiseKit
@@ -73,6 +73,10 @@ final class EmptyWallet: WalletProtocol {
     func transactionHistory() -> TransactionHistory {
         // FIX-ME: Not implemented
         return EmptyTransactionHistory()
+    }
+    
+    func integratedAddress(for paymentId: String) -> String {
+        return ""
     }
     
     func clear() {

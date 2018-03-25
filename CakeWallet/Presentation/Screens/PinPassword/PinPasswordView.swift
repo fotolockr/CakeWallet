@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 02.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -19,7 +19,7 @@ final class PinPasswordView: BaseView {
     required init() {
         stackView = UIStackView(arrangedSubviews: [PinView(), PinView(), PinView(), PinView()])
         keyboard = PasswordKeyboardView()
-        descriptionLabel = UILabel(font: UIFont.avenirNextMedium(size: 17))
+        descriptionLabel = UILabel()
         gradientLayer = CAGradientLayer()
         super.init()
     }
@@ -36,8 +36,7 @@ final class PinPasswordView: BaseView {
         stackView.distribution = .equalSpacing
         descriptionLabel.textAlignment = .center
         descriptionLabel.textColor = UIColor(hex: 0x303030) // FIX-ME: Unnamed constant
-        
-        backgroundColor = UIColor(hex: 0xF5F7F9) // FIX-ME: Unnamed constant
+        backgroundColor = .whiteSmoke
         
         
 //        let startColor = UIColor(hex: 0xA682FF)

@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 27.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import Foundation
@@ -43,11 +43,19 @@ extension TransactionError: LocalizedError {
     var errorDescription: String? {
         let error: String
         
-        switch self {
-        case let .insufficientFunds(balcnce, totalAmount, amount, fee):
-            error = "Insufficient Funds.\nBalance is \(balcnce.formatted()).\nTotal required is \(totalAmount.formatted()) (amount: \(amount?.formatted()) + fee: \(fee.formatted()))."
+        switch self { //You sending amount of XXX is more than your balance of XXXXX
+        case let .insufficientFunds(balance, totalAmount, amount, fee):
+            if let amount = amount {
+                error = "Insufficient Funds.\nYour sending amount of \(totalAmount.formatted()) (amount of \(amount.formatted()) + fee of \(fee.formatted()) is more than your balance of \(balance.formatted())."
+            } else {
+                error = "Insufficient Funds.\nYour sending amount is more than your balance of \(balance.formatted())."
+            }
         case let .overallBalance(balance, amount):
-            error = "Insufficient Balance.\nBalance is \(balance.formatted()).\nAmount is \(amount?.formatted())"
+            if let amount = amount {
+                error = "Insufficient Balance.\nYour sending amount of \(amount.formatted()) is more than your balance of \(balance.formatted())."
+            } else {
+                error = "Insufficient Balance.\nYour sending amount is more than your balance of \(balance.formatted())."
+            }
         }
         
         return error

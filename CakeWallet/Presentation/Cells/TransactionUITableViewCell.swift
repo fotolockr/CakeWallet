@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 11/27/17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -14,18 +14,14 @@ final class TransactionUITableViewCell: UITableViewCell {
     static private let imageSize = CGSize(width: 26, height: 26)
     let directionLabel: UILabel
     let amountLabel: UILabel
-    let idLabel: UILabel
     let dateLabel: UILabel
-    let feeLabel: UILabel
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        directionLabel = UILabel(font: .avenirNextDemiBold(size: 21))
+        directionLabel = UILabel(font: .avenirNextMedium(size: 15))
         amountLabel = PaddingLabel(
             insets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10),
-            font: .avenirNextDemiBold(size: 17))
-        idLabel = UILabel(font: .avenirNextMedium(size: 14))
+            font: .avenirNextDemiBold(size: 15))
         dateLabel = UILabel(font: .avenirNextMedium(size: 14))
-        feeLabel = UILabel(font: .avenirNextDemiBold(size: 14))
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureView()
         configureConstraints()
@@ -37,72 +33,56 @@ final class TransactionUITableViewCell: UITableViewCell {
     
     override func configureView() {
         super.configureView()
-        idLabel.textColor = .gray
         dateLabel.textColor = .gray
-        feeLabel.textColor = .gray
         
         // FIX-ME: Unnamed constant
         
         directionLabel.textColor = UIColor(hex: 0x303030)
         amountLabel.layer.masksToBounds = true
         amountLabel.layer.cornerRadius = 10
+        amountLabel.textAlignment = .right
         backgroundColor = .clear
         contentView.backgroundColor = .white
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 5
-        contentView.addSubview(feeLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(amountLabel)
         contentView.addSubview(directionLabel)
-        contentView.addSubview(idLabel)
     }
     
     override func configureConstraints() {
         contentView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-2.5)
-            make.top.equalToSuperview().offset(2.5)
+            make.bottom.equalToSuperview().offset(-5.5)
+            make.top.equalToSuperview().offset(5.5)
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
         }
         
-        idLabel.snp.makeConstraints { make in
-            make.top.equalTo(directionLabel.snp.bottom).offset(5)
-            make.leading.equalTo(directionLabel.snp.leading)
-            make.trailing.equalTo(directionLabel.snp.trailing)
-            make.bottom.equalToSuperview().offset(-10)
-        }
-        
         amountLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-15)
-            make.width.equalTo(amountLabel.snp.width)
+            make.leading.equalTo(directionLabel.snp.trailing)
             make.height.equalTo(amountLabel.snp.height)
-            make.top.equalToSuperview().offset(15)
-        }
-        
-        feeLabel.snp.makeConstraints { make in
-            make.top.equalTo(amountLabel.snp.bottom).offset(5)
-            make.trailing.equalTo(amountLabel.snp.trailing)
-            make.width.equalTo(feeLabel.snp.width)
+            make.centerY.equalTo(contentView.snp.centerY)
         }
         
         if let imageView = imageView {
             imageView.snp.makeConstraints { make in
                 make.leading.equalTo(contentView.snp.leading)
                 make.centerY.equalTo(contentView.snp.centerY)
-                make.height.equalTo(imageView.snp.height)
-                make.width.equalTo(imageView.snp.width)
+                make.height.equalTo(TransactionUITableViewCell.imageSize.height)
+                make.width.equalTo(TransactionUITableViewCell.imageSize.width)
             }
             
             dateLabel.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(15)
+                make.centerY.equalTo(contentView.snp.centerY)
                 make.leading.equalTo(imageView.snp.trailing)
                 make.height.equalTo(dateLabel.snp.height)
-                make.width.equalTo(dateLabel.snp.width)
+                make.width.equalTo(40)
             }
             
             directionLabel.snp.makeConstraints { make in
-                make.top.equalTo(dateLabel.snp.bottom).offset(5)
-                make.leading.equalTo(imageView.snp.trailing)
+                make.centerY.equalTo(contentView.snp.centerY)
+                make.leading.equalTo(dateLabel.snp.trailing)
                 make.height.equalTo(directionLabel.snp.height)
                 make.trailing.equalTo(amountLabel.snp.leading).offset(-10)
             }
@@ -110,19 +90,27 @@ final class TransactionUITableViewCell: UITableViewCell {
     }
     
     func configure(
-        id: String,
         direction: TransactionDirection,
         formattedAmount: String,
         status: TransactionStatus,
         isPending: Bool,
         recipientAddress: String,
-        date: Date,
-        formattedFee: String) {
+        date: Date) {
         setDirection(direction, isPendgin: isPending)
         setAmount(formattedAmount)
-        setId(id)
         setDate(date)
-        setFee(formattedFee)
+        needsUpdateConstraints()
+        layoutIfNeeded()
+    }
+    
+    func short() {
+        imageView?.image = nil
+        dateLabel.text = nil
+        dateLabel.isHidden = true
+        directionLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.centerY.equalToSuperview()
+        }
         needsUpdateConstraints()
         layoutIfNeeded()
     }
@@ -133,15 +121,11 @@ final class TransactionUITableViewCell: UITableViewCell {
         switch direction {
         case .incoming:
             amountLabel.textColor = .lightGreen
-            amountLabel.backgroundColor = UIColor.lightGreen.withAlphaComponent(0.15)
-            directionStr = "Receive"
-            feeLabel.isHidden = true
+            directionStr = "Received"
             imageView?.image = UIImage.fontAwesomeIcon(name: .longArrowUp, textColor: .lightGreen, size: TransactionUITableViewCell.imageSize)
         case .outgoing:
             amountLabel.textColor = .lightRed
-            amountLabel.backgroundColor = UIColor.lightRed.withAlphaComponent(0.15)
             directionStr = "Sent"
-            feeLabel.isHidden = false
             imageView?.image = UIImage.fontAwesomeIcon(name: .longArrowDown, textColor: .lightRed, size: TransactionUITableViewCell.imageSize)
         }
         
@@ -162,13 +146,6 @@ final class TransactionUITableViewCell: UITableViewCell {
         amountLabel.text = amount
     }
     
-    private func setFee(_ fee: String) {
-        feeLabel.text = fee
-    }
-    
-    private func setId(_ id: String) {
-        idLabel.text = id
-    }
     
     private func setDate(_ date: Date) {
         let dateFormatter = DateFormatter()

@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 26.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import Foundation

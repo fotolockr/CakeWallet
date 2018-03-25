@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 27.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import Foundation
@@ -39,6 +39,7 @@ protocol WalletProtocol: ObservableWallet, TransactionCreatableProtocol, WalletK
     func close()
     func startUpdate()
     func transactionHistory() -> TransactionHistory
+    func integratedAddress(for paymentId: String) -> String
 }
 
 extension WalletProtocol {

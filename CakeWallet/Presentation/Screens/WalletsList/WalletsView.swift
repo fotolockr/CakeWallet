@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 02.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -19,6 +19,7 @@ final class WalletsView: BaseView {
     
     override func configureView() {
         super.configureView()
+        table.backgroundColor = .whiteSmoke
         table.rowHeight = 50
         table.sectionHeaderHeight = 50
         table.tableFooterView = UIView()

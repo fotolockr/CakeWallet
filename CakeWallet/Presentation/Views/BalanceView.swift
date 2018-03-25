@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 26.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -133,7 +133,7 @@ final class BalanceView: BaseView {
     }
     
     func setCurrency(_ currency: Currency) {
-        alternativeBalanceDescriptionLabel.text = "Rate balance (\(currency.symbol))".uppercased()
+        alternativeBalanceDescriptionLabel.text = "Balance in (\(currency.symbol))".uppercased()
     }
 }
 

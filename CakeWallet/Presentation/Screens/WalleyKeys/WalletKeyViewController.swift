@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies on 15.02.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -13,8 +13,8 @@ final class WalletKeysUITableViewCell: UITableViewCell {
     let valueLabel: UILabel
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        titleLabel = UILabel(font: .avenirNextDemiBold(size: 17))
-        valueLabel = UILabel(font: .avenirNextMedium(size: 14))
+        titleLabel = UILabel(font: .avenirNextDemiBold(size: 15))
+        valueLabel = UILabel(font: .avenirNextMedium(size: 12))
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureView()
         configureConstraints()

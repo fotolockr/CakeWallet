@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 31.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -39,6 +39,7 @@ final class SettingsPickerUITableViewCell<Item: Stringify>: UITableViewCell, UIP
         super.configureView()
         accessoryView = pinckerTextField
         pinckerTextField.inputView = pickerView
+        pinckerTextField.textColor = .gray
         pickerView.delegate = self
         pickerView.dataSource = self
         pinckerTextField.delegate = self

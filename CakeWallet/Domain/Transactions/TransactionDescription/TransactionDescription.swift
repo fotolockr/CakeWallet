@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 12/1/17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import Foundation
@@ -53,14 +53,12 @@ extension TransactionDescription: Equatable {
 extension TransactionDescription: CellItem {
     func setup(cell: TransactionUITableViewCell) {
         cell.configure(
-            id: id,
             direction: direction,
             formattedAmount: totalAmount.formatted(),
             status: status,
             isPending: isPending,
             recipientAddress: "",
-            date: date,
-            formattedFee: fee.formatted())
+            date: date)
     }
 }
 

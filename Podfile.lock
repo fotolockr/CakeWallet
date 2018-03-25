@@ -20,6 +20,7 @@ PODS:
   - Starscream (3.0.3)
   - SwiftKeychainWrapper (3.0.1)
   - SwiftSoup (1.6.1)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Dip
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - Starscream (~> 3.0.2)
   - SwiftKeychainWrapper
   - SwiftSoup
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Dip: 316ad036509eaf3ef78e19699f32a9e01a5b3c3e
@@ -46,7 +48,8 @@ SPEC CHECKSUMS:
   Starscream: dfb1b3f39506717ee52b67fb48de0c8269504cbc
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   SwiftSoup: 1eedf56f751b36035ae6c95562f86944c9cfafee
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 729667f84c859f4cc31262aeeeac71f5394c0541
+PODFILE CHECKSUM: b58272c908d556ff97c62cc72c19386aa29dcb7f
 
 COCOAPODS: 1.4.0

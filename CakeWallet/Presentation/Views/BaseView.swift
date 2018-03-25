@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 02.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -58,10 +58,7 @@ class BaseView: UIView {
     
     override func configureView() {
         super.configureView()
-        
-        // FIX-ME: Unnamed constant
-        
-        backgroundColor = .white //UIColor(hex: 0xFCFCFC)
+        backgroundColor = .white
     }
 }
 
