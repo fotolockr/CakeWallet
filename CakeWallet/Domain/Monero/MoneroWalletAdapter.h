@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 06.10.17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 #import <Foundation/Foundation.h>
@@ -27,6 +27,7 @@
     struct MoneroWalletAdapterMember *member;
 }
 @property (weak) id<MoneroWalletAdapterDelegate> delegate;
++ (NSString *) generatePaymentId;
 - (id)init;
 - (void)setIsRecovery:(BOOL) isRecovery;
 - (BOOL)generateWithPath:(NSString *)path andPassword:(NSString *)password error:(NSError **) error;
@@ -59,6 +60,7 @@
 - (NSString *)name;
 - (NSString *)printedBalance;
 - (NSString *)printedUnlockedBalance;
+- (NSString *)integratedAddressFor: (NSString *) paymentId;
 - (BOOL)setPassword:(NSString *) password error:(NSError **) error;
 - (void)close;
 - (void)clear;

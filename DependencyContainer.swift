@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 11/30/17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import Foundation
@@ -69,6 +69,26 @@ extension DependencyContainer {
                     pinPasswordViewController: try! container.resolve(arguments: false) as PinPasswordViewController)
             }
             
+            // MARK: ExchangeResultViewController
+            
+            container.register { (trade: ExchangeTrade, amountStr: String) in
+                ExchangeResultViewController(
+                    account: try! container.resolve() as AccountImpl,
+                    trade: trade,
+                    amountStr: amountStr)
+                }.resolvingProperties { (container, vc: ExchangeResultViewController) in
+                    vc.presentVerifyPinScreen = { handler in
+                        let verifyPinPasswordViewController = try! container.resolve() as VerifyPinPasswordViewController
+                        verifyPinPasswordViewController.modalPresentationStyle = .overFullScreen
+                        verifyPinPasswordViewController.onVerified = {
+                            verifyPinPasswordViewController.dismiss(animated: true) {
+                                handler()
+                            }
+                        }
+                        
+                        vc.present(verifyPinPasswordViewController, animated: true)
+                    }
+            }
             
             // MARK: AddWalletViewController
             
@@ -94,9 +114,27 @@ extension DependencyContainer {
                 DashboardViewController(account: try! container.resolve() as AccountImpl, wallet: wallet, rateTicker: try! container.resolve() as RateTicker)
             }
             
+            container.register {
+                DashboardViewController(
+                    account: try! container.resolve() as AccountImpl,
+                    wallet: (try! container.resolve() as WalletProxy) as WalletProtocol,
+                    rateTicker: try! container.resolve() as RateTicker)
+                }.resolvingProperties { (conteiner, vc: DashboardViewController) in
+                    vc.presentTransactionDetails = { [weak vc] transaction in
+                        let transactionDetailsViewController = TransactionDetailsViewController(transaction: transaction)
+                        vc?.navigationController?.pushViewController(transactionDetailsViewController, animated: true)
+                    }
+                    
+                    vc.presentTransactionsList = { [weak vc] in
+                        let transactionsList = try! container.resolve() as TransactionsListViewController
+                        vc?.navigationController?.pushViewController(transactionsList, animated: true)
+                    }
+                }
+            
             // MARK: ReceiveViewController
             
             container.register { (wallet: WalletProtocol) in ReceiveViewController(wallet: wallet) }
+            container.register { ReceiveViewController(wallet: try! container.resolve() as WalletProxy) }
             
             // MARK: SendViewController
             
@@ -164,15 +202,22 @@ extension DependencyContainer {
                     
                     vc.presentWalletKeys = { [weak vc] in
                         let verifyPinPasswordViewController = try! container.resolve() as VerifyPinPasswordViewController
-                        verifyPinPasswordViewController.onVerified = {
+                        
+                        if verifyPinPasswordViewController.canBePresented {
+                            verifyPinPasswordViewController.onVerified = {
+                                let walletKeyViewController = try! container.resolve() as WalletKeyViewController
+                                let navController = UINavigationController(rootViewController: walletKeyViewController)
+                                verifyPinPasswordViewController.dismiss(animated: false) {
+                                    vc?.present(navController, animated: true)
+                                }
+                            }
+                            
+                            vc?.present(verifyPinPasswordViewController, animated: true)
+                        } else {
                             let walletKeyViewController = try! container.resolve() as WalletKeyViewController
                             let navController = UINavigationController(rootViewController: walletKeyViewController)
-                            verifyPinPasswordViewController.dismiss(animated: false) {
-                                vc?.present(navController, animated: true)
-                            }
+                            vc?.present(navController, animated: true)
                         }
-                        
-                        vc?.present(verifyPinPasswordViewController, animated: true)
                     }
                     
                     vc.presentWalletSeed = {
@@ -216,6 +261,13 @@ extension DependencyContainer {
             
             container.register { WalletsViewController(account: try! container.resolve()) }
                 .resolvingProperties { (container: DependencyContainer, vc: WalletsViewController) in
+                    let back = { [weak vc] in
+                        if let rootVc = vc?.navigationController?.viewControllers.first {
+                            rootVc.tabBarController?.selectedIndex = 0
+                            vc?.navigationController?.popToRootViewController(animated: false)
+                        }
+                    }
+                    
                     vc.presentLoadWalletScreen = { index in
                         let account = try! container.resolve() as Account
                         let wallets = account.wallets()
@@ -223,9 +275,9 @@ extension DependencyContainer {
                         let laodWalletViewController = try! container.resolve(arguments: name, wallets) as LoadWalletViewController
                         
                         if laodWalletViewController.canBePresented {
-                            laodWalletViewController.onLogined = { [weak laodWalletViewController, weak vc] in
+                            laodWalletViewController.onLogined = { [weak laodWalletViewController] in
                                 laodWalletViewController?.dismiss(animated: true) {
-                                    vc?.navigationController?.popToRootViewController(animated: true)
+                                   back()
                                 }
                             }
                             
@@ -236,9 +288,9 @@ extension DependencyContainer {
                             
                             
                             wallets.loadWallet(withName: name)
-                                .then { [weak vc] in
+                                .then {
                                     alert.dismiss(animated: true) {
-                                        vc?.navigationController?.popToRootViewController(animated: true)
+                                        back()
                                     }
                                 }.catch { [weak vc] error in
                                     alert.dismiss(animated: true) {
@@ -254,7 +306,7 @@ extension DependencyContainer {
                         let signUpFlow = try! container.resolve(arguments: navController, account.wallets()) as SignUpFlow
                         signUpFlow.finalHandler = {
                             navController.dismiss(animated: true) {
-                                vc?.navigationController?.popToRootViewController(animated: true)
+                                back()
                             }
                         }
                         
@@ -358,7 +410,7 @@ extension DependencyContainer {
             // MARK: ChangePasswordViewController
 
             container.register { ChangePasswordViewController(
-                account: try! container.resolve() as Account,
+                account: try! container.resolve() as AccountImpl,
                 pinPasswordViewController: try! container.resolve(arguments: true) as PinPasswordViewController)
             }
             
@@ -386,10 +438,45 @@ extension DependencyContainer {
             
             container.register { DonationViewController(canSend: !(try! container.resolve () as WalletProxy).isWatchOnly) }
             
+            // MARK: TransactionsListViewController
+            
+            container.register {
+                TransactionsListViewController(wallet: try! container.resolve() as WalletProxy)
+                }.resolvingProperties { (container, vc: TransactionsListViewController) in
+                    vc.presentTransactionDetails = { [weak vc] transaction in
+                        let transactionDetailsViewController = TransactionDetailsViewController(transaction: transaction)
+                        vc?.navigationController?.pushViewController(transactionDetailsViewController, animated: true)
+                    }
+            }
+            
+            //  MARK: ExchangeViewController
+            
+            container.register { ExchangeViewController(
+                account: try! container.resolve() as AccountImpl,
+                wallet: try! container.resolve() as WalletProxy,
+                transactionCreation: try! container.resolve() as WalletProxy)
+            }
+            //  MARK: BuyViewController
+            
+            container.register { BuyViewController(wallet: try! container.resolve() as WalletProxy) }
+            
+            // MARK: ServicesViewController
+            
+            container.register { ServicesViewController(
+                exchangeViewController: try! container.resolve() as ExchangeViewController,
+                buyViewController: try! container.resolve() as BuyViewController)
+            }
+            
             // Flows
             
             container.register { rootViewController, wallets in  SignUpFlow(rootViewController: rootViewController, wallets: wallets) }
-            container.register { MainFlow(rootViewController: UINavigationController(), wallet: try! container.resolve() as WalletProxy) }
+            container.register { MainFlow(rootViewController: UITabBarController(viewControllers: [
+                    UINavigationController(rootViewController: try! container.resolve() as DashboardViewController),
+                    UINavigationController(rootViewController: try! container.resolve() as SendViewController),
+                    UINavigationController(rootViewController: try! container.resolve() as ReceiveViewController),
+                    UINavigationController(rootViewController: try! container.resolve() as ServicesViewController),
+                    UINavigationController(rootViewController: try! container.resolve() as SettingsViewController)
+                ])) }
             container.register { RootFlow(window: $0, account: try! container.resolve() as AccountImpl) }
         }
     }

@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies on 22.02.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import Foundation
@@ -23,5 +23,10 @@ final class FloatingLabelTextField: SkyFloatingLabelTextField {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configureView() {
+        super.configureView()
+        font = .avenirNextMedium(size: 15)
     }
 }

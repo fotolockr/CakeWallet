@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 10.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -23,7 +23,7 @@ final class NodeSettingsView: BaseView {
         loginLabel = FloatingLabelTextField(placeholder: "Login (optional)")
         passwordLabel = FloatingLabelTextField(placeholder: "Password (optional)")
         connectButton = PrimaryButton(title: "Connect")
-        descriptionLabel = UILabel(font: .avenirNextMedium(size: 17))
+        descriptionLabel = UILabel(font: .avenirNextMedium(size: 12))
         resetSettings = SecondaryButton(title: "Reset settings")
         super.init()
     }
@@ -76,16 +76,14 @@ final class NodeSettingsView: BaseView {
         }
         
         resetSettings.snp.makeConstraints { make in
-            make.bottom.equalTo(connectButton.snp.top).offset(-20)
-            make.leading.equalTo(connectButton.snp.leading)
-            make.trailing.equalTo(connectButton.snp.trailing)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-25)
+            make.trailing.equalTo(self.snp.centerX).offset(-10)
             make.height.equalTo(50)
         }
         
         connectButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-25)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-25)
+            make.leading.equalTo(self.snp.centerX).offset(10)
             make.height.equalTo(50)
         }
     }

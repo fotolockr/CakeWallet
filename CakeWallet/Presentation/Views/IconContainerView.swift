@@ -3,7 +3,7 @@
 //  CakeWallet
 //
 //  Created by Cake Technologies 26.01.2018.
-//  Copyright © 2018 Cake Technologies. All rights reserved.
+//  Copyright © 2018 Cake Technologies. 
 //
 
 import UIKit
@@ -38,8 +38,10 @@ final class IconContainerView<ContentViewType: UIView>: UIView {
     
     override func configureConstraints() {
         iconView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(15)
+            make.leading.equalToSuperview().offset(10)
             make.top.equalToSuperview()
+//            make.width.equalTo(iconView.imageView.snp.width)
+//            make.height.equalTo(iconView.imageView.snp.width)
             make.width.equalTo(42)
             make.height.equalTo(42)
         }

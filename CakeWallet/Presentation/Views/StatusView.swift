@@ -3,7 +3,7 @@
 //  Wallet
 //
 //  Created by Cake Technologies 12/8/17.
-//  Copyright © 2017 Cake Technologies. All rights reserved.
+//  Copyright © 2017 Cake Technologies. 
 //
 
 import UIKit
@@ -178,10 +178,10 @@ extension StatusViewImpl: StatusView {
         case .connected:
             setDescription("Connected")
         case .startUpdating:
-            initProgress(description: "Starting updating", initialProgress: 0)
+            initProgress(description: "Start syncing", initialProgress: 0)
         case .updated:
             finishProgress(
-                withText: "Updated",
+                withText: "Synchronized",
                 icon: UIImage.fontAwesomeIcon(
                     name: .check,
                     textColor: .lightGray,
