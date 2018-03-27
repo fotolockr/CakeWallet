@@ -172,6 +172,7 @@
 		CA4830E4206ADD2D0071066A /* libeasylogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830E2206ADD2D0071066A /* libeasylogging.a */; };
 		CA4830E5206ADD2D0071066A /* liblmdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830E3206ADD2D0071066A /* liblmdb.a */; };
 		CA4830E6206AE52C0071066A /* libboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C056A6B2006637F0016AEF1 /* libboost.a */; };
+		CA4830E8206AF7050071066A /* TextViewUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4830E7206AF7050071066A /* TextViewUITableViewCell.swift */; };
 		CA4DF8B12034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */; };
 		CA4DF8B32034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */; };
 		CA4DF8B62034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */; };
@@ -407,6 +408,7 @@
 		CA4830DD206ADD160071066A /* libwallet_merged.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwallet_merged.a; path = "External/monero-gui/monero/lib/libwallet_merged.a"; sourceTree = "<group>"; };
 		CA4830E2206ADD2D0071066A /* libeasylogging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeasylogging.a; path = "External/monero-gui/monero/lib/libeasylogging.a"; sourceTree = "<group>"; };
 		CA4830E3206ADD2D0071066A /* liblmdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblmdb.a; path = "External/monero-gui/monero/lib/liblmdb.a"; sourceTree = "<group>"; };
+		CA4830E7206AF7050071066A /* TextViewUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewUITableViewCell.swift; sourceTree = "<group>"; };
 		CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletOptionsView.swift; sourceTree = "<group>"; };
 		CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletOptionsViewController.swift; sourceTree = "<group>"; };
 		CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletFromKeysView.swift; sourceTree = "<group>"; };
@@ -801,6 +803,7 @@
 				0CB2CA321FD84C28002EF5D0 /* TransactionDetailsUITableViewCell.swift */,
 				0C62EA82202251E6005A8F2E /* SettingsPickerUITableViewCell.swift */,
 				CA032E2F2056F937009B24B9 /* ExchangeTableViewCell.swift */,
+				CA4830E7206AF7050071066A /* TextViewUITableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1370,6 +1373,7 @@
 				0C22E4861F8D34CB00C12A14 /* Roundable+UIView.swift in Sources */,
 				0C62FBD22022FAC4005A8F2E /* EmptyWallet.swift in Sources */,
 				0CC828081FD0D75E002A5796 /* Wallets+WalletsCreating.swift in Sources */,
+				CA4830E8206AF7050071066A /* TextViewUITableViewCell.swift in Sources */,
 				0C22E49A1F8D34CB00C12A14 /* UITableViewCell+identifier.swift in Sources */,
 				0C62FBD82022FAC4005A8F2E /* TransactionCreatableProtocol.swift in Sources */,
 				0C22E4911F8D34CB00C12A14 /* ReceiveView.swift in Sources */,

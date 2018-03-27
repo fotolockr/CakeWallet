@@ -21,19 +21,8 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             self.attributedString = attributedString
         }
         
-        func setup(cell: UITableViewCell) {
-            let textView = UITextView()
-            textView.isEditable = false
-            textView.attributedText = attributedString
-            cell.contentView.addSubview(textView)
-            cell.accessoryType = .none
-            
-            textView.snp.makeConstraints { make in
-                make.leading.equalToSuperview().offset(15)
-                make.trailing.equalToSuperview()
-                make.top.equalToSuperview()
-                make.bottom.equalToSuperview()
-            }
+        func setup(cell: TextViewUITableViewCell) {
+            cell.configure(attributedText: attributedString)
         }
     }
     
@@ -141,7 +130,11 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
 
     override func configureBinds() {
-        contentView.table.register(items: [SettingsCellItem.self, SettingsPickerCellItem<TransactionPriority>.self, SettingsPickerCellItem<Currency>.self])
+        contentView.table.register(items: [
+            SettingsCellItem.self,
+            SettingsPickerCellItem<TransactionPriority>.self,
+            SettingsPickerCellItem<Currency>.self,
+            SettingsTextViewCellItem.self])
         contentView.table.delegate = self
         contentView.table.dataSource = self
         
@@ -278,7 +271,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             let item = sections[section]?[indexPath.row] else {
                 return UITableViewCell()
         }
-        
         let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath)
         cell.textLabel?.font = UIFont.avenirNextMedium(size: 15)
         return cell
