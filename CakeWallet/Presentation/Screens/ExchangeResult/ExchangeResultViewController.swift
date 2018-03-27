@@ -65,7 +65,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         if trade.inputCurrency == .monero {
             contentView.preConfirmDescriptionLabel.text = "By pressing confirm, you will be sending \(amount.formatted()) XMR from your wallet called \(account.currentWallet.name) to the address shown above.\n\nPlease press confirm to continue or go back to change the amounts."
         } else {
-            contentView.preConfirmDescriptionLabel.text = "Please send \(amount.formatted()) \(amount.formatted()) to the address/QR code shown above"
+            contentView.preConfirmDescriptionLabel.text = "Please send \(amount.formatted()) to the address/QR code shown above"
             contentView.confirmButton.isHidden = true
         }
     }
