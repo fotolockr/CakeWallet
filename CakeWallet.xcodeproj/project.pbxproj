@@ -7,15 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C056A6C200663800016AEF1 /* libboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C056A6B2006637F0016AEF1 /* libboost.a */; };
 		0C0A314E1F9F8D4B001B96BC /* WalletUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A314D1F9F8D4B001B96BC /* WalletUITableViewCell.swift */; };
 		0C0F87911FCC37CC00570312 /* MoneroPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F87901FCC37CC00570312 /* MoneroPendingTransaction.swift */; };
 		0C0F87931FCC455C00570312 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F87921FCC455B00570312 /* TransactionCell.swift */; };
 		0C0F87951FCC457200570312 /* TransactionUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F87941FCC457200570312 /* TransactionUITableViewCell.swift */; };
-		0C1718872003E91A00EA1B02 /* libunbound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718832003E91A00EA1B02 /* libunbound.a */; };
-		0C1718882003E91A00EA1B02 /* libeasylogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718842003E91A00EA1B02 /* libeasylogging.a */; };
-		0C1718892003E91A00EA1B02 /* libepee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718852003E91A00EA1B02 /* libepee.a */; };
-		0C17188A2003E91A00EA1B02 /* libwallet_merged.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718862003E91A00EA1B02 /* libwallet_merged.a */; };
 		0C17188B2003F34700EA1B02 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEEE3501FEDE23200F8C4C9 /* libcrypto.a */; };
 		0C17188C2003F34700EA1B02 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEEE3511FEDE23200F8C4C9 /* libssl.a */; };
 		0C1D34681FB9D620005F2B86 /* TransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1D34671FB9D620005F2B86 /* TransactionHistory.swift */; };
@@ -170,6 +165,13 @@
 		CA0F61E7203C8D2E005EDF2C /* DonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F61E6203C8D2E005EDF2C /* DonationViewController.swift */; };
 		CA0F61E9203CC4CF005EDF2C /* MoneroUri.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F61E8203CC4CF005EDF2C /* MoneroUri.swift */; };
 		CA3EA3F320669633005A7D5C /* UIScreen+sizeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3EA3F220669633005A7D5C /* UIScreen+sizeType.swift */; };
+		CA4830DE206ADD160071066A /* libepee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DA206ADD160071066A /* libepee.a */; };
+		CA4830DF206ADD160071066A /* libunbound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DB206ADD160071066A /* libunbound.a */; };
+		CA4830E0206ADD160071066A /* libminiupnpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DC206ADD160071066A /* libminiupnpc.a */; };
+		CA4830E1206ADD160071066A /* libwallet_merged.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DD206ADD160071066A /* libwallet_merged.a */; };
+		CA4830E4206ADD2D0071066A /* libeasylogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830E2206ADD2D0071066A /* libeasylogging.a */; };
+		CA4830E5206ADD2D0071066A /* liblmdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830E3206ADD2D0071066A /* liblmdb.a */; };
+		CA4830E6206AE52C0071066A /* libboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C056A6B2006637F0016AEF1 /* libboost.a */; };
 		CA4DF8B12034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */; };
 		CA4DF8B32034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */; };
 		CA4DF8B62034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */; };
@@ -399,6 +401,12 @@
 		CA0F61E6203C8D2E005EDF2C /* DonationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationViewController.swift; sourceTree = "<group>"; };
 		CA0F61E8203CC4CF005EDF2C /* MoneroUri.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneroUri.swift; sourceTree = "<group>"; };
 		CA3EA3F220669633005A7D5C /* UIScreen+sizeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+sizeType.swift"; sourceTree = "<group>"; };
+		CA4830DA206ADD160071066A /* libepee.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libepee.a; path = "External/monero-gui/monero/lib/libepee.a"; sourceTree = "<group>"; };
+		CA4830DB206ADD160071066A /* libunbound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunbound.a; path = "External/monero-gui/monero/lib/libunbound.a"; sourceTree = "<group>"; };
+		CA4830DC206ADD160071066A /* libminiupnpc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminiupnpc.a; path = "External/monero-gui/monero/lib/libminiupnpc.a"; sourceTree = "<group>"; };
+		CA4830DD206ADD160071066A /* libwallet_merged.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwallet_merged.a; path = "External/monero-gui/monero/lib/libwallet_merged.a"; sourceTree = "<group>"; };
+		CA4830E2206ADD2D0071066A /* libeasylogging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeasylogging.a; path = "External/monero-gui/monero/lib/libeasylogging.a"; sourceTree = "<group>"; };
+		CA4830E3206ADD2D0071066A /* liblmdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblmdb.a; path = "External/monero-gui/monero/lib/liblmdb.a"; sourceTree = "<group>"; };
 		CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletOptionsView.swift; sourceTree = "<group>"; };
 		CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletOptionsViewController.swift; sourceTree = "<group>"; };
 		CA4DF8B52034CA01002B0AB4 /* RecoveryWalletFromKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryWalletFromKeysView.swift; sourceTree = "<group>"; };
@@ -435,13 +443,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C056A6C200663800016AEF1 /* libboost.a in Frameworks */,
+				CA4830E6206AE52C0071066A /* libboost.a in Frameworks */,
+				CA4830E4206ADD2D0071066A /* libeasylogging.a in Frameworks */,
+				CA4830E5206ADD2D0071066A /* liblmdb.a in Frameworks */,
+				CA4830DE206ADD160071066A /* libepee.a in Frameworks */,
+				CA4830DF206ADD160071066A /* libunbound.a in Frameworks */,
+				CA4830E0206ADD160071066A /* libminiupnpc.a in Frameworks */,
+				CA4830E1206ADD160071066A /* libwallet_merged.a in Frameworks */,
 				0C17188B2003F34700EA1B02 /* libcrypto.a in Frameworks */,
 				0C17188C2003F34700EA1B02 /* libssl.a in Frameworks */,
-				0C1718872003E91A00EA1B02 /* libunbound.a in Frameworks */,
-				0C1718882003E91A00EA1B02 /* libeasylogging.a in Frameworks */,
-				0C1718892003E91A00EA1B02 /* libepee.a in Frameworks */,
-				0C17188A2003E91A00EA1B02 /* libwallet_merged.a in Frameworks */,
 				7D688A03F774B0C06AB7D747 /* Pods_CakeWallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -986,6 +996,12 @@
 		7E8099D1BF3D5573A4A7316D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CA4830E2206ADD2D0071066A /* libeasylogging.a */,
+				CA4830E3206ADD2D0071066A /* liblmdb.a */,
+				CA4830DA206ADD160071066A /* libepee.a */,
+				CA4830DC206ADD160071066A /* libminiupnpc.a */,
+				CA4830DB206ADD160071066A /* libunbound.a */,
+				CA4830DD206ADD160071066A /* libwallet_merged.a */,
 				0C056A6B2006637F0016AEF1 /* libboost.a */,
 				0C1718842003E91A00EA1B02 /* libeasylogging.a */,
 				0C1718852003E91A00EA1B02 /* libepee.a */,

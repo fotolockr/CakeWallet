@@ -60,7 +60,7 @@ struct MoneroWalletAdapterMember {
     self = [super init];
     if (self) {
         Monero::Utils::onStartup();
-        Monero::WalletImpl *wallet = new Monero::WalletImpl(false);
+        Monero::WalletImpl *wallet = new Monero::WalletImpl();
         MonerWalletListener *listener = new MonerWalletListener();
         listener->wallet = self;
         wallet->setListener(listener);
