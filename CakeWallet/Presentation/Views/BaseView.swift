@@ -60,6 +60,10 @@ class BaseView: UIView {
         super.configureView()
         backgroundColor = .white
     }
+    
+    func safeHeight() -> CGFloat {
+        return safeAreaInsets.bottom - safeAreaInsets.top
+    }
 }
 
 extension CALayer {
