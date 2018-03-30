@@ -70,6 +70,12 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let height = contentView.safeHeight() > 550 ? contentView.safeHeight() : 550
+        contentView.scrollView.contentSize = CGSize(width: contentView.frame.width, height: height)
+    }
+    
     @objc
     private func confirmAction() {
         sendMonero()
