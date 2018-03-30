@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var rememberedViewController: UIViewController?
+    private var blurEffectView: UIVisualEffectView?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.sharedManager().enable = true
@@ -28,11 +29,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
+        guard
+            let viewController = window?.rootViewController,
+            !biometricIsShown && self.blurEffectView == nil else {
+                return
+        }
+        
+        let vc: UIViewController
+        
+        if let presentedVC = viewController.presentedViewController {
+            vc = presentedVC
+        } else {
+            vc = viewController
+        }
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        self.blurEffectView = blurEffectView
+        blurEffectView.frame = vc.view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        vc.view.addSubview(blurEffectView)
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
         let account: Account & AuthenticationProtocol = try! container.resolve() as AccountImpl
-
+        
         guard account.isAuthenticated() && !(window?.rootViewController is AuthenticateViewController) else {
             return
         }
@@ -49,16 +73,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = self.rememberedViewController
         }
         
+        self.blurEffectView?.removeFromSuperview()
         window?.rootViewController = authScreen
     }
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-    
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        if let blurEffectView = self.blurEffectView {
+            blurEffectView.removeFromSuperview()
+            self.blurEffectView = nil
+        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
