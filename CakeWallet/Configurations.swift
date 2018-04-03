@@ -11,8 +11,8 @@ import Foundation
 final class Configurations {
     enum DefaultsKeys: Stringify {
         case nodeUri, nodeLogin, nodePassword, termsOfUseAccepted, currentWalletName,
-             currentWalletType,  biometricAuthenticationOn, passwordIsRemembered, transactionPriority,
-             currency
+             currentWalletType, biometricAuthenticationOn, passwordIsRemembered, transactionPriority,
+             currency, defaultNodeChanged
         
         func stringify() -> String {
             switch self {
@@ -36,11 +36,14 @@ final class Configurations {
                 return "saved_fee_priority"
             case .currency:
                 return "currency"
+            case .defaultNodeChanged:
+                return "default_node_was_changed"
             }
         }
     }
     
-    static let defaultNodeUri = "opennode.xmr-tw.org:18089"
+    static let preDefaultNodeUri = "opennode.xmr-tw.org:18089"
+    static let defaultNodeUri = "node.xmrbackb.one:18081"
     static let defaultCurreny = Currency.usd
     static var termsOfUseUrl: URL? {
         return Bundle.main.url(forResource: "Terms_of_Use", withExtension: "rtf")

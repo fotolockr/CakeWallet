@@ -318,7 +318,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, UIPickerVi
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let height = contentView.safeHeight() > 500 ? contentView.safeHeight() : 500
+        let height = contentView.safeHeight() > 520 ? contentView.safeHeight() : 520
         contentView.scrollView.contentSize = CGSize(width: contentView.frame.width, height: height)
     }
     

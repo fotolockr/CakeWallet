@@ -11,7 +11,9 @@ import FontAwesome_swift
 
 final class SettingsViewController: BaseViewController<SettingsView>, UITableViewDelegate, UITableViewDataSource {
     enum SettingsSections: Int {
-        case donation, wallets, personal, advanced, contactUs
+//        case donation, wallets, personal, advanced, contactUs
+        
+        case wallets, personal, advanced, contactUs
     }
     
     struct SettingsTextViewCellItem: CellItem {
@@ -219,13 +221,13 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         sections[.wallets]?.append(currencyPicker)
         sections[.wallets]?.append(feePriorityPicker)
         
-        let supportUs = SettingsCellItem(
-            title: "Please donate to support us!",
-            action:  { [weak self] in
-                self?.presentDonation?()
-        })
-        
-        sections[.donation] = [supportUs]
+//        let supportUs = SettingsCellItem(
+//            title: "Please donate to support us!",
+//            action:  { [weak self] in
+//                self?.presentDonation?()
+//        })
+//
+//        sections[.donation] = [supportUs]
         sections[.advanced] = [nodeSettings]
         
         let email = "info@caketech.io"
@@ -289,15 +291,17 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let section = SettingsSections(rawValue: section) else {
-            return 0
-        }
+//        guard let section = SettingsSections(rawValue: section) else {
+//            return 0
+//        }
         
-        if section != .donation {
-            return 50
-        } else {
-            return 0
-        }
+//        if section != .donation {
+//            return 50
+//        } else {
+//            return 0
+//        }
+        
+        return 50
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
