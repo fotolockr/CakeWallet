@@ -165,12 +165,7 @@
 		CA0F61E7203C8D2E005EDF2C /* DonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F61E6203C8D2E005EDF2C /* DonationViewController.swift */; };
 		CA0F61E9203CC4CF005EDF2C /* MoneroUri.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F61E8203CC4CF005EDF2C /* MoneroUri.swift */; };
 		CA3EA3F320669633005A7D5C /* UIScreen+sizeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3EA3F220669633005A7D5C /* UIScreen+sizeType.swift */; };
-		CA4830DE206ADD160071066A /* libepee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DA206ADD160071066A /* libepee.a */; };
-		CA4830DF206ADD160071066A /* libunbound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DB206ADD160071066A /* libunbound.a */; };
 		CA4830E0206ADD160071066A /* libminiupnpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DC206ADD160071066A /* libminiupnpc.a */; };
-		CA4830E1206ADD160071066A /* libwallet_merged.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DD206ADD160071066A /* libwallet_merged.a */; };
-		CA4830E4206ADD2D0071066A /* libeasylogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830E2206ADD2D0071066A /* libeasylogging.a */; };
-		CA4830E5206ADD2D0071066A /* liblmdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830E3206ADD2D0071066A /* liblmdb.a */; };
 		CA4830E6206AE52C0071066A /* libboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C056A6B2006637F0016AEF1 /* libboost.a */; };
 		CA4830E8206AF7050071066A /* TextViewUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4830E7206AF7050071066A /* TextViewUITableViewCell.swift */; };
 		CA4DF8B12034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */; };
@@ -191,6 +186,10 @@
 		CAA82A992035E47400D8FD92 /* WalletKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A982035E47400D8FD92 /* WalletKeyViewController.swift */; };
 		CAADC1A52063DB3A00B9D9EB /* ExchangeResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAADC1A42063DB3A00B9D9EB /* ExchangeResultView.swift */; };
 		CAADC1A72063DB4300B9D9EB /* ExchangeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAADC1A62063DB4300B9D9EB /* ExchangeResultViewController.swift */; };
+		CABBD20E2070283A008AB5B5 /* libeasylogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718842003E91A00EA1B02 /* libeasylogging.a */; };
+		CABBD20F2070283A008AB5B5 /* libepee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718852003E91A00EA1B02 /* libepee.a */; };
+		CABBD2102070283A008AB5B5 /* libunbound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718832003E91A00EA1B02 /* libunbound.a */; };
+		CABBD2112070283A008AB5B5 /* libwallet_merged.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1718862003E91A00EA1B02 /* libwallet_merged.a */; };
 		CAE8752E205325F70025C53C /* TransactionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE8752D205325F70025C53C /* TransactionsListViewController.swift */; };
 		CAE87530205326000025C53C /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE8752F205326000025C53C /* TransactionsListView.swift */; };
 		CAE87532205336410025C53C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE87531205336410025C53C /* CardView.swift */; };
@@ -445,13 +444,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CABBD20E2070283A008AB5B5 /* libeasylogging.a in Frameworks */,
+				CABBD20F2070283A008AB5B5 /* libepee.a in Frameworks */,
+				CABBD2102070283A008AB5B5 /* libunbound.a in Frameworks */,
+				CABBD2112070283A008AB5B5 /* libwallet_merged.a in Frameworks */,
 				CA4830E6206AE52C0071066A /* libboost.a in Frameworks */,
-				CA4830E4206ADD2D0071066A /* libeasylogging.a in Frameworks */,
-				CA4830E5206ADD2D0071066A /* liblmdb.a in Frameworks */,
-				CA4830DE206ADD160071066A /* libepee.a in Frameworks */,
-				CA4830DF206ADD160071066A /* libunbound.a in Frameworks */,
 				CA4830E0206ADD160071066A /* libminiupnpc.a in Frameworks */,
-				CA4830E1206ADD160071066A /* libwallet_merged.a in Frameworks */,
 				0C17188B2003F34700EA1B02 /* libcrypto.a in Frameworks */,
 				0C17188C2003F34700EA1B02 /* libssl.a in Frameworks */,
 				7D688A03F774B0C06AB7D747 /* Pods_CakeWallet.framework in Frameworks */,

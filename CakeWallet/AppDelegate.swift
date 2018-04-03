@@ -98,10 +98,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // FIX-ME: Replce to migration and make migrations.
-        
-        let oldDefaultNodeUri = "node.moneroworld.com:18089"
-        
-        if UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri) == oldDefaultNodeUri {
+        if
+            !UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.defaultNodeChanged)
+                && UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri)?.lowercased() == Configurations.preDefaultNodeUri.lowercased() {
+            UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.defaultNodeChanged)
             UserDefaults.standard.set(Configurations.defaultNodeUri, forKey: Configurations.DefaultsKeys.nodeUri)
         }
     }
