@@ -11,7 +11,9 @@ import FontAwesome_swift
 
 final class SettingsViewController: BaseViewController<SettingsView>, UITableViewDelegate, UITableViewDataSource {
     enum SettingsSections: Int {
-        case donation, wallets, personal, advanced, contactUs
+//        case donation, wallets, personal, advanced, contactUs
+        
+        case wallets, personal, advanced, contactUs
     }
     
     struct SettingsTextViewCellItem: CellItem {
@@ -21,19 +23,8 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             self.attributedString = attributedString
         }
         
-        func setup(cell: UITableViewCell) {
-            let textView = UITextView()
-            textView.isEditable = false
-            textView.attributedText = attributedString
-            cell.contentView.addSubview(textView)
-            cell.accessoryType = .none
-            
-            textView.snp.makeConstraints { make in
-                make.leading.equalToSuperview().offset(15)
-                make.trailing.equalToSuperview()
-                make.top.equalToSuperview()
-                make.bottom.equalToSuperview()
-            }
+        func setup(cell: TextViewUITableViewCell) {
+            cell.configure(attributedText: attributedString)
         }
     }
     
@@ -141,7 +132,11 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
 
     override func configureBinds() {
-        contentView.table.register(items: [SettingsCellItem.self, SettingsPickerCellItem<TransactionPriority>.self, SettingsPickerCellItem<Currency>.self])
+        contentView.table.register(items: [
+            SettingsCellItem.self,
+            SettingsPickerCellItem<TransactionPriority>.self,
+            SettingsPickerCellItem<Currency>.self,
+            SettingsTextViewCellItem.self])
         contentView.table.delegate = self
         contentView.table.dataSource = self
         
@@ -226,13 +221,13 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         sections[.wallets]?.append(currencyPicker)
         sections[.wallets]?.append(feePriorityPicker)
         
-        let supportUs = SettingsCellItem(
-            title: "Please donate to support us!",
-            action:  { [weak self] in
-                self?.presentDonation?()
-        })
-        
-        sections[.donation] = [supportUs]
+//        let supportUs = SettingsCellItem(
+//            title: "Please donate to support us!",
+//            action:  { [weak self] in
+//                self?.presentDonation?()
+//        })
+//
+//        sections[.donation] = [supportUs]
         sections[.advanced] = [nodeSettings]
         
         let email = "info@caketech.io"
@@ -278,7 +273,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             let item = sections[section]?[indexPath.row] else {
                 return UITableViewCell()
         }
-        
         let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath)
         cell.textLabel?.font = UIFont.avenirNextMedium(size: 15)
         return cell
@@ -297,15 +291,17 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let section = SettingsSections(rawValue: section) else {
-            return 0
-        }
+//        guard let section = SettingsSections(rawValue: section) else {
+//            return 0
+//        }
         
-        if section != .donation {
-            return 50
-        } else {
-            return 0
-        }
+//        if section != .donation {
+//            return 50
+//        } else {
+//            return 0
+//        }
+        
+        return 50
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

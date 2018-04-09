@@ -55,7 +55,15 @@ extension UIView {
 }
 
 final class ReceiveView: BaseView {
-    private static let qrImageViewSize = CGSize(width: 200, height: 200)
+    private static var qrImageViewSize: CGSize {
+        switch UIScreen.main.sizeType {
+        case .iPhone5, .iPhone6:
+            return CGSize(width: 130, height: 130)
+        default:
+            return CGSize(width: 200, height: 200)
+        }
+    }
+    
     let qrImageView: UIImageView
     let addressLabel: UILabel
     let amountTextField: UITextField
@@ -111,7 +119,12 @@ final class ReceiveView: BaseView {
         
         qrImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(15)
+            switch UIScreen.main.sizeType {
+            case .iPhone5, .iPhone6:
+                make.top.equalToSuperview().offset(10)
+            default:
+                make.top.equalToSuperview().offset(15)
+            }
             make.width.equalTo(ReceiveView.qrImageViewSize.width)
             make.height.equalTo(ReceiveView.qrImageViewSize.height)
         }
@@ -119,13 +132,24 @@ final class ReceiveView: BaseView {
         addressLabel.snp.makeConstraints { make in
             make.width.equalTo(addressLabel.snp.width)
             make.height.equalTo(addressLabel.snp.height)
-            make.top.equalTo(qrImageView.snp.bottom).offset(10)
+            switch UIScreen.main.sizeType {
+            case .iPhone5, .iPhone6:
+                make.top.equalTo(qrImageView.snp.bottom).offset(5)
+            default:
+                make.top.equalTo(qrImageView.snp.bottom).offset(10)
+            }
             make.leading.equalTo(25)
             make.trailing.equalTo(-25)
         }
         
         amountTextField.snp.makeConstraints { make in
-            make.top.equalTo(addressLabel.snp.bottom).offset(5)
+            switch UIScreen.main.sizeType {
+            case .iPhone5, .iPhone6:
+                make.top.equalTo(addressLabel.snp.bottom)
+            default:
+                make.top.equalTo(addressLabel.snp.bottom).offset(5)
+            }
+            
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
@@ -154,7 +178,12 @@ final class ReceiveView: BaseView {
             make.top.equalTo(paymentIdTextField.snp.bottom).offset(5)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalTo(copyIntegratedAddressButton.snp.leading).offset(-10)
-            make.bottom.equalToSuperview().offset(-20)
+            switch UIScreen.main.sizeType {
+            case .iPhone5, .iPhone6:
+                make.bottom.equalToSuperview().offset(-10)
+            default:
+                make.bottom.equalToSuperview().offset(-20)
+            }
         }
         
         copyAddressButton.snp.makeConstraints { make in

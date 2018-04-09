@@ -7,15 +7,20 @@
 //
 
 import Foundation
+import PromiseKit
 
-struct ConnectionSettings {
+enum CheckConnectionError: Error {
+    case cannotConnect
+}
+
+struct ConnectionSettings: Equatable {
     let uri: String
     let login: String
     let password: String
     
-    static func loadSavedSettings() -> ConnectionSettings? {
+    static func loadSavedSettings() -> ConnectionSettings {
         guard let uri = UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri) else {
-            return nil
+            return ConnectionSettings(uri: Configurations.defaultNodeUri, login: "", password: "")
         }
         
         let login = UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeLogin) ?? ""
@@ -34,5 +39,15 @@ struct ConnectionSettings {
         UserDefaults.standard.set(uri, forKey: Configurations.DefaultsKeys.nodeUri)
         UserDefaults.standard.set(login, forKey: Configurations.DefaultsKeys.nodeLogin)
         UserDefaults.standard.set(password, forKey: Configurations.DefaultsKeys.nodePassword)
+    }
+    
+    func connect() -> Promise<(Bool, ConnectionSettings)> {
+        let comp = uri.components(separatedBy: ":")
+        guard let address = comp.first, let port = Int32(comp[1]) else {
+            return Promise(value: (false, self))
+        }
+        
+        return checkConnectionAsync(toAddress: address, port: port)
+            .then { return ($0, self) }
     }
 }

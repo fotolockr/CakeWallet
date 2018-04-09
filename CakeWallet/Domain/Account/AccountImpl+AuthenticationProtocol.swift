@@ -9,6 +9,7 @@
 import PromiseKit
 import LocalAuthentication
 
+private(set) var biometricIsShown = false
 private let limitOfFailedAuthorizations = 5
 private let banInterval: TimeInterval = 60
 private var numberOfFailedAuthentication = 0
@@ -76,7 +77,11 @@ extension AccountImpl: AuthenticationProtocol {
             let reasonString = "To unlock your wallet"
             
             if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+                biometricIsShown = true
+               
                 localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString) { success, evaluateError in
+                    biometricIsShown = false
+                    
                     if success {
                         fulfill(())
                     } else {
@@ -88,6 +93,8 @@ extension AccountImpl: AuthenticationProtocol {
                     }
                 }
             } else {
+                biometricIsShown = false
+                
                 guard let error = authError else {
                     return
                 }

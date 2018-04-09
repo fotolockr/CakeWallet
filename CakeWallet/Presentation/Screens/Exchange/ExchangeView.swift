@@ -260,7 +260,7 @@ final class ExchangeView: BaseView {
             make.leading.equalTo(self.snp.centerX).offset(10)
             
             switch UIScreen.main.sizeType {
-            case .iPhone4, .iPhone5:
+            case .iPhone4, .iPhone5, .iPhone6:
                 make.top.equalTo(poweredByLabel.snp.bottom).offset(20)
             default:
                 make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-25)
