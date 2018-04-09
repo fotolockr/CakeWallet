@@ -1,20 +1,19 @@
 //
-//  NodeSettingsView.swift
+//  NewNodeView.swift
 //  CakeWallet
 //
-//  Created by Cake Technologies 10.01.2018.
-//  Copyright © 2018 Cake Technologies. 
+//  Created by Cake Technologies on 06.04.2018.
+//  Copyright © 2018 Cake Technologies. All rights reserved.
 //
 
 import UIKit
 
-final class NodeSettingsView: BaseView {
+final class NewNodeSettingsView: BaseView {
     let nodeAddressLabel: UITextField
     let nodePortLabel: UITextField
     let loginLabel: UITextField
     let passwordLabel: UITextField
     let saveButton: UIButton
-    let descriptionLabel: UILabel
     let resetSettings: UIButton
     
     required init() {
@@ -22,23 +21,19 @@ final class NodeSettingsView: BaseView {
         nodePortLabel = FloatingLabelTextField(placeholder: "Daemon port")
         loginLabel = FloatingLabelTextField(placeholder: "Login (optional)")
         passwordLabel = FloatingLabelTextField(placeholder: "Password (optional)")
-        saveButton = PrimaryButton(title: "Connect")
-        descriptionLabel = UILabel(font: .avenirNextMedium(size: 12))
-        resetSettings = SecondaryButton(title: "Reset settings")
+        saveButton = PrimaryButton(title: "Save")
+        resetSettings = SecondaryButton(title: "Reset")
         super.init()
     }
     
     override func configureView() {
         super.configureView()
         nodePortLabel.keyboardType = .numberPad
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.textColor = .gray
         addSubview(nodeAddressLabel)
         addSubview(nodePortLabel)
         addSubview(loginLabel)
         addSubview(passwordLabel)
         addSubview(saveButton)
-        addSubview(descriptionLabel)
         addSubview(resetSettings)
     }
     
@@ -66,13 +61,6 @@ final class NodeSettingsView: BaseView {
             make.top.equalTo(loginLabel.snp.top)
             make.width.equalTo(loginLabel.snp.width)
             make.trailing.equalToSuperview().offset(-20)
-        }
-        
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(loginLabel.snp.bottom).offset(25)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(descriptionLabel.snp.height)
         }
         
         resetSettings.snp.makeConstraints { make in

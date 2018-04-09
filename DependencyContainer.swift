@@ -196,7 +196,7 @@ extension DependencyContainer {
                     }
                     
                     vc.presentNodeSettingsScreen = { [weak vc] in
-                        let nodeSettingsViewController = try! container.resolve() as NodeSettingsViewController
+                        let nodeSettingsViewController = try! container.resolve() as NodesListViewController
                         vc?.navigationController?.pushViewController(nodeSettingsViewController, animated: true)
                     }
                     
@@ -465,6 +465,34 @@ extension DependencyContainer {
             container.register { ServicesViewController(
                 exchangeViewController: try! container.resolve() as ExchangeViewController,
                 buyViewController: try! container.resolve() as BuyViewController)
+            }
+            
+            // MARK: NewNodeSettingsViewController
+            
+            container.register {
+                NewNodeSettingsViewController(nodesList: $0)
+            }
+            
+            // MARK: NodesListViewController
+            
+            container.register {
+                NodesListViewController(
+                    account: try! container.resolve() as AccountImpl,
+                    nodesList: NodesList.shared)
+                }.resolvingProperties({ (container, vc: NodesListViewController) in
+                    vc.presentNewNodeScreen = { [weak vc] in
+                        if let _vc = vc {
+                            let newNodeVC = try! container.resolve(arguments: _vc.nodesList) as NewNodeSettingsViewController
+                            _vc.navigationController?.pushViewController(newNodeVC, animated: true)
+                        }
+                    }
+                })
+            
+            
+            // MARK: NodeConnectionControl
+            
+            container.register {
+                NodeConnectionControl(account: try! container.resolve() as AccountImpl, nodesList: NodesList.shared)
             }
             
             // Flows

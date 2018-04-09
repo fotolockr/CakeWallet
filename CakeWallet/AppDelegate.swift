@@ -98,12 +98,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // FIX-ME: Replce to migration and make migrations.
-        if
-            !UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.defaultNodeChanged)
-                && UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri)?.lowercased() == Configurations.preDefaultNodeUri.lowercased() {
+        if UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri)?.lowercased() == Configurations.preDefaultNodeUri.lowercased() {
             UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.defaultNodeChanged)
             UserDefaults.standard.set(Configurations.defaultNodeUri, forKey: Configurations.DefaultsKeys.nodeUri)
         }
+        
+        if NodesList.url !=  NodesList.originalNodesListUrl
+            && !FileManager.default.fileExists(atPath: NodesList.url.path) {
+            try? FileManager.default.copyItem(at: NodesList.originalNodesListUrl, to: NodesList.url)
+        }
+        
+        if UserDefaults.standard.value(forKey: Configurations.DefaultsKeys.autoSwitchNode.stringify()) == nil {
+             UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.autoSwitchNode.stringify())
+        }
+        
+        let nodeConnectionControl = try! container.resolve() as NodeConnectionControl
+        nodeConnectionControl.start()
     }
     
     private func setAppearance() {

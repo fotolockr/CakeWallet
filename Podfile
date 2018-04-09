@@ -18,4 +18,5 @@ target 'CakeWallet' do
     
     pod 'SwiftSoup'
     pod 'SwiftyJSON'
+    pod 'SwiftSocket'
 end

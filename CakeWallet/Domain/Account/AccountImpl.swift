@@ -53,6 +53,20 @@ final class AccountImpl: Account {
         }
     }
     
+    var autoSwitchNode: Bool {
+        get {
+            if UserDefaults.standard.value(forKey: Configurations.DefaultsKeys.autoSwitchNode.stringify()) == nil {
+                return false
+            }
+            
+            return UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.autoSwitchNode)
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: Configurations.DefaultsKeys.autoSwitchNode)
+        }
+    }
+    
     var currency: Currency {
         get {
             // WARNING: Unsafe unwrap
@@ -67,7 +81,6 @@ final class AccountImpl: Account {
     
     var connectionSettings: ConnectionSettings {
         return ConnectionSettings.loadSavedSettings()
-            ?? ConnectionSettings(uri: "", login: "", password: "")
     }
     
     let keychainStorage: KeychainStorage
@@ -135,13 +148,13 @@ final class AccountImpl: Account {
     }
     
     func change(connectionSettings: ConnectionSettings) -> Promise<Void> {
-        connectionSettings.save()
         return currentWallet.connect(withSettings: connectionSettings)
+            .then { _ in connectionSettings.save() }
     }
     
     func resetConnectionSettings() -> ConnectionSettings {
         UserDefaults.standard.set(Configurations.defaultNodeUri, forKey: Configurations.DefaultsKeys.nodeUri)
-        return ConnectionSettings.loadSavedSettings() ?? ConnectionSettings(uri: Configurations.defaultNodeUri, login: "", password: "")
+        return ConnectionSettings.loadSavedSettings()
     }
     
     func loadCurrentWallet() -> Promise<Void> {
