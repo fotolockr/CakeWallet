@@ -43,6 +43,7 @@ struct NewBlockUpdate {
 enum NetworkStatus {
     case notConnected
     case failedConnection(Date)
+    case failedConnectionNext
     case connecting
     case connected
     case startUpdating

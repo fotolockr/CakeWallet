@@ -19,4 +19,4 @@ pod install
 
 > We use forked repositories of [ofxiOSBoost](https://github.com/fotolockr/ofxiOSBoost), [monero](https://github.com/fotolockr/monero) and [monero-gui](https://github.com/fotolockr/monero-gui). We do this ONLY for more convenient installation process. Changes which we did in [ofxiOSBoost](https://github.com/fotolockr/ofxiOSBoost), [monero](https://github.com/fotolockr/monero) and [monero-gui](https://github.com/fotolockr/monero-gui) you can see in commit history in "build" branch of these repositories.
 
-**FotoLockr LLC.**
+**Cake Technologies LLC.**

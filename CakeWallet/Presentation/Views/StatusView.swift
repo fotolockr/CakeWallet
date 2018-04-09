@@ -142,7 +142,7 @@ extension StatusViewImpl: StatusView {
     
     func update(status: NetworkStatus) {
         switch status {
-        case .failedConnection(_):
+        case .failedConnection(_), .failedConnectionNext:
             break
         default:
             if timer != nil {
@@ -189,6 +189,8 @@ extension StatusViewImpl: StatusView {
             
         case let .updating(status):
             updateProgress(status)
+        default:
+            break
         }
     }
     

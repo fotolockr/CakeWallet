@@ -19,6 +19,7 @@ PODS:
   - SnapKit (4.0.0)
   - Starscream (3.0.3)
   - SwiftKeychainWrapper (3.0.1)
+  - SwiftSocket (2.0.2)
   - SwiftSoup (1.6.1)
   - SwiftyJSON (4.0.0)
 
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.0)
   - Starscream (~> 3.0.2)
   - SwiftKeychainWrapper
+  - SwiftSocket
   - SwiftSoup
   - SwiftyJSON
 
@@ -47,9 +49,10 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   Starscream: dfb1b3f39506717ee52b67fb48de0c8269504cbc
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
+  SwiftSocket: 6f4c9c63fbc5c1d61188936bb3c599fd546f40ae
   SwiftSoup: 1eedf56f751b36035ae6c95562f86944c9cfafee
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: b58272c908d556ff97c62cc72c19386aa29dcb7f
+PODFILE CHECKSUM: 30e7bb38d09baf3b936a07c39e3f08bf84f23386
 
 COCOAPODS: 1.4.0

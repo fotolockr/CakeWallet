@@ -10,6 +10,14 @@ import Foundation
 import PromiseKit
 
 private let isRecoveryKey = "monero_wallet_is_recovery"
+private let walletLoadingQueue = DispatchQueue(
+    label: "io.cakewallet.moneroWalletGateway",
+    qos: .default,
+    attributes: .concurrent)
+
+private let walletCreatingQueue = DispatchQueue(
+    label: "io.cakewallet.moneroWalletCreatingGateway",
+    qos: .default)
 
 final class MoneroWalletGateway: WalletGateway {
     static let prefixPath = "/Monero/"
@@ -25,8 +33,15 @@ final class MoneroWalletGateway: WalletGateway {
                         return
                 }
                 let keychainStorage = try! container.resolve() as KeychainStorage
+                let wallets = walletsDirs.map { name -> String? in
+                    var isDir = ObjCBool(false)
+                    let url = docsUrl.appendingPathComponent(name)
+                    FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir)
+                    
+                    return isDir.boolValue ? name : nil
+                    }.compactMap({ $0 })
                 
-                fulfill(walletsDirs.map { name -> WalletDescription in
+                fulfill(wallets.map { name -> WalletDescription in
                     if
                         let isWatchOnlyStr = try? keychainStorage.fetch(forKey: .isWatchOnly(WalletIndex(name: name))),
                         let isWatchOnly = Bool(isWatchOnlyStr) {
@@ -41,7 +56,7 @@ final class MoneroWalletGateway: WalletGateway {
     
     func create(withCredentials credentials: WalletCreatingCredentials) -> Promise<WalletProtocol> {
         return Promise { fulfill, reject in
-            DispatchQueue.global(qos: .background).async {
+            walletCreatingQueue.async {
                 do {
                     let moneroAdapter = MoneroWalletAdapter()!
                     let isRecovery = false
@@ -63,7 +78,7 @@ final class MoneroWalletGateway: WalletGateway {
     
     func load(withCredentials credentials: WalletLoadingCredentials) -> Promise<WalletProtocol> {
         return Promise { fulfill, reject in
-            DispatchQueue.global(qos: .background).async {
+            walletLoadingQueue.async {
                 do {
                     let moneroAdapter = MoneroWalletAdapter()!
                     try moneroAdapter.loadWallet(withPath: self.makePath(for: credentials.name), andPassword: credentials.password)
@@ -84,7 +99,7 @@ final class MoneroWalletGateway: WalletGateway {
     
     func recoveryWallet(withName name: String, andSeed seed: String, password: String, restoreHeight: UInt64 = 0) -> Promise<WalletProtocol> {
         return Promise { fulfill, reject in
-            DispatchQueue.global(qos: .background).async {
+            walletCreatingQueue.async {
                 do {
                     let moneroAdapter = MoneroWalletAdapter()!
                     try moneroAdapter.recovery(at: self.makePath(for: name), mnemonic: seed, restoreHeight: restoreHeight)
@@ -103,7 +118,7 @@ final class MoneroWalletGateway: WalletGateway {
     
     func recoveryWallet(withName name: String, publicKey: String, viewKey: String, spendKey: String, restoreHeight: UInt64, password: String) -> Promise<WalletProtocol> {
         return Promise { fulfill, reject in
-            DispatchQueue.global(qos: .background).async {
+            walletCreatingQueue.async {
                 do {
                     let isRecovery = true
                     var moneroAdapter = MoneroWalletAdapter()!
@@ -142,7 +157,7 @@ final class MoneroWalletGateway: WalletGateway {
     
     func remove(withName name: String, password: String) -> Promise<Void> {
         return Promise { fulfill, reject in
-            DispatchQueue.global(qos: .background).async {
+            walletLoadingQueue.async {
                 do {
                     let walletDir = try FileManager.default.walletDirectory(for: name)
                     try FileManager.default.removeItem(atPath: walletDir.path)

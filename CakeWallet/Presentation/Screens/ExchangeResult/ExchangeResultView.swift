@@ -21,6 +21,8 @@ final class ExchangeResultView: BaseView {
     let preConfirmDescriptionLabel: UILabel
     let copyTradeIdButton: UIButton
     let lineSeparateView: UIView
+    let scrollView: UIScrollView
+    let contentView: UIView
     
     required init() {
         tradeIdLabel = UILabel(font: .avenirNextMedium(size: 15))
@@ -35,11 +37,14 @@ final class ExchangeResultView: BaseView {
         preConfirmDescriptionLabel = UILabel(font: .avenirNextMedium(size: 15))
         copyTradeIdButton = SecondaryButton(title: "Copy morph ID".uppercased())
         lineSeparateView = UIView()
+        scrollView = UIScrollView()
+        contentView = UIView()
         super.init()
     }
     
     override func configureView() {
         super.configureView()
+        backgroundColor = .whiteSmoke
         depositAddressLabel.numberOfLines = 0
         preConfirmDescriptionLabel.numberOfLines = 0
         preConfirmDescriptionLabel.textColor = .lightGray
@@ -57,13 +62,35 @@ final class ExchangeResultView: BaseView {
         depositInfoView.addSubview(confirmDescriptionLabel)
         depositInfoView.addSubview(copyTradeIdButton)
         depositInfoView.addSubview(preConfirmDescriptionLabel)
-        addSubview(depositInfoView)
-        addSubview(confirmButton)
+        contentView.addSubview(depositInfoView)
+        contentView.addSubview(confirmButton)
+        contentView.backgroundColor = backgroundColor
+        scrollView.addSubview(contentView)
+        addSubview(scrollView)
     }
     
     override func configureConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+            make.bottom.greaterThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
         confirmButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            switch UIScreen.main.sizeType {
+            case .iPhone4, .iPhone5, .iPhone6:
+                make.top.equalTo(depositInfoView.snp.bottom).offset(15)
+            default:
+                make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            }
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
@@ -71,13 +98,18 @@ final class ExchangeResultView: BaseView {
         depositInfoView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
-            make.top.equalToSuperview().offset(25)
+            switch UIScreen.main.sizeType {
+            case  .iPhone4, .iPhone5, .iPhone6:
+                make.top.equalToSuperview().offset(10)
+            default:
+                make.top.equalToSuperview().offset(15)
+            }
         }
         
         tradeIdLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalTo(depositQrCodeImageView.snp.leading).offset(-5)
-//            make.top.equalToSuperview().offset(15)
+            //            make.top.equalToSuperview().offset(15)
             make.bottom.equalTo(minAmountLabel.snp.top).offset(-5)
         }
         
@@ -85,7 +117,7 @@ final class ExchangeResultView: BaseView {
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalTo(depositQrCodeImageView.snp.leading).offset(-5)
             make.centerY.equalTo(depositQrCodeImageView.snp.centerY)
-//            make.top.equalTo(tradeIdLabel.snp.bottom).offset(5)
+            //            make.top.equalTo(tradeIdLabel.snp.bottom).offset(5)
         }
         
         maxAmountLabel.snp.makeConstraints { make in
@@ -128,7 +160,7 @@ final class ExchangeResultView: BaseView {
         
         depositQrCodeImageView.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-15)
-            make.top.equalToSuperview().offset(15)
+            make.top.equalToSuperview().offset(10)
             make.height.equalTo(150)
             make.width.equalTo(150)
         }
@@ -141,3 +173,4 @@ final class ExchangeResultView: BaseView {
         }
     }
 }
+

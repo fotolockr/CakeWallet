@@ -22,7 +22,7 @@ final class NodeSettingsViewController: BaseViewController<NodeSettingsView> {
     override func configureBinds() {
         title = "Daemon settings"
         setSettings(connectionSettings)
-        contentView.connectButton.addTarget(self, action: #selector(connect), for: .touchUpInside)
+        contentView.saveButton.addTarget(self, action: #selector(connect), for: .touchUpInside)
         contentView.resetSettings.addTarget(self, action: #selector(onResetSetting), for: .touchUpInside)
         contentView.descriptionLabel.text = "If you don't know what this setting is for, please don't change the settings."
     }

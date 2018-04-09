@@ -38,6 +38,12 @@ final class DonationViewController: BaseViewController<DonationView>, UIViewCont
         contentView.descriptionAddress.text = "Cake Wallet is a completely free and open-source application. We do not charge for the app nor do we charge fees for transactions. Please donate to support the ongoing development."
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let height = contentView.safeHeight() > 500 ? contentView.safeHeight() : 500
+        contentView.scrollView.contentSize = CGSize(width: contentView.frame.width, height: height)
+    }
+    
     private func setAddress(_ address: String) {
         let uri = "monero:\(address)"
         let qrCode = QRCode(uri)

@@ -42,11 +42,12 @@ final class MoneroWalletType: WalletProtocol {
     }
     
     var isConnected: Bool {
-        if let settings = self.settings {
-            return checkIsConnected(withHost: settings.uri)
-        } else {
-            return false
-        }
+        return moneroAdapter.connectionStatus() != 0
+//        if let settings = self.settings {
+//            return checkConnectionSync(toUri: settings.uri)
+//        } else {
+//            return false
+//        }
     }
     
     var isUpdateStarted: Bool {
@@ -157,6 +158,7 @@ final class MoneroWalletType: WalletProtocol {
     }
     
     func connect(withSettings settings: ConnectionSettings, updateState: Bool) -> Promise<Void> {
+        print("connect")
         return Promise { fulfill, reject in
             DispatchQueue.global(qos: .background).async {
                 do {
@@ -164,6 +166,7 @@ final class MoneroWalletType: WalletProtocol {
                         self.status = .connecting
                     }
                     self.settings = settings
+                    print(settings.uri)
                     self.moneroAdapter.setDaemonAddress(settings.uri, login: settings.login, password: settings.password)
                     try self.moneroAdapter.connectToDaemon()
                     

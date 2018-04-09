@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>uri</key>
+		<string>node.bohemianpool.com:18081</string>
+	</dict>
+	<dict>
+		<key>uri</key>
+		<string>node.xmr.pt:18081
+node.xmr.pt:18081
+node.xmr.pt:18081
+node.xmr.pt:18081
+node.xmr.pt:18081
+node.xmr.pt:18081
+</string>
+	</dict>
+	<dict>
+		<key>uri</key>
+		<string>node.xmr.ru:13666</string>
+	</dict>
+	<dict>
+		<key>uri</key>
+		<string>opennode.xmr-tw.org:18089</string>
+	</dict>
+	<dict>
+		<key>uri</key>
+		<string>node.moneroworld.com:18089</string>
+	</dict>
+	<dict>
+		<key>isDefault</key>
+		<true/>
+		<key>uri</key>
+		<string>node.xmrbackb.one:18081</string>
+	</dict>
+	<dict>
+		<key>uri</key>
+		<string>node.viaxmr.com:18081</string>
+	</dict>
+	<dict>
+		<key>uri</key>
+		<string>ushouldrunyourownnode.moneroworld.com:18089</string>
+	</dict>
+</array>
+</plist>
