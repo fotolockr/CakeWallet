@@ -20,6 +20,7 @@ protocol AccountSettingsConfigurable {
     var isPasswordRemembered: Bool { get set }
     var transactionPriority: TransactionPriority { get set }
     var connectionSettings: ConnectionSettings { get }
+    var autoSwitchNode: Bool { get set }
     
     func change(connectionSettings: ConnectionSettings) -> Promise<Void>
     func resetConnectionSettings() -> ConnectionSettings

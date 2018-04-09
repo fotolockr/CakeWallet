@@ -33,8 +33,15 @@ final class MoneroWalletGateway: WalletGateway {
                         return
                 }
                 let keychainStorage = try! container.resolve() as KeychainStorage
+                let wallets = walletsDirs.map { name -> String? in
+                    var isDir = ObjCBool(false)
+                    let url = docsUrl.appendingPathComponent(name)
+                    FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir)
+                    
+                    return isDir.boolValue ? name : nil
+                    }.compactMap({ $0 })
                 
-                fulfill(walletsDirs.map { name -> WalletDescription in
+                fulfill(wallets.map { name -> WalletDescription in
                     if
                         let isWatchOnlyStr = try? keychainStorage.fetch(forKey: .isWatchOnly(WalletIndex(name: name))),
                         let isWatchOnly = Bool(isWatchOnlyStr) {

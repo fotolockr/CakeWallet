@@ -2,7 +2,7 @@
 //  TextViewUITableViewCell.swift
 //  CakeWallet
 //
-//  Created by Mykola Misiura on 28.03.2018.
+//  Created by Cake Technologies on 28.03.2018.
 //  Copyright © 2018  Cake Technologies.
 //
 

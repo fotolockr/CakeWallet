@@ -19,7 +19,7 @@ final class DashboardViewController: BaseViewController<DashboardView>,
     var presentTransactionsList: VoidEmptyHandler
     var presentTransactionDetails: ((TransactionDescription) -> Void)?
     private let wallet: WalletProtocol
-    private let account: CurrencySettingsConfigurable
+    private let account: Account
     private let rateTicker: RateTicker
     private var transactions: TransactionHistory
     private var _transactions: [TransactionDescription] {
@@ -31,7 +31,7 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         }
     }
     
-    init(account: CurrencySettingsConfigurable, wallet: WalletProtocol, rateTicker: RateTicker) {
+    init(account: Account, wallet: WalletProtocol, rateTicker: RateTicker) {
         self.account = account
         self.wallet = wallet
         self.rateTicker = rateTicker
@@ -47,9 +47,12 @@ final class DashboardViewController: BaseViewController<DashboardView>,
     }
     
     override func configureBinds() {
+        let onStatusButtonGesture = UITapGestureRecognizer(target: self, action: #selector(reconnect))
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
         contentView.tableView.register(TransactionUITableViewCell.self, forCellReuseIdentifier: TransactionUITableViewCell.identifier)
+        contentView.statusViewContainer.iconView.imageView.isUserInteractionEnabled = true
+        contentView.statusViewContainer.iconView.imageView.addGestureRecognizer(onStatusButtonGesture)
         contentView.showAllTransactionsButton.addTarget(self, action: #selector(showAllTransactionsList), for: .touchUpInside)
         contentView.showAllTransactionsButton.isHidden = true
         
@@ -164,10 +167,13 @@ final class DashboardViewController: BaseViewController<DashboardView>,
         let iconView = contentView.statusViewContainer.iconView
 
         switch status {
-        case .connecting, .startUpdating, .updating(_), .failedConnection(_):
+        case .connecting, .startUpdating, .updating(_):
             if !iconView.isRoutating {
                 iconView.rotate()
             }
+        case .failedConnection(_), .failedConnectionNext, .notConnected:
+            contentView.statusViewContainer.iconView.pulsate()
+            contentView.statusViewContainer.iconView.stopRotate()
         default:
             iconView.stopRotate()
         }
@@ -176,6 +182,42 @@ final class DashboardViewController: BaseViewController<DashboardView>,
     @objc
     private func onPresentSettings() {
         presentSettingsScreen?()
+    }
+    
+    @objc
+    private func reconnect() {
+        let alert = UIAlertController(title: "Reconnect ?", message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
+            guard let connectionSettings = self?.account.connectionSettings else {
+                return
+            }
+            let __alert = UIAlertController(title: nil, message: "Connecting", preferredStyle: .alert)
+            self?.present(__alert, animated: true)
+            self?.wallet.connect(withSettings: connectionSettings, updateState: true)
+                .then { _ -> Void in
+                    __alert.dismiss(animated: true)
+                }.catch { error in
+                    __alert.dismiss(animated: true) {
+                        print(error)
+                        let _alert = UIAlertController(title: "Connection problems", message: "Cannot connect to remote node. Please switch to another.", preferredStyle: .alert)
+                        _alert.modalPresentationStyle = .overFullScreen
+                        let switchAction = UIAlertAction(title: "Switch", style: .default) { _ in
+                            let nodeSettingsVC = try! container.resolve() as NodesListViewController
+                            nodeSettingsVC.modalPresentationStyle = .overFullScreen
+                            let navController = UINavigationController(rootViewController: nodeSettingsVC)
+                            self?.present(navController, animated: true)
+                        }
+                        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+                        _alert.addAction(switchAction)
+                        _alert.addAction(cancelAction)
+                        self?.present(_alert, animated: true)
+                    }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "No", style: .cancel)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
     
     private func showWarningOnReceive() {

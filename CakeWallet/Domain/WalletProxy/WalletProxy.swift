@@ -8,12 +8,13 @@
 
 import Foundation
 import PromiseKit
+import FontAwesome_swift
 
 private let backgroundConnectionQueue = DispatchQueue(
     label: "io.cakewallet.backgroundConnectionQueue",
     qos: .utility,
     attributes: .concurrent)
-private let backgroundConnectionTimerQueue = DispatchQueue(
+let backgroundConnectionTimerQueue = DispatchQueue(
     label: "io.cakewallet.backgroundConnectionTimerQueue",
     qos: .background,
     attributes: .concurrent)
@@ -69,12 +70,12 @@ final class WalletProxy: Proxable, WalletProtocol {
     
     init(origin: WalletProtocol) {
         self.origin = origin
-        self.listeners = []
+        listeners = []
     }
     
     func `switch`(origin: WalletProtocol) {
-//        self.origin.close()
-//        self.origin.clear()
+        //        self.origin.close()
+        //        self.origin.clear()
         let oldWallet = self.origin
         self.origin = origin
         observeOrigin()
@@ -140,20 +141,30 @@ final class WalletProxy: Proxable, WalletProtocol {
         var isFirstConnect = true
         timer?.suspend()
         timer = UTimer(deadline: .now(), repeating: .seconds(3), queue: backgroundConnectionTimerQueue)
-        timer?.listener = { [weak self] in            
-            guard
-                let isConnected = self?.isConnected,
-                let status = self?.status else {
+        timer?.listener = { [weak self] in
+            let settings = ConnectionSettings.loadSavedSettings()
+            let canConnect = checkConnectionSync(toUri: settings.uri)
+            guard let status = self?.status else { return }
+            
+            guard canConnect else {
+                switch status {
+                case .failedConnection(_), .failedConnectionNext:
+                    self?.status = .failedConnectionNext
+                default:
+                    let now = Date()
+                    self?.status = .failedConnection(now)
+                }
                 return
             }
             
-            if isFirstConnect || (!isConnected && !isConnecting) {
-                guard let settings = ConnectionSettings.loadSavedSettings() else {
+            guard let isConnected = self?.isConnected else { return }
+            
+            if isFirstConnect || (!isConnecting && !isConnected) {
+                guard !isAutoNodeSwitching else {
                     return
                 }
                 
                 isConnecting = true
-                
                 self?.connect(withSettings: settings, updateState: false)
                     .always {
                         if isFirstConnect {
@@ -165,10 +176,9 @@ final class WalletProxy: Proxable, WalletProtocol {
                         self?.status = .connected
                     }.catch { error in
                         print("Connection error: \(error.localizedDescription)")
-                        
                         switch status {
                         case .failedConnection(_):
-                            break
+                            self?.status = .failedConnectionNext
                         default:
                             let now = Date()
                             self?.status = .failedConnection(now)
@@ -176,19 +186,19 @@ final class WalletProxy: Proxable, WalletProtocol {
                         
                         isConnecting = false
                 }
-            } else if isConnected {
+            } else if canConnect {
                 switch status {
                 case .startUpdating, .updated, .updating(_):
                     break
                 default:
                     self?.startUpdate()
                 }
-            } else if isConnecting && !isConnected {
+            } else if isConnecting && !canConnect {
                 isConnecting = false
                 
                 if let status = self?.status {
                     switch status {
-                    case .failedConnection, .notConnected:
+                    case .failedConnection, .notConnected, .failedConnectionNext:
                         break
                     default:
                         let now = Date()
