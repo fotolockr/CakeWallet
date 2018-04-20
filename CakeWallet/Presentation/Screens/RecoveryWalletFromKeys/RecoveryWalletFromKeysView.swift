@@ -16,6 +16,8 @@ final class RecoveryWalletFromKeysView: BaseView {
     let watchOnlyDescriptionLabel: UILabel
     let restoreFromHeightView: RestoreFromHeightView
     let confirmButton: UIButton
+    let scrollView: UIScrollView
+    let contentView: UIView
     
     required init() {
         nameTextField = FloatingLabelTextField(placeholder: "Wallet name")
@@ -25,22 +27,40 @@ final class RecoveryWalletFromKeysView: BaseView {
         confirmButton = PrimaryButton(title: "Recover")
         watchOnlyDescriptionLabel = UILabel(font: .avenirNextMedium(size: 14))
         restoreFromHeightView = RestoreFromHeightView()
+        scrollView = UIScrollView()
+        contentView = UIView()
         super.init()
     }
     
     override func configureView() {
         super.configureView()
         watchOnlyDescriptionLabel.numberOfLines = 0
-        addSubview(nameTextField)
-        addSubview(publicKeyTextField)
-        addSubview(viewKeyTextField)
-        addSubview(spendKeyTextField)
-        addSubview(restoreFromHeightView)
-        addSubview(watchOnlyDescriptionLabel)
-        addSubview(confirmButton)
+        contentView.addSubview(nameTextField)
+        contentView.addSubview(publicKeyTextField)
+        contentView.addSubview(viewKeyTextField)
+        contentView.addSubview(spendKeyTextField)
+        contentView.addSubview(restoreFromHeightView)
+        contentView.addSubview(watchOnlyDescriptionLabel)
+        contentView.addSubview(confirmButton)
+        scrollView.addSubview(contentView)
+        addSubview(scrollView)
     }
     
     override func configureConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+            make.bottom.greaterThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+        
         nameTextField.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -83,10 +103,16 @@ final class RecoveryWalletFromKeysView: BaseView {
         }
         
         confirmButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(50)
+            
+            switch UIScreen.main.sizeType {
+            case .iPhone4, .iPhone5, .iPhone6:
+                make.top.equalTo(restoreFromHeightView.snp.bottom).offset(20)
+            default:
+                make.bottom.equalToSuperview().offset(-20)
+            }
         }
     }
 }

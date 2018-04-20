@@ -19,4 +19,6 @@ target 'CakeWallet' do
     pod 'SwiftSoup'
     pod 'SwiftyJSON'
     pod 'SwiftSocket'
+    pod 'Alamofire', '~> 4.7'
+    pod 'BlueSocket'
 end

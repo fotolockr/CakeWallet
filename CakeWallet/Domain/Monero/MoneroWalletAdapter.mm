@@ -159,6 +159,17 @@ struct MoneroWalletAdapterMember {
     return [NSString stringWithUTF8String: addr.c_str()];
 }
 
+
+- (BOOL) checkConnectionWithTimeout:(uint32_t) timeout
+{
+    try {
+        Monero::Wallet::ConnectionStatus status = member->wallet->connected();
+        return static_cast<uint64_t>(status);
+    } catch (...) {
+        return NO;
+    }
+}
+
 - (BOOL)recoveryAt:(NSString *)path mnemonic: (NSString *)seed restoreHeight: (uint64_t) restoreHeight error:(NSError **) error
 {
     string utf8Path = [path UTF8String];

@@ -12,6 +12,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     
     // MARK: Property injections
     
+    var finishHandler: (() -> Void)?
     var presentLoadWalletScreen: ((WalletIndex) -> Void)?
     var presentSeedWalletScreen: ((WalletIndex) -> Void)?
     var presentRemoveWalletScreen: ((WalletIndex, (() -> Void)?) -> Void)?
@@ -31,6 +32,13 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateWalletsList()
+        
+        if
+            let isModal = navigationController?.isModal,
+            isModal && navigationController?.viewControllers.first == self {
+            let closeButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+            navigationItem.leftBarButtonItem = closeButton
+        }
     }
     
     override func configureBinds() {
@@ -41,7 +49,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         contentView.table.dataSource = self
         contentView.table.register(items: [WalletDescription.self])
     }
-    
+
     // MARK: UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -131,7 +139,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     private func showMenuForWallet(atIndexPath indexPath: IndexPath) {
         let wallet = getWallet(at: indexPath)
         
-        guard wallet.name != account.currentWalletName else {
+        guard wallet.name != account.currentWalletName || navigationController?.viewControllers.first == self else {
             return
         }
         
@@ -142,14 +150,19 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         let showSeecAction = UIAlertAction(title: "Show seed", style: .default) { _ in
             self.showSeed(for: wallet)
         }
-        let loadWalletAction = UIAlertAction(title: "Load wallet", style: .default) { _ in
-            self.presentLoadWalletScreen?(wallet.index)
+        
+        
+        if  wallet.name != account.currentWalletName {
+            let loadWalletAction = UIAlertAction(title: "Load wallet", style: .default) { _ in
+                self.presentLoadWalletScreen?(wallet.index)
+            }
+            alertViewController.addAction(loadWalletAction)
         }
         
         alertViewController.modalPresentationStyle = .overFullScreen
         alertViewController.addAction(showSeecAction)
         alertViewController.addAction(cancelAction)
-        alertViewController.addAction(loadWalletAction)
+        
         present(alertViewController, animated: true)
     }
     
@@ -189,5 +202,10 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
                 self?.walletsList = walletsList
                 self?.contentView.table.reloadData()
         }
+    }
+    
+    @objc
+    private func close() {
+        dismiss(animated: true)
     }
 }

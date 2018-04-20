@@ -126,11 +126,65 @@ final class WalletProxy: Proxable, WalletProtocol {
         return origin.integratedAddress(for: paymentId)
     }
     
+    func checkConnection(withTimeout timeout: UInt32) -> Bool {
+        return origin.checkConnection(withTimeout: timeout)
+    }
+    
     private func observeOrigin() {
         origin.observe { [weak self] change, origin in
             DispatchQueue.main.async {
                 self?.listeners.forEach { $0(change, origin) }
             }
+        }
+    }
+    
+    private func checkNodeConnection(_ connectionSettings: ConnectionSettings) -> Promise<Bool> {
+        return Promise { fulfill, reject in
+            let urlString = "http://\(connectionSettings.uri)/json_rpc"
+            let url = URL(string: urlString)
+            var request = URLRequest(url: url!)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            let requestBody = [
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "get_info"
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted)
+                request.httpBody = jsonData
+            } catch {
+                reject(error)
+            }
+            
+            let connection = URLSession.shared.dataTask(with: request) { data, response, error in
+                do {
+                    if let error = error {
+                        reject(error)
+                        return
+                    }
+                    
+                    guard let data = data else {
+                        fulfill(false)
+                        return
+                    }
+                    
+                    if
+                        let decoded = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                        let result = decoded["result"] as? [String: Any],
+                        let status = result["status"] as? String {
+                        let res = status.lowercased() == "OK".lowercased()
+                        fulfill(res)
+                    } else {
+                        fulfill(false)
+                    }
+                } catch {
+                    reject(error)
+                }
+            }
+            
+            connection.resume()
         }
     }
     
@@ -143,37 +197,22 @@ final class WalletProxy: Proxable, WalletProtocol {
         timer = UTimer(deadline: .now(), repeating: .seconds(3), queue: backgroundConnectionTimerQueue)
         timer?.listener = { [weak self] in
             let settings = ConnectionSettings.loadSavedSettings()
-            let canConnect = checkConnectionSync(toUri: settings.uri)
             guard let status = self?.status else { return }
-            
-            guard canConnect else {
-                switch status {
-                case .failedConnection(_), .failedConnectionNext:
-                    self?.status = .failedConnectionNext
-                default:
-                    let now = Date()
-                    self?.status = .failedConnection(now)
-                }
-                return
-            }
-            
-            guard let isConnected = self?.isConnected else { return }
-            
-            if isFirstConnect || (!isConnecting && !isConnected) {
-                guard !isAutoNodeSwitching else {
-                    return
-                }
-                
+            let nodeIsAvailable = checkConnectionSync(with: settings)
+            let connect = {
+                guard !isConnecting && !isAutoNodeSwitching else { return }
                 isConnecting = true
+                self?.status = .startUpdating
                 self?.connect(withSettings: settings, updateState: false)
                     .always {
                         if isFirstConnect {
                             isFirstConnect = false
                         }
-                    }.then { _ -> Void in
-                        self?.startUpdate()
+                        
                         isConnecting = false
+                    }.then { _ -> Void in
                         self?.status = .connected
+                        self?.startUpdate()
                     }.catch { error in
                         print("Connection error: \(error.localizedDescription)")
                         switch status {
@@ -183,29 +222,93 @@ final class WalletProxy: Proxable, WalletProtocol {
                             let now = Date()
                             self?.status = .failedConnection(now)
                         }
-                        
-                        isConnecting = false
-                }
-            } else if canConnect {
-                switch status {
-                case .startUpdating, .updated, .updating(_):
-                    break
-                default:
-                    self?.startUpdate()
-                }
-            } else if isConnecting && !canConnect {
-                isConnecting = false
-                
-                if let status = self?.status {
-                    switch status {
-                    case .failedConnection, .notConnected, .failedConnectionNext:
-                        break
-                    default:
-                        let now = Date()
-                        self?.status = .failedConnection(now)
-                    }
                 }
             }
+            if !nodeIsAvailable {
+                switch status {
+                case .failedConnectionNext:
+                    self?.status = .failedConnectionNext
+                case .failedConnection(_):
+                    self?.status = .failedConnectionNext
+                default:
+                    let now = Date()
+                    self?.status = .failedConnection(now)
+                }
+            } else if self?.isConnected == true || isFirstConnect {
+                switch status {
+                case .connected:
+                    self?.startUpdate()
+                case .notConnected, .failedConnection(_), .failedConnectionNext:
+                    _ = connect()
+                default:
+                    break
+                }
+            } else {
+                switch status {
+                case .failedConnectionNext:
+                    self?.status = .failedConnectionNext
+                case .failedConnection(_):
+                    self?.status = .failedConnectionNext
+                default:
+                    let now = Date()
+                    self?.status = .failedConnection(now)
+                }
+            }
+            
+//            if !isConnected {
+//                print("Not connected")
+//
+//            } else {
+//                print(status)
+//            }
+            
+//            if isFirstConnect || (!isConnecting && !isConnected) {
+//                guard !isAutoNodeSwitching else {
+//                    return
+//                }
+//
+//                isConnecting = true
+//                self?.connect(withSettings: settings, updateState: false)
+//                    .always {
+//                        if isFirstConnect {
+//                            isFirstConnect = false
+//                        }
+//                    }.then { _ -> Void in
+//                        self?.startUpdate()
+//                        isConnecting = false
+//                        self?.status = .connected
+//                    }.catch { error in
+//                        print("Connection error: \(error.localizedDescription)")
+//                        switch status {
+//                        case .failedConnection(_):
+//                            self?.status = .failedConnectionNext
+//                        default:
+//                            let now = Date()
+//                            self?.status = .failedConnection(now)
+//                        }
+//
+//                        isConnecting = false
+//                }
+//            } else if canConnect {
+//                switch status {
+//                case .startUpdating, .updated, .updating(_):
+//                    break
+//                default:
+//                    self?.startUpdate()
+//                }
+//            } else if isConnecting && !canConnect {
+//                isConnecting = false
+//
+//                if let status = self?.status {
+//                    switch status {
+//                    case .failedConnection, .notConnected, .failedConnectionNext:
+//                        break
+//                    default:
+//                        let now = Date()
+//                        self?.status = .failedConnection(now)
+//                    }
+//                }
+//            }
         }
         
         timer?.resume()

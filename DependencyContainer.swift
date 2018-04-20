@@ -9,6 +9,7 @@
 import Foundation
 import Dip
 import SwiftKeychainWrapper
+import PromiseKit
 
 let container = DependencyContainer.configure()
 
@@ -101,6 +102,7 @@ extension DependencyContainer {
             // MARK: RecoveryViewController
             
             container.register { (wallets: Wallets) in  RecoveryViewController(wallets: wallets as WalletsRecoverable) }
+            container.register { (name: String, seed: String) in  RecoveryViewController(wallets: (try! container.resolve() as Account).wallets(), name: name, seed: seed) }
             
             // MARK: SeedViewController
             
@@ -160,6 +162,47 @@ extension DependencyContainer {
             
             container.register { (account: Account & AuthenticationProtocol) in
                 LoginViewController(account: account)
+                }.resolvingProperties { (container, vc: LoginViewController) in
+                    vc.onShowWalletsScreen = { [weak vc] in
+                        let walletsScreen = try! container.resolve() as WalletsViewController
+                        let nav = UINavigationController(rootViewController: walletsScreen)
+                        walletsScreen.finishHandler = { [weak nav] in
+                            nav?.dismiss(animated: true) {
+                                vc?.onLogined?()
+                            }
+                        }
+                        vc?.present(nav, animated: true)
+                    }
+                    
+                    vc.onRecoveryWallet = { [weak vc] name in
+                        let alert = UIAlertController.showSpinner(message: "Starting recovery")
+                        let account = try! container.resolve() as Account
+                        let wallets = account.wallets()
+                        wallets.fetchSeed(for: WalletIndex(name: name))
+                            .then { seed in
+                                alert.dismiss(animated: true) {
+                                    let recoveryVC = try! container.resolve(arguments: name, seed) as RecoveryViewController
+                                    recoveryVC.onPrepareRecovery = {
+                                        return wallets.isExistWallet(withName: name)
+                                            .then { isExist in
+                                                return isExist
+                                                    ? wallets.moneroWalletGateway.remove(withName: name, password: "")
+                                                    : Promise(value: ())
+                                        }
+                                    }
+                                    let nav = UINavigationController(rootViewController: recoveryVC)
+                                    recoveryVC.onRecovered = {
+                                        vc?.onLogined?()
+                                    }
+                                    vc?.present(nav, animated: true)
+                                }
+                            }.catch { error in
+                                alert.dismiss(animated: true) {
+                                    vc?.showError(error)
+                                }
+                        }
+                        vc?.present(alert, animated: true)
+                    }
             }
             
             // MARK: AuthenticateViewController
@@ -268,7 +311,7 @@ extension DependencyContainer {
                         }
                     }
                     
-                    vc.presentLoadWalletScreen = { index in
+                    vc.presentLoadWalletScreen = { [weak vc] index in
                         let account = try! container.resolve() as Account
                         let wallets = account.wallets()
                         let name = index.name
@@ -277,20 +320,28 @@ extension DependencyContainer {
                         if laodWalletViewController.canBePresented {
                             laodWalletViewController.onLogined = { [weak laodWalletViewController] in
                                 laodWalletViewController?.dismiss(animated: true) {
-                                   back()
+                                    if let finishHandler = vc?.finishHandler {
+                                        finishHandler()
+                                    } else {
+                                        back()
+                                    }
                                 }
                             }
                             
-                            vc.present(laodWalletViewController, animated: true)
+                            vc?.present(laodWalletViewController, animated: true)
                         } else {
                             let alert = UIAlertController.showSpinner(message: "Loading wallet - \(index.name)")
-                            vc.present(alert, animated: true)
+                            vc?.present(alert, animated: true)
                             
                             
                             wallets.loadWallet(withName: name)
                                 .then {
                                     alert.dismiss(animated: true) {
-                                        back()
+                                        if let finishHandler = vc?.finishHandler {
+                                            finishHandler()
+                                        } else {
+                                            back()
+                                        }
                                     }
                                 }.catch { [weak vc] error in
                                     alert.dismiss(animated: true) {
@@ -305,8 +356,12 @@ extension DependencyContainer {
                         let account = try! container.resolve() as Account
                         let signUpFlow = try! container.resolve(arguments: navController, account.wallets()) as SignUpFlow
                         signUpFlow.finalHandler = {
-                            navController.dismiss(animated: true) {
-                                back()
+                            if let finishHandler = vc?.finishHandler {
+                                finishHandler()
+                            } else {
+                                navController.dismiss(animated: true) {
+                                    back()
+                                }
                             }
                         }
                         

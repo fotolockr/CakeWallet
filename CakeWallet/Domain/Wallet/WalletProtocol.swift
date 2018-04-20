@@ -40,6 +40,7 @@ protocol WalletProtocol: ObservableWallet, TransactionCreatableProtocol, WalletK
     func startUpdate()
     func transactionHistory() -> TransactionHistory
     func integratedAddress(for paymentId: String) -> String
+    func checkConnection(withTimeout timeout: UInt32) -> Bool
 }
 
 extension WalletProtocol {

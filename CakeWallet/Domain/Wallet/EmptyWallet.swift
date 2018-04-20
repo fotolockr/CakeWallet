@@ -82,4 +82,8 @@ final class EmptyWallet: WalletProtocol {
     func clear() {
         // FIX-ME: Not implemented
     }
+    
+    func checkConnection(withTimeout timeout: UInt32) -> Bool {
+        return false
+    }
 }

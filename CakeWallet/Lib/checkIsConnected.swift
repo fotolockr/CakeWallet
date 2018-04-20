@@ -9,41 +9,64 @@
 import Foundation
 import PromiseKit
 import SwiftSocket
+import Socket
+import SwiftyJSON
+import Alamofire
 
-private let nodesPingQueue = DispatchQueue.init(
+let nodesPingQueue = DispatchQueue.init(
     label: "io.cakewallet.nodesPingQueue",
     qos: .default,
     attributes: .concurrent)
+private let defaultTimeout: TimeInterval = 3
+
+private let alamofireManager: SessionManager = {
+    let sessionConfiguration = URLSessionConfiguration.default
+    sessionConfiguration.timeoutIntervalForRequest = defaultTimeout
+    return Alamofire.SessionManager(configuration: sessionConfiguration)
+}()
 
 func checkConnectionAsync(toAddress address: String, port: Int32) -> Promise<Bool> {
     return Promise { fulfill, reject in
         nodesPingQueue.async {
-            let client = TCPClient(address: address, port: port)
-            switch client.connect(timeout: 3) {
-            case .success:
-                client.close()
-                fulfill(true)
-            case .failure(_):
-                client.close()
+            do {
+                let socket = try Socket.create(family: .inet6, type: .stream, proto: .tcp)
+                try socket.connect(to: address, port: port)
+//                print("\(address):\(port) - \(socket.isConnected)")
+                fulfill(socket.isConnected)
+                socket.close()
+            } catch {
+                print("\(address):\(port)")
+                print(error)
                 fulfill(false)
             }
         }
     }
 }
 
-func checkConnectionSync(toUri uri: String) -> Bool {
-    let comp = uri.components(separatedBy: ":")
-    guard let address = comp.first, let port = Int32(comp[1]) else {
-        return false
+func checkConnectionSync(with settings: ConnectionSettings) -> Bool {
+    let urlString = "http://\(settings.uri)/json_rpc"
+    let requestBody: [String: Any] = [
+        "jsonrpc": "2.0",
+        "id": "0",
+        "method": "get_info"
+    ]
+    var canConnect = false
+    let sem = DispatchSemaphore(value: 0)
+    alamofireManager.request(urlString, method: .post, parameters: requestBody, encoding: JSONEncoding.default, headers: nil)
+        .authenticate(user: settings.login, password: settings.password)
+        .responseJSON { res in
+            switch res.result {
+            case let .success(value):
+                let json = JSON(value)
+                canConnect = json["result"]["status"].stringValue.lowercased() == "OK".lowercased()
+            case let .failure(error):
+                print(error)
+                break
+            }
+
+            sem.signal()
     }
-    
-    let client = TCPClient(address: address, port: port)
-    switch client.connect(timeout: 2) {
-    case .success:
-        client.close()
-        return true
-    case .failure(_):
-        client.close()
-        return false
-    }
+
+    _ = sem.wait(timeout: DispatchTime.distantFuture)
+    return canConnect
 }
