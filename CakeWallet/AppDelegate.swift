@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let nodeConnectionControl = try! container.resolve() as NodeConnectionControl
         nodeConnectionControl.start()
-        
+                
 //        nodeConnectionControl.getRandomAvailableNode()
 //            .then { node -> Void in
 //                if let node = node {

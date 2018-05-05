@@ -14,7 +14,7 @@ extension Wallets: WalletsLoadable {
         return Promise { fulfill, reject in
             do {
                 let index = WalletIndex(name: name)
-                let password = try self.keychainStorage.fetch(forKey: .walletPassword(index))
+                let password = try self.keychainStorage.fetch(forKey: .walletPassword(index))                
                 moneroWalletGateway.load(withCredentials: WalletLoadingCredentials(name: name, password: password))
                     .then { wallet -> Void in
                         self.account?.select(wallet: wallet)

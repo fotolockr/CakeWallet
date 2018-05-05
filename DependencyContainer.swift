@@ -452,6 +452,36 @@ extension DependencyContainer {
                     walletName: name,
                     wallets: wallets as WalletsLoadable,
                     verifyPasswordViewController: try! container.resolve() as VerifyPinPasswordViewController)
+                }.resolvingProperties { (container, vc: LoadWalletViewController) in
+                    vc.onRecoveryWallet = { [weak vc] name in
+                        let alert = UIAlertController.showSpinner(message: "Starting recovery")
+                        let account = try! container.resolve() as Account
+                        let wallets = account.wallets()
+                        wallets.fetchSeed(for: WalletIndex(name: name))
+                            .then { seed in
+                                alert.dismiss(animated: true) {
+                                    let recoveryVC = try! container.resolve(arguments: name, seed) as RecoveryViewController
+                                    recoveryVC.onPrepareRecovery = {
+                                        return wallets.isExistWallet(withName: name)
+                                            .then { isExist in
+                                                return isExist
+                                                    ? wallets.moneroWalletGateway.remove(withName: name, password: "")
+                                                    : Promise(value: ())
+                                        }
+                                    }
+                                    let nav = UINavigationController(rootViewController: recoveryVC)
+                                    recoveryVC.onRecovered = {
+                                        vc?.onLogined?()
+                                    }
+                                    vc?.present(nav, animated: true)
+                                }
+                            }.catch { error in
+                                alert.dismiss(animated: true) {
+                                    vc?.showError(error)
+                                }
+                        }
+                        vc?.present(alert, animated: true)
+                    }
                 }
             
             // MARK: VerifyPinPasswordViewController

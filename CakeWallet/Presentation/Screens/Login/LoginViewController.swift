@@ -72,7 +72,15 @@ final class LoginViewController: BaseViewController<BaseView>, BiometricAuthenti
                     self?.onLogined?()
                 }
             }.catch { [weak self] error in
+                print("error \(error)")
+                
                 alert.dismiss(animated: true) {
+                    if let error = error as? AuthenticationError {
+                        self?.pinViewController.empty()
+                        self?.showError(error)
+                        return
+                    }
+                    
                     if error.localizedDescription == "std::bad_alloc" {
                         self?.recoveryWalletWithError()
                     } else {

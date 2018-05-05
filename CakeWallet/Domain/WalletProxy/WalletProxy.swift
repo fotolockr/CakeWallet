@@ -198,7 +198,7 @@ final class WalletProxy: Proxable, WalletProtocol {
         timer?.listener = { [weak self] in
             let settings = ConnectionSettings.loadSavedSettings()
             guard let status = self?.status else { return }
-            let nodeIsAvailable = checkConnectionSync(with: settings)
+//            let nodeIsAvailable = checkConnectionSync(with: settings)
             let connect = {
                 guard !isConnecting && !isAutoNodeSwitching else { return }
                 isConnecting = true
@@ -224,22 +224,36 @@ final class WalletProxy: Proxable, WalletProtocol {
                         }
                 }
             }
-            if !nodeIsAvailable {
-                switch status {
-                case .failedConnectionNext:
-                    self?.status = .failedConnectionNext
-                case .failedConnection(_):
-                    self?.status = .failedConnectionNext
-                default:
-                    let now = Date()
-                    self?.status = .failedConnection(now)
-                }
-            } else if self?.isConnected == true || isFirstConnect {
+//            if !nodeIsAvailable {
+//                switch status {
+//                case .failedConnectionNext:
+//                    self?.status = .failedConnectionNext
+//                case .failedConnection(_):
+//                    self?.status = .failedConnectionNext
+//                default:
+//                    if !isConnecting {
+//                        let now = Date()
+//                        self?.status = .failedConnection(now)
+//                    }
+//                }
+//            } else
+            if self?.isConnected == true || isFirstConnect {
                 switch status {
                 case .connected:
                     self?.startUpdate()
                 case .notConnected, .failedConnection(_), .failedConnectionNext:
                     _ = connect()
+                case .updated:
+                    guard let wallet = self?.origin as? MoneroWalletType else {
+                        return
+                    }
+                    
+                    wallet.fetchBlockChainHeight(compilation: { height in
+                        let diff = height - wallet.currentHeight
+                        if diff > 1 {
+                            connect()
+                        }
+                    })
                 default:
                     break
                 }
@@ -250,8 +264,10 @@ final class WalletProxy: Proxable, WalletProtocol {
                 case .failedConnection(_):
                     self?.status = .failedConnectionNext
                 default:
-                    let now = Date()
-                    self?.status = .failedConnection(now)
+                    if !isConnecting {
+                        let now = Date()
+                        self?.status = .failedConnection(now)
+                    }
                 }
             }
             
