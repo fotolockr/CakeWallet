@@ -19,6 +19,8 @@ final class LoginViewController: BaseViewController<BaseView>, BiometricAuthenti
     }
     
     var onLogined: VoidEmptyHandler
+    var onShowWalletsScreen: VoidEmptyHandler
+    var onRecoveryWallet: ((String) -> Void)?
     private let account: Account & AuthenticationProtocol
     private let pinViewController: PinPasswordViewController
     
@@ -70,11 +72,50 @@ final class LoginViewController: BaseViewController<BaseView>, BiometricAuthenti
                     self?.onLogined?()
                 }
             }.catch { [weak self] error in
+                print("error \(error)")
+                
                 alert.dismiss(animated: true) {
+                    if let error = error as? AuthenticationError {
+                        self?.pinViewController.empty()
+                        self?.showError(error)
+                        return
+                    }
+                    
+                    if error.localizedDescription == "std::bad_alloc" {
+                        self?.recoveryWalletWithError()
+                    } else {
+                        self?.showWalletsList()
+                    }
+                    
                     self?.pinViewController.empty()
-                    self?.pinViewController.showError(error)
                 }
         }
+    }
+    
+    private func recoveryWalletWithError() {
+        let alert = UIAlertController(title: nil, message: "We are having trouble loading your wallet file as it may be damaged.  We can try to recover your wallet or you can open/add another wallet.", preferredStyle: .alert)
+        let recoveryAction = UIAlertAction(title: "Yes, try to recover my wallet", style: .default) { _ in
+            if let walletName = self.account.currentWalletName {
+                self.onRecoveryWallet?(walletName)
+            } else {
+                print("Current wallet is not set")
+            }
+        }
+        let walletsAction = UIAlertAction(title: "I will open/add another wallet", style: .default) { _ in
+            self.onShowWalletsScreen?()
+        }
+        alert.addAction(recoveryAction)
+        alert.addAction(walletsAction)
+        present(alert, animated: true)
+    }
+    
+    private func showWalletsList() {
+        let alert = UIAlertController(title: nil, message: "We had some trouble loading your wallet. Please try to recover it using your seed in the setting screen.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            self.onShowWalletsScreen?()
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
 

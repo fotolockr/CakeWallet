@@ -170,7 +170,6 @@
 		CA30F12D207698B90058C4CF /* NodesList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA30F12C207698B90058C4CF /* NodesList.plist */; };
 		CA3EA3F320669633005A7D5C /* UIScreen+sizeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3EA3F220669633005A7D5C /* UIScreen+sizeType.swift */; };
 		CA4830E0206ADD160071066A /* libminiupnpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4830DC206ADD160071066A /* libminiupnpc.a */; };
-		CA4830E6206AE52C0071066A /* libboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C056A6B2006637F0016AEF1 /* libboost.a */; };
 		CA4830E8206AF7050071066A /* TextViewUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4830E7206AF7050071066A /* TextViewUITableViewCell.swift */; };
 		CA4DF8B12034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B02034C2E3002B0AB4 /* RecoveryWalletOptionsView.swift */; };
 		CA4DF8B32034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DF8B22034C305002B0AB4 /* RecoveryWalletOptionsViewController.swift */; };
@@ -187,6 +186,7 @@
 		CA641B442048B0B300FFD6BA /* ModalPresentaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA641B432048B0B300FFD6BA /* ModalPresentaly.swift */; };
 		CA641B462048B0ED00FFD6BA /* HalfSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA641B452048B0ED00FFD6BA /* HalfSizePresentationController.swift */; };
 		CA641B482048BBF900FFD6BA /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA641B472048BBF900FFD6BA /* CopyableLabel.swift */; };
+		CA6E24E62082BA1100523347 /* libboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C056A6B2006637F0016AEF1 /* libboost.a */; };
 		CAA82A942035DFA400D8FD92 /* WalletKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A932035DFA400D8FD92 /* WalletKey.swift */; };
 		CAA82A972035E45D00D8FD92 /* WalletKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A962035E45D00D8FD92 /* WalletKeysView.swift */; };
 		CAA82A992035E47400D8FD92 /* WalletKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA82A982035E47400D8FD92 /* WalletKeyViewController.swift */; };
@@ -464,11 +464,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA6E24E62082BA1100523347 /* libboost.a in Frameworks */,
 				CABBD20E2070283A008AB5B5 /* libeasylogging.a in Frameworks */,
 				CABBD20F2070283A008AB5B5 /* libepee.a in Frameworks */,
 				CABBD2102070283A008AB5B5 /* libunbound.a in Frameworks */,
 				CABBD2112070283A008AB5B5 /* libwallet_merged.a in Frameworks */,
-				CA4830E6206AE52C0071066A /* libboost.a in Frameworks */,
 				CA4830E0206ADD160071066A /* libminiupnpc.a in Frameworks */,
 				0C17188B2003F34700EA1B02 /* libcrypto.a in Frameworks */,
 				0C17188C2003F34700EA1B02 /* libssl.a in Frameworks */,
@@ -1270,6 +1270,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
 				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
@@ -1286,6 +1288,8 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesome_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
@@ -1725,6 +1729,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CakeWallet/CakeWallet-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1797,6 +1802,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CakeWallet/CakeWallet-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 4.0;

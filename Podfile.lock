@@ -1,4 +1,6 @@
 PODS:
+  - Alamofire (4.7.1)
+  - BlueSocket (0.12.90)
   - Dip (6.0)
   - FontAwesome.swift (1.3.2)
   - IQKeyboardManagerSwift (5.0.7)
@@ -24,6 +26,8 @@ PODS:
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
+  - BlueSocket
   - Dip
   - FontAwesome.swift
   - IQKeyboardManagerSwift
@@ -39,6 +43,8 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
+  BlueSocket: 6afbda86bc6e06571db9c9ab9fe880c5a069f65b
   Dip: 316ad036509eaf3ef78e19699f32a9e01a5b3c3e
   FontAwesome.swift: b4e4c8ccbbecb12f9b592bc533ff237af3706667
   IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
@@ -53,6 +59,6 @@ SPEC CHECKSUMS:
   SwiftSoup: 1eedf56f751b36035ae6c95562f86944c9cfafee
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 30e7bb38d09baf3b936a07c39e3f08bf84f23386
+PODFILE CHECKSUM: c684f356475c14763130713880b9e71d5329a4d9
 
 COCOAPODS: 1.4.0

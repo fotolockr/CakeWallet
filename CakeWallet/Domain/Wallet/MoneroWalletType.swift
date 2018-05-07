@@ -158,7 +158,6 @@ final class MoneroWalletType: WalletProtocol {
     }
     
     func connect(withSettings settings: ConnectionSettings, updateState: Bool) -> Promise<Void> {
-        print("connect")
         return Promise { fulfill, reject in
             DispatchQueue.global(qos: .background).async {
                 do {
@@ -308,6 +307,10 @@ final class MoneroWalletType: WalletProtocol {
     
     func integratedAddress(for paymentId: String) -> String {
         return self.moneroAdapter.integratedAddress(for: paymentId)
+    }
+    
+    func checkConnection(withTimeout timeout: UInt32) -> Bool {
+        return moneroAdapter.checkConnection(withTimeout: timeout)
     }
     
     private func emit(_ change: MoneroWalletChange) {

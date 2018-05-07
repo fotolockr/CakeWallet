@@ -68,6 +68,18 @@ final class NodeConnectionControl {
         }
     }
     
+    func getRandomAvailableNode() -> Promise<ConnectionSettings?> {
+        return getAvailableNodes()
+            .then { nodes in
+                guard !nodes.isEmpty else {
+                    return Promise(value: nil)
+                }
+                
+                let i = Int(arc4random_uniform(UInt32(nodes.count)))
+                return Promise(value: nodes[i])
+        }
+    }
+    
     private func handler() {
         guard failedConnections >= 3 else {
             return
@@ -81,6 +93,7 @@ final class NodeConnectionControl {
     }
     
     private func autoSwitchNode() {
+        guard !isAutoNodeSwitching else { return }
         isAutoNodeSwitching = true
         let now = Date().timeIntervalSince1970
         
@@ -91,21 +104,34 @@ final class NodeConnectionControl {
             banned = []
         }
         
-        when(fulfilled: nodesList.map{ $0.connect() })
-            .always { isAutoNodeSwitching = false }
-            .then { res -> Void in
-                for (canConnect, node) in res {
-                    if canConnect && self.banned.index(of: node) == nil {
-                        self.wallet.connect(withSettings: node)
-                            .then { node.save() }
-                            .catch { [weak self] error in
-                                self?.banned.append(node)
-                                print(error)
-                        }
-                        break
+        nodesPingQueue.async {
+            for nodeSettings in self.nodesList {
+                let canConnect = checkConnectionSync(with: nodeSettings)
+                
+                if canConnect {
+                    self.wallet.connect(withSettings: nodeSettings)
+                        .always { isAutoNodeSwitching = false }
+                        .then { nodeSettings.save() }
+                        .catch { [weak self] error in
+                            self?.banned.append(nodeSettings)
+                            print(error)
                     }
+                    
+                    break
                 }
-            }.catch { error in print(error) }
+            }
+        }
+    }
+    
+    private func getAvailableNodes() -> Promise<[ConnectionSettings]> {
+        return when(fulfilled: nodesList.map{ $0.connect() })
+            .then { res -> [ConnectionSettings] in
+                return res.map { canConnect, node in
+                    return canConnect
+                        ? node
+                        : nil
+                    }.compactMap({ $0 })
+        }
     }
     
     private func switchNode() {

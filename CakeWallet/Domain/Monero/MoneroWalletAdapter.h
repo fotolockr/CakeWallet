@@ -51,6 +51,7 @@
 - (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority error: (NSError *__autoreleasing *) error;
 - (BOOL)save: (NSError **) error;
 - (BOOL)connectToDaemon: (NSError **) error;
+- (BOOL) checkConnectionWithTimeout:(uint32_t) timeout;
 - (void)setDaemonAddress: (NSString *) address login: (NSString *) login password: (NSString *) password;
 - (uint64_t)currentHeight;
 - (uint64_t)daemonBlockChainHeight;

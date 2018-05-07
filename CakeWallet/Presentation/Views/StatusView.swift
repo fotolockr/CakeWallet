@@ -178,7 +178,7 @@ extension StatusViewImpl: StatusView {
         case .connected:
             setDescription("Connected")
         case .startUpdating:
-            initProgress(description: "Start syncing", initialProgress: 0)
+            initProgress(description: "Starting sync..", initialProgress: 0)
         case .updated:
             finishProgress(
                 withText: "Synchronized",
