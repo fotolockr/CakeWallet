@@ -1,0 +1,40 @@
+build/
+DerivedData
+build.xcarchive
+
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+*.hmap
+*.ipa
+
+Pods/
+
+# Mac OS X
+*.DS_Store
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+*.xcworkspace/
+xcuserdata/
+
+# Pods
+Pods/
+
+# Carthage
+Carthage/
+
+# External
+External/
+
+# VS Code
+.vscode/
+.vscode/*
+
+CakeWalletMonero/External/
