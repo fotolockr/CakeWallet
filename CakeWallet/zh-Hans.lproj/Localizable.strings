@@ -1,0 +1,220 @@
+"welcome" = "欢迎\nto %@";
+"first_wallet_text" = "第一个Monero的iOS 钱包";
+"InsufficientFundsWithAmount" = "您的发送金额 %@ (金额 %@ + 费用 %@ 已超出您的余额 %@).";
+"InsufficientFunds" = "您的发送金额已超出您的余额%@.";
+"OverallBalanceWithAmonut" = "您的发送金额 %@ 已超出您的余额 %@.";
+"OverallBalance" = "您的发送金额已超出您的余额%@.";
+
+"starting_creation_selection" = "请在下方选择创建新钱包或恢复您的现有钱包.";
+"enjoy_this_wallet" = "请享受这个钱包.";
+"love_your_feedback" = "我们很乐意接受您的意见!";
+
+"create_new" = "创建新的";
+"restore" = "恢复";
+
+// Pin
+
+"use_6_pin" = "使用6位数字 PIN";
+"use_4_pin" = "使用 4位数字 PIN";
+"enter_your_pin" = "输入您的PIN ";
+"create_pin" = "创建PIN";
+"re_enter_your_pin" = "重新输入您的PIN码";
+"setup_pin" = "设置 PIN";
+"pin_setup_success" = "您的PIN已成功设置!";
+"incorrect_pin" = " PIN错误.";
+
+// Restore
+
+"restore_your_wallet" = "恢复您的钱包";
+"restore_selection_text" = "有两种方法可以恢复您的钱包。您可以输入种子密语，这是一个25字的短语，或者您可以输入您的密钥。请在下面选择一个.";
+"from_seed" = "选择种子密语";
+"from_keys" = "选择密钥";
+"or" = "或";
+
+"restore_wallet" = "恢复钱包";
+"enter_wallet_name" = "输入钱包名称";
+"wallet_name" = "钱包名称";
+"seed" = "种子密语";
+"restore" = "恢复";
+"restoring_wallet" = "恢复钱包";
+"enter_height_while_restore_alert" = "不要犯错误, 输入恢复高度！";
+"continue_restore" = "继续恢复";
+"set_restore_height" = "设置恢复高度";
+
+"restore_height" = "恢复高度";
+"restore_from_date" = "从日期恢复";
+"address" = "地址";
+"view_key_(private)" = "查看密钥（私钥）";
+"spend_key_(private)" = "创建密钥(私钥)";
+
+"continue" = "继续";
+"new_wallet" = "新钱包";
+"creating_wallet" = "创建新钱包名称-";
+
+"wallet" = "钱包";
+
+// Connection state
+
+"blocks_remaining" = "剩余区块";
+"connecting" = "连接中";
+"not_connected" = "未连接";
+"starting_sync" = "开始同步";
+"synchronized" = "已同步";
+"failed_connection_to_node" = "连接节点失败";
+
+// Wallet
+
+"available_balance" = "可用余额";
+"reconnection" = "重新连接";
+"reconnect" = "重新连接";
+"reconnect_alert_text" = "你确定要重新连接吗 ?";
+"cancel" = "取消";
+"receive" = "接收";
+"send" = "发送";
+"transactions" = "交易";
+"sent" = "发送";
+"pending" = "进行中";
+
+// Wallets
+
+"show_seed" = "显示种子";
+"load_wallet" = "加载钱包";
+"remove" = "删除";
+"rescan" = "重新扫描";
+"show_keys" = "显示密钥";
+"removing_wallet" = "删除的钱包名称";
+"loading_wallet" = "正在加载的钱包名称";
+"create_new_wallet" = "创建新的钱包";
+
+// Rescan
+
+"starting_rescan" = "开始重新扫描";
+
+// Send
+
+"all" = "全部";
+"optional" = "可选";
+"estimated_fee" = "预估费用";
+"creating_transaction" = "创建交易";
+"confirm_sending" = "确认发送";
+"commit_transaction" = "创建交易";
+"amount" = "金额";
+"fee" = "费用";
+"transaction_created" = "创建交易";
+"currently the fee is set at" = "目前费用设定为";
+"priority" = "优先";
+"change_transaction_priority" = "可以在设置中调整交易优先级";
+
+
+// Receive
+
+"copy_address" = "复制地址";
+"more_options" = "更多选项";
+"hide_options" = "隐藏选项";
+"copied" = "已复制";
+
+// Subs
+
+"subaddresses" = "子地址";
+"new_subaddress_label" = "新的子地址标签";
+"add" = "添加";
+
+// Settings
+
+"settings" = "设置";
+"currency" = "货币";
+"fee_priority" = "费用优先";
+"change_pin" = "更改pin";
+"allow_biometric_authentication" = "允许生物识别验证";
+"remember_pin" = "记住 pin";
+"node_settings" = "Daemon 设置";
+
+// Settings sections
+
+"personal" = "个人";
+"wallets" = "钱包";
+"advanced" = "高级";
+
+// Nodes
+
+"nodes" = "节点";
+"auto_switch_node" = "自动切换节点";
+
+// Exchange
+
+"exchange" = "交易";
+"refund_address_is_empty" = "退款地址为空";
+"create_exchange" = "创建新的交易";
+"deposit" = "存款";
+"refund_address" = "退款地址";
+"you_will_receive" = "您将收到";
+"clear" = "清除";
+"copy_id" = "复制ID";
+"confirm" = "确认";
+"min" = "最小";
+"max" = "最大";
+"state" = "State";
+"exchange_result_confirm_text" = "通过点击确认, 您将从名为%@的钱包发送到上面显示的地址.";
+"exchange_result_confirm_sending" = "请点击确认继续或返回更改金额.";
+"exchange_result_write_down_trade_id" = "请复制或写下上面显示的ID";
+"trade_not_found" = "交易未找到";
+
+// Auth
+
+"loading_wallet" = "加载钱包";
+"authentication" = "身份验证";
+"use_pin_password" = "使用Pin 密码";
+"unlock_wallet" = "解锁钱包";
+
+// Wallets keys
+
+"wallet_keys" = "钱包私钥";
+"view_key_public" = "查看密钥(公开)";
+"spend_key_public" = "密钥(公开)";
+
+// Seed
+
+"seed_disclaimer" = "请分享，复制或写下您的种子密语。种子密语用于恢复您的钱包。这是您的私钥种子密语。请勿与其他人分享种子密语!";
+
+// Transactions details
+
+"height" = "高度";
+"date" = "日期";
+"transaction_id" = "交易ID";
+"transaction_details" = "交易细节";
+
+// Exchange trade states
+
+"exchange_trade_state_pending" = "进行中";
+"exchange_trade_state_confirming" = "确认中";
+"exchange_trade_state_processing" = "处理中";
+"exchange_trade_state_trading" = "交易中";
+"exchange_trade_state_traded" = "交易";
+"exchange_trade_state_complete" = "完成";
+"change_language" = "改变语言";
+"receive_address_is_empty" = "接收地址为空";
+"incorrect_deposit_amount" = "存款金额不正确";
+"enter_height_while_restore_alert" = "请输入区块高度或日期!";
+"received" = "已接收";
+"save" = "保存";
+"copy" = "复制";
+"full_balance" = "全部余额";
+"node_address" = "节点地址";
+"node_port" = "节点端口";
+"node_new" = "新节点";
+"reset" = "重置";
+"saving"= "保存中";
+"saved" = "已保存";
+"node_reset_settings_title" = "重置设置";
+"nodes_list_reset_to_default_message" = "您确定要将重置设置设为默认值吗？";
+"nodes_list_reset_to_default" = "将节点列表重置为默认值";
+"delete_node" = "删除节点";
+"delete_node_message" = "您确定要删除所选节点吗？";
+"change_current_node_message" = "您确定将当前节点更改为％@？";
+"change" = "改变";
+"yes" = "是";
+"terms" = "条款和条件";
+"support" = "支持";
+"version" = "版本";
+"ok" = "好";
+"change_language_ask" = "将应用程序语言更改为％@？";

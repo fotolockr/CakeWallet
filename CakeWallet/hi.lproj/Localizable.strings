@@ -1,0 +1,221 @@
+"welcome" = "%@ में आपका स्वागत है ";
+"first_wallet_text" = "Monero के लिए पहला iOS बटुआ ";
+"InsufficientFundsWithAmount" = "आपके द्वारा भेजी जाने वाली %@ राशि (%@ की राशि +  %@ की फीस आपके कुल बैलेंस %@ से ज्यादा है)";
+"InsufficientFunds" = "आपके द्वारा भेजी जाने वाली राशि आपके कुल बैलेंस %@ से ज्यादा है";
+"OverallBalanceWithAmount" = "आपके द्वारा भेजी जाने वाली राशि %@आपके कुल बैलेंस %@ से ज्यादा है";
+"OverallBalance" = " आपके द्वारा भेजी जाने वाली राशि आपके कुल बैलेंस %@ से ज्यादा है";
+
+"starting_creation_selection" = "कृपया एक नया बटुआ बनाने या अपने पुराने मौजूदा बटुए  को लोड करने के लिए नीचे चयन करें।";
+"enjoy_this_wallet" = "अपने इस बटुए का आनंद उठाएं";
+"love_your_feedback" = " हमें आपकी राय जान कर खुशी होगी";
+
+"create_new" = "नया बनाएं";
+"restore" = "पुराना लोड करें";
+
+// Pin
+
+"use_6_pin" = "6 संख्या के पिन का उपयोग करें";
+"use_4_pin" = "4 संख्या के पिन का उपयोग करें ";
+"enter_your_pin" = "अपना पिन डालें";
+"create_pin" = "पिन बनाएं";
+"re_enter_your_pin" = "अपना पिन दोबारा दर्ज करें";
+"setup_pin" = "अपना पिन बनाएं";
+"pin_setup_success" = "आपका पिन सफलतापूर्वक बन गया है!";
+"incorrect_pin" = "गलत पिन";
+
+// Restore
+
+"restore_your_wallet" = "पुराना बटुआ लोड करें";
+"restore_selection_text" = " अपने पुराने बटुए को लोड करने के दो तरीके हैं। आप या तो अपने 25 शब्द के सीड वाक्यांश को दर्ज कर सकते हैं या आप अपनी निजी कुंजी दर्ज कर सकते हैं। कृपया नीचे इसमें से एक का चयन करें।";
+"from_seed" = "सीड द्वारा";
+"from_keys" = "निजी कुंजी द्वारा";
+"or" = "या";
+
+"restore_wallet" = "पुराना बटुआ लोड करें";
+"enter_wallet_name" = "बटुए का नाम डालें ";
+"wallet_name" = "बटुए का नाम";
+"seed" = "सीड वाक्यांश";
+"restore" = "लोड करें";
+"restoring_wallet" = "बटुआ लोड हो रहा है";
+"enter_height_while_restore_alert" = "मूर्ख न बनें, रिस्टोर हाइट डालें";
+"continue_restore" = "लोड करना जारी रखें";
+"set_restore_height" = " रिस्टोर हाइट दर्ज करें";
+
+"restore_height" = " रिस्टोर हाइट ";
+"restore_from_date" = "दिनांक से रिस्टोर करें";
+"address" = "Address";
+"view_key_(private)" = "कुंजी देखें (निजी)";
+"spend_key_(private)" = "कुंजी खर्च करें (निजी)";
+
+"continue" = "जारी रखें";
+"new_wallet" = "नया बटुआ";
+"creating_wallet" = "- नाम से नया बटुआ बन रहा है";
+
+"wallet" = "बटुआ";
+
+// Connection state
+
+"blocks_remaining" = "ब्लाक बचे";
+"connecting" = "कनेक्ट हो रहा है";
+"not_connected" = "कनेक्ट नहीं है";
+"starting_sync" = "सिंक शुरू ";
+"synchronized" = "सिंक पूर्ण";
+"failed_connection_to_node" = "नोड से कनेक्शन विफल ";
+
+// Wallet
+
+"available_balance" = " उपलब्ध शेष राशि ";
+"reconnection" = "फिर से कनेक्ट हो रहा है";
+"reconnect" = " पुनः कनेक्ट करें";
+"reconnect_alert_text" = "क्या आप फिर से कनेक्ट करना चाहते है?";
+"cancel" = "रद्द करें";
+"receive" = "प्राप्त करें";
+"send" = "भेजें’";
+"transactions" = "लेनदेन";
+"sent" = "भेजे";
+"pending" = "प्राप्त करें";
+
+// Wallets
+
+"show_seed" = "सीड दिखाएं";
+"load_wallet" = "बटुआ लोड करें";
+"remove" = "हटायें";
+"rescan" = "पुनः स्कैन करें";
+"show_keys" = "कुंजी दिखाएं";
+"removing_wallet" = "- नाम का बटुआ डिलीट हो रहा है";
+"loading_wallet" = "- नाम का बटुआ लोड हो रहा है";
+"create_new_wallet" = "नया बटुआ बनाएं";
+
+// Rescan
+
+"starting_rescan" = "स्कैन पुनः शुरू हो रहा है";
+
+// Send
+
+"all" = "सभी";
+"optional" = " ऐच्छिक ";
+"estimated_fee" = " अनुमानित शुल्क ";
+"creating_transaction" = "लेनदेन शुरू हो रहा है";
+"confirm_sending" = " लेनदेन की पुष्टि करें ";
+"commit_transaction" = "लेनदेन की पुष्टि";
+"amount" = "राशि";
+"fee" = "शुल्क";
+"transaction_created" = "लेनदेन पूर्ण";
+"currently the fee is set at" = " वर्तमान में सेट शुल्क ";
+"priority" = " प्राथमिकता ";
+"change_transaction_priority" = " लेनदेन प्राथमिकता को सेटिंग्स में बदला जा सकता है ";
+
+
+// Receive
+
+"copy_address" = "पता कॉपी करें";
+"more_options" = " अधिक विकल्प दिखाएं ";
+"hide_options" = " विकल्प छुपाएं ";
+"copied" = "कॉपी किया गया";
+
+// Subs
+
+"subaddresses" = " पता";
+"new_subaddress_label" = " नए पते का नाम ";
+"add" = "ऐड करें";
+
+// Settings
+
+"settings" = "सेटिंग";
+"currency" = "मुद्रा";
+"fee_priority" = "शुल्क प्राथमिकता";
+"change_pin" = "पिन बदलें";
+"allow_biometric_authentication" = " बॉयोमीट्रिक प्रमाणीकरण की अनुमति दें ";
+"remember_pin" = "पिन याद करें";
+"node_settings" = "डेमॉन सेटिंग ";
+
+// Settings sections
+
+"personal" = "निजी";
+"wallets" = "बटुए";
+"advanced" = " उन्नत ";
+
+// Nodes
+
+"nodes" = "नोड";
+"auto_switch_node" = "स्वतः नोड बदलें ";
+
+// Exchange
+
+"exchange" = "एक्सचेंज";
+"refund_address_is_empty" = "रिफंड पता खाली है";
+"create_exchange" = "नया एक्सचेंज बनाएं";
+"deposit" = "जमा करें";
+"refund_address" = "रिफंड पता";
+"you_will_receive" = "आपको प्राप्त होगा";
+"clear" = "मिटायें";
+"copy_id" = "आईडी कॉपी करें";
+"confirm" = "पुष्टि करें";
+"min" = "न्यूनतम";
+"max" = "अधिकतम";
+"state" = "स्वीकार";
+"exchange_result_confirm_text" = "कन्फर्म का बटन दबाकर आप %@ नाम के बटुए से %@ राशि ऊपर दिए गए पते पर भेजेंगे";
+"exchange_result_confirm_sending" = " कृपया जारी रखने के लिए कन्फर्म दबाएं या राशि बदलने के लिए पीछे जाएं।";
+"exchange_result_write_down_trade_id" = " कृपया ऊपर दिखाए गए अपनी आईडी को कॉपी करें या लिखें ";
+"trade_not_found" = "लेनदेन नही पाया गया";
+
+// Auth
+
+"loading_wallet" = "बटुआ लोड हो रहा है";
+"authentication" = "पुष्टि ";
+"use_pin_password" = "पिन पासवर्ड का उपयोग करें";
+"unlock_wallet" = "अपने बटुए को खोलने के लिए";
+
+// Wallets keys
+
+"wallet_keys" = "बटुआ कुंजी";
+"view_key_public" = "कुंजी देखें (निजी)";
+"spend_key_public" = "कुंजी रखें (निजी)";
+
+// Seed
+
+"seed_disclaimer" = " कृपया अपने सीड वाक्यांश को साझा करें, कॉपी करें या लिखें। सीड वाक्यांश का उपयोग आपके बटुए को पुनः लोड करने के लिए किया जाता है। यह आपका निजी सीड वाक्यांश है। अन्य लोगों के साथ इस सीड वाक्यांश को साझा न करें!";
+
+// Transactions details
+
+"height" = "हाइट";
+"date" = "दिनांक";
+"transaction_id" = "लेनदेन संख्या";
+"transaction_details" = " लेनदेन विवरण ";
+
+// Exchange trade states
+
+"exchange_trade_state_pending" = "अपूर्ण";
+"exchange_trade_state_confirming" = "कन्फर्म हो रहा है";
+"exchange_trade_state_processing" = "प्रोसेस हो रहा है";
+"exchange_trade_state_trading" = "लेनदेन में";
+"exchange_trade_state_traded" = "लेनेदेन ख़त्म";
+"exchange_trade_state_complete" = "पूर्ण";
+
+"get_address_is_empty" = "पता प्राप्त करें खाली है";
+"incorrect_deposit_amount" = "गलत जमा राशि";
+
+"save" = "सहेजें";
+"copy" = "प्रतिलिपि";
+"full_balance" = "पूर्ण संतुलन";
+"node_address" = "नोड पता";
+"node_port" = "नोड पोर्ट";
+"node_new" = "नया नोड";
+"reset" = "रीसेट करें";
+"saving" = "सेविंग";
+"saved" = "सहेजा गया";
+"node_reset_settings_title" = "सेटिंग्स रीसेट करें";
+"nodes_list_reset_to_default_message" = "क्या आप वाकई सेटिंग्स को डिफ़ॉल्ट रूप से रीसेट करना चाहते हैं?";
+"nodes_list_reset_to_default" = "डिफ़ॉल्ट रूप से नोड्स सूची रीसेट करें";
+"delete" = "हटाएं";
+"delete_node" = "नोड हटाएं";
+"delete_node_message" = "क्या आप वाकई चयनित नोड को मिटाना चाहते हैं?";
+"change_current_node_message" = "क्या आप वर्तमान नोड को %@ में बदलना चाहते हैं?";
+"change" = "बदलें";
+"yes" = "हां";
+"terms" = "नियम और शर्तें";
+"support" = "समर्थन";
+"version" = "संस्करण";
+"ok" = "ठीक है";
+"change_language" = "भाषा बदलें";
+"change_language_ask" = "अनुप्रयोग भाषा बदलें %@?";

@@ -1,0 +1,226 @@
+"welcome" = "Welcome\nto %@";
+"first_wallet_text" = "The first iOS wallet\nfor Monero";
+"InsufficientFundsWithAmount" = "Your sending amount of %@ (amount of %@ + fee of %@ is more than your balance of %@).";
+"InsufficientFunds" = "Your sending amount is more than your balance of %@.";
+"OverallBalanceWithAmonut" = "Your sending amount of %@ is more than your balance of %@.";
+"OverallBalance" = "Your sending amount is more than your balance of %@.";
+
+"starting_creation_selection" = "Please make a selection below for either creating a new wallet or recovering your existing wallet.";
+"enjoy_this_wallet" = "Please enjoy this wallet.";
+"love_your_feedback" = "We would love your feedback!";
+
+"create_new" = "Create new";
+"restore" = "Restore";
+
+// Pin
+
+"use_6_pin" = "Use 6-digits PIN";
+"use_4_pin" = "Use 4-digits PIN";
+"enter_your_pin" = "Enter your PIN";
+"create_pin" = "Create PIN";
+"re_enter_your_pin" = "Re-enter your PIN";
+"setup_pin" = "Setup PIN";
+"pin_setup_success" = "Your PIN has been set up successfully!";
+"incorrect_pin" = "Incorrect PIN.";
+
+// Restore
+
+"restore_your_wallet" = "Restore Your Wallet";
+"restore_selection_text" = "There are two ways to restore your wallet. You can either enter your seed, which is a 25 word phrase, or you can enter your keys. Please select one below.";
+"from_seed" = "From seed";
+"from_keys" = "From keys";
+"or" = "or";
+
+"restore_wallet" = "Restore Wallet";
+"enter_wallet_name" = "Enter wallet name";
+"wallet_name" = "Wallet name";
+"seed" = "Seed";
+"restore" = "Restore";
+"restoring_wallet" = "Restoring wallet";
+"enter_height_while_restore_alert" = "Don't be stupid, enter restore height!";
+"continue_restore" = "Continue restore";
+"set_restore_height" = "Set restore height";
+
+"restore_height" = "Restore height";
+"restore_from_date" = "Restore from date";
+"address" = "Address";
+"view_key_(private)" = "View key (private)";
+"spend_key_(private)" = "Spend key (private)";
+
+"continue" = "Continue";
+"new_wallet" = "New wallet";
+"creating_wallet" = "Creating new wallet with name -";
+
+"wallet" = "Wallet";
+
+// Connection state
+
+"blocks_remaining" = "Blocks remaining";
+"connecting" = "Connecting";
+"not_connected" = "Not connected";
+"starting_sync" = "Starting sync";
+"synchronized" = "Synchronized";
+"failed_connection_to_node" = "Failed connect to the node";
+
+// Wallet
+
+"available_balance" = "Available Balance";
+"reconnection" = "Reconnection";
+"reconnect" = "Reconnect";
+"reconnect_alert_text" = "Are you sure to reconnect ?";
+"cancel" = "Cancel";
+"receive" = "Receive";
+"send" = "Send";
+"transactions" = "Transactions";
+"sent" = "Sent";
+"pending" = "pending";
+
+// Wallets
+
+"show_seed" = "Show seed";
+"load_wallet" = "Load wallet";
+"remove" = "Remove";
+"rescan" = "Rescan";
+"show_keys" = "Show keys";
+"removing_wallet" = "Removing wallet with name";
+"loading_wallet" = "Loading wallet with name";
+"create_new_wallet" = "Create New Wallet";
+
+// Rescan
+
+"starting_rescan" = "Starting rescan";
+
+// Send
+
+"all" = "All";
+"optional" = "Optional";
+"estimated_fee" = "Estimated fee";
+"creating_transaction" = "Creating transaction";
+"confirm_sending" = "Confirm sending";
+"commit_transaction" = "Commit transaction";
+"amount" = "Amount";
+"fee" = "Fee";
+"transaction_created" = "Transaction created";
+"currently the fee is set at" = "Currently the fee is set at";
+"priority" = "priority";
+"change_transaction_priority" = "Transaction priority can be adjusted in the settings";
+
+
+// Receive
+
+"copy_address" = "Copy Address";
+"more_options" = "More options";
+"hide_options" = "Hide options";
+"copied" = "Copied";
+
+// Subs
+
+"subaddresses" = "Subaddresses";
+"new_subaddress_label" = "New subaddress label";
+"add" = "Add";
+
+// Settings
+
+"settings" = "Settings";
+"currency" = "Currency";
+"fee_priority" = "Fee priority";
+"change_pin" = "Change pin";
+"allow_biometric_authentication" = "Allow biometric authentication";
+"remember_pin" = "Remember pin";
+"node_settings" = "Daemon settings";
+
+// Settings sections
+
+"personal" = "Personal";
+"wallets" = "Wallets";
+"advanced" = "Advanced";
+
+// Nodes
+
+"nodes" = "Nodes";
+"auto_switch_node" = "Auto switch node";
+
+// Exchange
+
+"exchange" = "Exchange";
+"refund_address_is_empty" = "Refund address is empty";
+"create_exchange" = "Create a new exchange";
+"deposit" = "Deposit";
+"refund_address" = "Refund address";
+"you_will_receive" = "You will receive";
+"clear" = "Clear";
+"copy_id" = "Copy ID";
+"confirm" = "Confirm";
+"min" = "Min";
+"max" = "Max";
+"state" = "State";
+"exchange_result_description_text" = "Please send %@ to the address shown above";
+"exchange_result_confirm_text" = "By pressing confirm, you will be sending %@ from your wallet called %@ to the address shown above.";
+"exchange_result_confirm_sending" = "Please press confirm to continue or go back to change the amounts.";
+"exchange_result_write_down_trade_id" = "Please copy or write down your ID shown above";
+"trade_not_found" = "Trade is not found";
+
+// Auth
+
+"loading_wallet" = "Loading the wallet";
+"authentication" = "Authentication";
+"use_pin_password" = "Use Pin password";
+"unlock_wallet" = "To unlock your wallet";
+
+// Wallets keys
+
+"wallet_keys" = "Wallet keys";
+"view_key_public" = "View key (public)";
+"spend_key_public" = "Spend key (public)";
+
+// Seed
+
+"seed_disclaimer" = "Please share, copy, or write down your seed. The seed is used to recover your wallet. This is your PRIVATE seed. DO NOT SHARE this seed with other people!";
+
+// Transactions details
+
+"height" = "Height";
+"date" = "Date";
+"transaction_id" = "Transaction ID";
+"transaction_details" = "Transaction details";
+
+// Exchange trade states
+
+"exchange_trade_state_pending" = "Pending";
+"exchange_trade_state_confirming" = "Confirming";
+"exchange_trade_state_processing" = "Processing";
+"exchange_trade_state_trading" = "Trading";
+"exchange_trade_state_traded" = "Traded";
+"exchange_trade_state_complete" = "Complete";
+
+// Exchange check errors
+
+"receive_address_is_empty" = "Receive address is empty";
+"incorrect_deposit_amount" = "Incorrect deposit amount";
+
+"save" = "Save";
+"copy" = "Copy";
+"full_balance" = "Full balance";
+"node_address" = "Node address";
+"node_port" = "Node port";
+"node_new" = "New node";
+"reset" = "Reset";
+"saving"= "Saving";
+"saved" = "Saved";
+"node_reset_settings_title" = "Reset settings";
+"nodes_list_reset_to_default_message" = "Are you sure that you want to reset settings to default ?";
+"nodes_list_reset_to_default" = "Reset nodes list to default";
+"delete" = "Remove";
+"delete_node" = "Remove node";
+"delete_node_message" = "Are you sure that you want to remove selected node ?";
+"change_current_node_message" = "Are you sure to change current node to %@ ?";
+"change" = "Change";
+"yes" = "Yes";
+"terms" = "Terms and conditions";
+"support" = "Support";
+"version" = "Version";
+"ok" = "Ok";
+"change_language" = "Change language";
+"change_language_ask" = "Change application language to %@ ?";
+
+"ask_to_remove_message" = "This action will PERMANENTLY delete the wallet %@ and all its seed and private keys. Do you wish to continue?";
