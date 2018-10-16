@@ -1,0 +1,264 @@
+"welcome" = "Wilkommen zu %@";
+"first_wallet_text" = "Der ersten iOS-Wallet für Monero";
+"InsufficientFundsWithAmount" = "Der Betrag von %@ (Anzahl der %@ + Gebühr von %@ ist mehr als Ihr Guthaben von %@).";
+"InsufficientFunds" = "Der Betrag ist mehr als Ihr Guthaben von %@.";
+"OverallBalanceWithAmonut" = "Der Betrag von %@ ist mehr als Ihr Guthaben von %@.";
+"OverallBalance" = "Der Betrag ist mehr als Ihr Guthaben von %@.";
+
+
+"starting_creation_selection" = "Bitte treffen Sie eine Auswahl, um entweder eine neue Wallet zu erstellen oder Ihre vorhandene Wallet wiederherzustellen.";
+"enjoy_this_wallet" = "Viel Spaß mit dieser Wallet!";
+"love_your_feedback" = "Wir würden uns über Ihr Feedback freuen!";
+
+
+"create_new" = "Erstellen";
+"restore" = "Wiederherstellen";
+
+
+// Pin
+
+
+"use_6_pin" = "Eine 6-stellige PIN verwenden";
+"use_4_pin" = "Eine 4-stellige PIN verwenden";
+"enter_your_pin" = "PIN eingeben";
+"create_pin" = "PIN erstellen";
+"re_enter_your_pin" = "Geben Sie Ihre PIN erneut ein";
+"setup_pin" = "PIN einrichten";
+"pin_setup_success" = "Ihre PIN wurde erfolgreich eingerichtet!";
+"incorrect_pin" = "Falsche PIN";
+
+
+// Restore
+
+
+"restore_your_wallet" = "Wallet wiederherstellen";
+"restore_selection_text" = "Es gibt zwei Möglichkeiten, um Ihre Wallet wiederherzustellen. Sie können entweder Ihre Seed eingeben, was eine 25-Wort-Phrase ist, oder Sie können Ihre privaten Schlüssel eingeben. Bitte wählen Sie eine Option aus";
+"from_seed" = "Mit der Seed";
+"from_keys" = "Mit dem privaten Schlüssel";
+"or" = "oder";
+
+
+"restore_wallet" = "Wallet wiederherstellen";
+"enter_wallet_name" = "Benennen Sie Ihre Wallet";
+"wallet_name" = "Wallet-Name";
+"seed" = "Seed";
+"restore" = "Wiederherstellen";
+"restoring_wallet" = "Wallet wird wiederhergestellt";
+"enter_height_while_restore_alert" = "Bitte geben Sie die Wiederherstellungshöhe ein!";
+"continue_restore" = "Setzen Sie die Wiederherstellung fort";
+"set_restore_height" = "Stellen Sie die Wiederherstellungshöhe ein";
+
+
+"restore_height" = "Höhe wiederherstellen";
+"restore_from_date" = "Wiederherstellen vom Datum";
+"address" = "Address";
+"view_key_(private)" = "Ansichtsschlüssel (privat)";
+"spend_key_(private)" = "Ausgaben-Schlüssel (privat)";
+
+
+"continue" = "Fortsetzen";
+"new_wallet" = "Neue wallet";
+"creating_wallet" = "Erstellen einer neuen Wallet mit Namen -";
+
+
+"wallet" = "Wallet";
+
+
+// Connection state
+
+
+"blocks_remaining" = "Verbliebene Blöcke";
+"connecting" = "Verbinden";
+"not_connected" = "Nicht verbunden";
+"starting_sync" = "Synchronisierung wird gestartet";
+"synchronized" = "Synchronisiert";
+"failed_connection_to_node" = "Fehlgeschlagene Verbindung zum Knoten";
+
+
+// Wallet
+
+
+"available_balance" = "Verfügbares Guthaben";
+"reconnection" = "Wiederverbindung";
+"reconnect" = "Erneut verbinden";
+"reconnect_alert_text" = "Sind Sie sicher?";
+"cancel" = "Stornieren";
+"receive" = "Erhalten";
+"send" = "Senden";
+"transactions" = "Transaktionen";
+"sent" = "Gesendet";
+"pending" = "Ausstehend";
+
+
+// Wallets
+
+
+"show_seed" = "Seed anzeigen";
+"load_wallet" = "Wallet laden";
+"remove" = "Löschen";
+"rescan" = "Neu scannen";
+"show_keys" = "Schlüssel anzeigen";
+"removing_wallet" = "Wallet mit Namen entfernen";
+"loading_wallet" = "Wallet mit den Namen laden";
+"create_new_wallet" = "Neue Wallet erstellen";
+
+
+// Rescan
+
+
+"starting_rescan" = "Neu scannen...";
+
+
+// Send
+
+
+"all" = "Alle";
+"optional" = "Optional";
+"estimated_fee" = "Geschätzte Gebühr";
+"creating_transaction" = "Transaktion erstellen";
+"confirm_sending" = "Senden bestätigen";
+"commit_transaction" = "Transaktion ausführen";
+"amount" = "Betrag";
+"fee" = "Gebühr";
+"transaction_created" = "Transaktion erstellt";
+"currently the fee is set at" = "Derzeit ist die Gebühr festgelegt auf";
+"priority" = "Priorität";
+"change_transaction_priority" = "Die Transaktionspriorität kann in den Einstellungen angepasst werden";
+
+
+
+
+// Receive
+
+
+"copy_address" = "Adresse kopieren";
+"more_options" = "Mehr Optionen";
+"hide_options" = "Optionen ausblenden";
+"copied" = "Kopiert";
+
+
+// Subs
+
+
+"subaddresses" = "Unteradressen";
+"new_subaddress_label" = "Neues Unteradressen-Etikett";
+"add" = "Hinzufügen";
+
+
+// Settings
+
+
+"settings" = "Einstellungen";
+"currency" = "Währung";
+"fee_priority" = "Gebührenpriorität";
+"change_pin" = "PIN ändern";
+"allow_biometric_authentication" = "Biometrische Authentifizierung erlauben";
+"remember_pin" = "PIN merken";
+"node_settings" = "Daemon-Einstellungen";
+
+
+// Settings sections
+
+
+"personal" = "Persönlich";
+"wallets" = "Wallets";
+"advanced" = "Fortgeschritten";
+
+
+// Nodes
+
+
+"nodes" = "Knoten";
+"auto_switch_node" = "Knoten automatisch wechseln";
+
+
+// Exchange
+
+
+"exchange" = "Währungen wechseln";
+"refund_address_is_empty" = "Die Rückerstattungsadresse ist leer";
+"create_exchange" = "Erstellen Sie einen neuen Wechsel";
+"deposit" = "Einzahlen";
+"refund_address" = "Rückerstattungsadresse";
+"you_will_receive" = "Sie bekommen";
+"clear" = "Leeren";
+"copy_id" = "ID kopieren";
+"confirm" = "Bestätigen";
+"min" = "Min.";
+"max" = "Max.";
+"state" = "Status";
+"exchange_result_confirm_text" = "Nachdem Sie den Wechsel bestätigt haben, senden Sie %@ von Ihrer Wallet namens %@ an die oben angezeigte Adresse.";
+"exchange_result_confirm_sending" = "Bitte bestätigen Sie den Wechsel, um fortzufahren oder gehen Sie zurück, um die Beträge zu ändern.";
+"exchange_result_write_down_trade_id" = "Bitte kopieren oder notieren Sie Ihre oben angezeigte ID";
+"trade_not_found" = "Wechsel nicht gefunden";
+
+
+// Auth
+
+
+"loading_wallet" = "Wallet wird geladen";
+"authentication" = "Authentifizierung";
+"use_pin_password" = "Verwenden Sie die PIN";
+"unlock_wallet" = "Um die Wallet zu entsperren";
+
+
+// Wallets keys
+
+
+"wallet_keys" = "Wallet-Schlüssel";
+"view_key_public" = "Schlüssel anzeigen (öffentlich)";
+"spend_key_public" = "Ausgaben-Schlüssel (öffentlich)";
+
+
+// Seed
+
+
+"seed_disclaimer" = "Bitte teilen, kopieren oder schreiben Sie Ihre Seed auf. Die Seed wird verwendet, um Ihre Wallet wiederherzustellen. Das ist Ihre PRIVATE Seed. Bewahren Sie Ihre Seed sicher auf!";
+
+
+// Transactions details
+
+
+"height" = "Höhe";
+"date" = "Datum";
+"transaction_id" = "Transaktions-ID";
+"transaction_details" = "Transaktionsdetails";
+
+
+// Exchange trade states
+
+
+"exchange_trade_state_pending" = "Ausstehend";
+"exchange_trade_state_confirming" = "Wird bestätigt";
+"exchange_trade_state_processing" = "Wird bearbeitet";
+"exchange_trade_state_trading" = "Wechseln";
+"exchange_trade_state_traded" = "Gewechselt";
+"exchange_trade_state_complete" = "Vollständig";
+
+"receive_address_is_empty" = "Empfängeradresse ist leer";
+"incorrect_deposit_amount" = "Falscher Einzahlungsbetrag";
+
+"save" = "Speichern";
+"copy" = "Kopieren";
+"full_balance" = "Volle Balance";
+"node_address" = "Knotenadresse";
+"node_port" = "Knotenport";
+"node_new" = "Neuer Knoten";
+"reset" = "Zurücksetzen";
+"saving" = "Speichern";
+"saved" = "Gespeichert";
+"node_reset_settings_title" = "Einstellungen zurücksetzen";
+"nodes_list_reset_to_default_message" = "Möchten Sie die Einstellungen wirklich auf die Standardwerte zurücksetzen?";
+"nodes_list_reset_to_default" = "Knotenliste zurücksetzen";
+"delete" = "Löschen";
+"delete_node" = "Knoten löschen";
+"delete_node_message" = "Möchten Sie den ausgewählten Knoten wirklich löschen?";
+"change_current_node_message" = "Möchten Sie den aktuellen Knoten wirklich in% @ ändern?";
+"change" = "Ändern";
+"yes" = "Ja";
+"terms" = "Allgemeine Geschäftsbedingungen";
+"support" = "Support";
+"version" = "Version";
+"ok" = "Ok";
+"change_language" = "Sprache ändern";
+"change_language_ask" = "Anwendungssprache in% @ ändern?";

@@ -1,0 +1,262 @@
+"welcome" = "환영합니다\nto %@";
+"first_wallet_text" = "최초으 iOS 지갑\nfor Monero";
+"InsufficientFundsWithAmount" = "보내시는 양이%@ (일정 수수료를 더했을 때 %@ %@ 현 잔고보다 많습니다 %@).";
+"InsufficientFunds" = "보내시는 양이 잔고보다 많습니다 %@.";
+"OverallBalanceWithAmonut" = "보내시는 양이%@ 잔고보다 많습니다 %@.";
+"OverallBalance" = "보내시는 양이 잔고보다 많습니다%@.";
+
+
+"starting_creation_selection" = "아래에서 지갑 생성하기를 하시거나 기존 지갑을 불러오세요.";
+"enjoy_this_wallet" = "지갑을 잘 사용해보세요.";
+"love_your_feedback" = "피드백 주시면 감사하겠습니다!";
+
+
+"create_new" = "새로 만들기";
+"restore" = "복구";
+
+
+// Pin
+
+
+"use_6_pin" = "6자리 핀 번호";
+"use_4_pin" = "4자리 핀 번호";
+"enter_your_pin" = "핀 입력";
+"create_pin" = "핀 만들기";
+"re_enter_your_pin" = "핀 재 입력";
+"setup_pin" = "핀 설정";
+"pin_setup_success" = "핀설정 완료!";
+"incorrect_pin" = "틀린 핀 번호.";
+
+
+// Restore
+
+
+"restore_your_wallet" = "지갑 복구";
+"restore_selection_text" = "지갑 복구에는 2가지 방법이 있으며 25단어의 시드단어를 이용하거나 키를 입력하는 것입니다. ";
+"from_seed" = "시드입력";
+"from_keys" = "키 입력";
+"or" = "또는";
+
+
+"restore_wallet" = "지갑 복구 ";
+"enter_wallet_name" = "지갑이름 입력 ";
+"wallet_name" = "지갑 이름 ";
+"seed" = "시드";
+"restore" = "복구";
+"restoring_wallet" = "지갑 복구 ";
+"enter_height_while_restore_alert" = "복구설정을 입력하세요 ";
+"continue_restore" = "복구진행 ";
+"set_restore_height" = "복구설정 ";
+
+
+"restore_height" = "복구 재설정 ";
+"restore_from_date" = "날짜를 통해 복구 ";
+"address" = "Address";
+"view_key_(private)" = "프라이벗 키 보기 ";
+"spend_key_(private)" = "키 사용하기 (프라이벗)";
+
+
+"continue" = "진행";
+"new_wallet" = "새로운 지갑 ";
+"creating_wallet" = "새로운 지갑에 이름 설정 -";
+
+
+"wallet" = "지갑";
+
+
+// Connection state
+
+
+"blocks_remaining" = "남은 블락 ";
+"connecting" = "연결중";
+"not_connected" = "연결되지 않음 ";
+"starting_sync" = "싱크 개시 ";
+"synchronized" = "싱크됨";
+"failed_connection_to_node" = "노드 연결 실패 ";
+
+
+// Wallet
+
+
+"available_balance" = "잔여잔고";
+"reconnection" = "재연결";
+"reconnect" = "재연결";
+"reconnect_alert_text" = "재연결 하실건가요?";
+"cancel" = "취소";
+"receive" = "수신";
+"send" = "보내기";
+"transactions" = "거래내역";
+"sent" = "보내짐";
+"pending" = "보내는중";
+
+
+// Wallets
+
+
+"show_seed" = "시드 보기 ";
+"load_wallet" = "지갑 로드 ";
+"remove" = "지우기";
+"rescan" = "재스캔";
+"show_keys" = "키 보기 ";
+"removing_wallet" = "명명된 지갑 제거 ";
+"loading_wallet" = "명명된 지갑 로딩 ";
+"create_new_wallet" = "새로운 지갑 생성 ";
+
+
+// Rescan
+
+
+"starting_rescan" = "재스캔 시작 ";
+
+
+// Send
+
+
+"all" = "모두";
+"optional" = "옵션";
+"estimated_fee" = "예상된 수수료 ";
+"creating_transaction" = "거래 생성 ";
+"confirm_sending" = "보내기 승인 ";
+"commit_transaction" = "거래 실행 ";
+"amount" = "양";
+"fee" = "수수료";
+"transaction_created" = "거래 생성 ";
+"currently the fee is set at" = "현재 수수료는 ";
+"priority" = "우선순위";
+"change_transaction_priority" = "거래우선순위는 세팅에서 변경 가능 ";
+
+
+// Receive
+
+
+"copy_address" = "지갑주소 복사 ";
+"more_options" = "더 많은 옵션 ";
+"hide_options" = "옵션 숨기기 ";
+"copied" = "복사됨";
+
+
+// Subs
+
+
+"subaddresses" = "서브 주소";
+"new_subaddress_label" = "새로운 서브주소 레이블 ";
+"add" = "추가";
+
+
+// Settings
+
+
+"settings" = "세팅";
+"currency" = "통화";
+"fee_priority" = "수수료 우선순위 ";
+"change_pin" = "핀 변경 ";
+"allow_biometric_authentication" = "바이오메트릭 승인 ";
+"remember_pin" = "핀 기억하기 ";
+"node_settings" = "데몬 세팅 ";
+
+
+// Settings sections
+
+
+"personal" = "개인";
+"wallets" = "지갑";
+"advanced" = "고급설정";
+
+
+// Nodes
+
+
+"nodes" = "노드";
+"auto_switch_node" = "자동 스위치 노드 ";
+
+
+// Exchange
+
+
+"exchange" = "거래소";
+"refund_address_is_empty" = "환불주소가 비어있습니다 ";
+"create_exchange" = "새로운 거래소 생성 ";
+"deposit" = "예금";
+"refund_address" = "환불 주소 ";
+"you_will_receive" = "받을 양은 ";
+"clear" = "지우기";
+"copy_id" = " ID복사";
+"confirm" = "확인";
+"min" = "최소";
+"max" = "최대";
+"state" = "State";
+"exchange_result_confirm_text" = "승인을 누르면 %@다음 지갑에서 %@다음으로 보내집니다.";
+"exchange_result_confirm_sending" = "계속하시려면 승인을 누르거나 보낼 양을 수정하세요 ";
+"exchange_result_write_down_trade_id" = "위에 표시된 ID를 복사하거나 종이에 적으세요 ";
+"trade_not_found" = "거래를 찾을 수 없습니다 ";
+
+
+// Auth
+
+
+"loading_wallet" = "지갑 불러오기 ";
+"authentication" = "승인";
+"use_pin_password" = " Pin주소 사용 ";
+"unlock_wallet" = "지갑 풀기";
+
+
+// Wallets keys
+
+
+"wallet_keys" = "지갑 키 ";
+"view_key_public" = "키 보기 (퍼블릭)";
+"spend_key_public" = "키 사용 (퍼블릭)";
+
+
+// Seed
+
+
+"seed_disclaimer" = "시드를 복사하거나 종이에 적으세요. 이 시드를 통해 지갑을 복구할 수 있습니다. 이건 본인 고유 시드 정보이기에 다른사람과 공유하지 마세요!!";
+
+
+// Transactions details
+
+
+"height" = "값";
+"date" = "일정";
+"transaction_id" = "거래 ID";
+"transaction_details" = "거래 상세정보 ";
+
+
+// Exchange trade states
+
+
+"exchange_trade_state_pending" = "보내는중";
+"exchange_trade_state_confirming" = "승인중";
+"exchange_trade_state_processing" = "처리중";
+"exchange_trade_state_trading" = "거래중";
+"exchange_trade_state_traded" = "거래됨";
+"exchange_trade_state_complete" = "완료됨";
+
+"receive_address_is_empty"= "수신 주소가 비어 있습니다";
+"incorrect_deposit_amount"= "잘못된 입금액";
+
+"save"= "저장";
+"copy"= "복사";
+"full_balance"= "최대 잔액";
+"node_address"= "노드 주소";
+"node_port"= "노드 포트";
+"node_new"= "새 노드";
+"reset"= "재설정";
+"saving"= "저축";
+"saved"= "저장된";
+"node_reset_settings_title"= "설정 재설정";
+"nodes_list_reset_to_default_message"= "설정을 기본값으로 재설정하겠습니까?";
+"nodes_list_reset_to_default"= "노드 목록을 기본값으로 재설정";
+"delete"= "삭제";
+"delete_node"= "노드 삭제";
+"delete_node_message"= "선택한 노드를 삭제 하시겠습니까?";
+"change_current_node_message"= "현재 노드를 %@ (으)로 변경 하시겠습니까?";
+"change" = "변화";
+"yes" = "예";
+"terms" = "이용 약관";
+"support" = "지원하다";
+"version" = "번역";
+"ok" = "승인";
+"change_language" = "언어 변경";
+"change_language_ask" = "응용 프로그램 언어를 %@ (으)로 변경 하시겠습니까?";

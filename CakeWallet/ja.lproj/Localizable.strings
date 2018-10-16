@@ -1,0 +1,221 @@
+"welcome" = "ようこそ %@";
+"first_wallet_text" = "最初Monero向け iOS\nウォレット ";
+"InsufficientFundsWithAmount" = "送信しようとする量 %@ (%@ と 手数料 %@ はバランスを越えています。 %@";
+"InsufficientFunds" = "送信しようとする量はバランスを越えています。 %@";
+"OverallBalanceWithAmonut" = "送信しようとする量%@ はバランスを越えています。 %@";
+"OverallBalance" = "送信しようとする量はバランスを越えています。 %@";
+
+"starting_creation_selection" = "新しいウォレットを作成するか、既存のウォレットを回復するかを選択してください。";
+"enjoy_this_wallet" = "ウォレットを活用してください！";
+"love_your_feedback" = "フィードバックをお待ちしています！";
+
+"create_new" = "新規作成";
+"restore" = "リストア";
+
+// Pin
+
+"use_6_pin" = "6ケタのピンを使う";
+"use_4_pin" = "4ケタのピンを使う";
+"enter_your_pin" = "ピンを入力";
+"create_pin" = "ピンを作成する";
+"re_enter_your_pin" = "ピンを再入力してください";
+"setup_pin" = "ピンをセットアップ";
+"pin_setup_success" = "ピンのセットアップが完了！";
+"incorrect_pin" = "不正なピンです";
+
+// Restore
+
+"restore_your_wallet" = "ウォレットをリストア";
+"restore_selection_text" = "あなたのウォレットを復元するには2つの方法があります。あなたは、25語のシードを入力するか、または鍵を入力することができます。選択してください。";
+"from_seed" = "シードから";
+"from_keys" = "鍵から";
+"or" = "もしくは";
+
+"restore_wallet" = "ウォレットリストア";
+"enter_wallet_name" = "ウォレット名入力";
+"wallet_name" = "ウォレット名";
+"seed" = "シード";
+"restore" = "リストア";
+"restoring_wallet" = "リストア中";
+"enter_height_while_restore_alert" = "リストアの高さを入力してください！";
+"continue_restore" = "リストアを継続";
+"set_restore_height" = "リストアの高さ設定";
+
+"restore_height" = "リストアの高さ";
+"restore_from_date" = "日付からリストア";
+"address" = "アドレス";
+"view_key_(private)" = "確認キー (プライベート)";
+"spend_key_(private)" = "送信キー (プライベート)";
+
+"continue" = "続ける";
+"new_wallet" = "新しいウォレット";
+"creating_wallet" = "この名前で新しいウォレットを作成 -";
+
+"wallet" = "ウォレット";
+
+// Connection state
+
+"blocks_remaining" = "ブロック残り";
+"connecting" = "接続中";
+"not_connected" = "未接続";
+"starting_sync" = "同期開始";
+"synchronized" = "同期済み";
+"failed_connection_to_node" = "ノードとの接続失敗";
+
+// Wallet
+
+"available_balance" = "有効なバランス";
+"reconnection" = "再接続";
+"reconnect" = "再接続";
+"reconnect_alert_text" = "再接続しますか？";
+"cancel" = "キャンセル";
+"receive" = "受け取り";
+"send" = "送信";
+"transactions" = "トランザクション";
+"sent" = "送信";
+"pending" = "保留";
+
+// Wallets
+
+"show_seed" = "シード表示";
+"load_wallet" = "ウォレットロード";
+"remove" = "削除";
+"rescan" = "再スキャン";
+"show_keys" = "キー表示";
+"removing_wallet" = "名前でウォレットを削除";
+"loading_wallet" = "名前でウォレットをロード";
+"create_new_wallet" = "ウォレット新規作成";
+
+// Rescan
+
+"starting_rescan" = "再スキャン開始";
+
+// Send
+
+"all" = "すべて";
+"optional" = "任意";
+"estimated_fee" = "予測手数料";
+"creating_transaction" = "トランザクション作成中";
+"confirm_sending" = "送信確認 ";
+"commit_transaction" = "トランザクションコミット";
+"amount" = "量";
+"fee" = "手数料";
+"transaction_created" = "トランザクション作成";
+"currently the fee is set at" = "手数料セット済み";
+"priority" = "優先度";
+"change_transaction_priority" = "トランザクションの優先度は設定から変更できます";
+
+
+// Receive
+
+"copy_address" = "アドレスコピー";
+"more_options" = "ほかのオプション";
+"hide_options" = "オプションを隠す";
+"copied" = "コピーしました";
+
+// Subs
+
+"subaddresses" = "サブアドレス";
+"new_subaddress_label" = "新しいサブアドレスラベル";
+"add" = "追加";
+
+// Settings
+
+"settings" = "設定";
+"currency" = "通貨";
+"fee_priority" = "プライオリティ手数料";
+"change_pin" = "ピン変更";
+"allow_biometric_authentication" = "生体認証を許可";
+"remember_pin" = "ピンを記憶";
+"node_settings" = "デーモン設定";
+
+// Settings sections
+
+"personal" = "個人";
+"wallets" = "ウォレット";
+"advanced" = "アドバンスド";
+
+// Nodes
+
+"nodes" = "ノード";
+"auto_switch_node" = "自動スイッチモード";
+
+// Exchange
+
+"exchange" = "取引";
+"refund_address_is_empty" = "リファンドアドレスが空です";
+"create_exchange" = "取引を新規作成";
+"deposit" = "デポジット";
+"refund_address" = "リファンドアドレス";
+"you_will_receive" = "受け取り";
+"clear" = "クリア";
+"copy_id" = "IDコピー";
+"confirm" = "確認";
+"min" = "最小";
+"max" = "最大";
+"state" = "状態";
+"exchange_result_confirm_text" = "確認を押すと、%@ウォレットから %@を上記のアドレスに送信します。";
+"exchange_result_confirm_sending" = "続けるには確定を押してください";
+"exchange_result_write_down_trade_id" = "上記のIDをコピーするか控えてください";
+"trade_not_found" = "トレードが見つかりません";
+
+// Auth
+
+"loading_wallet" = "ウォレット読み込み中";
+"authentication" = "認証";
+"use_pin_password" = "ピンパスワードを利用";
+"unlock_wallet" = "ウォレットをアンロック";
+
+// Wallets keys
+
+"wallet_keys" = "ウォレットキー";
+"view_key_public" = "確認キー (パブリック)";
+"spend_key_public" = "送信キー (パブリック)";
+
+// Seed
+
+"seed_disclaimer" = "あなたのシードを共有、コピー、または書き留めてください。シードはウォレットをリストアするために使われます。これはあなたのプライベートシードです。このシードを他の人と共有しないでください！";
+
+// Transactions details
+
+"height" = "高さ";
+"date" = "日付";
+"transaction_id" = "トランザクションID";
+"transaction_details" = "トランザクション詳細";
+
+// Exchange trade states
+
+"exchange_trade_state_pending" = "保留";
+"exchange_trade_state_confirming" = "確認済み";
+"exchange_trade_state_processing" = "進行中";
+"exchange_trade_state_trading" = "トレード中";
+"exchange_trade_state_traded" = "トレード完了";
+"exchange_trade_state_complete" = "完了";
+
+"receive_address_is_empty" = "受信アドレスが空です";
+"incorrect_deposit_amount" = "不正確な預金額";
+
+"save" = "Save";
+"copy" = "コピー";
+"full_balance" = "フルバランス";
+"node_address" = "ノードアドレス";
+"node_port" = "ノードポート";
+"node_new" = "新しいノード";
+"reset" = "リセット";
+"saving" = "保存中";
+"saved" = "Saved";
+"node_reset_settings_title" = "リセット設定";
+"nodes_list_reset_to_default_message" = "設定をデフォルトにリセットしてもよろしいですか？";
+"nodes_list_reset_to_default" = "ノードリストをデフォルトにリセットします";
+"delete" = "Delete";
+"delete_node" = "ノードを削除";
+"delete_node_message" = "選択したノードを削除してもよろしいですか？";
+"change_current_node_message" = "現在のノードを％@に変更してもよろしいですか？";
+"change" = "変化する";
+"yes" = "はい";
+"terms" = "利用規約";
+"support" = "サポート";
+"version" = "バージョン";
+"ok" = "OK";
+"change_language" = "言語を変更する";
+"change_language_ask" = "アプリケーション言語を％@に変更しますか？";

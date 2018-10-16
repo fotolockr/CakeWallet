@@ -1,0 +1,224 @@
+// Welcome
+
+"setup_pin" = "Настройка пин";
+"create_new" = "Создать новый";
+"restore" = "Восстановить";
+"welcome" = "Добро пожаловать\nв %@.";
+"first_wallet_text" = "Первый iOS кошелек\nдля Monero.";
+"starting_creation_selection" = "Пожалуйста, выберите способ создания кошелька: создать новый, или восстановить ваш, уже существующий.";
+"enjoy_this_wallet" = "Пользуйтесь нашим кошельком с удовольствием.";
+"love_your_feedback" = "Мы любим ваши отзывы!";
+
+// Pin
+
+"use_6_pin" = "Шестизачный пин-код";
+"use_4_pin" = "Четырёхзначный пин-код";
+"enter_your_pin" = "Введите свой пин-код";
+"create_pin" = "Введите свой пин-код";
+"re_enter_your_pin" = "Введите свой пин-код повторно";
+"setup_pin" = "Настройка пин-кода";
+"pin_setup_success" = "Ваш пин-код установлен успешно!";
+"incorrect_pin" = "Неверный пин-код";
+
+// Restore
+
+"restore_your_wallet" = "Восстановите ваш кошелек";
+"restore_selection_text" = "Вы можете восстановить кошелек из вашего семя (фраза из 25-ти слов), или вы можете использовать ваши приватные ключи. Пожалуйста, выберите способ восстановления.";
+"from_seed" = "Используя семя";
+"from_keys" = "Используя ключи";
+"or" = "или";
+
+"restore_wallet" = "Восстановление";
+"enter_wallet_name" = "Введите имя кошелька";
+"wallet_name" = "Имя кошелька";
+"seed" = "Семя";
+"restoring_wallet" = "Восстановление кошелька";
+"enter_height_while_restore_alert" = "Введите высоту блокчейн для восстановления";
+"continue_restore" = "Продолжить восстановление";
+"set_restore_height" = "Ввести высоту для восстановления";
+
+"restore_height" = "Востановить из высоты";
+"restore_from_date" = "Ввостановить из даты";
+"address" = "Адрес";
+"view_key_(private)" = "Ключ для просмотра (приватный)";
+"spend_key_(private)" = "Ключ для отправки (приватный)";
+
+"continue" = "Продолжить";
+"new_wallet" = "Новый кошелек";
+"creating_wallet" = "Создание кошелька с именем -";
+
+"wallet" = "Кошелек";
+
+// Connection state
+
+"blocks_remaining" = "Осталось блоков";
+"connecting" = "Подключеник";
+"not_connected" = "Не подключен";
+"starting_sync" = "Начало синхронизации";
+"synchronized" = "Синхронизировано";
+"failed_connection_to_node" = "Не удалось подключиться к удаленному узлу";
+
+// Wallet
+
+"available_balance" = "Доступный баланс";
+"reconnection" = "Переподключение";
+"reconnect" = "Переподключиться";
+"reconnect_alert_text" = "Вы уверены, что хотите переподключиться ?";
+"cancel" = "Отмена";
+"receive" = "Получить";
+"send" = "Отправить";
+"transactions" = "Транзакции";
+"sent" = "Отправлено";
+"pending" = "в ожидании";
+
+// Wallets
+
+"show_seed" = "Показать семя";
+"load_wallet" = "Загрузить кошелек";
+"remove" = "Удалить";
+"show_keys" = "Показать ключи";
+"removing_wallet" = "Удаление кошелька с именем";
+"loading_wallet" = "Загрузка кошелька с именем";
+"create_new_wallet" = "Создать новый кошелек";
+
+// Rescan
+
+"rescan" = "Пересканировать";
+"starting_rescan" = "Запуск сканирования";
+
+// Send
+
+"all" = "Все";
+"optional" = "Необязательный";
+"estimated_fee" = "Оценочный сбор";
+"creating_transaction" = "Создание транзакций";
+"confirm_sending" = "Подтвердить отправку";
+"commit_transaction" = "Подтвердить транзакцию";
+"amount" = "Сумма";
+"fee" = "Сбор";
+"transaction_created" = "Транзакция создана";
+"Currently the fee is set at" = "Текущий сбор составляет";
+"priority" = "приоритет";
+"Transaction priority can be adjusted in the settings" = "Вы можете изменить приоритет транзакции в настройках";
+"Insufficient Funds." = "Недостаточно средств.";
+"InsufficientFundsWithAmount" = "Сума отправки -  %@ (сумма %@ + сбор %@ больше вашего баланса %@).";
+"InsufficientFunds" = "Ваша сума отправки больше вашего баланса %@.";
+"OverallBalanceWithAmonut" = "Сума отпавки %@ больше чем ваш баланс %@.";
+"OverallBalance" = "Сума отпаравки больше вашего баланса %@.";
+
+// Receive
+
+"copy_address" = "Скопировать адрес";
+"more_options" = "Показать больше опций";
+"hide_options" = "Спрятать";
+"copied" = "Скопированно";
+
+// Subs
+
+"subaddresses" = "Дополнительный адрес";
+"new_subaddress_label" = "Название нового дополнительного адреса";
+"add" = "Добавить";
+
+// Settings
+
+"settings" = "Настройки";
+"currency" = "Валюта";
+"fee_priority" = "Приоритет сбора";
+"change_pin" = "Изменить пин-код";
+"allow_biometric_authentication" = "Разрешить биометрическую аутентификацию";
+"remember_pin" = "Запомнить пин-код";
+"node_settings" = "Настройки удаленного узла";
+
+// Settings sections
+
+"personal" = "Персональные";
+"wallets" = "Кошелек";
+"advanced" = "Продвинутые";
+
+// Nodes
+
+"nodes" = "Узлы";
+"auto_switch_node" = "Авто. переключение узлов";
+
+// Exchange
+
+"exchange" = "Обмен";
+"refund_address_is_empty" = "Адрес для возврата пуст";
+"create_exchange" = "Создать новый обмен";
+"deposit" = "Депозит";
+"refund_address" = "Адрес для возврата";
+"you_will_receive" = "Вы получите";
+"clear" = "Очистить";
+"copy_id" = "Скопировать ID";
+"confirm" = "Подтвердить";
+"min" = "Мин";
+"max" = "Макс";
+"state" = "Состояние";
+"exchange_result_description_text" = "Пожалуйста, отправте %@ на адрес указаный выше";
+"exchange_result_confirm_text" = "При подтверждении, вы отправите %@ из вашего кошелька %@ на адрес показаный выше.";
+"exchange_result_confirm_sending" = "Пожалуйта, нажмите подтвердить или вернитесь назад, чтобы изменить сумму.";
+"exchange_result_write_down_trade_id" = "Пожалуйста, скопируйте или запишите идентификатор вашего обмена";
+"trade_not_found" = "Обмен не найден";
+
+// Auth
+
+"loading_wallet" = "Загрузка кошелька";
+"authentication" = "Аутентификация";
+"use_pin_password" = "Использовать пин-код";
+"unlock_wallet" = "Чтобы разблокировать кошелек";
+
+// Wallets keys
+
+"wallet_keys" = "Ключи";
+"view_key_public" = "Ключ для просмотра(публичный)";
+"spend_key_public" = "Ключ для просмотра(публичный)";
+
+// Seed
+
+"seed_disclaimer" = "Пожалуйста скопируйте или запишите ваше семя. Семя исплользуеться для восстановления вашего кошелька. Это ПРИВАТНОЕ семя. НЕ ДЕЛИТЕСЬ этим семьем с другими людьи(и не только)!";
+
+// Transactions details
+
+"height" = "Высота";
+"date" = "Дата";
+"transaction_id" = "Индификатор транзакции";
+"transaction_details" = "Описание транзакции";
+
+// Exchange trade states
+
+"exchange_trade_state_pending" = "В ожидании";
+"exchange_trade_state_confirming" = "В подтверждении";
+"exchange_trade_state_processing" = "В обработке";
+"exchange_trade_state_trading" = "В продаже";
+"exchange_trade_state_traded" = "Продано";
+"exchange_trade_state_complete" = "Завершено";
+
+"receive_address_is_empty" = "Адрес получателя пуст";
+"incorrect_deposit_amount" = "Неправильная сумма депозита";
+
+"save" = "Сохранить";
+"copy" = "Скопировать";
+"full_balance" = "Полный баланс";
+"node_address" = "Адрес узла";
+"node_port" = "Порт узла";
+"reset" = "Сбросить";
+"saving"= "Сохранение";
+"saved" = "Сохранено";
+"node_reset_settings_title" = "Сбросить настройки узлов";
+"nodes_list_reset_to_default_message" = "Сбросить список узлов";
+"login" = "Логин";
+"password" = "Пароль";
+"delete" = "Удалить";
+"delete_node" = "Удалить узел";
+"delete_node_message" = "Вы уверены что хотите удалить выбраный узел ?";
+"change_current_node_message" = "Вы уверены что хотите изменить текущий узел на %@ ?";
+"change" = "Изменить";
+"yes" = "Да";
+"terms" = "Условия и положения";
+"support" = "Поддержка";
+"version" = "Версия";
+"ok" = "Ок";
+"change_language" = "Изменить язык";
+"change_language_ask" = "Изменить язык приложения на %@ ?";
+
+"ask_to_remove_message" = "This action will PERMANENTLY delete the wallet %@ and all its seed and private keys. Do you wish to continue?";
