@@ -253,7 +253,7 @@
 "delete" = "Verwijderen";
 "delete_node" = "Nodus verwijderen";
 "delete_node_message" = "Weet u zeker dat u de geselecteerde nodus wilt verwijderen?";
-"change_current_node_message" = "Weet u zeker dat u de van huidige nodus wilt wijzigen naar %@?";
+"change_current_node_message" = "Weet u zeker dat u de huidige nodus wilt wijzigen naar %@?";
 "change" = "Wijzigen";
 "yes" = "Ja";
 "terms" = "Algemene voorwaarden";
