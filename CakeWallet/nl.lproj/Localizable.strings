@@ -1,0 +1,266 @@
+"welcome" = "Welkom bij %@";
+"first_wallet_text" = "De eerste iOS-Wallet voor Monero";
+"InsufficientFundsWithAmount" = "Het te versturen bedrag van %@ (bedrag van %@ + toeslag van %@) is groter dan uw saldo van %@.";
+"InsufficientFunds" = "Het te versturen bedrag is groter dan uw saldo van %@.";
+"OverallBalanceWithAmonut" = "Het te versturen bedrag van %@ is groter dan uw saldo van %@.";
+"OverallBalance" = "Het te versturen bedrag is groter dan uw saldo van %@.";
+
+
+"starting_creation_selection" = "Selecteer hieronder of u een nieuwe wallet aan wilt maken, of dat u een bestaande wallet wilt herstellen.";
+"enjoy_this_wallet" = "Veel plezier met deze wallet!";
+"love_your_feedback" = "Uw feedback is altijd welkom!";
+
+
+"create_new" = "Aanmaken";
+"restore" = "Herstellen";
+
+
+// Pin
+
+
+"use_6_pin" = "Een 6-cijferige pincode gebruiken";
+"use_4_pin" = "Een 4-cijferige pincode gebruiken";
+"enter_your_pin" = "Voer uw pincode in";
+"create_pin" = "Pincode aanmaken";
+"re_enter_your_pin" = "Voer opnieuw uw pincode in";
+"setup_pin" = "Pincode instellen";
+"pin_setup_success" = "Uw pincode is met succes ingesteld!";
+"incorrect_pin" = "Incorrecte pincode";
+
+
+// Restore
+
+
+"restore_your_wallet" = "Uw wallet herstellen";
+"restore_selection_text" = "Er zijn twee mogelijkheden om uw wallet te herstellen. U kunt uw seed invoeren. Dit is een reeks van 25 woorden. Of u kunt uw privésleutels invoeren. Selecteer hieronder een optie.";
+"from_seed" = "Met de seed";
+"from_keys" = "Met de privésleutels";
+"or" = "of";
+
+
+"restore_wallet" = "Wallet herstellen";
+"enter_wallet_name" = "Voer een naam voor uw wallet in";
+"wallet_name" = "Walletnaam";
+"seed" = "Seed";
+"restore" = "Herstellen";
+"restoring_wallet" = "Wallet wordt hersteld";
+"enter_height_while_restore_alert" = "Voer een herstelhoogte in";
+"continue_restore" = "Doorgaan met herstellen";
+"set_restore_height" = "Stel de herstelhoogte in";
+
+
+"restore_height" = "Herstelhoogte";
+"restore_from_date" = "Herstellen vanaf datum";
+"address" = "Adres";
+"view_key_(private)" = "Leessleutel (privé)";
+"spend_key_(private)" = "Spendeersleutel (privé)";
+
+
+"continue" = "Doorgaan";
+"new_wallet" = "Nieuwe wallet";
+"creating_wallet" = "Aanmaken van een nieuwe wallet met de naam -";
+
+
+"wallet" = "Wallet";
+
+
+// Connection state
+
+
+"blocks_remaining" = "Nog te scannen blokken";
+"connecting" = "Verbinden";
+"not_connected" = "Niet verbonden";
+"starting_sync" = "Synchronisatie wordt gestart";
+"synchronized" = "Gesynchroniseerd";
+"failed_connection_to_node" = "Mislukte connectie met de nodus";
+
+
+// Wallet
+
+
+"available_balance" = "Beschikbaar saldo";
+"reconnection" = "Herverbinding";
+"reconnect" = "Opnieuw verbinden";
+"reconnect_alert_text" = "Wilt u opnieuw verbinden?";
+"cancel" = "Annuleren";
+"receive" = "Ontvangen";
+"send" = "Versturen";
+"transactions" = "Transacties";
+"sent" = "Verstuurd";
+"pending" = "In behandeling";
+
+
+// Wallets
+
+
+"show_seed" = "Seed weergeven";
+"load_wallet" = "Wallet laden";
+"remove" = "Verwijderen";
+"rescan" = "Opnieuw scannen";
+"show_keys" = "Sleutels weergeven";
+"removing_wallet" = "Verwijderen wallet met naam";
+"loading_wallet" = "Laden van wallet met naam";
+"create_new_wallet" = "Nieuwe wallet aanmaken";
+
+
+// Rescan
+
+
+"starting_rescan" = "Opnieuw scannen...";
+
+
+// Send
+
+
+"all" = "Alle";
+"optional" = "Optioneel";
+"estimated_fee" = "Geschatte toeslag";
+"creating_transaction" = "Transactie aanmaken";
+"confirm_sending" = "Versturen bevestigen";
+"commit_transaction" = "Transactie uitvoeren";
+"amount" = "Bedrag";
+"fee" = "Toeslag";
+"transaction_created" = "Transactie aangemaakt";
+"currently the fee is set at" = "Momenteel is de toeslag ingesteld op";
+"priority" = "Prioriteit";
+"change_transaction_priority" = "De prioriteit van de transactie kan in de instellingen aangepast worden.";
+
+
+
+
+// Receive
+
+
+"copy_address" = "Adres kopiëren";
+"more_options" = "Meer opties";
+"hide_options" = "Opties verbergen";
+"copied" = "Gekopieerd";
+
+
+// Subs
+
+
+"subaddresses" = "Subadressen";
+"new_subaddress_label" = "Nieuw label voor subadres";
+"add" = "Toevoegen";
+
+
+// Settings
+
+
+"settings" = "Instellingen";
+"currency" = "Valuta";
+"fee_priority" = "Toeslagprioriteit";
+"change_pin" = "Pincode wijzigen";
+"allow_biometric_authentication" = "Biometrische authenticatie toestaan";
+"remember_pin" = "Pincode onthouden";
+"node_settings" = "Daemoninstellingen";
+
+
+// Settings sections
+
+
+"personal" = "Persoonlijk";
+"wallets" = "Wallets";
+"advanced" = "Geavanceerd";
+
+
+// Nodes
+
+
+"nodes" = "Nodi";
+"auto_switch_node" = "Automatisch van nodus wisselen";
+
+
+// Exchange
+
+
+"exchange" = "Omwisselen";
+"refund_address_is_empty" = "Het restitutieadres is leeg";
+"create_exchange" = "Een nieuw omwisselverzoek aanmaken";
+"deposit" = "Storten";
+"refund_address" = "Restitutieadres";
+"you_will_receive" = "U ontvangt";
+"clear" = "Legen";
+"copy_id" = "ID kopiëren";
+"confirm" = "Bevestigen";
+"min" = "Min.";
+"max" = "Max.";
+"state" = "Status";
+"exchange_result_confirm_text" = "Als u op bevestigen klikt, verstuurt u %@ vanuit uw wallet met de naam %@ naar het bovenstaande adres.";
+"exchange_result_confirm_sending" = "Klik op bevestigen om door te gaan, of ga terug om de bedragen aan te passen.";
+"exchange_result_write_down_trade_id" = "Kopieer of noteer het bovenstaande ID";
+"trade_not_found" = "Omwisseling is niet gevonden";
+
+
+// Auth
+
+
+"loading_wallet" = "Wallet wordt geladen";
+"authentication" = "Authenticatie";
+"use_pin_password" = "Gebruik de pincode";
+"unlock_wallet" = "Om uw wallet te ontgrendelen";
+
+
+// Wallets keys
+
+
+"wallet_keys" = "Walletsleutels";
+"view_key_public" = "Leessleutel (publiek)";
+"spend_key_public" = "Spendeersleutel (publiek)";
+
+
+// Seed
+
+
+"seed_disclaimer" = "Schrijf uw seed op of kopieer deze. Deze seed wordt gebruikt om uw wallet te herstellen. Deze seed is PRIVÉ. Deel deze seed niet met anderen en bewaar hem op een veilige plek.";
+
+
+// Transactions details
+
+
+"height" = "Hoogte";
+"date" = "Datum";
+"transaction_id" = "Transactie-ID";
+"transaction_details" = "Transactiedetails";
+
+
+// Exchange trade states
+
+
+"exchange_trade_state_pending" = "In behandeling";
+"exchange_trade_state_confirming" = "Wordt bevestigd";
+"exchange_trade_state_processing" = "Wordt verwerkt";
+"exchange_trade_state_trading" = "Omwisselen";
+"exchange_trade_state_traded" = "Omgewisseld";
+"exchange_trade_state_complete" = "Voltooid";
+
+"receive_address_is_empty" = "Ontvangstadres is leeg";
+"incorrect_deposit_amount" = "Incorrect stortingsbedrag";
+
+"save" = "Opslaan";
+"copy" = "Kopiëren";
+"full_balance" = "Volledig saldo";
+"node_address" = "Nodusadres";
+"node_port" = "Noduspoort";
+"node_new" = "Nieuwe nodus";
+"reset" = "Terugzetten";
+"saving" = "Opslaan";
+"saved" = "Opgeslagen";
+"node_reset_settings_title" = "Instellingen terugzetten";
+"nodes_list_reset_to_default_message" = "Weet u zeker dat u de standaardinstellingen terug wilt zetten?";
+"nodes_list_reset_to_default" = "Standaardlijst van nodi terugzetten";
+"delete" = "Verwijderen";
+"delete_node" = "Nodus verwijderen";
+"delete_node_message" = "Weet u zeker dat u de geselecteerde nodus wilt verwijderen?";
+"change_current_node_message" = "Weet u zeker dat u de van huidige nodus wilt wijzigen naar %@?";
+"change" = "Wijzigen";
+"yes" = "Ja";
+"terms" = "Algemene voorwaarden";
+"support" = "Ondersteuning";
+"version" = "Versie";
+"ok" = "Oké";
+"change_language" = "Taal wijzigen";
+"change_language_ask" = "Taal van de app wijzigen naar %@?";
+
+"ask_to_remove_message" = "Deze actie resulteert in het PERMANENT verwijderen van de wallet %@, de bijbehorende seed en privésleutels. Wilt u doorgaan?";

@@ -1,5 +1,4 @@
 import Foundation
-import SwiftKeychainWrapper
 
 public protocol KeychainStorage {
     func set(value: String, forKey key: KeychainKey) throws

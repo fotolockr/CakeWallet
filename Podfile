@@ -22,5 +22,5 @@ target 'CWMonero' do
 end
 
 target 'CakeWalletLib' do
-    pod 'SwiftKeychainWrapper'
+    pod 'KeychainAccess'
 end

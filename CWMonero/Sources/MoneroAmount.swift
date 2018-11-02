@@ -13,7 +13,13 @@ public struct MoneroAmount: Amount {
     }
     
     public func formatted() -> String {
-        let double = Double(MoneroAmountParser.formatValue(value)) ?? 0.0
-        return String(double)
+        guard
+            let formattedValue = MoneroAmountParser.formatValue(value),
+            let _value = Double(formattedValue),
+            _value != 0 else {
+              return "0.0"
+        }
+        
+        return String(_value)
     }
 }

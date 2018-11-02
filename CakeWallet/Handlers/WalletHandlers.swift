@@ -47,7 +47,7 @@ public struct SaveHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case .save = action else { return }
         
-        workQueue.async {
+        walletQueue.async {
             do {
                 try currentWallet.save()
             } catch {
@@ -61,7 +61,7 @@ public struct CreateTransactionHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case let .send(amount, address, paymentID, priority, completionHandler) = action else { return }
         
-        workQueue.async {
+        walletQueue.async {
             do {
                 let pendingTransaction: PendingTransaction
                 
@@ -100,7 +100,7 @@ public struct CommitTransactionHandler: AsyncHandler {
             TransactionsState.Action.changedSendingStage(SendingStage.commiting)
         )
         
-        workQueue.async {
+        walletQueue.async {
             transaction.commit({ result in
                 switch result {
                 case .success():
