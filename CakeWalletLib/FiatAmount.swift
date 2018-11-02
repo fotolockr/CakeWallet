@@ -13,6 +13,12 @@ public struct FiatAmount: Amount {
         if
             let stringValue = self.stringValue,
             let value = Float(stringValue) {
+            let min = 0.01 as Float
+            
+            if value < min && value != 0 {
+                return String(format: "< %.2f %@", min, currency.formatted())
+            }
+            
             return String(format: "%.2f %@", value, currency.formatted())
         } else {
             return "" //fixme

@@ -115,7 +115,7 @@ public final class MoneroWalletGateway: WalletGateway {
     }
 }
 
-private let estimatedSizeOfDefaultTransaction = 13065
+private let estimatedSizeOfDefaultTransaction = 2000000
 private var cachedFees: [TransactionPriority: Amount] = [:]
 
 extension MoneroWalletGateway {
@@ -198,9 +198,9 @@ extension MoneroWalletGateway {
         case .default:
             return 4
         case .fast:
-            return 20
+            return 24
         case .fastest:
-            return 166
+            return 960
         }
     }
 }

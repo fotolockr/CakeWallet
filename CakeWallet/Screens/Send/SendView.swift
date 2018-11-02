@@ -84,7 +84,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
             flex.addItem(sendAllButton).height(40).marginLeft(10)
         }
         
-        estimatedFeeContriner.flex.direction(.row).justifyContent(.spaceBetween).define { flex in
+        estimatedFeeContriner.flex.direction(.row).justifyContent(.spaceBetween).alignItems(.start).define { flex in
             flex.addItem(estimatedFeeTitleLabel)
             flex.addItem(estimatedFeeValueLabel)
         }

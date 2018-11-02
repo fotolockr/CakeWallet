@@ -245,7 +245,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         }
         
         let val = cryptoValue / price
-        contentView.cryptoAmountTextField.text = String(format: "%.5f", val)
+        contentView.cryptoAmountTextField.text = String(format: "%.12f", val)
     }
     
     private func updateSendingStage(_ stage: SendingStage) {
@@ -277,8 +277,20 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         let fiatCurrency = store.state.settingsState.fiatCurrency
         let price = store.state.balanceState.price
         let fiatBalance = calculateFiatAmount(fiatCurrency, price: price, balance: fee)
-        contentView.estimatedFeeValueLabel.text = String(format: "%@ (%@)",  fee.formatted(), fiatBalance.formatted())
-        contentView.estimatedFeeValueLabel.flex.markDirty()
+        let formattedFee = MoneroAmountParser.formatValue(fee.value) ?? "0.0"
+        let formattedFiat = fiatBalance.formatted()
+        contentView.estimatedFeeValueLabel.text = String(format: "%@ (%@)", formattedFee, formattedFiat)
+        let estimatedFeeContrinerWidth = contentView.estimatedFeeContriner.frame.size.width
+        let totalWidth = estimatedFeeContrinerWidth
+        let titleWidth = contentView.estimatedFeeTitleLabel.frame.size.width
+        let width = totalWidth - titleWidth
+
+        if width > 0 {
+            contentView.estimatedFeeValueLabel.flex.width(width).markDirty()
+        } else {
+            contentView.estimatedFeeValueLabel.flex.markDirty()
+        }
+        
         contentView.rootFlexContainer.flex.layout()
     }
     
@@ -307,7 +319,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
             + "\n"
             + NSLocalizedString("fee", comment: "")
             + ": "
-            + description.fee.formatted()
+            + MoneroAmountParser.formatValue(description.fee.value)
         let commitAction = CWAlertAction(title: NSLocalizedString("Ok", comment: "")) { [weak self] action in
             action.alertView?.dismiss(animated: true) {
                 self?.commit(pendingTransaction: pendingTransaction)

@@ -1,25 +1,34 @@
 import Foundation
-import SwiftKeychainWrapper
+import KeychainAccess
 
 //fixme
 
 public final class KeychainStorageImpl: KeychainStorage {
     public static let standart: KeychainStorage = KeychainStorageImpl()
     
-    private let keychain: KeychainWrapper
-    
-    public convenience init() {
-        self.init(keychain: KeychainWrapper.standard)
+    private static var defaultServiceName: String {
+        return Bundle.main.bundleIdentifier ?? "SwiftKeychainWrapper" // legacy case
     }
     
-    public init(keychain: KeychainWrapper) {
+    private let keychain: Keychain
+    
+    public convenience init() {
+        self.init(
+            keychain: Keychain(service: KeychainStorageImpl.defaultServiceName)
+                .synchronizable(true)
+                .accessibility(.whenUnlocked)
+        )
+    }
+    
+    public init(keychain: Keychain) {
         self.keychain = keychain
     }
     
     public func set(value: String, forKey key: KeychainKey) throws {
         let path = key.patch
-        
-        guard keychain.set(value, forKey: path) else {
+        do {
+            try keychain.set(value, key: path)
+        } catch {
             throw KeychainStorageError.cannotSetValue(path)
         }
     }
@@ -27,17 +36,21 @@ public final class KeychainStorageImpl: KeychainStorage {
     public func fetch(forKey key: KeychainKey) throws -> String {
         let path = key.patch
         
-        guard let result = keychain.string(forKey: path) else {
+        guard
+            let result = try? keychain.getString(path),
+            let string = result else {
             throw KeychainStorageError.cannotFindValue(path)
         }
         
-        return result
+        return string
     }
     
     public func remove(forKey key: KeychainKey) throws {
         let path = key.patch
         
-        guard keychain.removeObject(forKey: path) else {
+        do {
+            try keychain.remove(path)
+        } catch {
             throw KeychainStorageError.cannotRemoveValue(path)
         }
     }

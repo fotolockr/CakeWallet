@@ -13,6 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var blurEffectView: UIVisualEffectView?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        do {
+            try migrateKeychainAccessibilities(keychain: KeychainStorageImpl.standart)
+        } catch {
+            print("migrateKeychainAccessibilities Error")
+            print(error)
+        }
+        
         IQKeyboardManager.shared.enable = true
         register(handler: LoadWalletHandler())
         register(handler: LoadCurrentWalletHandler())

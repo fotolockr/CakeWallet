@@ -8,7 +8,7 @@ public enum Languages: String, Formatted {
     case cn = "zh-Hans"
     case pt = "pt-PT"
     case pl = "pl"
-    case ru, es, ja, ko, hi, de
+    case ru, es, ja, ko, hi, de, nl
     
     public static var current: Languages? {
         var lang = NSLocale.preferredLanguages.first!
@@ -47,7 +47,7 @@ public enum Languages: String, Formatted {
         case .ko:
             return "한국어 (Korean)"
         case .de:
-            return "Deutsche (German)"
+            return "Deutsch (German)"
         case .hi:
             return "हिंदी (Hindi)"
         case .cn:
@@ -56,6 +56,8 @@ public enum Languages: String, Formatted {
             return "Português (Portuguese)"
         case .pl:
             return "Polskie (Polish)"
+        case .nl:
+            return "Nederlands (Dutch)"
         }
     }
 }
@@ -129,7 +131,7 @@ extension Bundle {
 }
 
 final class ChangeLanguageViewController: BaseViewController<ChangeLanguageView>, UITableViewDelegate, UITableViewDataSource {
-    let languages: [Languages] = [.en, .ru, .es, .ja, .ko, .hi, .de, .cn, .pt, .pl]
+    let languages: [Languages] = [.en, .ru, .es, .ja, .ko, .hi, .de, .cn, .pt, .pl, .nl]
     
     override func configureBinds() {
         super.configureBinds()
