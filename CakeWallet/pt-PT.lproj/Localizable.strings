@@ -152,7 +152,8 @@
 "min" = "Min";
 "max" = "Max";
 "state" = "Estado";
-"exchange_result_confirm_text" = "Pressionando confirmar, você estará enviando %@ da sua carteira  %@ para o endereço mostrado acima.";
+"status" = "Status";
+"exchange_result_confirm_text" = "Pressionando confirmar, você estará enviando %@ da sua carteira  %@ para o endereço mostrado acima.  Or you can send from your external wallet to the above address/QR code.";
 "exchange_result_confirm_sending" = "Pressione confirmar para continuar ou volte para alterar as quantias.";
 "exchange_result_write_down_trade_id" = "Copie ou escreva abaixo o seu ID da transação mostrado acima";
 "trade_not_found" = "Operação não encontrada";
@@ -220,9 +221,13 @@
 "change" = "Alterar";
 "yes" = "Sim";
 "terms" = "Termos e condições";
+"terms_accepting_message" = "By using this app, you agree to the Terms of Agreement set forth below";
 "support" = "Apoio";
 "version" = "Versão";
 "ok" = "Ok";
 "change_language" = "Alterar idioma";
 "change_language_ask" = "Alterar idioma para %@ ?";
 "ask_to_remove_message" = "This action will PERMANENTLY delete the wallet %@ and all its seed and private keys. Do you wish to continue?";
+"order_created" = "Trade is created";
+"i_saved_sec_key" = "I have saved the trade ID";
+"please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";

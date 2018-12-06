@@ -2,9 +2,11 @@ import UIKit
 import FlexLayout
 
 final class TermsView: BaseFlexView {
+    let titleLabel: UILabel
     let textView: UITextView
     
     required init() {
+        titleLabel = UILabel(fontSize: 14)
         textView = UITextView()
         super.init()
     }

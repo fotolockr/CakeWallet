@@ -185,7 +185,8 @@
 "min" = "최소";
 "max" = "최대";
 "state" = "State";
-"exchange_result_confirm_text" = "승인을 누르면 %@다음 지갑에서 %@다음으로 보내집니다.";
+"status" = "지위";
+"exchange_result_confirm_text" = "승인을 누르면 %@다음 지갑에서 %@다음으로 보내집니다. 또는 외장 지갑에서 위의 주소 / QR 코드로 보낼 수 있습니다.";
 "exchange_result_confirm_sending" = "계속하시려면 승인을 누르거나 보낼 양을 수정하세요 ";
 "exchange_result_write_down_trade_id" = "위에 표시된 ID를 복사하거나 종이에 적으세요 ";
 "trade_not_found" = "거래를 찾을 수 없습니다 ";
@@ -255,8 +256,12 @@
 "change" = "변화";
 "yes" = "예";
 "terms" = "이용 약관";
+"terms_accepting_message" = "이 앱을 사용하면 아래 명시된 이용 약관에 동의하게됩니다.";
 "support" = "지원하다";
 "version" = "번역";
 "ok" = "승인";
 "change_language" = "언어 변경";
 "change_language_ask" = "응용 프로그램 언어를 %@ (으)로 변경 하시겠습니까?";
+"order_created" = "Trade is created";
+"i_saved_sec_key" = "I have saved the trade ID";
+"please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";

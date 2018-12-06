@@ -336,6 +336,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         let telegram = "https://t.me/cake_wallet"
         let twitter = "cakewalletXMR"
         let morphEmail = "contact@morphtoken.com"
+        let xmrtoEmail = "support@xmr.to"
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.paragraphSpacing = 5
         paragraphStyle.lineSpacing = 5
@@ -344,7 +345,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             NSAttributedStringKey.paragraphStyle: paragraphStyle
         ]
         let attributedString = NSMutableAttributedString(
-            string: String(format: "Email: %@\nTelegram: %@\nTwitter: @%@\nExchange: %@", email, telegram, twitter, morphEmail),
+            string: String(format: "Email: %@\nTelegram: %@\nTwitter: @%@\nExchange: %@\nExchange(xmr->btc): %@", email, telegram, twitter, morphEmail, xmrtoEmail),
             attributes: attributes)
         let telegramAddressRange = attributedString.mutableString.range(of: telegram)
         attributedString.addAttribute(.link, value: telegram, range: telegramAddressRange)
@@ -352,8 +353,10 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         attributedString.addAttribute(.link, value: String(format: "https://twitter.com/%@", twitter), range: twitterAddressRange)
         let emailAddressRange = attributedString.mutableString.range(of: email)
         attributedString.addAttribute(.link, value: String(format: "mailto:%@", email), range: emailAddressRange)
-        let exchangeAddressRange = attributedString.mutableString.range(of: morphEmail)
-        attributedString.addAttribute(.link, value: String(format: "mailto:%@", morphEmail), range: exchangeAddressRange)
+        let morphAddressRange = attributedString.mutableString.range(of: morphEmail)
+        attributedString.addAttribute(.link, value: String(format: "mailto:%@", morphEmail), range: morphAddressRange)
+        let xmrAddressRange = attributedString.mutableString.range(of: xmrtoEmail)
+        attributedString.addAttribute(.link, value: String(format: "mailto:%@", morphEmail), range: xmrAddressRange)
         let contactUsCellItem = SettingsTextViewCellItem(attributedString: attributedString)
         
         sections[.support] = [
@@ -405,7 +408,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         guard
             let section = SettingsSections(rawValue: indexPath.section),
             !(section == .support && indexPath.row == 0) else { //fixme: hardcoded value!!
-                return 125
+                return 145
         }
         
         return 50

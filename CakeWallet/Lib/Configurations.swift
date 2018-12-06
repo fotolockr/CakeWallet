@@ -6,14 +6,14 @@ final class Configurations {
     enum DefaultsKeys: Stringify {
         case nodeUri, nodeLogin, nodePassword, termsOfUseAccepted, currentWalletName,
         currentWalletType, biometricAuthenticationOn, passwordIsRemembered, transactionPriority,
-        currency, defaultNodeChanged, autoSwitchNode, pinLength, currentTheme
+        currency, defaultNodeChanged, autoSwitchNode, pinLength, currentTheme, termsOfUseXMRto, termsOfUseMorph
         
         func string() -> String {
             switch self {
             case .nodeUri:
                 return "node_uri"
             case .termsOfUseAccepted:
-                return "terms_of_use_accepted"
+                return "terms_of_use_accepted_new" //terms_of_use_accepted
             case .nodeLogin:
                 return "node_login"
             case .nodePassword:
@@ -38,6 +38,10 @@ final class Configurations {
                 return "pin-length"
             case .currentTheme:
                 return "current-theme"
+            case .termsOfUseXMRto:
+                return "terms_of_use_xmrto_accepted"
+            case .termsOfUseMorph:
+                return "terms_of_use_morph_accepted"
             }
         }
     }

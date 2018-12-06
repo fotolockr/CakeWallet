@@ -154,7 +154,8 @@
 "min" = "न्यूनतम";
 "max" = "अधिकतम";
 "state" = "स्वीकार";
-"exchange_result_confirm_text" = "कन्फर्म का बटन दबाकर आप %@ नाम के बटुए से %@ राशि ऊपर दिए गए पते पर भेजेंगे";
+"status" = "स्थिति";
+"exchange_result_confirm_text" = "कन्फर्म का बटन दबाकर आप %@ नाम के बटुए से %@ राशि ऊपर दिए गए पते पर भेजेंगे या आप अपने बाहरी वॉलेट से उपरोक्त पते / क्यूआर कोड में भेज सकते हैं";
 "exchange_result_confirm_sending" = " कृपया जारी रखने के लिए कन्फर्म दबाएं या राशि बदलने के लिए पीछे जाएं।";
 "exchange_result_write_down_trade_id" = " कृपया ऊपर दिखाए गए अपनी आईडी को कॉपी करें या लिखें ";
 "trade_not_found" = "लेनदेन नही पाया गया";
@@ -214,8 +215,12 @@
 "change" = "बदलें";
 "yes" = "हां";
 "terms" = "नियम और शर्तें";
+"terms_accepting_message" = "इस ऐप का उपयोग करके, आप नीचे बताए गए समझौते की शर्तों से सहमत हैं।";
 "support" = "समर्थन";
 "version" = "संस्करण";
 "ok" = "ठीक है";
 "change_language" = "भाषा बदलें";
 "change_language_ask" = "अनुप्रयोग भाषा बदलें %@?";
+"order_created" = "Trade is created";
+"i_saved_sec_key" = "I have saved the trade ID";
+"please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";

@@ -2,6 +2,7 @@ import UIKit
 
 final class SignUpFlow: Flow {
     enum Route {
+        case disclaimer
         case welcome
         case newWallet
         case setupPin(((SignUpFlow) -> Void)?)
@@ -30,6 +31,14 @@ final class SignUpFlow: Flow {
     
     private func initedViewController(for route: Route) -> UIViewController {
         switch route {
+        case .disclaimer:
+            let vc = DisclaimerViewController()
+            vc.onAccept = { [weak self] _ in
+                UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.termsOfUseAccepted)
+                self?.change(route: .welcome)
+            }
+            
+            return vc
         case .welcome:
             return WelcomeViewController(signUpFlow: self)
         case .newWallet:

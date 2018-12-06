@@ -46,7 +46,7 @@ public enum TransactionPriority: Formatted {
         case .slow:
             description = "Slow"
         case .default:
-            description = "Default"
+            description = "Regular"
         case .fast:
             description = "Fast"
         case .fastest:

@@ -154,8 +154,9 @@
 "min" = "Мин";
 "max" = "Макс";
 "state" = "Состояние";
+"status" = "Статус";
 "exchange_result_description_text" = "Пожалуйста, отправте %@ на адрес указаный выше";
-"exchange_result_confirm_text" = "При подтверждении, вы отправите %@ из вашего кошелька %@ на адрес показаный выше.";
+"exchange_result_confirm_text" = "При подтверждении, вы отправите %@ из вашего кошелька %@ на адрес показаный выше. Или вы можете отправить со своего внешнего кошелька по указанному выше адресу/QR-коду.";
 "exchange_result_confirm_sending" = "Пожалуйта, нажмите подтвердить или вернитесь назад, чтобы изменить сумму.";
 "exchange_result_write_down_trade_id" = "Пожалуйста, скопируйте или запишите идентификатор вашего обмена";
 "trade_not_found" = "Обмен не найден";
@@ -215,6 +216,7 @@
 "change" = "Изменить";
 "yes" = "Да";
 "terms" = "Условия и положения";
+"terms_accepting_message" = "Используя это приложение, вы соглашаетесь с условиями Соглашения, изложенными ниже.";
 "support" = "Поддержка";
 "version" = "Версия";
 "ok" = "Ок";
@@ -222,3 +224,6 @@
 "change_language_ask" = "Изменить язык приложения на %@ ?";
 
 "ask_to_remove_message" = "This action will PERMANENTLY delete the wallet %@ and all its seed and private keys. Do you wish to continue?";
+"order_created" = "Заказ создан";
+"i_saved_sec_key" = "Я сохранил ID сделки";
+"please_save_sec_key" = "Скопируйте или запишите ID сделки, чтобы продолжить..\n\nID сделки: %@";

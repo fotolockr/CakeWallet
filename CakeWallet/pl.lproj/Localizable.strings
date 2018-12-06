@@ -154,8 +154,9 @@
 "min" = "Min";
 "max" = "Max";
 "state" = "Stan";
+"status" = "Status";
 "exchange_result_description_text" = "Proszę wyślij %@ do powyższego adresu";
-"exchange_result_confirm_text" = "Potwierdzając, wyślesz kwotę %@ z Twojego portfela o nazwie %@ na powyższy adres.";
+"exchange_result_confirm_text" = "Potwierdzając, wyślesz kwotę %@ z Twojego portfela o nazwie %@ na powyższy adres. Możesz też wysłać z zewnętrznego portfela na powyższy adres / kod QR.";
 "exchange_result_confirm_sending" = "Potwierdź przyciskiem żeby kontynuować albo wróć żeby zmienić wartości.";
 "exchange_result_write_down_trade_id" = "Proszę, skopiuj albo zapisz Twój ID powyżej";
 "trade_not_found" = "Nie można odnaleźć tej zamiany";
@@ -217,6 +218,7 @@
 "change" = "Zamień";
 "yes" = "Tak";
 "terms" = "Warunki";
+"terms_accepting_message" = "Korzystając z tej aplikacji, akceptujesz Warunki umowy przedstawione poniżej.";
 "support" = "Wsparcie";
 "version" = "Wersja";
 "ok" = "Ok";
@@ -225,3 +227,6 @@
 
 
 "ask_to_remove_message" = "Ta operacja będzie trwale usuwać portfel% @ i wszystkie jego klucze początkowe i prywatne. Czy chcesz kontynuować?";
+"order_created" = "Trade is created";
+"i_saved_sec_key" = "I have saved the trade ID";
+"please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";

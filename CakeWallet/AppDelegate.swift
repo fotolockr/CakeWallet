@@ -53,13 +53,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         register(handler: ChangeBiometricAuthenticationHandler())
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let pin = try? KeychainStorageImpl.standart.fetch(forKey: .pinCode)
         
+        let termsOfUseAccepted = UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.termsOfUseAccepted)
+        
+        let pin = try? KeychainStorageImpl.standart.fetch(forKey: .pinCode)
+
         if !store.state.walletState.name.isEmpty && pin != nil {
             let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
-            
+
             authController.handler = { [weak authController] in
-                DispatchQueue.main.async { 
+                DispatchQueue.main.async {
                     store.dispatch(SettingsState.Action.isAuthenticated)
                     authController?.showSpinner(withTitle: NSLocalizedString("loading_wallet", comment: "")) { alert in
                         let handler = LoadCurrentWalletHandler() //fixme
@@ -67,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             guard let action = action else {
                                 return
                             }
-                            
+
                             if
                                 let action = action as? ApplicationState.Action,
                                 case let .changedError(_error) = action,
@@ -77,15 +80,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 }
                                 return
                             }
-                            
+
                             if let action = action as? WalletState.Action, case .loaded(_) = action {
                                 alert.dismiss(animated: true) { [weak self] in
                                     self?.walletFlow = WalletFlow()
                                     self?.walletFlow?.change(route: .start)
+                                    
                                     self?.window?.rootViewController = self?.walletFlow?.rootController
+                                    
+                                    if !termsOfUseAccepted {
+                                        self?.window?.rootViewController?.present(DisclaimerViewController(), animated: false)
+                                    }
                                 }
                             }
-                            
+
                             store.dispatch(action)
                         })
                     }
@@ -101,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self?.signUpFlow = nil
             }
             window?.rootViewController = signUpFlow?.rootController
-            signUpFlow?.change(route: .welcome)
+            signUpFlow?.change(route: .disclaimer)
         }
 
         window?.makeKeyAndVisible()
