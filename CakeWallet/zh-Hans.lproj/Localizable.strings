@@ -154,7 +154,8 @@
 "min" = "最小";
 "max" = "最大";
 "state" = "State";
-"exchange_result_confirm_text" = "通过点击确认, 您将从名为%@的钱包发送到上面显示的地址.";
+"status" = "状态";
+"exchange_result_confirm_text" = "通过点击确认, 您将从名为%@的钱包发送到上面显示的地址. 或者您可以从外部钱包发送到上述地址/ QR码.";
 "exchange_result_confirm_sending" = "请点击确认继续或返回更改金额.";
 "exchange_result_write_down_trade_id" = "请复制或写下上面显示的ID";
 "trade_not_found" = "交易未找到";
@@ -214,7 +215,11 @@
 "change" = "改变";
 "yes" = "是";
 "terms" = "条款和条件";
+"terms_accepting_message" = "使用此应用程序即表示您同意以下所述的协议条款。";
 "support" = "支持";
 "version" = "版本";
 "ok" = "好";
 "change_language_ask" = "将应用程序语言更改为％@？";
+"order_created" = "Trade is created";
+"i_saved_sec_key" = "I have saved the trade ID";
+"please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";

@@ -230,22 +230,39 @@ struct MoneroUri {
     
     func formatted() -> String {
         var result = "monero:\(address)"
+        var paymentIDString = ""
+        var amountString = ""
         
-        if paymentId != nil || amount != nil {
-            result += "?"
-        }
-        
-        if let paymentId = paymentId {
-            result += "tx_payment_id=\(paymentId)"
+        if
+            let paymentId = paymentId,
+            !paymentId.isEmpty {
+            paymentIDString = "tx_payment_id=\(paymentId)"
         }
         
         if let amount = amount {
-            if paymentId != nil {
+            let formattedAmount = amount.formatted()
+            
+            if !formattedAmount.isEmpty && Double(formattedAmount) != 0 {
+                amountString += "tx_amount=\(amount.formatted())"
+            }
+        }
+        
+        if !paymentIDString.isEmpty || !amountString.isEmpty {
+            result += "?"
+        }
+        
+        if !paymentIDString.isEmpty {
+            result += paymentIDString
+        }
+        
+        if !amountString.isEmpty {
+            if !paymentIDString.isEmpty {
                 result += "&"
             }
             
-            result += "tx_amount=\(amount.formatted())"
+            result += amountString
         }
+        
         
         return result
     }

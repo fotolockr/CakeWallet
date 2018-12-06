@@ -61,7 +61,11 @@ struct MoneroTransactionInfoMember {
 
 - (NSTimeInterval) timestamp
 {
-    return member->tx->timestamp();
+    if (member->tx != NULL) {
+        return member->tx->timestamp();
+    }
+    
+    return 0;
 }
 
 - (NSString *) printedAmount

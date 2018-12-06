@@ -21,6 +21,8 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
     let status: Status
     let message: String?
     
+    private let innerView: UIView?
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .`default`
     }
@@ -34,7 +36,16 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
     }
     
     init(title: String?, message: String? = nil, status: Status) {
+        self.innerView = nil
         self.message = message
+        self.status = status
+        super.init()
+        self.title = title
+    }
+    
+    init(title: String?, innerView: UIView, status: Status) {
+        self.innerView = innerView
+        self.message = nil
         self.status = status
         super.init()
         self.title = title
@@ -47,6 +58,10 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
         contentView.titleLabel.text = title
         contentView.titleLabel.flex.markDirty()
         
+        if let innerView = self.innerView {
+            addContentView(innerView)
+        }
+        
         if let message = self.message {
             addMessage(message)
         }
@@ -57,19 +72,27 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
         contentView.rootFlexContainer.flex.layout()
     }
     
-    func addActions(_ actions: [CWAlertAction]) {
+    func addActions(_ actions: [CWAlertAction], axis: NSLayoutConstraint.Axis? = nil) {
         guard actions.count > 0 && status != .spinner else {
             return
         }
         
+        let actionsAxis: NSLayoutConstraint.Axis
         let sortedActions = actions.sorted { a, _ in
             return a.style == .cancel
         }
         
+        if let axis = axis {
+            actionsAxis = axis
+        } else {
+            actionsAxis = sortedActions.count > 2 ? .vertical : .horizontal
+        }
+        
+        
         for (index, action) in sortedActions.enumerated() {
             let width: CGFloat
             
-            if actions.count != 2 {
+            if actions.count != 2 || actionsAxis == .vertical {
                 width = contentView.width
             } else {
                 width = contentView.width > 0 ? (contentView.width / 2) - 1 : contentView.width
@@ -81,7 +104,7 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
             action.backgroundColor = .clear
             contentView.actionsStackView.addArrangedSubview(action)
             
-            if sortedActions.count == 2 && index == 0 {
+            if (sortedActions.count == 2 && actionsAxis != .vertical) && index == 0 {
                 let separatorView = UIView()
                 separatorView.backgroundColor = .lightBlueGrey
                 separatorView.widthAnchor.constraint(equalToConstant: 1).isActive = true
@@ -89,11 +112,20 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
             }
         }
         
-        contentView.actionsStackView.axis = sortedActions.count > 2 ? .vertical : .horizontal
-        let actionsStackViewHeight = sortedActions.count > 2 ? CWAlertAction.defaultHeight * CGFloat(sortedActions.count) : CWAlertAction.defaultHeight
+        contentView.actionsStackView.axis = actionsAxis
+        let actionsStackViewHeight = actionsAxis == .vertical ? CWAlertAction.defaultHeight * CGFloat(sortedActions.count) : CWAlertAction.defaultHeight
         contentView.actionsStackView.flex.height(actionsStackViewHeight).markDirty()
         contentView.separatorView.isHidden = false
         contentView.rootFlexContainer.flex.layout()
+    }
+    
+    func addContentView(_ view: UIView) {
+        if contentView.innerView == nil {
+            contentView.setInnerView(view)
+        }
+        
+        contentView.flex.markDirty()
+        contentView.rootFlexContainer.setNeedsLayout()
     }
     
     func addMessage(_ message: String) {

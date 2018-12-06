@@ -154,7 +154,8 @@
 "min" = "Min";
 "max" = "Max";
 "state" = "Estado";
-"exchange_result_confirm_text" = "Si oprimas 'confirmar', gastarás %@ de tu cartera %@ a esta dirección.";
+"status" = "Estado";
+"exchange_result_confirm_text" = "Si oprimas 'confirmar', gastarás %@ de tu cartera %@ a esta dirección. O puede enviarlo desde su billetera externa a la dirección / código QR anterior.";
 "exchange_result_confirm_sending" = "Por favor, oprima 'confirmar' para continuar, o revuelve para cambiar los cantidades.";
 "exchange_result_write_down_trade_id" = "Por favor, copia o escribe el ID.";
 "trade_not_found" = "Error con el cambio";
@@ -214,8 +215,12 @@
 "change" = "Cambiar";
 "yes" = "Sí";
 "terms" = "Términos y condiciones";
+"terms_accepting_message" = "Al utilizar esta aplicación, usted acepta los Términos del Acuerdo que se detallan a continuación.";
 "support" = "Soporte";
 "versión" = "Versión";
 "ok" = "Ok";
 "change_language" = "Cambiar el idioma";
 "change_language_ask" = "¿Cambiar el idioma de la aplicación a %@?";
+"order_created" = "Trade is created";
+"i_saved_sec_key" = "I have saved the trade ID";
+"please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";

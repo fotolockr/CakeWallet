@@ -1,19 +1,31 @@
 import UIKit
 
-final class TermsViewController: BaseViewController<TermsView> {
+final class DisclaimerViewController: BaseViewController<DisclaimerView> {
+    var onAccept: ((UIViewController) -> Void)? = { vc in
+        UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.termsOfUseAccepted)
+        vc.dismiss(animated: true)
+    }
+    
+    var onReject: (() -> Void)? = {
+        exit(-1)
+    }
+    
     override func configureBinds() {
         super.configureBinds()
         title = NSLocalizedString("terms", comment: "")
         loadAndDisplayDocument()
+        contentView.acceptButton.addTarget(self, action: #selector(onAccessAction), for: .touchUpInside)
+        contentView.rejectButton.addTarget(self, action: #selector(onRejectAction), for: .touchUpInside)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showInfo(
-            title: NSLocalizedString("terms", comment: ""),
-            message: NSLocalizedString("terms_accepting_message", comment: ""),
-            actions: [CWAlertAction.okAction]
-        )
+    @objc
+    private func onAccessAction() {
+        onAccept?(self)
+    }
+    
+    @objc
+    private func onRejectAction() {
+        onReject?()
     }
     
     private func loadAndDisplayDocument() {

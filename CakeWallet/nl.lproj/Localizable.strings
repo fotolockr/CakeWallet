@@ -187,7 +187,8 @@
 "min" = "Min.";
 "max" = "Max.";
 "state" = "Status";
-"exchange_result_confirm_text" = "Als u op bevestigen klikt, verstuurt u %@ vanuit uw wallet met de naam %@ naar het bovenstaande adres.";
+"status" = "Staat";
+"exchange_result_confirm_text" = "Als u op bevestigen klikt, verstuurt u %@ vanuit uw wallet met de naam %@ naar het bovenstaande adres. Of u kunt vanuit uw externe portemonnee naar het bovenstaande adres/de QR-code verzenden.";
 "exchange_result_confirm_sending" = "Klik op bevestigen om door te gaan, of ga terug om de bedragen aan te passen.";
 "exchange_result_write_down_trade_id" = "Kopieer of noteer het bovenstaande ID";
 "trade_not_found" = "Omwisseling is niet gevonden";
@@ -257,6 +258,7 @@
 "change" = "Wijzigen";
 "yes" = "Ja";
 "terms" = "Algemene voorwaarden";
+"terms_accepting_message" = "Door deze app te gebruiken, gaat u akkoord met de hieronder uiteengezette Algemene voorwaarden.";
 "support" = "Ondersteuning";
 "version" = "Versie";
 "ok" = "Oké";
@@ -264,3 +266,7 @@
 "change_language_ask" = "Taal van de app wijzigen naar %@?";
 
 "ask_to_remove_message" = "Deze actie resulteert in het PERMANENT verwijderen van de wallet %@, de bijbehorende seed en privésleutels. Wilt u doorgaan?";
+"order_created" = "Trade is created";
+"i_saved_sec_key" = "I have saved the trade ID";?
+
+"please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";

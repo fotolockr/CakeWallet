@@ -1,5 +1,6 @@
 import UIKit
 import CakeWalletLib
+import CWMonero
 
 struct TransactionDetailsCellItem: CellItem {
     let row: TransactionDetailsRows
@@ -11,7 +12,7 @@ struct TransactionDetailsCellItem: CellItem {
 }
 
 enum TransactionDetailsRows: Stringify {
-    case id, paymentId, date, amount, height, fee
+    case id, paymentId, date, amount, height, fee, exchangeID
     
     func string() -> String {
         switch self {
@@ -27,6 +28,8 @@ enum TransactionDetailsRows: Stringify {
             return NSLocalizedString("height", comment: "")
         case .fee:
             return  NSLocalizedString("fee", comment: "")
+        case .exchangeID:
+            return "Exchange ID"
         }
     }
 }
@@ -123,10 +126,14 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
             
             ])
         
-        let fee = transactionDescription.fee.formatted()
+        let fee = MoneroAmountParser.formatValue(transactionDescription.fee.value) ?? "0.0"
 
         if !fee.isEmpty {
             items.append(TransactionDetailsCellItem(row: .fee, value: fee))
+        }
+        
+        if let tradeID = ExchangeTransactions.shared.getTradeID(by: transactionDescription.id) {
+            items.append(TransactionDetailsCellItem(row: .exchangeID, value: tradeID))
         }
         
         contentView.table.reloadData()

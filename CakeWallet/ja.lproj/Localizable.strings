@@ -154,7 +154,8 @@
 "min" = "最小";
 "max" = "最大";
 "state" = "状態";
-"exchange_result_confirm_text" = "確認を押すと、%@ウォレットから %@を上記のアドレスに送信します。";
+"status" = "状態";
+"exchange_result_confirm_text" = "確認を押すと、%@ウォレットから %@を上記のアドレスに送信します。または、あなたの外の財布から上記の住所/ QRコードに送ることができます";
 "exchange_result_confirm_sending" = "続けるには確定を押してください";
 "exchange_result_write_down_trade_id" = "上記のIDをコピーするか控えてください";
 "trade_not_found" = "トレードが見つかりません";
@@ -214,8 +215,12 @@
 "change" = "変化する";
 "yes" = "はい";
 "terms" = "利用規約";
+"terms_accepting_message" = "このアプリを使用することにより、下記の契約条件に同意したことになります。";
 "support" = "サポート";
 "version" = "バージョン";
 "ok" = "OK";
 "change_language" = "言語を変更する";
 "change_language_ask" = "アプリケーション言語を％@に変更しますか？";
+"order_created" = "Trade is created";
+"i_saved_sec_key" = "I have saved the trade ID";
+"please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nsTrade ID: %@";

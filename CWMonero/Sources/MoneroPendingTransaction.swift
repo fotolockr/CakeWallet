@@ -13,12 +13,24 @@ public struct MoneroPendingTransaction: PendingTransaction {
         }
         
         return PendingTransactionDescription(
+            id: moneroPendingTransactionAdapter.txid()?.first as? String ?? "",
             status: status,
             amount: MoneroAmount(value: moneroPendingTransactionAdapter.amount()),
             fee: MoneroAmount(value: moneroPendingTransactionAdapter.fee()))
     }
     
     private let moneroPendingTransactionAdapter: MoneroPendingTransactionAdapter
+    
+    public var id: String? {
+        guard
+            let nsstring = moneroPendingTransactionAdapter.txid()?.first as? NSString,
+            let data = nsstring.data(using: String.Encoding.utf8.rawValue),
+            let res = String(data: data, encoding: .utf8) else {
+                return nil
+        }
+       
+        return res
+    }
     
     public init(moneroPendingTransactionAdapter: MoneroPendingTransactionAdapter) {
         self.moneroPendingTransactionAdapter = moneroPendingTransactionAdapter
