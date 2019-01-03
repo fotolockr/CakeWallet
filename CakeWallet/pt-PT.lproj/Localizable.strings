@@ -146,6 +146,7 @@
 "deposit" = "Depositar";
 "refund_address" = "Endereço de reembolso";
 "you_will_receive" = "Você vai receber";
+"you_will_send" = "You will send (estimated)";
 "clear" = "Limpar";
 "copy_id" = "Copiar o ID";
 "confirm" = "Confirmar";

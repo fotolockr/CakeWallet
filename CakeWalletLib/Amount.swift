@@ -36,7 +36,7 @@ public enum CryptoCurrency: Currency {
             self = .dash
         case "LTC":
             self = .liteCoin
-        case "BCH":
+        case "BCHABC":
             self = .bitcoinCash
         default:
             return nil
@@ -56,7 +56,7 @@ public enum CryptoCurrency: Currency {
         case .liteCoin:
             return "LTC"
         case .bitcoinCash:
-            return "BCH"
+            return "BCHABC"
         }
     }
 }

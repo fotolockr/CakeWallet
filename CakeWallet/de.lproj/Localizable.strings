@@ -181,6 +181,7 @@
 "deposit" = "Einzahlen";
 "refund_address" = "Rückerstattungsadresse";
 "you_will_receive" = "Sie bekommen";
+"you_will_send" = "You will send (estimated)";
 "clear" = "Leeren";
 "copy_id" = "ID kopieren";
 "confirm" = "Bestätigen";

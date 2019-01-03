@@ -65,12 +65,12 @@ final class TransactionUITableViewCell: FlexCell {
             status = NSLocalizedString("receive", comment: "") // FIXME: Hardcoded value
             color = .greenMalachite
             amountPrefix = "+"
-            imageView?.image = UIImage(named: "arrow_up_bg")?.resized(to: CGSize(width: 22, height: 22))
+            imageView?.image = UIImage(named: "arrow_down_bg")?.resized(to: CGSize(width: 22, height: 22))
         } else {
             status = NSLocalizedString("sent", comment: "") // FIXME: Hardcoded value
             color = .wildDarkBlue
             amountPrefix = "-"
-            imageView?.image = UIImage(named: "arrow_down_bg")?.resized(to: CGSize(width: 22, height: 22))
+            imageView?.image = UIImage(named: "arrow_up_bg")?.resized(to: CGSize(width: 22, height: 22))
         }
         
         if isPending {

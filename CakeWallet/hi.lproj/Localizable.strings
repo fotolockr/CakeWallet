@@ -148,6 +148,7 @@
 "deposit" = "जमा करें";
 "refund_address" = "रिफंड पता";
 "you_will_receive" = "आपको प्राप्त होगा";
+"you_will_send" = "You will send (estimated)";
 "clear" = "मिटायें";
 "copy_id" = "आईडी कॉपी करें";
 "confirm" = "पुष्टि करें";

@@ -185,7 +185,7 @@ final class ExchangeActionCreators {
                             return
                     }
                     
-                    let _rates = ticker.reduce([CryptoCurrency : [CryptoCurrency : Double]](), { generalResult, val -> [CryptoCurrency : [CryptoCurrency : Double]] in
+                    var _rates = ticker.reduce([CryptoCurrency : [CryptoCurrency : Double]](), { generalResult, val -> [CryptoCurrency : [CryptoCurrency : Double]] in
                         guard let crypto = CryptoCurrency(from: val.key) else {
                             return generalResult
                         }
@@ -206,9 +206,36 @@ final class ExchangeActionCreators {
                         return _generalResult
                     })
                     
+                    _rates[.bitcoin]?[.monero] = nil
                     store.dispatch(ExchangeState.Action.changedRate(_rates))
                 })
+                
+                self.fetchRatesForXMRTO()
             }
+        }
+    }
+    
+    func fetchRatesForXMRTO() {
+        DispatchQueue.global(qos: .utility).async {
+            let url =  URLComponents(string: String(format: "%@/order_parameter_query/", xmrtoUri))!
+            var request = URLRequest(url: url.url!)
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            Alamofire.request(request).responseData(completionHandler: { response in
+                if let _ = response.error {
+                    //                        handler(ApplicationState.Action.changedError(error))
+                    return
+                }
+                
+                guard
+                    let data = response.data,
+                    let json = try? JSON(data: data),
+                    let btcprice = json["price"].double else {
+                        return
+                }
+                
+                let price = 1 / btcprice
+                store.dispatch(ExchangeState.Action.changeRateOnlyFor(.bitcoin, .monero, price))
+            })
         }
     }
     
@@ -693,7 +720,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     private var maxReceiveAmount: Amount?
     
     init(store: Store<ApplicationState>, exchangeFlow: ExchangeFlow?) {
-        cryptos = CryptoCurrency.all
+        cryptos = CryptoCurrency.all.filter({ $0 != CryptoCurrency.bitcoinCash })
         exchangeActionCreators = ExchangeActionCreators.shared
         depositCrypto = .monero
         receiveCrypto = .bitcoin
@@ -754,6 +781,13 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             ])
         store.dispatch(exchangeActionCreators.fetchRates()) {
             //
+        }
+        
+        onDepositCryptoChange(depositCrypto)
+        onReceiveCryptoChange(receiveCrypto)
+        
+        if let receiveAmount = receiveAmount {
+            updateDepositAmount(receiveAmount)
         }
     }
     
@@ -837,6 +871,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     private func onDepositCryptoChange(_ crypto: CryptoCurrency) {
         if depositCrypto == .monero && receiveCrypto == .bitcoin {
             contentView.depositView.amountTextField.text = nil
+            if let amount = receiveAmount {
+                updateDepositAmount(amount)
+            }
         }
         
         if store.state.walletState.walletType.currency == crypto {
@@ -870,6 +907,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         let amount = makeAmount(from: text.replacingOccurrences(of: ",", with: "."), for: receiveCrypto)
         receiveAmount = amount
         updateReceiveResult(with: amount)
+        updateDepositAmount(amount)
     }
     
     private func updateLimits() {
@@ -897,6 +935,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             return
         }
         
+        hideAmountLabelsForDeposit()
         hideAmountTextFieldForReceive()
         showAmountTextFieldForDeposit()
         setProviderTitle()
@@ -984,7 +1023,34 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         contentView.depositView.minLabel.flex.markDirty()
         contentView.depositView.maxLabel.flex.markDirty()
         contentView.depositView.limitsRow.isHidden = false
-        contentView.depositView.limitsRow.flex.layout()
+    }
+    
+    private func updateDepositAmount(_ amount: Amount) {
+        if contentView.depositView.amountTitleLabel.isHidden {
+            contentView.depositView.amountTitleLabel.isHidden = false
+        }
+        
+        if contentView.depositView.amountLabel.isHidden {
+            contentView.depositView.amountLabel.isHidden = false
+        }
+        
+        let rate = depositCrypto == receiveCrypto
+            ? 1
+            :self.store.state.exchangeState.rates[receiveCrypto]?[depositCrypto] ?? 0
+        let formattedAmount = amount.formatted().replacingOccurrences(of: ",", with: ".")
+        let doubleAmount = (Double(formattedAmount) ?? 0)
+        let result = rate == 0 ? 0 : doubleAmount * rate
+        contentView.depositView.amountLabel.text = String(format: "%@ %@", String(format: "%.4f", result), depositCrypto.formatted())
+        contentView.depositView.amountLabel.flex.markDirty()
+        contentView.depositView.flex.layout()
+    }
+    
+    private func hideAmountLabelsForDeposit() {
+        contentView.depositView.amountTitleLabel.isHidden = true
+        contentView.depositView.amountLabel.text = nil
+        contentView.depositView.amountLabel.isHidden = true
+        contentView.depositView.amountLabel.flex.markDirty()
+        contentView.depositView.flex.layout()
     }
     
     private func hideLimitsForDeposit() {
@@ -1058,7 +1124,6 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         contentView.receiveView.minLabel.flex.markDirty()
         contentView.receiveView.maxLabel.flex.markDirty()
         contentView.receiveView.limitsRow.isHidden = false
-        contentView.receiveView.limitsRow.flex.layout()
     }
     
     @objc

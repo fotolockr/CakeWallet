@@ -148,6 +148,7 @@
 "deposit" = "デポジット";
 "refund_address" = "リファンドアドレス";
 "you_will_receive" = "受け取り";
+"you_will_send" = "You will send (estimated)";
 "clear" = "クリア";
 "copy_id" = "IDコピー";
 "confirm" = "確認";

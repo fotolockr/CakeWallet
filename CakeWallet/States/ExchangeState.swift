@@ -11,6 +11,7 @@ public struct ExchangeState: StateType {
     }
     
     public enum Action: AnyAction {
+        case changeRateOnlyFor(CryptoCurrency, CryptoCurrency, Double)
         case changedRate(ExchangeRate)
         case changedTrade(ExchangeTrade?)
     }
@@ -28,6 +29,16 @@ public struct ExchangeState: StateType {
         case let .changedRate(rates):
             return ExchangeState(trade: trade, rates: rates)
         case let .changedTrade(trade):
+            return ExchangeState(trade: trade, rates: rates)
+        case let .changeRateOnlyFor(main, pair, price):
+            var rates = self.rates
+            
+            if rates[main] == nil {
+                rates[main] = [pair: price]
+            } else {
+                rates[main]?[pair] = price
+            }
+            
             return ExchangeState(trade: trade, rates: rates)
         }
     }

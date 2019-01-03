@@ -181,6 +181,7 @@
 "deposit" = "Storten";
 "refund_address" = "Restitutieadres";
 "you_will_receive" = "U ontvangt";
+"you_will_send" = "You will send (estimated)";
 "clear" = "Legen";
 "copy_id" = "ID kopiëren";
 "confirm" = "Bevestigen";

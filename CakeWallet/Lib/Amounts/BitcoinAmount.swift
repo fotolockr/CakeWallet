@@ -22,9 +22,7 @@ public struct BitcoinAmount: Amount {
     
     public func formatted() -> String {
         let val = Double(value) / Double(100000000)
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
         let num = NSNumber(value: val)
-        return formatter.string(from: num) ?? "0.0"
+        return num.stringValue
     }
 }
