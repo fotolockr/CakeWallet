@@ -148,6 +148,7 @@
 "deposit" = "Депозит";
 "refund_address" = "Адрес для возврата";
 "you_will_receive" = "Вы получите";
+"you_will_send" = "You will send (estimated)";
 "clear" = "Очистить";
 "copy_id" = "Скопировать ID";
 "confirm" = "Подтвердить";

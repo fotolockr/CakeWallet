@@ -332,7 +332,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         
         
         //fixme
-        let email = "info@caketech.io"
+        let email = "support@cakewallet.io"
         let telegram = "https://t.me/cake_wallet"
         let twitter = "cakewalletXMR"
         let morphEmail = "contact@morphtoken.com"

@@ -179,6 +179,7 @@
 "deposit" = "예금";
 "refund_address" = "환불 주소 ";
 "you_will_receive" = "받을 양은 ";
+"you_will_send" = "You will send (estimated)";
 "clear" = "지우기";
 "copy_id" = " ID복사";
 "confirm" = "확인";

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SOURCE_DIR=`pwd`
-EXTERNAL_DIR_PATH="$SOURCE_DIR/External"
+EXTERNAL_DIR_PATH="$SOURCE_DIR/SharedExternal"
 BOOST_URL="https://github.com/fotolockr/ofxiOSBoost.git"
 BOOST_DIR_PATH="$EXTERNAL_DIR_PATH/ofxiOSBoost"
 OPEN_SSL_URL="https://github.com/x2on/OpenSSL-for-iPhone.git"

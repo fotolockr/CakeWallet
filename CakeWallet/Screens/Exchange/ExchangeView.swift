@@ -109,6 +109,8 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
     let titleLabel: UILabel
     let addressContainer: AddressView
     let amountTextField: UITextField
+    let amountTitleLabel: UILabel
+    let amountLabel: UILabel
     let minLabel: UILabel
     let maxLabel: UILabel
     let limitsRow: UIView
@@ -118,6 +120,8 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
         exchangePickerView = ExchangePickerView()
         amountTextField = FloatingLabelTextField(placeholder: NSLocalizedString("amount", comment: ""))
         addressContainer = AddressView()
+        amountTitleLabel = UILabel(fontSize: 14)
+        amountLabel = UILabel(fontSize: 24)
         walletNameLabel = UILabel(fontSize: 15)
         minLabel = UILabel(fontSize: 12)
         maxLabel = UILabel(fontSize: 12)
@@ -137,6 +141,15 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
         minLabel.textColor = .wildDarkBlue
         maxLabel.textColor = .wildDarkBlue
         walletNameLabel.textColor = .wildDarkBlue
+        amountLabel.textColor = .spaceViolet
+        amountTitleLabel.text = NSLocalizedString("you_will_send", comment: "")
+        amountLabel.text = "0"
+        amountTitleLabel.textAlignment = .center
+        amountLabel.textAlignment = .center
+        amountTitleLabel.textColor = . wildDarkBlue
+        amountLabel.textColor = .spaceViolet
+        amountTitleLabel.isHidden = true
+        amountLabel.isHidden = true
     }
     
     override func layoutSublayers(of layer: CALayer) {
@@ -154,6 +167,8 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
             flex.addItem(titleLabel).width(100%)
             flex.addItem(exchangePickerView).height(56).margin(UIEdgeInsets(top: 15, left: -20, bottom: 0, right: -20))
             flex.addItem(walletNameLabel).width(100%).height(20).marginTop(5).marginBottom(5)
+            flex.addItem(amountTitleLabel).width(100%).marginTop(10)
+            flex.addItem(amountLabel).width(100%).marginTop(5).marginBottom(15)
             flex.addItem(amountTextField).width(100%).height(50)
             flex.addItem(limitsRow).width(100%).marginTop(5).height(20)
             flex.addItem(addressContainer).marginTop(10)

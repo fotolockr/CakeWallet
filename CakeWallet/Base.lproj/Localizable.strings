@@ -148,6 +148,7 @@
 "deposit" = "Deposit";
 "refund_address" = "Refund address";
 "you_will_receive" = "You will receive";
+"you_will_send" = "You will send (estimated)";
 "clear" = "Clear";
 "copy_id" = "Copy ID";
 "confirm" = "Confirm";

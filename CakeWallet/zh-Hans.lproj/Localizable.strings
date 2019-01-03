@@ -148,6 +148,7 @@
 "deposit" = "存款";
 "refund_address" = "退款地址";
 "you_will_receive" = "您将收到";
+"you_will_send" = "You will send (estimated)";
 "clear" = "清除";
 "copy_id" = "复制ID";
 "confirm" = "确认";

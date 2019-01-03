@@ -148,6 +148,7 @@
 "deposit" = "Depositar";
 "refund_address" = "Dirección de reembolso";
 "you_will_receive" = "Recibirás:";
+"you_will_send" = "You will send (estimated)";
 "clear" = "Quitar";
 "copy_id" = "Copiar ID";
 "confirm" = "Confirmar";
