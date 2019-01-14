@@ -60,41 +60,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if !store.state.walletState.name.isEmpty && pin != nil {
             let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
-
+            let handler = LoadCurrentWalletHandler()
+            
             authController.handler = { [weak authController] in
+                store.dispatch(SettingsState.Action.isAuthenticated)
                 DispatchQueue.main.async {
-                    store.dispatch(SettingsState.Action.isAuthenticated)
-                    authController?.showSpinner(withTitle: NSLocalizedString("loading_wallet", comment: "")) { alert in
-                        let handler = LoadCurrentWalletHandler() //fixme
+                    authController?.showSpinner(withTitle: NSLocalizedString("loading_wallet", comment: "")) { alert in //fixme
                         handler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
                             guard let action = action else {
                                 return
                             }
 
-                            if
-                                let action = action as? ApplicationState.Action,
-                                case let .changedError(_error) = action,
-                                let error = _error {
-                                alert.dismiss(animated: true) {
-                                    authController?.showError(error: error)
+                            DispatchQueue.main.async {
+                                if
+                                    let action = action as? ApplicationState.Action,
+                                    case let .changedError(_error) = action,
+                                    let error = _error {
+                                    alert.dismiss(animated: true) {
+                                        authController?.showError(error: error)
+                                    }
+                                    return
                                 }
-                                return
-                            }
-
-                            if let action = action as? WalletState.Action, case .loaded(_) = action {
-                                alert.dismiss(animated: true) { [weak self] in
-                                    self?.walletFlow = WalletFlow()
-                                    self?.walletFlow?.change(route: .start)
-                                    
-                                    self?.window?.rootViewController = self?.walletFlow?.rootController
-                                    
-                                    if !termsOfUseAccepted {
-                                        self?.window?.rootViewController?.present(DisclaimerViewController(), animated: false)
+                                
+                                if let action = action as? WalletState.Action, case .loaded(_) = action {
+                                    alert.dismiss(animated: true) { [weak self] in
+                                        self?.walletFlow = WalletFlow()
+                                        self?.walletFlow?.change(route: .start)
+                                        
+                                        self?.window?.rootViewController = self?.walletFlow?.rootController
+                                        
+                                        if !termsOfUseAccepted {
+                                            self?.window?.rootViewController?.present(DisclaimerViewController(), animated: false)
+                                        }
                                     }
                                 }
+                                
+                                store.dispatch(action)
                             }
-
-                            store.dispatch(action)
                         })
                     }
                 }

@@ -209,7 +209,7 @@ public struct LoadCurrentWalletHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case .loadCurrentWallet = action else { return }
         
-        walletQueue.sync {
+        walletQueue.async {
             let name = store.state.walletState.name
             
             do {
@@ -224,7 +224,7 @@ public struct LoadCurrentWalletHandler: AsyncHandler {
                     self.handle(action: action, store: store, handler: handler)
                     return
                 }
-                
+
                 handler(ApplicationState.Action.changedError(error))
             }
         }
