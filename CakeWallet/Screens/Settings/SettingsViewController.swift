@@ -315,6 +315,11 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             action: { [weak self] in
                 self?.settingsFlow?.change(route: .terms)
         })
+        
+        let addressBookCellItem = SettingsCellItem(title: "Address book", action: { [weak self] in
+            self?.settingsFlow?.change(route: .addressBook)
+        })
+        
         sections[.wallets] = [
             fiatCurrencyCellItem,
             feePriorityCellItem
@@ -327,7 +332,8 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
 //            toggleNightModeCellItem
         ]
         sections[.advanced] = [
-            daemonSettingsCellItem
+            daemonSettingsCellItem,
+            addressBookCellItem
         ]
         
         

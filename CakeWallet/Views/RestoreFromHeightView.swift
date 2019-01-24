@@ -157,8 +157,10 @@ func getHeight(from date: Date, handler: @escaping (UInt64) -> Void) {
 }
 
 final class RestoreFromHeightView: BaseFlexView {
+    let wrapper: UIView
     let restoreHeightTextField: UITextField
     let dateTextField: UITextField
+    let separatorTextField: UITextField
     let datePicker: UIDatePicker
     var restoreHeight: UInt64 {
         var height: UInt64 = 0
@@ -172,14 +174,23 @@ final class RestoreFromHeightView: BaseFlexView {
     
     
     required init() {
+        wrapper = UIView()
         restoreHeightTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_height", comment: ""), isOptional: true)
         dateTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), isOptional: true)
+        separatorTextField = UITextField()
         datePicker = UIDatePicker()
         super.init()
     }
     
     override func configureView() {
         super.configureView()
+        
+        wrapper.clipsToBounds = true
+        wrapper.layer.borderWidth = 2
+//        wrapper.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
+        wrapper.layer.borderColor = UIColor(hex: 0xe0e9f6).cgColor
+        wrapper.layer.cornerRadius = 10.0
+        
         backgroundColor = .clear
         restoreHeightTextField.keyboardType = .numberPad
         datePicker.datePickerMode = .date
@@ -188,6 +199,7 @@ final class RestoreFromHeightView: BaseFlexView {
         datePicker.maximumDate = Date()
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         datePicker.addTarget(self, action: #selector(onDateChange(_:)), for: .valueChanged)
+        separatorTextField.text = "OR"
         addSubview(restoreHeightTextField)
         addSubview(dateTextField)
     }
@@ -213,9 +225,17 @@ final class RestoreFromHeightView: BaseFlexView {
     }
     
     override func configureConstraints() {
+//        rootFlexContainer.flex.backgroundColor(.clear).define { flex in
+//            flex.addItem(restoreHeightTextField).marginTop(10).height(50)
+//            flex.addItem(dateTextField).marginTop(10).height(50)
+//        }
+        
         rootFlexContainer.flex.backgroundColor(.clear).define { flex in
-            flex.addItem(restoreHeightTextField).marginTop(10).height(50)
-            flex.addItem(dateTextField).marginTop(10).height(50)
+            flex.addItem(wrapper).paddingTop(15).paddingLeft(15).paddingRight(15).marginTop(30).define({ wrapperFlex in
+                wrapperFlex.addItem(restoreHeightTextField).marginTop(10).height(50)
+                wrapperFlex.addItem(separatorTextField).marginTop(20)
+                wrapperFlex.addItem(dateTextField).marginTop(10).height(50)
+            })
         }
     }
 }
