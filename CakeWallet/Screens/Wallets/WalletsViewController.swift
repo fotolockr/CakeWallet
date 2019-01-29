@@ -35,23 +35,32 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     let navigationTitleView: WalletsNavigationTitle
     weak var walletsFlow: WalletsFlow?
     private lazy var signUpFlow: SignUpFlow? = { [weak self] in
-        let signUpFlow: SignUpFlow
         
-        if let navigationController = self?.navigationController {
-            signUpFlow = SignUpFlow(navigationController: navigationController)
+        
+        let navigationController: UINavigationController
+        
+        if let _navigationController = self?.navigationController {
+            navigationController = _navigationController
+            
         } else {
-            signUpFlow = SignUpFlow(navigationController: UINavigationController())
+            navigationController = UINavigationController()
+            
         }
+        
+        let restoreWalletFlow = RestoreWalletFlow(navigationController: navigationController)
+        let signUpFlow = SignUpFlow(navigationController: navigationController, restoreWalletFlow: restoreWalletFlow)
         
         signUpFlow.doneHandler = { [weak self] in
             self?.dismiss(animated: true) {
                 self?.signUpFlow = nil
-//                self?.navigationController?.popToRootViewController(animated: false)
+                
             }
         }
         
         return signUpFlow
-    }()
+        }()
+    
+    
     private var wallets: [WalletCellItem]
     private var store: Store<ApplicationState>
     private var currentWallet: WalletIndex {
@@ -78,7 +87,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         
         store.dispatch(WalletsActions.fetchWallets)
     }
-
+    
     func onStateChange(_ state: ApplicationState) {
         updateWallets(state.walletsState.wallets)
         updateCurrentWallet()
@@ -92,7 +101,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         store.subscribe(self, onlyOnChange: [
             \ApplicationState.walletsState,
             \ApplicationState.walletState
-        ])
+            ])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -120,11 +129,6 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         return UITableViewAutomaticDimension
     }
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
-//        view.backgroundColor = .blue
-//        return view
-//    }
     
     private func updateWallets(_ wallets: [WalletIndex]) {
         self.wallets = wallets.map {
@@ -166,7 +170,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         }
         
         contentView.walletsTableView.reloadData()
-//        contentView.walletsCardView.flex.markDirty()
+        
         contentView.walletsTableView.flex.markDirty()
         contentView.rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
@@ -216,18 +220,10 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
                 let seed = try gateway.fetchSeed(for: wallet)
                 
                 
-//                let seedController = SeedViewController(walletName: wallet.name, date: walletConfig.date, seed: seed, doneFlag: true)
-//                seedController.modalPresentationStyle = .overFullScreen
-//                seedController.doneHandler = { [weak seedController] in
-//                    authController?.navigationController?.popViewController(animated: false)
-//                    seedController?.dismiss(animated: true)
-//                }
-                
                 authController?.dismiss(animated: true) {
                     self?.walletsFlow?.change(route: .showSeed(wallet: wallet.name, date: walletConfig.date, seed: seed))
                 }
                 
-//                authController?.present(UINavigationController(rootViewController: seedController), animated: true)
             } catch {
                 print(error)
                 self?.showError(error: error)
@@ -302,13 +298,6 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
             authController?.dismiss(animated: true) {
                 self.walletsFlow?.change(route: .showKeys)
             }
-            
-//            let showKeysViewController = ShowKeysViewController(store: store)
-//            showKeysViewController.modalPresentationStyle = .overFullScreen
-//            showKeysViewController.onDismissHandler = {
-//                authController?.navigationController?.popViewController(animated: false)
-//            }
-//            authController?.present(UINavigationController(rootViewController: showKeysViewController), animated: true)
         }
         
         present(navController, animated: true)
@@ -320,7 +309,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
                 self.remove(wallet: wallet)
             }
         }
-            
+        
         showInfo(
             title: NSLocalizedString("remove", comment: "").capitalized,
             message: String(format: NSLocalizedString("ask_to_remove_message", comment: ""), wallet.name),
@@ -364,6 +353,6 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     
     @objc
     private func restoreAction() {
-        signUpFlow?.change(route: .restore)
+        signUpFlow?.restoreWalletFlow.change(route: .root)
     }
 }

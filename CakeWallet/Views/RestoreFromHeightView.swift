@@ -185,12 +185,6 @@ final class RestoreFromHeightView: BaseFlexView {
     override func configureView() {
         super.configureView()
         
-        wrapper.clipsToBounds = true
-        wrapper.layer.borderWidth = 2
-//        wrapper.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
-        wrapper.layer.borderColor = UIColor(hex: 0xe0e9f6).cgColor
-        wrapper.layer.cornerRadius = 10.0
-        
         backgroundColor = .clear
         restoreHeightTextField.keyboardType = .numberPad
         datePicker.datePickerMode = .date
@@ -200,6 +194,8 @@ final class RestoreFromHeightView: BaseFlexView {
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         datePicker.addTarget(self, action: #selector(onDateChange(_:)), for: .valueChanged)
         separatorTextField.text = "OR"
+        separatorTextField.font = .systemFont(ofSize: 15)
+        separatorTextField.textColor = UIColor(hex: 0x9bacc5)
         addSubview(restoreHeightTextField)
         addSubview(dateTextField)
     }
@@ -225,15 +221,10 @@ final class RestoreFromHeightView: BaseFlexView {
     }
     
     override func configureConstraints() {
-//        rootFlexContainer.flex.backgroundColor(.clear).define { flex in
-//            flex.addItem(restoreHeightTextField).marginTop(10).height(50)
-//            flex.addItem(dateTextField).marginTop(10).height(50)
-//        }
-        
         rootFlexContainer.flex.backgroundColor(.clear).define { flex in
-            flex.addItem(wrapper).paddingTop(15).paddingLeft(15).paddingRight(15).marginTop(30).define({ wrapperFlex in
+            flex.addItem(wrapper).padding(15).define({ wrapperFlex in
                 wrapperFlex.addItem(restoreHeightTextField).marginTop(10).height(50)
-                wrapperFlex.addItem(separatorTextField).marginTop(20)
+                wrapperFlex.addItem(separatorTextField).marginTop(25)
                 wrapperFlex.addItem(dateTextField).marginTop(10).height(50)
             })
         }

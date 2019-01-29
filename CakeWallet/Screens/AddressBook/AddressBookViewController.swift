@@ -134,7 +134,6 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
         return 64
     }
     
-    // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = contacts[indexPath.row]

@@ -9,17 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var signUpFlow: SignUpFlow?
     var walletFlow: WalletFlow?
-    
-    // -------
-//    var settingsFlow: SettingsFlow = {
-//        let vc = SettingsViewController(store: store, settingsFlow: nil)
-//        let flow = SettingsFlow(navigationController: UINavigationController(rootViewController: vc))
-//        vc.settingsFlow = flow
-//        return flow
-//    }()
-    // -------
-    
-    
+    var restoreWalletFlow: RestoreWalletFlow?
+
     var rememberedViewController: UIViewController?
     private var blurEffectView: UIVisualEffectView?
     
@@ -114,7 +105,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             window?.rootViewController = authController
         } else {
-            signUpFlow = SignUpFlow(navigationController: UINavigationController())
+            let navigationController = UINavigationController()
+            restoreWalletFlow = RestoreWalletFlow(navigationController: navigationController)
+            signUpFlow = SignUpFlow(navigationController: navigationController, restoreWalletFlow: restoreWalletFlow!)
             signUpFlow?.doneHandler = { [weak self] in
                 self?.walletFlow = WalletFlow()
                 self?.walletFlow?.change(route: .start)
@@ -159,7 +152,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // Use this method to release shared resources, save user data, invalidate timers,
+        // and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
@@ -198,8 +192,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().clipsToBounds = true
         UITabBar.appearance().tintColor = .vividBlue
         UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
-        //        UINavigationBar.appearance().isTranslucent = false
-        //        UINavigationBar.appearance().tintColor = UIColor(hex: 0x006494) // FIX-ME: Unnamed constant
         UINavigationBar.appearance().backgroundColor = .clear
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
