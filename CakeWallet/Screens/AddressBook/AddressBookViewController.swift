@@ -1,6 +1,109 @@
 import UIKit
 import CakeWalletLib
 import FlexLayout
+import SwiftyJSON
+
+protocol JSONExportable {
+    var primaryKey: String { get }
+    func toJSON() -> JSON
+}
+
+protocol JSONImportable {
+    init?(from json: JSON)
+}
+
+protocol JSONConvertable: JSONExportable, JSONImportable {}
+
+extension Contact: JSONConvertable {
+    init?(from json: JSON) {
+        guard
+            let typeRaw = json["type"].string,
+            let type = CryptoCurrency(from: typeRaw) else {
+                return nil
+        }
+        
+        self.uuid = json["uuid"].stringValue
+        self.type = type
+        self.name = json["name"].stringValue
+        self.address = json["address"].stringValue
+    }
+    
+    var primaryKey: String {
+        return "uuid"
+    }
+    
+    func toJSON() -> JSON {
+        return JSON(["name": name, "type": type.formatted(), "address": address])
+    }
+}
+
+class AddressBook {
+    static let shared: AddressBook = AddressBook()
+    
+    private static let name = "address_book.json"
+    
+    private static var url: URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(name)
+    }
+    
+    private static func load() -> JSON {
+        if !FileManager.default.fileExists(atPath: url.path) {
+            FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
+        }
+        
+        guard
+            let data = try? Data(contentsOf: url),
+            let json = try? JSON(data: data) else {
+                return JSON()
+        }
+        
+        return json
+    }
+    
+    private var json: JSON
+    
+    private init() {
+        json = AddressBook.load()
+    }
+    
+    func all() -> [Contact] {
+        return json.array?.map({ json -> Contact? in
+            return Contact(from: json)
+        }).compactMap({ $0 }) ?? []
+    }
+    
+    func addOrUpdate(contact: Contact) throws {
+        let isExist = json.arrayValue
+            .filter({ $0[contact.primaryKey].stringValue == contact.uuid })
+            .first != nil
+        let updatedJson: JSON
+        
+        if isExist {
+            updatedJson = JSON(json.arrayValue.map({ json -> JSON in
+                let currentUuid = json[contact.primaryKey].stringValue
+                
+                if currentUuid == contact.uuid {
+                    return contact.toJSON()
+                }
+                
+                return json
+            }))
+        } else {
+            let array = json.arrayValue + [contact.toJSON()]
+            updatedJson = JSON(array)
+        }
+        
+        try save(json: updatedJson)
+        json = updatedJson
+        print("updatedJson \(updatedJson)")
+        print("json \(json)")
+    }
+    
+    private func save(json: JSON) throws {
+        try json.rawData().write(to: AddressBook.url)
+    }
+}
+
 
 
 final class AddressTableCell: FlexCell {
@@ -60,12 +163,24 @@ final class AddressTableCell: FlexCell {
         typeLabel.text = type
         typeLabel.textColor = color
         typeView.layer.borderColor = color.cgColor
+        nameLabel.flex.markDirty()
+        typeLabel.flex.markDirty()
+        contentView.flex.layout()
     }
 }
 
 struct Contact {
+    let uuid: String
     let type: CryptoCurrency
     let name: String
+    let address: String
+    
+    init(uuid: String = UUID().uuidString, type: CryptoCurrency, name: String, address: String) {
+        self.uuid = uuid
+        self.type = type
+        self.name = name
+        self.address = address
+    }
 }
 
 extension Contact: CellItem {
@@ -92,14 +207,15 @@ extension Contact: CellItem {
 }
 
 final class AddressBookViewController: BaseViewController<AddressBookView>, UITableViewDelegate, UITableViewDataSource {
-    let contacts = [
-        Contact(type: .bitcoin, name: "Martin"),
-        Contact(type: .ethereum, name: "Quentin"),
-        Contact(type: .monero, name: "John"),
-        Contact(type: .liteCoin, name: "Arthur"),
-        Contact(type: .dash, name: "Dave"),
-        Contact(type: .bitcoinCash, name: "Cillian"),
-    ]
+    let addressBoook: AddressBook
+    
+    private var contacts: [Contact]
+    
+    init(addressBoook: AddressBook) {
+        self.addressBoook = addressBoook
+        contacts = addressBoook.all()
+        super.init()
+    }
     
     override func configureBinds() {
         super.configureBinds()
@@ -111,9 +227,19 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
         contentView.table.register(items: [Contact.self])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshContacts()
+    }
+    
+    private func refreshContacts() {
+        contacts = addressBoook.all()
+        contentView.table.reloadData()
+    }
+    
     @objc
     private func addNewAddressItem(){
-        navigationController?.pushViewController(NewAddressViewController(), animated: true)
+        navigationController?.pushViewController(NewAddressViewController(addressBoook: AddressBook.shared), animated: true)
     }
     
     @objc
@@ -133,7 +259,6 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = contacts[indexPath.row]
