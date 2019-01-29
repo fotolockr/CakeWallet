@@ -1,12 +1,12 @@
 import UIKit
 import CakeWalletLib
 
-final class RestoreViewController: BaseViewController<RecoverView> {
-    weak var signUpFlow: SignUpFlow?
+final class RestoreVC: BaseViewController<RecoverView> {
+    weak var restoreWalletFlow: RestoreWalletFlow?
     let type: WalletType
     
-    init(signUpFlow: SignUpFlow, type: WalletType = .monero) {
-        self.signUpFlow = signUpFlow
+    init(restoreWalletFlow: RestoreWalletFlow, type: WalletType = .monero) {
+        self.restoreWalletFlow = restoreWalletFlow
         self.type = type
         super.init()
     }
@@ -27,11 +27,11 @@ final class RestoreViewController: BaseViewController<RecoverView> {
     
     @objc
     private func fromSeed() {
-        signUpFlow?.change(route: .restoreFromSeed)
+        restoreWalletFlow?.change(route: .fromSeedWalletName)
     }
     
     @objc
     private func fromKeys() {
-        signUpFlow?.change(route: .restoreFromKeys)
+        restoreWalletFlow?.change(route: .fromKeysWalletName)
     }
 }

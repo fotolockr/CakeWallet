@@ -157,8 +157,10 @@ func getHeight(from date: Date, handler: @escaping (UInt64) -> Void) {
 }
 
 final class RestoreFromHeightView: BaseFlexView {
+    let wrapper: UIView
     let restoreHeightTextField: UITextField
     let dateTextField: UITextField
+    let separatorTextField: UITextField
     let datePicker: UIDatePicker
     var restoreHeight: UInt64 {
         var height: UInt64 = 0
@@ -172,14 +174,17 @@ final class RestoreFromHeightView: BaseFlexView {
     
     
     required init() {
+        wrapper = UIView()
         restoreHeightTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_height", comment: ""), isOptional: true)
         dateTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), isOptional: true)
+        separatorTextField = UITextField()
         datePicker = UIDatePicker()
         super.init()
     }
     
     override func configureView() {
         super.configureView()
+        
         backgroundColor = .clear
         restoreHeightTextField.keyboardType = .numberPad
         datePicker.datePickerMode = .date
@@ -188,6 +193,9 @@ final class RestoreFromHeightView: BaseFlexView {
         datePicker.maximumDate = Date()
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         datePicker.addTarget(self, action: #selector(onDateChange(_:)), for: .valueChanged)
+        separatorTextField.text = "OR"
+        separatorTextField.font = .systemFont(ofSize: 15)
+        separatorTextField.textColor = UIColor(hex: 0x9bacc5)
         addSubview(restoreHeightTextField)
         addSubview(dateTextField)
     }
@@ -214,8 +222,11 @@ final class RestoreFromHeightView: BaseFlexView {
     
     override func configureConstraints() {
         rootFlexContainer.flex.backgroundColor(.clear).define { flex in
-            flex.addItem(restoreHeightTextField).marginTop(10).height(50)
-            flex.addItem(dateTextField).marginTop(10).height(50)
+            flex.addItem(wrapper).padding(15).define({ wrapperFlex in
+                wrapperFlex.addItem(restoreHeightTextField).marginTop(10).height(50)
+                wrapperFlex.addItem(separatorTextField).marginTop(25)
+                wrapperFlex.addItem(dateTextField).marginTop(10).height(50)
+            })
         }
     }
 }
