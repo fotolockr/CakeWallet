@@ -1,6 +1,8 @@
 import UIKit
 
 final class SignUpFlow: Flow {
+    let restoreWalletFlow: RestoreWalletFlow
+    
     enum Route {
         case disclaimer
         case welcome
@@ -18,12 +20,17 @@ final class SignUpFlow: Flow {
         return navigationController
     }
     
-    var doneHandler: (() -> Void)?
+    var doneHandler: (() -> Void)? {
+        didSet {
+            self.restoreWalletFlow.doneHandler = doneHandler
+        }
+    }
     
     private let navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, restoreWalletFlow: RestoreWalletFlow) {
         self.navigationController = navigationController
+        self.restoreWalletFlow = restoreWalletFlow
     }
     
     func change(route: Route) {
@@ -41,21 +48,15 @@ final class SignUpFlow: Flow {
             
             return vc
         case .welcome:
-            return WelcomeViewController(signUpFlow: self)
+            return WelcomeViewController(signUpFlow: self, restoreWalletFlow: restoreWalletFlow)
         case .newWallet:
-            return NewWalletViewController(signUpFlow: self)
+            return NewWalletViewController(signUpFlow: self, restoreWalletFlow: restoreWalletFlow)
         case let .setupPin(handler):
             let setupPinController = SetupPinViewController(store: store)
             setupPinController.afterPinSetup = { handler?(self) }
             return setupPinController
         case .createWallet:
             return CreateWalletViewController(signUpFlow: self, store: store)
-        case .restore:
-            return RestoreViewController(signUpFlow: self)
-        case .restoreFromKeys:
-            return RestoreFromKeysViewController(signUpFlow: self, store: store)
-        case .restoreFromSeed:
-            return RestoreFromSeedViewController(signUpFlow: self, store: store)
         case let .seed(date, walletName, seed):
             let seedViewController = SeedViewController(walletName: walletName, date: date, seed: seed, doneFlag: true)
             seedViewController.doneHandler = doneHandler
@@ -64,6 +65,12 @@ final class SignUpFlow: Flow {
             let restoreFromCloudVC = RestoreFromCloudVC(backup: BackupServiceImpl(), storage: ICloudStorage())
             restoreFromCloudVC.doneHandler = doneHandler
             return restoreFromCloudVC
+        case .restore:
+            return UIViewController()
+        case .restoreFromSeed:
+            return UIViewController()
+        case .restoreFromKeys:
+            return UIViewController()
         }
     }
 }

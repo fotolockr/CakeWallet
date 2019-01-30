@@ -225,8 +225,6 @@
 		6A36FD2620BAE45300B3502E /* NewWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD2520BAE45300B3502E /* NewWalletViewController.swift */; };
 		6A36FD2F20BB4C2100B3502E /* RestoreFromSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD2E20BB4C2100B3502E /* RestoreFromSeedView.swift */; };
 		6A36FD3320BB4CEF00B3502E /* RestoreFromHeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD3220BB4CEF00B3502E /* RestoreFromHeightView.swift */; };
-		6A36FD3A20BB538F00B3502E /* RecoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD3820BB538F00B3502E /* RecoverView.swift */; };
-		6A36FD3B20BB538F00B3502E /* RestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD3920BB538F00B3502E /* RestoreViewController.swift */; };
 		6A36FD3E20BB548300B3502E /* RestoreFromKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD3D20BB548300B3502E /* RestoreFromKeysView.swift */; };
 		6A36FD4220BB5FB300B3502E /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD4120BB5FB300B3502E /* FloatingLabelTextField.swift */; };
 		6A36FD4520BB622A00B3502E /* SeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD4420BB622A00B3502E /* SeedView.swift */; };
@@ -277,6 +275,26 @@
 		6AE7241120DD5C5C003D6559 /* NodesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7241020DD5C5C003D6559 /* NodesList.swift */; };
 		6AF4786820C18CBE0072796B /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF4786720C18CBE0072796B /* AuthenticationViewController.swift */; };
 		6AFC5C7D20C2CDCE007DFB53 /* WalletFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */; };
+		A5610DDE21FF032D00C38F99 /* NewAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5610DDC21FF032D00C38F99 /* NewAddressViewController.swift */; };
+		A5610DDF21FF032D00C38F99 /* NewAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5610DDD21FF032D00C38F99 /* NewAddressView.swift */; };
+		A5610DE121FF050600C38F99 /* RestoreWalletFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5610DE021FF050600C38F99 /* RestoreWalletFlow.swift */; };
+		A5680F4A21FF07B0005956DA /* FromSeedHeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4121FF07AF005956DA /* FromSeedHeightView.swift */; };
+		A5680F4B21FF07B0005956DA /* FromSeedSeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4221FF07AF005956DA /* FromSeedSeedVC.swift */; };
+		A5680F4C21FF07B0005956DA /* FromSeedWalletNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4321FF07AF005956DA /* FromSeedWalletNameVC.swift */; };
+		A5680F4D21FF07B0005956DA /* FromSeedHeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4421FF07AF005956DA /* FromSeedHeightVC.swift */; };
+		A5680F4E21FF07B0005956DA /* FromSeedWalletNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4521FF07AF005956DA /* FromSeedWalletNameView.swift */; };
+		A5680F4F21FF07B0005956DA /* FromSeedSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4621FF07AF005956DA /* FromSeedSeedView.swift */; };
+		A5680F5021FF07B0005956DA /* RecoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4721FF07AF005956DA /* RecoverView.swift */; };
+		A5680F5121FF07B0005956DA /* RestoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4821FF07AF005956DA /* RestoreVC.swift */; };
+		A5680F5421FF21D6005956DA /* FromKeysWalletNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5321FF21D6005956DA /* FromKeysWalletNameView.swift */; };
+		A5680F5621FF21E6005956DA /* FromKeysWalletNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5521FF21E6005956DA /* FromKeysWalletNameVC.swift */; };
+		A5680F5821FF21F6005956DA /* FromKeysKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5721FF21F6005956DA /* FromKeysKeysView.swift */; };
+		A5680F5A21FF2201005956DA /* FromKeysKeysVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5921FF2201005956DA /* FromKeysKeysVC.swift */; };
+		A5680F5C21FF2211005956DA /* FromKeysHeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5B21FF2211005956DA /* FromKeysHeightView.swift */; };
+		A5680F5E21FF2222005956DA /* FromKeysHeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5D21FF2222005956DA /* FromKeysHeightVC.swift */; };
+		A5680F6021FF3C2F005956DA /* RestoreStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5F21FF3C2F005956DA /* RestoreStateModel.swift */; };
+		A577D40A21EDEFDB00FA1655 /* AddressBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A577D40921EDEFDB00FA1655 /* AddressBookView.swift */; };
+		A577D40C21EDF01100FA1655 /* AddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A577D40B21EDF01100FA1655 /* AddressBookViewController.swift */; };
 		A5980D2C1FFC9855647CF936 /* Pods_CWMonero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 784D7BF72CC17977C433AE9E /* Pods_CWMonero.framework */; };
 		CA1D653F209A3EBB00A1FDDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1D653E209A3EBB00A1FDDB /* AppDelegate.swift */; };
 		CA1D6546209A3EBC00A1FDDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA1D6545209A3EBC00A1FDDB /* Assets.xcassets */; };
@@ -643,8 +661,6 @@
 		6A36FD2520BAE45300B3502E /* NewWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWalletViewController.swift; sourceTree = "<group>"; };
 		6A36FD2E20BB4C2100B3502E /* RestoreFromSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFromSeedView.swift; sourceTree = "<group>"; };
 		6A36FD3220BB4CEF00B3502E /* RestoreFromHeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFromHeightView.swift; sourceTree = "<group>"; };
-		6A36FD3820BB538F00B3502E /* RecoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverView.swift; sourceTree = "<group>"; };
-		6A36FD3920BB538F00B3502E /* RestoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreViewController.swift; sourceTree = "<group>"; };
 		6A36FD3D20BB548300B3502E /* RestoreFromKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFromKeysView.swift; sourceTree = "<group>"; };
 		6A36FD4120BB5FB300B3502E /* FloatingLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextField.swift; sourceTree = "<group>"; };
 		6A36FD4420BB622A00B3502E /* SeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedView.swift; sourceTree = "<group>"; };
@@ -705,6 +721,26 @@
 		6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletFlow.swift; sourceTree = "<group>"; };
 		6D019C5E8387F4D77238C508 /* Pods-CakeWalletLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWalletLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWalletLib/Pods-CakeWalletLib.release.xcconfig"; sourceTree = "<group>"; };
 		784D7BF72CC17977C433AE9E /* Pods_CWMonero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CWMonero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5610DDC21FF032D00C38F99 /* NewAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressViewController.swift; sourceTree = "<group>"; };
+		A5610DDD21FF032D00C38F99 /* NewAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressView.swift; sourceTree = "<group>"; };
+		A5610DE021FF050600C38F99 /* RestoreWalletFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreWalletFlow.swift; sourceTree = "<group>"; };
+		A5680F4121FF07AF005956DA /* FromSeedHeightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedHeightView.swift; sourceTree = "<group>"; };
+		A5680F4221FF07AF005956DA /* FromSeedSeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedSeedVC.swift; sourceTree = "<group>"; };
+		A5680F4321FF07AF005956DA /* FromSeedWalletNameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedWalletNameVC.swift; sourceTree = "<group>"; };
+		A5680F4421FF07AF005956DA /* FromSeedHeightVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedHeightVC.swift; sourceTree = "<group>"; };
+		A5680F4521FF07AF005956DA /* FromSeedWalletNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedWalletNameView.swift; sourceTree = "<group>"; };
+		A5680F4621FF07AF005956DA /* FromSeedSeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedSeedView.swift; sourceTree = "<group>"; };
+		A5680F4721FF07AF005956DA /* RecoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverView.swift; sourceTree = "<group>"; };
+		A5680F4821FF07AF005956DA /* RestoreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreVC.swift; sourceTree = "<group>"; };
+		A5680F5321FF21D6005956DA /* FromKeysWalletNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromKeysWalletNameView.swift; sourceTree = "<group>"; };
+		A5680F5521FF21E6005956DA /* FromKeysWalletNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromKeysWalletNameVC.swift; sourceTree = "<group>"; };
+		A5680F5721FF21F6005956DA /* FromKeysKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromKeysKeysView.swift; sourceTree = "<group>"; };
+		A5680F5921FF2201005956DA /* FromKeysKeysVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromKeysKeysVC.swift; sourceTree = "<group>"; };
+		A5680F5B21FF2211005956DA /* FromKeysHeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromKeysHeightView.swift; sourceTree = "<group>"; };
+		A5680F5D21FF2222005956DA /* FromKeysHeightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromKeysHeightVC.swift; sourceTree = "<group>"; };
+		A5680F5F21FF3C2F005956DA /* RestoreStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreStateModel.swift; sourceTree = "<group>"; };
+		A577D40921EDEFDB00FA1655 /* AddressBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookView.swift; sourceTree = "<group>"; };
+		A577D40B21EDF01100FA1655 /* AddressBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookViewController.swift; sourceTree = "<group>"; };
 		B0344026ED1C3597BDD08DC1 /* Pods_CakeWallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CakeWallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1D653B209A3EBB00A1FDDB /* CakeWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakeWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1D653E209A3EBB00A1FDDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1138,15 +1174,6 @@
 			path = RecoveryFromSeed;
 			sourceTree = "<group>";
 		};
-		6A36FD3720BB537F00B3502E /* Restore */ = {
-			isa = PBXGroup;
-			children = (
-				6A36FD3820BB538F00B3502E /* RecoverView.swift */,
-				6A36FD3920BB538F00B3502E /* RestoreViewController.swift */,
-			);
-			path = Restore;
-			sourceTree = "<group>";
-		};
 		6A36FD3C20BB547400B3502E /* RecoveryFromKeys */ = {
 			isa = PBXGroup;
 			children = (
@@ -1255,6 +1282,9 @@
 			isa = PBXGroup;
 			children = (
 				0C5EFB8222022EAC0069AF7F /* RestoreFromCloud */,
+				A5680F3F21FF07AF005956DA /* Restore */,
+				A577D40D21F5F07E00FA1655 /* NewAddress */,
+				A577D40821EDEFB400FA1655 /* AddressBook */,
 				0C9B94A721B014E8001F9868 /* Disclaimer */,
 				64DACED9214804BF0057B604 /* Terms */,
 				64AA49B121456EAC002CE1FE /* PinCode */,
@@ -1272,7 +1302,6 @@
 				6A6B0C0720BEFC5D004B5DFF /* Wallets */,
 				6A36FD4320BB622100B3502E /* Seed */,
 				6A36FD3C20BB547400B3502E /* RecoveryFromKeys */,
-				6A36FD3720BB537F00B3502E /* Restore */,
 				6A36FD2D20BB4C0E00B3502E /* RecoveryFromSeed */,
 				6A24468F20BAE3A300C87C81 /* NewWallet */,
 				6A24467520B99FC400C87C81 /* SetupPin */,
@@ -1398,6 +1427,7 @@
 				644E32EE21344CE300331241 /* SettingsFlow.swift */,
 				644E32F42134511F00331241 /* ExchangeFlow.swift */,
 				644E32F6213453D700331241 /* NodesFlow.swift */,
+				A5610DE021FF050600C38F99 /* RestoreWalletFlow.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -1464,6 +1494,62 @@
 				F3BA9289B966EEF23CDA77D9 /* Pods_CakeWalletLib.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A5680F3F21FF07AF005956DA /* Restore */ = {
+			isa = PBXGroup;
+			children = (
+				A5680F4921FF07AF005956DA /* FromKeys */,
+				A5680F4021FF07AF005956DA /* FromSeed */,
+				A5680F4721FF07AF005956DA /* RecoverView.swift */,
+				A5680F4821FF07AF005956DA /* RestoreVC.swift */,
+				A5680F5F21FF3C2F005956DA /* RestoreStateModel.swift */,
+			);
+			path = Restore;
+			sourceTree = "<group>";
+		};
+		A5680F4021FF07AF005956DA /* FromSeed */ = {
+			isa = PBXGroup;
+			children = (
+				A5680F4121FF07AF005956DA /* FromSeedHeightView.swift */,
+				A5680F4221FF07AF005956DA /* FromSeedSeedVC.swift */,
+				A5680F4321FF07AF005956DA /* FromSeedWalletNameVC.swift */,
+				A5680F4421FF07AF005956DA /* FromSeedHeightVC.swift */,
+				A5680F4521FF07AF005956DA /* FromSeedWalletNameView.swift */,
+				A5680F4621FF07AF005956DA /* FromSeedSeedView.swift */,
+			);
+			path = FromSeed;
+			sourceTree = "<group>";
+		};
+		A5680F4921FF07AF005956DA /* FromKeys */ = {
+			isa = PBXGroup;
+			children = (
+				A5680F5321FF21D6005956DA /* FromKeysWalletNameView.swift */,
+				A5680F5521FF21E6005956DA /* FromKeysWalletNameVC.swift */,
+				A5680F5721FF21F6005956DA /* FromKeysKeysView.swift */,
+				A5680F5921FF2201005956DA /* FromKeysKeysVC.swift */,
+				A5680F5B21FF2211005956DA /* FromKeysHeightView.swift */,
+				A5680F5D21FF2222005956DA /* FromKeysHeightVC.swift */,
+			);
+			path = FromKeys;
+			sourceTree = "<group>";
+		};
+		A577D40821EDEFB400FA1655 /* AddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				A577D40921EDEFDB00FA1655 /* AddressBookView.swift */,
+				A577D40B21EDF01100FA1655 /* AddressBookViewController.swift */,
+			);
+			path = AddressBook;
+			sourceTree = "<group>";
+		};
+		A577D40D21F5F07E00FA1655 /* NewAddress */ = {
+			isa = PBXGroup;
+			children = (
+				A5610DDD21FF032D00C38F99 /* NewAddressView.swift */,
+				A5610DDC21FF032D00C38F99 /* NewAddressViewController.swift */,
+			);
+			path = NewAddress;
 			sourceTree = "<group>";
 		};
 		CA1D6532209A3EBB00A1FDDB = {
@@ -2047,10 +2133,12 @@
 				642CA24020F6440C00D1E340 /* ExchangeViewController.swift in Sources */,
 				6AAF1EB120B609EB000E4E02 /* UILabel+extension.swift in Sources */,
 				6413ACCD20E94530004922AD /* WalletsState.swift in Sources */,
+				A577D40C21EDF01100FA1655 /* AddressBookViewController.swift in Sources */,
 				6A72CB1920CADD9300CFABC9 /* FlexCell.swift in Sources */,
 				6A5A923F20D04D38009B4C9A /* OnSyncedEffect.swift in Sources */,
 				6413ACD320E94588004922AD /* WalletState.swift in Sources */,
 				6A24468620BAD75800C87C81 /* Configurations.swift in Sources */,
+				A5680F4B21FF07B0005956DA /* FromSeedSeedVC.swift in Sources */,
 				6413ACD120E94572004922AD /* BlockchainState.swift in Sources */,
 				644E32F7213453D700331241 /* NodesFlow.swift in Sources */,
 				64F8AB2620EA28C100C59254 /* SettingsActions.swift in Sources */,
@@ -2058,15 +2146,19 @@
 				6AAF1EAD20B6050F000E4E02 /* CALayer+applySketchShadow.swift in Sources */,
 				648D7F7E20F7F26A004C6200 /* OnNewSubaddressAddedEffect.swift in Sources */,
 				0C337244217D0F2B000D259D /* migrateKeychainAccessibilities.swift in Sources */,
+				A5610DDE21FF032D00C38F99 /* NewAddressViewController.swift in Sources */,
 				64AA49C5214570F5002CE1FE /* MiniCopyButton.swift in Sources */,
+				A5680F4F21FF07B0005956DA /* FromSeedSeedView.swift in Sources */,
 				64F8AB3420EA60F100C59254 /* StartConnectionEffect.swift in Sources */,
 				64AA49C921457125002CE1FE /* PinCodeKeyButton.swift in Sources */,
 				6AE7241120DD5C5C003D6559 /* NodesList.swift in Sources */,
 				6413ACD720E945BC004922AD /* ApplicationState.swift in Sources */,
 				6A36FD3320BB4CEF00B3502E /* RestoreFromHeightView.swift in Sources */,
 				64AA49D721457873002CE1FE /* EthereumAmount.swift in Sources */,
+				A5680F5621FF21E6005956DA /* FromKeysWalletNameVC.swift in Sources */,
+				A5680F4C21FF07B0005956DA /* FromSeedWalletNameVC.swift in Sources */,
+				A5610DDF21FF032D00C38F99 /* NewAddressView.swift in Sources */,
 				6A36FD4920BDC1FB00B3502E /* CellItem.swift in Sources */,
-				6A36FD3A20BB538F00B3502E /* RecoverView.swift in Sources */,
 				6A53C4CE20A89DAB001999B6 /* SendViewController.swift in Sources */,
 				6ADB035A20DBFDED0050786A /* NodeTableCell.swift in Sources */,
 				64F8AB3620EA83FB00C59254 /* BlockchainActions.swift in Sources */,
@@ -2088,6 +2180,7 @@
 				64AA49AC21456E12002CE1FE /* UIViewController+presentWithBlur.swift in Sources */,
 				644E32EF21344CE300331241 /* SettingsFlow.swift in Sources */,
 				6A36FD3E20BB548300B3502E /* RestoreFromKeysView.swift in Sources */,
+				A5680F5E21FF2222005956DA /* FromKeysHeightVC.swift in Sources */,
 				64AA49C121457090002CE1FE /* SecondaryButton.swift in Sources */,
 				6A39EC9B20D19039002E9217 /* TransactionDetailsViewController.swift in Sources */,
 				64F8AB4020EAA70E00C59254 /* TransactionsHandlers.swift in Sources */,
@@ -2102,12 +2195,14 @@
 				0C5EFB94220230030069AF7F /* ICloudStorage.swift in Sources */,
 				64F8AB4820EC271700C59254 /* LoggerEffect.swift in Sources */,
 				6AAF1EA320B603D0000E4E02 /* DashboardView.swift in Sources */,
+				A5680F4A21FF07B0005956DA /* FromSeedHeightView.swift in Sources */,
 				642621FD2109E16800DA5F7B /* getGateways.swift in Sources */,
-				6A36FD3B20BB538F00B3502E /* RestoreViewController.swift in Sources */,
 				6A36FD4520BB622A00B3502E /* SeedView.swift in Sources */,
 				6AAF1EBB20B61723000E4E02 /* SignUpFlow.swift in Sources */,
 				6413ACD520E945A1004922AD /* TransactionsState.swift in Sources */,
 				6A53C4CB20A86893001999B6 /* ReceiveViewController.swift in Sources */,
+				A5610DE121FF050600C38F99 /* RestoreWalletFlow.swift in Sources */,
+				A5680F6021FF3C2F005956DA /* RestoreStateModel.swift in Sources */,
 				64EBA5E720F3A54B00997824 /* SubaddressesState.swift in Sources */,
 				64EBA5DE20F3635600997824 /* SubaddressesViewController.swift in Sources */,
 				64F8AB3C20EAA58D00C59254 /* WalletsActions.swift in Sources */,
@@ -2126,6 +2221,7 @@
 				640A2AA221761C870047E60C /* CWAlertView.swift in Sources */,
 				64F8AB2820EA2E3700C59254 /* RestoreFromKeysViewController.swift in Sources */,
 				6AAF1E9320B6022C000E4E02 /* ColorSchemes.swift in Sources */,
+				A5680F5021FF07B0005956DA /* RecoverView.swift in Sources */,
 				64F8AB4620EBBD2700C59254 /* SettingsHandlers.swift in Sources */,
 				64C28A5E21039C0500327509 /* ExchangeResultViewController.swift in Sources */,
 				0C5EFB8822022F180069AF7F /* migrateWalletsDirectoryPath.swift in Sources */,
@@ -2143,6 +2239,7 @@
 				CA1D653F209A3EBB00A1FDDB /* AppDelegate.swift in Sources */,
 				64C28A5C21039BFD00327509 /* ExchangeResultView.swift in Sources */,
 				6A36FD4B20BDC21A00B3502E /* UITableView+CellItem.swift in Sources */,
+				A5680F5A21FF2201005956DA /* FromKeysKeysVC.swift in Sources */,
 				6A72CB1B20CAE1EB00CFABC9 /* SettingsPickerUITableViewCell.swift in Sources */,
 				64F8AB2A20EA365100C59254 /* RecoveryFromSeedViewController.swift in Sources */,
 				643062D120EC2F2900853394 /* CheckConnectionEffect.swift in Sources */,
@@ -2155,10 +2252,12 @@
 				64F8AB3020EA44D400C59254 /* UIView+roundCorners.swift in Sources */,
 				6A212DA520DAA4DF00CD8594 /* WalletsKeysUITableViewCell.swift in Sources */,
 				64AA49A821456DD9002CE1FE /* AnyBaseViewController.swift in Sources */,
+				A5680F5121FF07B0005956DA /* RestoreVC.swift in Sources */,
 				6AFC5C7D20C2CDCE007DFB53 /* WalletFlow.swift in Sources */,
 				6AAF1E9A20B60308000E4E02 /* BaseView.swift in Sources */,
 				6A72CB2120CC5D7D00CFABC9 /* NodesViewController.swift in Sources */,
 				6AAF1E8F20B5EF81000E4E02 /* UIColor+extensions.swift in Sources */,
+				A577D40A21EDEFDB00FA1655 /* AddressBookView.swift in Sources */,
 				6AE7240E20DD55F8003D6559 /* StartSyncingEffect.swift in Sources */,
 				6A4DB73E20C9A2EB00647F21 /* WelcomeViewController.swift in Sources */,
 				640A2AA021761C640047E60C /* CWAlertViewController.swift in Sources */,
@@ -2172,6 +2271,7 @@
 				64AA49AA21456DF6002CE1FE /* BaseViewController.swift in Sources */,
 				64FBC83F2124727B00EFC474 /* NewNodeViewController.swift in Sources */,
 				64F8AB2C20EA447400C59254 /* WalletsNavigationTitle.swift in Sources */,
+				A5680F5421FF21D6005956DA /* FromKeysWalletNameView.swift in Sources */,
 				6A24468A20BADA6E00C87C81 /* UserDefaults+extensions.swift in Sources */,
 				64C28A5A21021FC100327509 /* ExchangeState.swift in Sources */,
 				6A6B0C0920BEFC6C004B5DFF /* WalletsView.swift in Sources */,
@@ -2184,12 +2284,14 @@
 				64F8AB2420EA210A00C59254 /* WalletHandlers.swift in Sources */,
 				6AAF1EA620B6047C000E4E02 /* ReceiveView.swift in Sources */,
 				6AAF1E9E20B60345000E4E02 /* CardView.swift in Sources */,
+				A5680F4D21FF07B0005956DA /* FromSeedHeightVC.swift in Sources */,
 				640A2AAA2176209E0047E60C /* Queue.swift in Sources */,
 				64DACEDB214804CE0057B604 /* TermsViewController.swift in Sources */,
 				644E32F52134511F00331241 /* ExchangeFlow.swift in Sources */,
 				64AA49AE21456E55002CE1FE /* UIViewController+UIAlertController.swift in Sources */,
 				648D7F7C20F770A6004C6200 /* ExchangeView.swift in Sources */,
 				64B2D3A4211334EC00AFBCAA /* BaseScrollFlexView.swift in Sources */,
+				A5680F5C21FF2211005956DA /* FromKeysHeightView.swift in Sources */,
 				6AAF1E9120B60215000E4E02 /* Theme.swift in Sources */,
 				6A36FD4220BB5FB300B3502E /* FloatingLabelTextField.swift in Sources */,
 				0C5EFB8422022EB80069AF7F /* RestoreFromCloudView.swift in Sources */,
@@ -2199,12 +2301,14 @@
 				640A2AA821761DF40047E60C /* Mymonero.swift in Sources */,
 				64BEB646210CDBFC00B63D67 /* ChangeLanguageViewController.swift in Sources */,
 				643062D520EC2FAB00853394 /* OnCurrentNodeChangeEffect.swift in Sources */,
+				A5680F4E21FF07B0005956DA /* FromSeedWalletNameView.swift in Sources */,
 				64AA49CD21457256002CE1FE /* PinCodeKeyboardKey.swift in Sources */,
 				6AF4786820C18CBE0072796B /* AuthenticationViewController.swift in Sources */,
 				6AAF1EB920B6170B000E4E02 /* Flow.swift in Sources */,
 				6A24467920B99FF600C87C81 /* SetupPinViewController.swift in Sources */,
 				0C5EFB9022022F9E0069AF7F /* BackupServiceImpl.swift in Sources */,
 				6A72CB1F20CC5D6800CFABC9 /* NodesView.swift in Sources */,
+				A5680F5821FF21F6005956DA /* FromKeysKeysView.swift in Sources */,
 				6A36FD2F20BB4C2100B3502E /* RestoreFromSeedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

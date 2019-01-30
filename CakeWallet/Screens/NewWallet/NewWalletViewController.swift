@@ -2,9 +2,11 @@ import UIKit
 
 final class NewWalletViewController: BaseViewController<NewWalletView> {
     weak var signUpFlow: SignUpFlow?
+    weak var restoreWalletFlow: RestoreWalletFlow?
     
-    init(signUpFlow: SignUpFlow) {
+    init(signUpFlow: SignUpFlow, restoreWalletFlow: RestoreWalletFlow) {
         self.signUpFlow = signUpFlow
+        self.restoreWalletFlow = restoreWalletFlow
         super.init()
     }
     
@@ -20,6 +22,6 @@ final class NewWalletViewController: BaseViewController<NewWalletView> {
     
     @objc
     private func recoveryWallet() {
-        signUpFlow?.change(route: .restore)
+        restoreWalletFlow?.change(route: .root)
     }
 }

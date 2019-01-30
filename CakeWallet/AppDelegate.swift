@@ -7,10 +7,12 @@ import CryptoSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     var signUpFlow: SignUpFlow?
     var walletFlow: WalletFlow?
+    var restoreWalletFlow: RestoreWalletFlow?
+
     var rememberedViewController: UIViewController?
     private var blurEffectView: UIVisualEffectView?
     
@@ -74,14 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-//        let backup = BackupServiceImpl(fileManager: FileManager.default, keychain: KeychainStorageImpl.standart)
-//
-//        do {
-//            try backup.export(withPassword: "test", to: ICloudStorage())
-//        } catch {
-//            print("error \(error)")
-//        }
-
         if !store.state.walletState.name.isEmpty && pin != nil {
             let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
             let handler = LoadCurrentWalletHandler()
@@ -127,7 +121,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             window?.rootViewController = authController
         } else {
-            signUpFlow = SignUpFlow(navigationController: UINavigationController())
+            let navigationController = UINavigationController()
+            restoreWalletFlow = RestoreWalletFlow(navigationController: navigationController)
+            signUpFlow = SignUpFlow(navigationController: navigationController, restoreWalletFlow: restoreWalletFlow!)
             signUpFlow?.doneHandler = { [weak self] in
                 self?.walletFlow = WalletFlow()
                 self?.walletFlow?.change(route: .start)
@@ -137,13 +133,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = signUpFlow?.rootController
             signUpFlow?.change(route: .disclaimer)
         }
-
-//        window?.rootViewController = RestoreFromCloudVC(backup: BackupServiceImpl(keychain: KeychainStorageImpl.standart), storage: ICloudStorage())
+        
         window?.makeKeyAndVisible()
         setAppearance()
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         guard
             let viewController = window?.rootViewController,
@@ -155,15 +150,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.blurEffectView == nil else {
                 return
         }
-
+        
         let vc: UIViewController
-
+        
         if let presentedVC = viewController.presentedViewController {
             vc = presentedVC
         } else {
             vc = viewController
         }
-
+        
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         self.blurEffectView = blurEffectView
@@ -171,18 +166,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         vc.view.addSubview(blurEffectView)
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // Use this method to release shared resources, save user data, invalidate timers,
+        // and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         guard
             walletFlow != nil
                 && !store.state.walletState.name.isEmpty
                 && !(UIApplication.topViewController() is AuthenticationViewController) else {
-            return
+                    return
         }
         
         let authScreen = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
@@ -194,26 +190,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         if let blurEffectView = self.blurEffectView {
             blurEffectView.removeFromSuperview()
             self.blurEffectView = nil
         }
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
     private func setAppearance() {
         UITabBar.appearance().backgroundColor = .white
         UITabBar.appearance().layer.borderWidth = 0.0
         UITabBar.appearance().clipsToBounds = true
         UITabBar.appearance().tintColor = .vividBlue
         UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
-//        UINavigationBar.appearance().isTranslucent = false
-//        UINavigationBar.appearance().tintColor = UIColor(hex: 0x006494) // FIX-ME: Unnamed constant
         UINavigationBar.appearance().backgroundColor = .clear
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
