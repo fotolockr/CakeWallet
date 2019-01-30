@@ -6,7 +6,7 @@ public enum FileManagerError: Error {
 
 extension FileManager {
     public var walletDirectory: URL? {
-        return self.urls(for: .documentDirectory, in: .userDomainMask).first
+        return self.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("wallets")
     }
     
     public func createWalletDirectory(for name: String) throws -> URL {

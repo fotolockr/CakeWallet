@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.2)
+  - CryptoSwift (0.13.1)
   - FlexLayout (1.3.9)
   - IQKeyboardManagerSwift (6.0.4)
   - JVFloatLabeledTextField (1.2.1)
@@ -11,9 +12,11 @@ PODS:
   - Starscream (3.0.5)
   - SwiftSoup (1.7.1)
   - SwiftyJSON (4.1.0)
+  - ZIPFoundation (0.9.6)
 
 DEPENDENCIES:
   - Alamofire
+  - CryptoSwift
   - FlexLayout
   - IQKeyboardManagerSwift
   - JVFloatLabeledTextField
@@ -25,10 +28,12 @@ DEPENDENCIES:
   - Starscream (~> 3.0.2)
   - SwiftSoup
   - SwiftyJSON
+  - ZIPFoundation (~> 0.9)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - CryptoSwift
     - FlexLayout
     - IQKeyboardManagerSwift
     - JVFloatLabeledTextField
@@ -40,9 +45,11 @@ SPEC REPOS:
     - Starscream
     - SwiftSoup
     - SwiftyJSON
+    - ZIPFoundation
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   FlexLayout: dbe4b2da72ee63d7145cf32bb5bfba375aeeb9e6
   IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
   JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
@@ -54,7 +61,8 @@ SPEC CHECKSUMS:
   Starscream: faf918b2f2eff7d5dd21180646bf015a669673bd
   SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  ZIPFoundation: 68c35eb2637c21abe56dc60b3277636443bc1501
 
-PODFILE CHECKSUM: cfcf3644d122f4a14f390d375aedaf20e307be3c
+PODFILE CHECKSUM: 219a0f9f6b6069db49a777cef809c1f7dce7a280
 
 COCOAPODS: 1.5.3

@@ -10,6 +10,7 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
     let buttonsContiner: UIView
     let createWallet: UIButton
     let recoveryWallet: UIButton
+    let restoreFromCloud: UIButton
     
     required init() {
         titleContainer = UIView()
@@ -20,6 +21,7 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
         buttonsContiner = UIView()
         createWallet = PrimaryButton(title: NSLocalizedString("create_new", comment: ""))
         recoveryWallet = SecondaryButton(title: NSLocalizedString("restore", comment: ""))
+        restoreFromCloud = SecondaryButton(title: "Restore from backup")
         super.init()
     }
     
@@ -49,8 +51,9 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
         }
         
         buttonsContiner.flex.define { flex in
-            flex.addItem(createWallet).height(56).marginBottom(25)
-            flex.addItem(recoveryWallet).height(56)
+            flex.addItem(createWallet).height(56)
+            flex.addItem(recoveryWallet).height(56).marginTop(10)
+            flex.addItem(restoreFromCloud).height(56).marginTop(10).marginBottom(25)
         }
         
         rootFlexContainer.flex.justifyContent(.spaceBetween).padding(45, 10, 0, 10).define { flex in
