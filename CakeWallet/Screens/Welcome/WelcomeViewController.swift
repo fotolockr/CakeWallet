@@ -23,6 +23,7 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
     override func configureBinds() {
         contentView.createWallet.addTarget(self, action: #selector(createWalletAction), for: .touchUpInside)
         contentView.recoveryWallet.addTarget(self, action: #selector(recoverWalletAction), for: .touchUpInside)
+        contentView.restoreFromCloud.addTarget(self, action: #selector(restoreFromCloud), for: .touchUpInside)
         if let appName = Bundle.main.displayName {
             
             // FIXME: Unnamed constant
@@ -52,5 +53,10 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
         signUpFlow?.change(route: .setupPin({ [weak self] _  in
             self?.restoreWalletFlow?.change(route: .root)
         }))
+    }
+    
+    @objc
+    private func restoreFromCloud() {
+        signUpFlow?.change(route: .restoreFromCloud)
     }
 }

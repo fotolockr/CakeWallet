@@ -2,6 +2,8 @@ import UIKit
 import CakeWalletLib
 import CakeWalletCore
 import IQKeyboardManagerSwift
+import ZIPFoundation
+import CryptoSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -57,23 +59,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let termsOfUseAccepted = UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.termsOfUseAccepted)
-        
         let pin = try? KeychainStorageImpl.standart.fetch(forKey: .pinCode)
         
+        if !UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.masterPassword) {
+            generateMasterPassword()
+        }
+
+        if !UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.walletsDirectoryPathMigrated) {
+            do {
+                try migrateWalletsDirectoryPath(newWalletsDirectory: "wallets")
+                UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.walletsDirectoryPathMigrated)
+            } catch {
+                print("error \(error)")
+            }
+        }
+
         if !store.state.walletState.name.isEmpty && pin != nil {
             let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
             let handler = LoadCurrentWalletHandler()
-            
+
             authController.handler = { [weak authController] in
                 store.dispatch(SettingsState.Action.isAuthenticated)
                 DispatchQueue.main.async {
                     authController?.showSpinner(withTitle: NSLocalizedString("loading_wallet", comment: "")) { alert in //fixme
                         handler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
-                            guard let action = action else {
-                                return
-                            }
-                            
                             DispatchQueue.main.async {
+                                guard let action = action else {
+                                    return
+                                }
+
+                                store._defaultDispatch(action)
+
                                 if
                                     let action = action as? ApplicationState.Action,
                                     case let .changedError(_error) = action,
@@ -83,21 +99,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     }
                                     return
                                 }
-                                
+
                                 if let action = action as? WalletState.Action, case .loaded(_) = action {
                                     alert.dismiss(animated: true) { [weak self] in
                                         self?.walletFlow = WalletFlow()
                                         self?.walletFlow?.change(route: .start)
-                                        
+
                                         self?.window?.rootViewController = self?.walletFlow?.rootController
-                                        
+
                                         if !termsOfUseAccepted {
                                             self?.window?.rootViewController?.present(DisclaimerViewController(), animated: false)
                                         }
                                     }
                                 }
-                                
-                                store.dispatch(action)
                             }
                         })
                     }

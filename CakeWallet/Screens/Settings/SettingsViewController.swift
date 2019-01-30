@@ -2,6 +2,10 @@ import UIKit
 import CakeWalletLib
 import CakeWalletCore
 import FlexLayout
+import ZIPFoundation
+import CryptoSwift
+import CWMonero
+import SwiftyJSON
 
 //fixme
 final class TextViewUITableViewCell: FlexCell {
@@ -119,7 +123,7 @@ final class SwitchView: BaseView {
 
 final class SettingsViewController: BaseViewController<SettingsView>, UITableViewDelegate, UITableViewDataSource {
     enum SettingsSections: Int {
-        case wallets, personal, advanced, support
+        case wallets, personal, advanced, backup, support
     }
     
     struct SettingsTextViewCellItem: CellItem {
@@ -223,10 +227,15 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     
     private let store: Store<ApplicationState>
     private var sections: [SettingsSections: [CellAnyItem]]
+    private let backupService: BackupServiceImpl
+    private var masterPassword: String {
+        return try! KeychainStorageImpl.standart.fetch(forKey: .masterPassword)
+    }
     
-    init(store: Store<ApplicationState>, settingsFlow: SettingsFlow?) {
+    init(store: Store<ApplicationState>, settingsFlow: SettingsFlow?, backupService: BackupServiceImpl) {
         self.store = store
         self.settingsFlow = settingsFlow
+        self.backupService = backupService
         sections = [.wallets: [], .personal: [], .advanced: []]
         super.init()
         tabBarItem = UITabBarItem(
@@ -315,6 +324,47 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             action: { [weak self] in
                 self?.settingsFlow?.change(route: .terms)
         })
+        let createBackupCellItem = SettingsCellItem(
+            title: "Create backup to iCloud",
+            action: { [weak self] in
+                self?.showSpinner(withTitle: "Creating backup") { [weak self] alert in
+                    do {
+                        guard let password = self?.masterPassword else {
+                            return
+                        }
+                        
+                        try self?.backupService.export(withPassword: password, to: ICloudStorage())
+                        alert.dismiss(animated: true) {
+                            self?.showInfo(title: "Backup uploaded", message: "Backup is uploaded to your iCloud", actions: [.okAction])
+                        }
+                    } catch {
+                        alert.dismiss(animated: true) {
+                            self?.showError(error: error)
+                        }
+                    }
+                }
+        })
+        let showMasterPasswordCellItem = SettingsCellItem(
+            title: "Show master password",
+            action: { [weak self] in
+                let copyAction = CWAlertAction(title: "Copy", handler: { [weak self] action in
+                    action.alertView?.dismiss(animated: true) {
+                        UIPasteboard.general.string = self?.masterPassword
+                    }
+                })
+                
+                let authVC = AuthenticationViewController(store: self!.store, authentication: AuthenticationImpl())
+                authVC.handler = { [weak self] in
+                    authVC.dismiss(animated: true) {
+                        self?.showInfo(
+                            title: "Master password",
+                            message: self!.masterPassword,
+                            actions: [.cancelAction, copyAction])
+                    }
+                }
+                
+                self?.present(authVC, animated: true)
+        })
         
         let addressBookCellItem = SettingsCellItem(title: "Address book", action: { [weak self] in
             self?.settingsFlow?.change(route: .addressBook)
@@ -334,6 +384,10 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         sections[.advanced] = [
             daemonSettingsCellItem,
             addressBookCellItem
+        ]
+        sections[.backup] = [
+            showMasterPasswordCellItem,
+            createBackupCellItem
         ]
         
         
@@ -458,6 +512,8 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             titleLabel.text = NSLocalizedString("advanced", comment: "")
         case .support:
             titleLabel.text = NSLocalizedString("support", comment: "")
+        case .backup:
+            titleLabel.text = "Backup"
         }
         
         return view

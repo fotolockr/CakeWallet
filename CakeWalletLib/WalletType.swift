@@ -12,6 +12,17 @@ public enum WalletType {
         }
     }
     
+    public init?(from string: String) {
+        switch string.lowercased() {
+        case "monero":
+                self = .monero
+        case "bitcoin":
+            self = .bitcoin
+        default:
+            return nil
+        }
+    }
+    
     public func string() -> String {
         switch self {
         case .bitcoin:

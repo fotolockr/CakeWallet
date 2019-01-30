@@ -6,7 +6,7 @@ final class Configurations {
     enum DefaultsKeys: Stringify {
         case nodeUri, nodeLogin, nodePassword, termsOfUseAccepted, currentWalletName,
         currentWalletType, biometricAuthenticationOn, passwordIsRemembered, transactionPriority,
-        currency, defaultNodeChanged, autoSwitchNode, pinLength, currentTheme, termsOfUseXMRto, termsOfUseMorph
+        currency, defaultNodeChanged, autoSwitchNode, pinLength, currentTheme, termsOfUseXMRto, termsOfUseMorph, walletsDirectoryPathMigrated, masterPassword
         
         func string() -> String {
             switch self {
@@ -42,6 +42,10 @@ final class Configurations {
                 return "terms_of_use_xmrto_accepted"
             case .termsOfUseMorph:
                 return "terms_of_use_morph_accepted"
+            case .walletsDirectoryPathMigrated:
+                return "wallets_directory_path_migrated"
+            case .masterPassword:
+                return "master_password"
             }
         }
     }

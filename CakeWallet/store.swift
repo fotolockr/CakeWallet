@@ -2,7 +2,7 @@ import CakeWalletLib
 import CakeWalletCore
 import CWMonero
 
-private func getSavedFiatCurrency() -> FiatCurrency {
+func getSavedFiatCurrency() -> FiatCurrency {
     guard
         let raw = UserDefaults.standard.value(forKey: Configurations.DefaultsKeys.currency.string()) as? Int,
         let fiatCurrency = FiatCurrency(rawValue: raw) else {
@@ -12,7 +12,7 @@ private func getSavedFiatCurrency() -> FiatCurrency {
     return fiatCurrency
 }
 
-private func getSavedTransactionPriority() -> TransactionPriority {
+func getSavedTransactionPriority() -> TransactionPriority {
     if UserDefaults.standard.value(forKey: Configurations.DefaultsKeys.transactionPriority.string()) == nil {
         return .slow
     }
@@ -28,7 +28,7 @@ private func getSavedTransactionPriority() -> TransactionPriority {
     return transactionsPriority ?? .slow
 }
 
-private func getSavedNode() -> NodeDescription? {
+func getSavedNode() -> NodeDescription? {
     guard
     let uri = UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeUri),
     let login = UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.nodeLogin),
@@ -39,13 +39,13 @@ private func getSavedNode() -> NodeDescription? {
     return MoneroNodeDescription(uri: uri, login:  login, password:  password)
 }
 
-private func getSavedIsAutoSwitchNodeOn() -> Bool {
+func getSavedIsAutoSwitchNodeOn() -> Bool {
     return UserDefaults.standard.value(forKey: Configurations.DefaultsKeys.autoSwitchNode.string()) != nil
         ? UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.autoSwitchNode)
         : true
 }
 
-private func getSavedIsBiometricAuthenticationAllowed() -> Bool {
+func getSavedIsBiometricAuthenticationAllowed() -> Bool {
     return UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.biometricAuthenticationOn)
 }
 

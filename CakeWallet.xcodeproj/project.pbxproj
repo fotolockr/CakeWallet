@@ -9,6 +9,17 @@
 /* Begin PBXBuildFile section */
 		06CC905F24A0FB1C5311CF69 /* Pods_CakeWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0344026ED1C3597BDD08DC1 /* Pods_CakeWallet.framework */; };
 		0C337244217D0F2B000D259D /* migrateKeychainAccessibilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C337243217D0F2B000D259D /* migrateKeychainAccessibilities.swift */; };
+		0C5EFB8422022EB80069AF7F /* RestoreFromCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB8322022EB80069AF7F /* RestoreFromCloudView.swift */; };
+		0C5EFB8622022ECF0069AF7F /* RestoreFromCloudVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB8522022ECF0069AF7F /* RestoreFromCloudVC.swift */; };
+		0C5EFB8822022F180069AF7F /* migrateWalletsDirectoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB8722022F180069AF7F /* migrateWalletsDirectoryPath.swift */; };
+		0C5EFB8A22022F330069AF7F /* generateMasterPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB8922022F330069AF7F /* generateMasterPassword.swift */; };
+		0C5EFB8C22022F6A0069AF7F /* BackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB8B22022F6A0069AF7F /* BackupService.swift */; };
+		0C5EFB8E22022F8C0069AF7F /* BackupError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB8D22022F8C0069AF7F /* BackupError.swift */; };
+		0C5EFB9022022F9E0069AF7F /* BackupServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB8F22022F9E0069AF7F /* BackupServiceImpl.swift */; };
+		0C5EFB9222022FED0069AF7F /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB9122022FED0069AF7F /* CloudStorage.swift */; };
+		0C5EFB94220230030069AF7F /* ICloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB93220230030069AF7F /* ICloudStorage.swift */; };
+		0C5EFB96220230160069AF7F /* CloudStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB95220230160069AF7F /* CloudStorageError.swift */; };
+		0C6E3A1721FA02C700030C92 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6E3A1621FA02C700030C92 /* CloudKit.framework */; };
 		0C9B94A921B014FE001F9868 /* DisclaimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B94A821B014FE001F9868 /* DisclaimerView.swift */; };
 		0C9B94AB21B01506001F9868 /* DisclaimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B94AA21B01506001F9868 /* DisclaimerViewController.swift */; };
 		361CA1C7D01950BBA7C9570F /* Pods_CakeWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F899B21444E0E00B085AC /* Pods_CakeWallet.framework */; };
@@ -372,6 +383,18 @@
 /* Begin PBXFileReference section */
 		04BE9685AD75114223AEF911 /* Pods-CakeWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet.release.xcconfig"; sourceTree = "<group>"; };
 		0C337243217D0F2B000D259D /* migrateKeychainAccessibilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = migrateKeychainAccessibilities.swift; sourceTree = "<group>"; };
+		0C5EFB8322022EB80069AF7F /* RestoreFromCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFromCloudView.swift; sourceTree = "<group>"; };
+		0C5EFB8522022ECF0069AF7F /* RestoreFromCloudVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFromCloudVC.swift; sourceTree = "<group>"; };
+		0C5EFB8722022F180069AF7F /* migrateWalletsDirectoryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = migrateWalletsDirectoryPath.swift; sourceTree = "<group>"; };
+		0C5EFB8922022F330069AF7F /* generateMasterPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generateMasterPassword.swift; sourceTree = "<group>"; };
+		0C5EFB8B22022F6A0069AF7F /* BackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupService.swift; sourceTree = "<group>"; };
+		0C5EFB8D22022F8C0069AF7F /* BackupError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupError.swift; sourceTree = "<group>"; };
+		0C5EFB8F22022F9E0069AF7F /* BackupServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupServiceImpl.swift; sourceTree = "<group>"; };
+		0C5EFB9122022FED0069AF7F /* CloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
+		0C5EFB93220230030069AF7F /* ICloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudStorage.swift; sourceTree = "<group>"; };
+		0C5EFB95220230160069AF7F /* CloudStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorageError.swift; sourceTree = "<group>"; };
+		0C6E3A1521FA02C100030C92 /* CakeWallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CakeWallet.entitlements; sourceTree = "<group>"; };
+		0C6E3A1621FA02C700030C92 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		0C9B94A821B014FE001F9868 /* DisclaimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerView.swift; sourceTree = "<group>"; };
 		0C9B94AA21B01506001F9868 /* DisclaimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerViewController.swift; sourceTree = "<group>"; };
 		0CA88B262189D1FE000BF96F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -778,6 +801,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C6E3A1721FA02C700030C92 /* CloudKit.framework in Frameworks */,
 				646FF2E820E1492B00ADF30C /* CakeWalletLib.framework in Frameworks */,
 				645F8905214428D200B085AC /* CWMonero.framework in Frameworks */,
 				64A5AE1920E2490500BD6098 /* CakeWalletLib.framework in Frameworks */,
@@ -797,6 +821,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C5EFB8222022EAC0069AF7F /* RestoreFromCloud */ = {
+			isa = PBXGroup;
+			children = (
+				0C5EFB8322022EB80069AF7F /* RestoreFromCloudView.swift */,
+				0C5EFB8522022ECF0069AF7F /* RestoreFromCloudVC.swift */,
+			);
+			path = RestoreFromCloud;
+			sourceTree = "<group>";
+		};
 		0C9B94A721B014E8001F9868 /* Disclaimer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1248,6 +1281,7 @@
 		6AAF1E9620B6028F000E4E02 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				0C5EFB8222022EAC0069AF7F /* RestoreFromCloud */,
 				A5680F3F21FF07AF005956DA /* Restore */,
 				A577D40D21F5F07E00FA1655 /* NewAddress */,
 				A577D40821EDEFB400FA1655 /* AddressBook */,
@@ -1300,6 +1334,14 @@
 				640A2AA521761DB20047E60C /* Bytes.swift */,
 				640A2AA721761DF40047E60C /* Mymonero.swift */,
 				640A2AA92176209E0047E60C /* Queue.swift */,
+				0C5EFB8722022F180069AF7F /* migrateWalletsDirectoryPath.swift */,
+				0C5EFB8922022F330069AF7F /* generateMasterPassword.swift */,
+				0C5EFB8B22022F6A0069AF7F /* BackupService.swift */,
+				0C5EFB8D22022F8C0069AF7F /* BackupError.swift */,
+				0C5EFB8F22022F9E0069AF7F /* BackupServiceImpl.swift */,
+				0C5EFB9122022FED0069AF7F /* CloudStorage.swift */,
+				0C5EFB93220230030069AF7F /* ICloudStorage.swift */,
+				0C5EFB95220230160069AF7F /* CloudStorageError.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1414,6 +1456,7 @@
 		93B531BDF22CFC9B27F1D9F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C6E3A1621FA02C700030C92 /* CloudKit.framework */,
 				643A24412160035C006F5D81 /* libepee.a */,
 				643A24422160035C006F5D81 /* liblmdb.a */,
 				643A243F2160035C006F5D81 /* libunbound.a */,
@@ -1540,6 +1583,7 @@
 		CA1D653D209A3EBB00A1FDDB /* CakeWallet */ = {
 			isa = PBXGroup;
 			children = (
+				0C6E3A1521FA02C100030C92 /* CakeWallet.entitlements */,
 				64DACEDC214807580057B604 /* Resources */,
 				6426222E2109EA0A00DA5F7B /* LaunchScreen.storyboard */,
 				642622302109EA0A00DA5F7B /* Main.storyboard */,
@@ -1763,10 +1807,10 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.iCloud = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1946,6 +1990,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JVFloatLabeledTextField/JVFloatLabeledTextField.framework",
@@ -1956,11 +2001,13 @@
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVFloatLabeledTextField.framework",
@@ -1971,6 +2018,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZIPFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2079,6 +2127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				640A2AA421761D1E0047E60C /* CWAlertAction.swift in Sources */,
+				0C5EFB8A22022F330069AF7F /* generateMasterPassword.swift in Sources */,
 				645195D42131636B00F2FE8F /* WalletsFlow.swift in Sources */,
 				6A39EC9920D19023002E9217 /* TransactionDetailsView.swift in Sources */,
 				642CA24020F6440C00D1E340 /* ExchangeViewController.swift in Sources */,
@@ -2120,12 +2169,14 @@
 				64BEB644210CDBF200B63D67 /* ChangeLanguageView.swift in Sources */,
 				6A72CB1120CA849300CFABC9 /* SettingsViewController.swift in Sources */,
 				64AA49D321457848002CE1FE /* BitcoinAmount.swift in Sources */,
+				0C5EFB9222022FED0069AF7F /* CloudStorage.swift in Sources */,
 				649F9AD52148097C0071AF17 /* TermsView.swift in Sources */,
 				64AA49BB2145704F002CE1FE /* Button.swift in Sources */,
 				0C9B94A921B014FE001F9868 /* DisclaimerView.swift in Sources */,
 				64EBA5E920F3A6D500997824 /* SubaddressesActions.swift in Sources */,
 				64AA49CF2145726F002CE1FE /* PinCodeIndicatorsView.swift in Sources */,
 				6AAF1EB420B61606000E4E02 /* CreateWalletView.swift in Sources */,
+				0C5EFB96220230160069AF7F /* CloudStorageError.swift in Sources */,
 				64AA49AC21456E12002CE1FE /* UIViewController+presentWithBlur.swift in Sources */,
 				644E32EF21344CE300331241 /* SettingsFlow.swift in Sources */,
 				6A36FD3E20BB548300B3502E /* RestoreFromKeysView.swift in Sources */,
@@ -2141,6 +2192,7 @@
 				0C9B94AB21B01506001F9868 /* DisclaimerViewController.swift in Sources */,
 				64AA49D52145785C002CE1FE /* EDAmount.swift in Sources */,
 				6A2FC5A820C854F50066D365 /* Authentication.swift in Sources */,
+				0C5EFB94220230030069AF7F /* ICloudStorage.swift in Sources */,
 				64F8AB4820EC271700C59254 /* LoggerEffect.swift in Sources */,
 				6AAF1EA320B603D0000E4E02 /* DashboardView.swift in Sources */,
 				A5680F4A21FF07B0005956DA /* FromSeedHeightView.swift in Sources */,
@@ -2163,6 +2215,7 @@
 				64F8AB3E20EAA6F500C59254 /* BlockchainHandlers.swift in Sources */,
 				6A72CB1720CADD4300CFABC9 /* WalletUITableViewCell.swift in Sources */,
 				64EBA5DC20F3634B00997824 /* SubaddressesView.swift in Sources */,
+				0C5EFB8C22022F6A0069AF7F /* BackupService.swift in Sources */,
 				6AAF1E9C20B6031C000E4E02 /* BaseFlexView.swift in Sources */,
 				6AAF1E9520B6023F000E4E02 /* UIColor+colors.swift in Sources */,
 				640A2AA221761C870047E60C /* CWAlertView.swift in Sources */,
@@ -2171,13 +2224,16 @@
 				A5680F5021FF07B0005956DA /* RecoverView.swift in Sources */,
 				64F8AB4620EBBD2700C59254 /* SettingsHandlers.swift in Sources */,
 				64C28A5E21039C0500327509 /* ExchangeResultViewController.swift in Sources */,
+				0C5EFB8822022F180069AF7F /* migrateWalletsDirectoryPath.swift in Sources */,
 				6A4DB74020C9A32F00647F21 /* Bundle+displayName.swift in Sources */,
 				64F8AB4420EAB76D00C59254 /* UpdateTransactionsListEffect.swift in Sources */,
+				0C5EFB8622022ECF0069AF7F /* RestoreFromCloudVC.swift in Sources */,
 				64C28A602104E7C000327509 /* AddressView.swift in Sources */,
 				6A6B0C0B20BEFC8D004B5DFF /* WalletsViewController.swift in Sources */,
 				643062D720ED35A500853394 /* BalanceHandlers.swift in Sources */,
 				64F8AB2E20EA449B00C59254 /* UIImage+resized.swift in Sources */,
 				64FBC8412124758D00EFC474 /* NewNodeView.swift in Sources */,
+				0C5EFB8E22022F8C0069AF7F /* BackupError.swift in Sources */,
 				645195CE2131620700F2FE8F /* DashboardFlow.swift in Sources */,
 				64AA49D1214572EE002CE1FE /* PinCodeIndicatorView.swift in Sources */,
 				CA1D653F209A3EBB00A1FDDB /* AppDelegate.swift in Sources */,
@@ -2238,6 +2294,7 @@
 				A5680F5C21FF2211005956DA /* FromKeysHeightView.swift in Sources */,
 				6AAF1E9120B60215000E4E02 /* Theme.swift in Sources */,
 				6A36FD4220BB5FB300B3502E /* FloatingLabelTextField.swift in Sources */,
+				0C5EFB8422022EB80069AF7F /* RestoreFromCloudView.swift in Sources */,
 				64AA49BF2145707C002CE1FE /* PrimaryButton.swift in Sources */,
 				6A4DB73C20C9A27100647F21 /* WelcomeView.swift in Sources */,
 				6A212D9C20DA9DCC00CD8594 /* UpdateEstimatedFeeEffect.swift in Sources */,
@@ -2249,6 +2306,7 @@
 				6AF4786820C18CBE0072796B /* AuthenticationViewController.swift in Sources */,
 				6AAF1EB920B6170B000E4E02 /* Flow.swift in Sources */,
 				6A24467920B99FF600C87C81 /* SetupPinViewController.swift in Sources */,
+				0C5EFB9022022F9E0069AF7F /* BackupServiceImpl.swift in Sources */,
 				6A72CB1F20CC5D6800CFABC9 /* NodesView.swift in Sources */,
 				A5680F5821FF21F6005956DA /* FromKeysKeysView.swift in Sources */,
 				6A36FD2F20BB4C2100B3502E /* RestoreFromSeedView.swift in Sources */,
@@ -2751,6 +2809,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CakeWallet/CakeWallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 32J6BB6VUS;
@@ -2797,6 +2856,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CakeWallet/CakeWallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 32J6BB6VUS;

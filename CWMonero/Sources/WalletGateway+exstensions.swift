@@ -17,14 +17,20 @@ extension WalletGateway {
         guard var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return URL(fileURLWithPath: Self.path + "/" + walletName)
         }
+        
+        url.appendPathComponent("wallets")
+        
+        
         if !Self.path.isEmpty {
             url.appendPathComponent(Self.path)
         }
+        
         url.appendPathComponent(walletName)
         var isDir: ObjCBool = true
         
         if !FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) || !isDir.boolValue {
-            return try! FileManager.default.createWalletDirectory(for: walletName)
+            try! FileManager.default.createDirectory(atPath: url.path, withIntermediateDirectories: true, attributes: nil)
+            return url
         }
         
         return url

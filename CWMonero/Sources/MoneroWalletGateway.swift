@@ -4,7 +4,7 @@ import CakeWalletCore
 
 public final class MoneroWalletGateway: WalletGateway {
     public static var path: String {
-        return ""
+        return "monero"
     }
     
     public static var type: WalletType {
@@ -13,17 +13,16 @@ public final class MoneroWalletGateway: WalletGateway {
     
     public static func fetchWalletsList() -> [WalletIndex] {
         guard
-            let docsUrl = FileManager.default.walletDirectory,
-            let walletsDirs = try? FileManager.default.contentsOfDirectory(atPath: docsUrl.path) else {
+            let walletsURL = FileManager.default.walletDirectory?.appendingPathComponent(path),
+            let walletsDirs = try? FileManager.default.contentsOfDirectory(atPath: walletsURL.path) else {
                 return []
         }
         
         let wallets = walletsDirs.map { name -> String? in
             var isDir = ObjCBool(false)
-            let url = docsUrl.appendingPathComponent(name)
-            FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir)
-            
-            return isDir.boolValue ? name : nil
+            let url = walletsURL.appendingPathComponent(name)
+            let isExist = FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir)
+            return isExist && isDir.boolValue ? name : nil
             }.compactMap({ $0 })
         
         return wallets.map { name -> WalletIndex? in

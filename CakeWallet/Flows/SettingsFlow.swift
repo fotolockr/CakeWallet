@@ -19,7 +19,7 @@ final class SettingsFlow: Flow {
     private var nodesFlow: NodesFlow?
     
     convenience init() {
-        let settingsViewController = SettingsViewController(store: store, settingsFlow: nil)
+        let settingsViewController = SettingsViewController(store: store, settingsFlow: nil, backupService: BackupServiceImpl())
         let navigationController = UINavigationController(rootViewController: settingsViewController)
         self.init(navigationController: navigationController)
         settingsViewController.settingsFlow = self

@@ -209,8 +209,8 @@ public struct LoadCurrentWalletHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case .loadCurrentWallet = action else { return }
         
-        walletQueue.async {
-            let name = store.state.walletState.name
+//        walletQueue.async {
+        let name = store.state.walletState.name.isEmpty ? UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.currentWalletName) ?? "" : store.state.walletState.name
             
             do {
                 let type = store.state.walletState.walletType
@@ -219,15 +219,15 @@ public struct LoadCurrentWalletHandler: AsyncHandler {
                 let wallet = try getGateway(for: type).load(withName: name, andPassword: password)
                 handler(WalletState.Action.loaded(wallet))
             } catch {
-                if error.localizedDescription == "std::bad_alloc" {
-                    try! MoneroWalletGateway.init().removeCacheFile(for: name)
-                    self.handle(action: action, store: store, handler: handler)
-                    return
-                }
+//                if error.localizedDescription == "std::bad_alloc" {
+//                    try! MoneroWalletGateway.init().removeCacheFile(for: name)
+//                    self.handle(action: action, store: store, handler: handler)
+//                    return
+//                }
 
                 handler(ApplicationState.Action.changedError(error))
             }
-        }
+//        }
     }
 }
 
