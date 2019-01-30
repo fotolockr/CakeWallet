@@ -4,6 +4,7 @@ import FlexLayout
 final class SendView: BaseScrollFlexViewWithBottomSection {
     let cardView: CardView
     let addressView: AddressView
+    let takeFromAddressBookButton: Button
     let paymentIdTextField: UITextField
     let pastPaymentIDButton: PasteButton
     let paymentIdContainer: UIView
@@ -26,8 +27,9 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     required init() {
         cardView = CardView()
         addressView = AddressView()
+        takeFromAddressBookButton = SecondaryButton(title: NSLocalizedString("A", comment: ""))
         paymentIdTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Payment ID", comment: ""), isOptional: true)
-        pastPaymentIDButton = PasteButton(pastable: paymentIdTextField)
+        pastPaymentIDButton =  PasteButton(pastable: paymentIdTextField)
         paymentIdContainer = UIView()
         cryptoAmountTextField = FloatingLabelTextField(placeholder: "CRT")
         fiatAmountTextField = FloatingLabelTextField(placeholder: "FIAT")
@@ -49,10 +51,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     
     override func configureView() {
         super.configureView()
-//        isOpaque = true
-//        backgroundColor = .clear
         addressView.textView.delegate = self
-//        rootFlexContainer.backgroundColor = .clear
         estimatedFeeValueLabel.numberOfLines = 0
         estimatedFeeValueLabel.textAlignment = .right
         cryptoAmountTitleLabel.textColor = .vividBlue
