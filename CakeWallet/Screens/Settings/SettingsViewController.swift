@@ -229,7 +229,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     private var sections: [SettingsSections: [CellAnyItem]]
     private let backupService: BackupServiceImpl
     private var masterPassword: String {
-        return UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.masterPassword) ?? ""
+        return try! KeychainStorageImpl.standart.fetch(forKey: .masterPassword)
     }
     
     init(store: Store<ApplicationState>, settingsFlow: SettingsFlow?, backupService: BackupServiceImpl) {

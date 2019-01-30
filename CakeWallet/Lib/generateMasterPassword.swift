@@ -1,6 +1,14 @@
 import UIKit
+import CakeWalletLib
+import CakeWalletCore
 
-func generateMasterPassword() {
+func generateMasterPassword(keychain: KeychainStorage = KeychainStorageImpl.standart) {
     let newPassword = UUID().uuidString
-    UserDefaults.standard.set(newPassword, forKey: Configurations.DefaultsKeys.masterPassword)
+    
+    do {
+        try keychain.set(value: newPassword, forKey: .masterPassword)
+        UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.masterPassword)
+    } catch {
+        print(error)
+    }
 }

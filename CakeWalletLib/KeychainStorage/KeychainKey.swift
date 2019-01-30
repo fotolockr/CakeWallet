@@ -9,6 +9,7 @@ public enum KeychainKey {
     case seed(WalletIndex)
     case isNew(WalletIndex)
     case isWatchOnly(WalletIndex)
+    case masterPassword
     
     public var patch: String {
         switch self {
@@ -22,6 +23,8 @@ public enum KeychainKey {
             return formattedIsNewKey(forWalletName: index.name, andType: index.type)
         case let .isWatchOnly(index):
             return formattedWalletIsWatchOnlyKey(forWalletName: index.name, andType: index.type)
+        case .masterPassword:
+            return "master_password"
         }
     }
     

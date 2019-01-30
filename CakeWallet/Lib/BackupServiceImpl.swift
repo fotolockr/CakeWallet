@@ -91,7 +91,9 @@ final class BackupServiceImpl: BackupService {
         }
         
         let pin = try keychain.fetch(forKey: .pinCode)
+        let masterPassword = try keychain.fetch(forKey: .masterPassword)
         let json = JSON(["pin": pin,
+                         "master_password": masterPassword,
                          "wallets": walletsInfo])
         
         return try json.rawData()
@@ -112,7 +114,9 @@ final class BackupServiceImpl: BackupService {
         }
         
         let pin = try keychain.fetch(forKey: .pinCode)
+        let masterPassword = try keychain.fetch(forKey: .masterPassword)
         let json = JSON(["pin": pin,
+                         "master_password": masterPassword,
                          "wallets": walletsInfo])
         
         try json.rawData().write(to: url)
@@ -138,15 +142,19 @@ final class BackupServiceImpl: BackupService {
         }
         
         let pin = json["pin"].stringValue
+        let masterPassword = json["master_password"].stringValue
         try keychain.set(value: pin, forKey: .pinCode)
+        try keychain.set(value: masterPassword, forKey: .masterPassword)
     }
     
     func exportUserSettings() throws -> Data {
         let currentWalletName = UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.currentWalletName) ?? ""
         let walletsDirectoryPathMigrated = UserDefaults.standard.bool(forKey:   Configurations.DefaultsKeys.walletsDirectoryPathMigrated)
+        let isMasterPasswordSet = UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.masterPassword)
         let dic = [
             Configurations.DefaultsKeys.currentWalletName.string(): currentWalletName,
-            Configurations.DefaultsKeys.walletsDirectoryPathMigrated.string(): walletsDirectoryPathMigrated] as [String : Any]
+            Configurations.DefaultsKeys.walletsDirectoryPathMigrated.string(): walletsDirectoryPathMigrated,
+            Configurations.DefaultsKeys.masterPassword.string(): isMasterPasswordSet] as [String : Any]
         let json = JSON(dic)
         
         return try json.rawData()
@@ -156,7 +164,11 @@ final class BackupServiceImpl: BackupService {
         let data = try Data(contentsOf: url)
         let json = try JSON(data: data)
         let walletName = json[Configurations.DefaultsKeys.currentWalletName.string()].stringValue
+        let walletsDirectoryPathMigrated = json[Configurations.DefaultsKeys.walletsDirectoryPathMigrated.string()].stringValue
+        let isMasterPasswordSet = json[Configurations.DefaultsKeys.masterPassword.string()].stringValue
         UserDefaults.standard.set(walletName, forKey: Configurations.DefaultsKeys.currentWalletName)
+        UserDefaults.standard.set(walletsDirectoryPathMigrated, forKey: Configurations.DefaultsKeys.walletsDirectoryPathMigrated)
+        UserDefaults.standard.set(isMasterPasswordSet, forKey: Configurations.DefaultsKeys.masterPassword)
     }
     
     private func encrypt(at url: URL, withPassword password: String, andSalt salt: String) throws -> Data {

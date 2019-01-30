@@ -61,9 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let termsOfUseAccepted = UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.termsOfUseAccepted)
         let pin = try? KeychainStorageImpl.standart.fetch(forKey: .pinCode)
         
-        let mpass = UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.masterPassword)
-        
-        if mpass == nil || mpass!.isEmpty {
+        if !UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.masterPassword) {
             generateMasterPassword()
         }
 

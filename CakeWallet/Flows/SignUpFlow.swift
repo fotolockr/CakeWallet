@@ -9,9 +9,6 @@ final class SignUpFlow: Flow {
         case newWallet
         case setupPin(((SignUpFlow) -> Void)?)
         case createWallet
-        case restore
-        case restoreFromSeed
-        case restoreFromKeys
         case restoreFromCloud
         case seed(Date, String, String)
     }
@@ -65,12 +62,6 @@ final class SignUpFlow: Flow {
             let restoreFromCloudVC = RestoreFromCloudVC(backup: BackupServiceImpl(), storage: ICloudStorage())
             restoreFromCloudVC.doneHandler = doneHandler
             return restoreFromCloudVC
-        case .restore:
-            return UIViewController()
-        case .restoreFromSeed:
-            return UIViewController()
-        case .restoreFromKeys:
-            return UIViewController()
         }
     }
 }
