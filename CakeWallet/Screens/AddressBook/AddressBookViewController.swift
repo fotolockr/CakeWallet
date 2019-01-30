@@ -220,23 +220,25 @@ extension Contact: CellItem {
 }
 
 final class AddressBookViewController: BaseViewController<AddressBookView>, UITableViewDelegate, UITableViewDataSource {
-    let addressBoook: AddressBook
+    let addressBook: AddressBook
     let store: Store<ApplicationState>
+    let isReadOnly: Bool?
+    var doneHandler: ((String) -> Void)?
     
     private var contacts: [Contact]
     
-    init(addressBoook: AddressBook, store: Store<ApplicationState>) {
-        self.addressBoook = addressBoook
+    init(addressBook: AddressBook, store: Store<ApplicationState>, isReadOnly: Bool?) {
+        self.addressBook = addressBook
         self.store = store
-        contacts = addressBoook.all()
+        self.isReadOnly = isReadOnly
+        contacts = addressBook.all()
         super.init()
     }
     
     override func configureBinds() {
         super.configureBinds()
         title = "Address Book"
-        let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addNewAddressItem))
-        navigationItem.rightBarButtonItems = [addButton]
+
         contentView.table.delegate = self
         contentView.table.dataSource = self
         contentView.table.register(items: [Contact.self])
@@ -245,11 +247,33 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refreshContacts()
+        
+        let isModal = self.isModal
+        renderActionButtons(for: isModal)
+    }
+    
+    private func renderActionButtons(for isModal: Bool) {
+        if !isModal {
+            let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addNewAddressItem))
+            navigationItem.rightBarButtonItems = [addButton]
+        } else {
+            let doneButton = StandartButton.init(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 12, height: 12)))
+            doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
+            doneButton.addTarget(self, action: #selector(dismissAction), for: .touchUpInside)
+            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: doneButton)
+        }
     }
     
     private func refreshContacts() {
-        contacts = addressBoook.all()
+        contacts = addressBook.all()
         contentView.table.reloadData()
+    }
+    
+    @objc
+    private func dismissAction() {
+        dismiss(animated: true) { [weak self] in
+            self?.onDismissHandler?()
+        }
     }
     
     @objc
@@ -280,23 +304,28 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = contacts[indexPath.row]
         
-        showInfo(
-            title: contact.name,
-            message: contact.address,
-            actions: [
-                CWAlertAction(title: "Send", handler: { action in
-                    action.alertView?.dismiss(animated: true) {
-                        let sendVC = SendViewController(store: self.store, address: contact.address)
-                        let sendNavigation = UINavigationController(rootViewController: sendVC)
-                        self.present(sendNavigation, animated: true)
-                    }
-                }),
-                CWAlertAction(title: "Copy", handler: { action in
-                    UIPasteboard.general.string = contact.address
-                    action.alertView?.dismiss(animated: true)
-                })
-            ]
-        )
+        if let isReadOnly = self.isReadOnly, isReadOnly {
+            dismissAction()
+            doneHandler?(contact.address)
+        } else {
+            showInfo(
+                title: contact.name,
+                message: contact.address,
+                actions: [
+                    CWAlertAction(title: "Send", handler: { action in
+                        action.alertView?.dismiss(animated: true) {
+                            let sendVC = SendViewController(store: self.store, address: contact.address)
+                            let sendNavigation = UINavigationController(rootViewController: sendVC)
+                            self.present(sendNavigation, animated: true)
+                        }
+                    }),
+                    CWAlertAction(title: "Copy", handler: { action in
+                        UIPasteboard.general.string = contact.address
+                        action.alertView?.dismiss(animated: true)
+                    })
+                ]
+            )
+        }
     }
     
     @available(iOS 11.0, *)
@@ -307,8 +336,8 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
             }
             
             do {
-                try self?.addressBoook.delete(for: uuid)
-                self?.contacts = self?.addressBoook.all() ?? []
+                try self?.addressBook.delete(for: uuid)
+                self?.contacts = self?.addressBook.all() ?? []
                 self?.contentView.table.reloadData()
             } catch {
                 self?.showError(error: error)

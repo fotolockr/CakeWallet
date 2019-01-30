@@ -56,7 +56,7 @@ final class SettingsFlow: Flow {
             let termsViewController = TermsViewController()
             navigationController.pushViewController(termsViewController, animated: true)
         case .addressBook:
-            let addressBook = AddressBookViewController(addressBoook: AddressBook.shared, store: store)
+            let addressBook = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: false)
             navigationController.pushViewController(addressBook, animated: true)
         }
     }

@@ -95,6 +95,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     
     override func configureBinds() {
         title = NSLocalizedString("send", comment: "")
+        contentView.takeFromAddressBookButton.addTarget(self, action: #selector(takeFromAddressBook), for: .touchUpInside)
         contentView.sendAllButton.addTarget(self, action: #selector(setAllAmount), for: .touchUpInside)
         contentView.cryptoAmountTextField.addTarget(self, action: #selector(onCryptoValueChange(_:)), for: .editingChanged)
         contentView.fiatAmountTextField.addTarget(self, action: #selector(onFiatValueChange(_:)), for: .editingChanged)
@@ -180,6 +181,16 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     
     func getCrypto(for addressView: AddressView) -> CryptoCurrency {
         return .monero
+    }
+    
+    @objc
+    private func takeFromAddressBook() {
+        let addressBookVC = AddressBookViewController(addressBook: AddressBook.shared, store: self.store, isReadOnly: true)
+        addressBookVC.doneHandler = { [weak self] address in
+            self?.contentView.addressView.textView.changeText(address)
+        }
+        let sendNavigation = UINavigationController(rootViewController: addressBookVC)
+        self.present(sendNavigation, animated: true)
     }
     
     @objc
@@ -315,7 +326,6 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
             title: NSLocalizedString("creating_transaction", comment: ""),
             message: NSLocalizedString("confirm_sending", comment: ""),
             actions: [sendAction, CWAlertAction.cancelAction]) { alert in
-            
         }
     }
     
