@@ -23,7 +23,11 @@ final class AddressView: BaseFlexView {
     let textView: FloatingLabelTextView
     let qrScanButton: UIButton?
     let pasteButton: PasteButton
+    let addressBookButton: SecondaryButton
     let container: UIView
+    let buttonsWrapper: UIView
+    let firstButtonWrapper: UIView
+    let lastButtonsWrapper: UIView
     
     weak var presenter: UIViewController?
     weak var updateResponsible: QRUriUpdateResponsible?
@@ -42,6 +46,10 @@ final class AddressView: BaseFlexView {
             .resized(to: CGSize(width: 16, height: 16)))
         pasteButton = PasteButton(pastable: textView)
         container = UIView()
+        buttonsWrapper = UIView()
+        firstButtonWrapper = UIView()
+        lastButtonsWrapper = UIView()
+        addressBookButton = SecondaryButton(title: "A")
         super.init()
     }
     
@@ -54,6 +62,10 @@ final class AddressView: BaseFlexView {
             : nil
         pasteButton = PasteButton(pastable: textView)
         container = UIView()
+        buttonsWrapper = UIView()
+        firstButtonWrapper = UIView()
+        lastButtonsWrapper = UIView()
+        addressBookButton = SecondaryButton(title: "A")
         super.init()
     }
     
@@ -62,17 +74,35 @@ final class AddressView: BaseFlexView {
         textView.isScrollEnabled = false
         backgroundColor = .clear
         qrScanButton?.addTarget(self, action: #selector(scanQr), for: .touchUpInside)
+        addressBookButton.addTarget(self, action: #selector(fromAddressBook), for: .touchUpInside)
     }
     
     override func configureConstraints() {
-        rootFlexContainer.flex.direction(.row).backgroundColor(.clear).define { flex in
-            flex.addItem(textView).grow(1).height(56)
-            
+        firstButtonWrapper.flex.define { flex in
+            flex.addItem(pasteButton).height(40).width(40)
+        }
+        
+        lastButtonsWrapper.flex.alignItems(.center).define { flex in
             if let qrScanButton = qrScanButton {
-                flex.addItem(qrScanButton).height(40).width(40).margin(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
+                flex.addItem(qrScanButton).height(40).width(40).margin(UIEdgeInsets(top: 0, left: 10, bottom: 8, right: 0))
             }
             
-            flex.addItem(pasteButton).height(40).width(40)
+            flex.addItem(addressBookButton).height(40).width(40).marginLeft(10)
+        }
+        
+        rootFlexContainer.flex.direction(.row).justifyContent(.spaceBetween).backgroundColor(.clear).define { flex in
+            flex.addItem(textView).grow(1).height(56)
+            
+            flex.addItem(buttonsWrapper).define({ wrapperFlex in
+                wrapperFlex
+                    .direction(.row)
+                    .justifyContent(.spaceBetween)
+                    .alignItems(.start)
+                    .marginLeft(10)
+                    .addItem(firstButtonWrapper)
+                    
+                wrapperFlex.addItem(lastButtonsWrapper)
+            })
         }
     }
     
@@ -107,6 +137,16 @@ final class AddressView: BaseFlexView {
         
         QRReaderVC.modalPresentationStyle = .overFullScreen
         presenter?.parent?.present(QRReaderVC, animated: true)
+    }
+    
+    @objc
+    private func fromAddressBook() {
+        let addressBookVC = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: true)
+        addressBookVC.doneHandler = { [weak self] address in
+            self?.textView.changeText(address)
+        }
+        let sendNavigation = UINavigationController(rootViewController: addressBookVC)
+        presenter?.present(sendNavigation, animated: true)
     }
     
     private func updateAddress(from uri: QRUri) {

@@ -34,7 +34,7 @@ final class DashboardFlow: Flow {
         case .receive:
             presentReceive()
         case .send:
-            let sendViewController = SendViewController(store: store)
+            let sendViewController = SendViewController(store: store, address: nil)
             let navController = UINavigationController(rootViewController: sendViewController)
             presentPopup(navController)
         case .wallets:

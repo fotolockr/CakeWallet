@@ -50,7 +50,9 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
     
     @objc
     private func recoverWalletAction() {
-        restoreWalletFlow?.change(route: .root)
+        signUpFlow?.change(route: .setupPin({ [weak self] _  in
+            self?.restoreWalletFlow?.change(route: .root)
+        }))
     }
     
     @objc

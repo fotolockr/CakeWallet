@@ -4,8 +4,11 @@ import FlexLayout
 final class NewAddressView: BaseFlexView {
     let cardView: UIView
     let contactNameTextField: UITextField
+    
+    let addressView: AddressView
+    
     let saveButton: UIButton
-    let resetSettings: UIButton
+    let resetButton: UIButton
     let buttonsContainer: UIView
     
     let pickerView: UIPickerView
@@ -14,32 +17,34 @@ final class NewAddressView: BaseFlexView {
     required init() {
         cardView = CardView()
         contactNameTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Contact Name", comment: ""))
+        
+        addressView = AddressView()
+        
         saveButton = PrimaryButton(title: NSLocalizedString("save", comment: ""))
-        resetSettings = SecondaryButton(title: NSLocalizedString("reset", comment: ""))
+        resetButton = SecondaryButton(title: NSLocalizedString("reset", comment: ""))
         buttonsContainer = UIView()
         
         pickerView = UIPickerView()
-        pickerTextField = UITextField()
+        pickerTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Select cryptocurrency", comment: ""))
         pickerTextField.inputView = pickerView
-        pickerTextField.placeholder = "Select Crypto"
         
         super.init()
     }
     
     override func configureView() {
         super.configureView()
+        addressView.textView.delegate = self
     }
     
     override func configureConstraints() {
         cardView.flex.padding(20).justifyContent(.spaceBetween).define { flex in
-            flex.addItem(contactNameTextField).height(50).marginTop(10)
+            flex.addItem(contactNameTextField).height(50)
             flex.addItem(pickerTextField).height(50).marginTop(10)
+            flex.addItem(addressView).marginTop(10)
         }
         
         buttonsContainer.flex.direction(.row).justifyContent(.spaceBetween).define { flex in
-            flex.addItem(resetSettings).height(56).width(45%)
-            flex.addItem(saveButton).height(56).width(45%)
-            flex.addItem(saveButton).height(56).width(45%)
+            flex.addItem(resetButton).height(56).width(45%)
             flex.addItem(saveButton).height(56).width(45%)
         }
         
