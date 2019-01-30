@@ -2,7 +2,6 @@ import UIKit
 import CakeWalletLib
 import CakeWalletCore
 
-
 final class NewAddressViewController: BaseViewController<NewAddressView>, UIPickerViewDataSource, UIPickerViewDelegate {
     let addressBoook: AddressBook
     
@@ -14,6 +13,9 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     override func viewDidLoad() {
         contentView.pickerView.delegate = self
         contentView.pickerView.dataSource = self
+        
+        contentView.pickerView.selectRow(0, inComponent: 0, animated: true)
+        contentView.pickerTextField.text = CryptoCurrency.all[0].formatted()
     }
     
     override func configureBinds() {
@@ -27,14 +29,17 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     func resetAction() {
         contentView.contactNameTextField.text = ""
         contentView.pickerTextField.text = ""
-        contentView.addressTextField.text = ""
+        contentView.addressView.textView.text = ""
     }
     
     @objc
     func saveAction() {
         if let name = contentView.contactNameTextField.text,
-            let address = contentView.addressTextField.text,
+            let address = contentView.addressView.textView.text,
             let typeText = contentView.pickerTextField.text,
+            name.count > 0,
+            address.count > 0,
+            typeText.count > 0,
             let type = CryptoCurrency(from: typeText) {
             let newContact = Contact(type: type, name: name, address: address)
             

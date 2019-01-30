@@ -4,7 +4,9 @@ import FlexLayout
 final class NewAddressView: BaseFlexView {
     let cardView: UIView
     let contactNameTextField: UITextField
-    let addressTextField: UITextField
+    
+    let addressView: AddressView
+    
     let saveButton: UIButton
     let resetButton: UIButton
     let buttonsContainer: UIView
@@ -15,7 +17,9 @@ final class NewAddressView: BaseFlexView {
     required init() {
         cardView = CardView()
         contactNameTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Contact Name", comment: ""))
-        addressTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Address", comment: ""))
+        
+        addressView = AddressView()
+        
         saveButton = PrimaryButton(title: NSLocalizedString("save", comment: ""))
         resetButton = SecondaryButton(title: NSLocalizedString("reset", comment: ""))
         buttonsContainer = UIView()
@@ -29,13 +33,14 @@ final class NewAddressView: BaseFlexView {
     
     override func configureView() {
         super.configureView()
+        addressView.textView.delegate = self
     }
     
     override func configureConstraints() {
         cardView.flex.padding(20).justifyContent(.spaceBetween).define { flex in
             flex.addItem(contactNameTextField).height(50)
             flex.addItem(pickerTextField).height(50).marginTop(10)
-            flex.addItem(addressTextField).height(50).marginTop(10)
+            flex.addItem(addressView).marginTop(10)
         }
         
         buttonsContainer.flex.direction(.row).justifyContent(.spaceBetween).define { flex in

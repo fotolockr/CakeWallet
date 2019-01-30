@@ -1,5 +1,6 @@
 import UIKit
 import CakeWalletLib
+import CakeWalletCore
 import FlexLayout
 import SwiftyJSON
 
@@ -33,7 +34,7 @@ extension Contact: JSONConvertable {
     }
     
     func toJSON() -> JSON {
-        return JSON(["name": name, "type": type.formatted(), "address": address])
+        return JSON(["uuid": uuid, "name": name, "type": type.formatted(), "address": address])
     }
 }
 
@@ -73,12 +74,12 @@ class AddressBook {
     }
     
     func addOrUpdate(contact: Contact) throws {
-        let isExist = json.arrayValue
+        let doesExist = json.arrayValue
             .filter({ $0[contact.primaryKey].stringValue == contact.uuid })
             .first != nil
         let updatedJson: JSON
         
-        if isExist {
+        if doesExist {
             updatedJson = JSON(json.arrayValue.map({ json -> JSON in
                 let currentUuid = json[contact.primaryKey].stringValue
                 
@@ -95,15 +96,27 @@ class AddressBook {
         
         try save(json: updatedJson)
         json = updatedJson
-        print("updatedJson \(updatedJson)")
-        print("json \(json)")
+    }
+    
+    func delete(for uuid: String) throws {
+        let updatedJson = JSON(json.arrayValue.filter({ json -> Bool in
+            let contactUuid = json["uuid"].stringValue
+
+            if contactUuid != uuid {
+                return true
+            }
+            
+            return false
+        }))
+        
+        try save(json: updatedJson)
+        json = updatedJson
     }
     
     private func save(json: JSON) throws {
         try json.rawData().write(to: AddressBook.url)
     }
 }
-
 
 
 final class AddressTableCell: FlexCell {
@@ -208,11 +221,13 @@ extension Contact: CellItem {
 
 final class AddressBookViewController: BaseViewController<AddressBookView>, UITableViewDelegate, UITableViewDataSource {
     let addressBoook: AddressBook
+    let store: Store<ApplicationState>
     
     private var contacts: [Contact]
     
-    init(addressBoook: AddressBook) {
+    init(addressBoook: AddressBook, store: Store<ApplicationState>) {
         self.addressBoook = addressBoook
+        self.store = store
         contacts = addressBoook.all()
         super.init()
     }
@@ -244,10 +259,12 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     
     @objc
     private func copyAction() {
-        showInfo(title: NSLocalizedString("copied", comment: ""), withDuration: 1, actions: [])
+        showInfo(title: NSLocalizedString("copied", comment: ""), withDuration: 1, actions: [CWAlertAction.okAction])
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableView.backgroundView = contacts.count == 0 ? createNoDataLabel(with: tableView.bounds.size) : nil
+        tableView.separatorStyle = .none
         return contacts.count
     }
     
@@ -265,15 +282,51 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
         
         showInfo(
             title: contact.name,
-            message: "hash",
+            message: contact.address,
             actions: [
                 CWAlertAction(title: "Send", handler: { action in
-                    action.alertView?.dismiss(animated: true)
+                    action.alertView?.dismiss(animated: true) {
+                        let sendVC = SendViewController(store: self.store, address: contact.address)
+                        let sendNavigation = UINavigationController(rootViewController: sendVC)
+                        self.present(sendNavigation, animated: true)
+                    }
                 }),
                 CWAlertAction(title: "Copy", handler: { action in
-                    UIPasteboard.general.string = "hash"
+                    UIPasteboard.general.string = contact.address
                     action.alertView?.dismiss(animated: true)
                 })
-            ])
+            ]
+        )
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction =  UIContextualAction(style: .destructive, title: "Files", handler: { [weak self] (action,view,completionHandler ) in
+            guard let uuid = self?.contacts[indexPath.row].uuid else {
+                return
+            }
+            
+            do {
+                try self?.addressBoook.delete(for: uuid)
+                self?.contacts = self?.addressBoook.all() ?? []
+                self?.contentView.table.reloadData()
+            } catch {
+                self?.showError(error: error)
+            }
+        })
+        
+        deleteAction.image = UIImage(named: "garbage")
+        
+        let confrigation = UISwipeActionsConfiguration(actions: [deleteAction])
+        return confrigation
+    }
+    
+    private func createNoDataLabel(with size: CGSize) -> UIView {
+        let noDataLabel: UILabel = UILabel(frame: CGRect(origin: .zero, size: size))
+        noDataLabel.text = "No contacts yet"
+        noDataLabel.textColor = UIColor(hex: 0x9bacc5)
+        noDataLabel.textAlignment = .center
+        
+        return noDataLabel
     }
 }

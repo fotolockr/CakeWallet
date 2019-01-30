@@ -78,6 +78,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     private static let allSymbol = NSLocalizedString("all", comment: "")
     
     let store: Store<ApplicationState>
+    let address: String?
     var priority: TransactionPriority {
         return store.state.settingsState.transactionPriority
     }
@@ -86,8 +87,9 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         return store.state.balanceState.price
     }
     
-    init(store: Store<ApplicationState>) {
+    init(store: Store<ApplicationState>, address: String?) {
         self.store = store
+        self.address = address
         super.init()
     }
     
@@ -118,6 +120,14 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
                 withPriority: priority
             )
         )
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let address = self.address {
+            contentView.addressView.textView.changeText(address)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
