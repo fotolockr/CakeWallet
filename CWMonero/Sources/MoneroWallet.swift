@@ -248,7 +248,6 @@ public final class MoneroWallet: Wallet {
     }
     
     public func getTransactionKey(for transactionId: String) -> String {
-        print("transactionId \(transactionId)")
         return moneroAdapter.getTxKey(for: transactionId)
     }
     
