@@ -339,6 +339,22 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                         }
                     } catch {
                         alert.dismiss(animated: true) {
+                            if case ICloudStorageError.notEnabled = error {
+                                let openSettings = CWAlertAction(title: "Open settings", handler: { alert in
+                                    guard let url = URL(string: "App-prefs:root=CASTLE&path=STORAGE_AND_BACKUP"),
+                                        UIApplication.shared.canOpenURL(url) else {
+                                            return
+                                    }
+
+                                    UIApplication.shared.open(url, options: [:]) { _ in
+                                        alert.alertView?.dismiss(animated: true)
+                                    }
+                                })
+                                
+                                self?.showInfo(message: error.localizedDescription, actions: [.cancelAction, openSettings])
+                                return
+                            }
+                            
                             self?.showError(error: error)
                         }
                     }

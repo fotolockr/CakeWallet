@@ -1,13 +1,29 @@
 import Foundation
 
+enum ICloudStorageError: LocalizedError {
+    case notEnabled
+}
+
+extension ICloudStorageError  {
+     var errorDescription: String? {
+        switch self {
+        case .notEnabled:
+            return "iCloud is not enabled for this app. Please go to settings iCloud to enable it"
+        }
+    }
+}
+
 final class ICloudStorage: CloudStorage {
-    var containerUrl: URL? {
-        return FileManager.default.url(forUbiquityContainerIdentifier: nil)?
-            .appendingPathComponent("Documents")
+    func getContainerUrl() throws -> URL {
+        guard let containerUrl = FileManager.default.url(forUbiquityContainerIdentifier: nil) else {
+            throw ICloudStorageError.notEnabled
+        }
+        
+        return containerUrl.appendingPathComponent("Documents")
     }
     
     func write(data: Data, to path: String) throws {
-        let destination = containerUrl!.appendingPathComponent(path)
+        let destination = try getContainerUrl().appendingPathComponent(path)
         let success = FileManager.default.createFile(atPath: destination.path, contents: data, attributes: nil)
         
         if !success {
@@ -16,7 +32,7 @@ final class ICloudStorage: CloudStorage {
     }
     
     func uploadFile(from url: URL, to path: String) throws {
-        let destination = containerUrl!.appendingPathComponent(path)
+        let destination = try getContainerUrl().appendingPathComponent(path)
         try FileManager.default.copyItem(at: url, to: destination)
     }
     
@@ -25,14 +41,12 @@ final class ICloudStorage: CloudStorage {
     }
     
     func loadFile(withPath path: String, to url: URL) throws {
-        let icloudSourceURL = containerUrl!.appendingPathComponent(path)
+        let icloudSourceURL = try getContainerUrl().appendingPathComponent(path)
         try FileManager.default.copyItem(at: icloudSourceURL, to: url)
     }
     
     func getFilesList(for path: String) throws -> [URL] {
-        guard let containerUrl = containerUrl else {
-            return []
-        }
+        let containerUrl = try getContainerUrl()
         
         return try FileManager.default.contentsOfDirectory(at: containerUrl, includingPropertiesForKeys: nil, options: [])
     }

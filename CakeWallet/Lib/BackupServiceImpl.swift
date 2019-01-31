@@ -45,6 +45,17 @@ final class BackupServiceImpl: BackupService {
             try archive.addEntry(with: "user_settings.json", type: .file, uncompressedSize: userSettingsSize, provider: { (position, size) -> Data in
                 return (userSettingsData as Data)
             })
+            
+            let adressBookURL = documentsURL.appendingPathComponent("address_book.json")
+            
+            if
+                fileManager.fileExists(atPath: adressBookURL.path),
+                let addressBookData = NSData(contentsOf: adressBookURL) {
+                let addressBookSize = UInt32(addressBookData.length)
+                try archive.addEntry(with: adressBookURL.lastPathComponent, type: .file, uncompressedSize: addressBookSize, provider: { (position, size) -> Data in
+                    return (addressBookData as Data)
+                })
+            }
         }
         
         let encrypted = try encrypt(at: tmpURL, withPassword: password, andSalt: BackupServiceImpl.salt)
@@ -72,8 +83,10 @@ final class BackupServiceImpl: BackupService {
         try fileManager.unzipItem(at: tmpURL, to: documentsURL)
         let keychainDumpURL = documentsURL.appendingPathComponent("keychain.json")
         try importKeychain(from: keychainDumpURL)
+        try fileManager.removeItem(at: keychainDumpURL)
         let userSettingsURL = documentsURL.appendingPathComponent("user_settings.json")
         try importUserSettings(from: userSettingsURL)
+        try fileManager.removeItem(at: userSettingsURL)
     }
     
     func exportKeychainDump() throws -> Data {
