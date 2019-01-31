@@ -16,7 +16,7 @@ final class FromKeysKeysView: BaseFlexView {
         cardHolder = UIView()
         cardView = CardView()
         
-        addressView = AddressView(withQRScan: false)
+        addressView = AddressView(withQRScan: false, withAddressBook: false)
         viewKeyTextField = FloatingLabelTextView(placeholder: NSLocalizedString("view_key_(private)", comment: ""))
         spendKeyTextField = FloatingLabelTextView(placeholder: NSLocalizedString("spend_key_(private)", comment: ""))
         

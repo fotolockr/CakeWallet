@@ -381,11 +381,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 
                 self?.present(authVC, animated: true)
         })
-        
-        let addressBookCellItem = SettingsCellItem(title: "Address book", action: { [weak self] in
-            self?.settingsFlow?.change(route: .addressBook)
-        })
-        
+    
         sections[.wallets] = [
             fiatCurrencyCellItem,
             feePriorityCellItem
@@ -398,8 +394,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
 //            toggleNightModeCellItem
         ]
         sections[.advanced] = [
-            daemonSettingsCellItem,
-            addressBookCellItem
+            daemonSettingsCellItem
         ]
         sections[.backup] = [
             showMasterPasswordCellItem,

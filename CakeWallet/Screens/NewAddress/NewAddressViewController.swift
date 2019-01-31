@@ -4,9 +4,11 @@ import CakeWalletCore
 
 final class NewAddressViewController: BaseViewController<NewAddressView>, UIPickerViewDataSource, UIPickerViewDelegate {
     let addressBoook: AddressBook
+    let contact: Contact?
     
-    init(addressBoook: AddressBook) {
+    init(addressBoook: AddressBook, contact: Contact? = nil) {
         self.addressBoook = addressBoook
+        self.contact = contact
         super.init()
     }
     
@@ -16,6 +18,20 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
         
         contentView.pickerView.selectRow(0, inComponent: 0, animated: true)
         contentView.pickerTextField.text = CryptoCurrency.all[0].formatted()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let contact = self.contact {
+            if let coinTypeIndex = CryptoCurrency.all.firstIndex(of: contact.type) {
+                contentView.pickerTextField.text = contact.type.formatted()
+                contentView.pickerView.selectRow(coinTypeIndex, inComponent: 0, animated: true)
+            }
+            
+            contentView.contactNameTextField.text = contact.name
+            contentView.addressView.textView.changeText(contact.address)
+        }
     }
     
     override func configureBinds() {
@@ -41,10 +57,16 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
             address.count > 0,
             typeText.count > 0,
             let type = CryptoCurrency(from: typeText) {
-            let newContact = Contact(type: type, name: name, address: address)
+            var uuid: String?
+            
+            if let contact = self.contact {
+                uuid = contact.uuid
+            }
+           
+            let contact = Contact(uuid: uuid, type: type, name: name, address: address)
             
             do {
-                try addressBoook.addOrUpdate(contact: newContact)
+                try addressBoook.addOrUpdate(contact: contact)
                 navigationController?.popViewController(animated: true)
             } catch {
                 showInfo(title: "Error has occurred, please try again", actions: [CWAlertAction.okAction])

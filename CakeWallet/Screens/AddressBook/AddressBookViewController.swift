@@ -74,12 +74,12 @@ class AddressBook {
     }
     
     func addOrUpdate(contact: Contact) throws {
-        let doesExist = json.arrayValue
+        let isExist = json.arrayValue
             .filter({ $0[contact.primaryKey].stringValue == contact.uuid })
             .first != nil
         let updatedJson: JSON
         
-        if doesExist {
+        if isExist {
             updatedJson = JSON(json.arrayValue.map({ json -> JSON in
                 let currentUuid = json[contact.primaryKey].stringValue
                 
@@ -188,8 +188,13 @@ struct Contact {
     let name: String
     let address: String
     
-    init(uuid: String = UUID().uuidString, type: CryptoCurrency, name: String, address: String) {
-        self.uuid = uuid
+    init(uuid: String? = nil, type: CryptoCurrency, name: String, address: String) {
+        if let uuid = uuid {
+            self.uuid = uuid
+        } else {
+            self.uuid = UUID().uuidString
+        }
+        
         self.type = type
         self.name = name
         self.address = address
@@ -330,7 +335,20 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction =  UIContextualAction(style: .destructive, title: "Files", handler: { [weak self] (action,view,completionHandler ) in
+        let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { [weak self] (action, view, completionHandler ) in
+            guard let contact = self?.contacts[indexPath.row] else {
+                return
+            }
+            let newContactVC = NewAddressViewController(
+                addressBoook: AddressBook.shared,
+                contact: contact
+            )
+            self?.navigationController?.pushViewController(newContactVC, animated: true)
+        })
+        
+        editAction.image = UIImage(named: "edit_icon")
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] (action, view, completionHandler ) in
             guard let uuid = self?.contacts[indexPath.row].uuid else {
                 return
             }
@@ -344,9 +362,9 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
             }
         })
         
-        deleteAction.image = UIImage(named: "garbage")
+        deleteAction.image = UIImage(named: "trash_icon")
         
-        let confrigation = UISwipeActionsConfiguration(actions: [deleteAction])
+        let confrigation = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return confrigation
     }
     
