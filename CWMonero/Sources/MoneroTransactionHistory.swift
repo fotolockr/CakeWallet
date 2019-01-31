@@ -31,5 +31,5 @@ public final class MoneroTransactionHistory: TransactionHistory {
         }
         
         return transactions
-    }
+    }    
 }

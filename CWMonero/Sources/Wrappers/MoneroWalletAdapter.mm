@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "MoneroWalletAdapter.h"
-#import "wallet/api/wallet2_api.h"
+#import "wallet/api/wallet.h"
+#import "wallet/api/wallet.cpp"
 #import "MoneroWalletError.h"
 #import "MoneroPendingTransactionAdapter.mm"
 #import "crypto/hash.h"
@@ -501,6 +502,13 @@ public:
 - (Monero::TransactionHistory *)rawHistory
 {
     return member->wallet->history();
+}
+
+- (NSString *)getTxKeyFor: (NSString *)txId
+{
+    string txIdUTF8 = [txId UTF8String];
+    NSString *key = [NSString stringWithUTF8String: member->wallet->getTxKey(txIdUTF8).c_str()];
+    return key;
 }
 
 - (BOOL)setPassword:(NSString *) password error:(NSError **) error

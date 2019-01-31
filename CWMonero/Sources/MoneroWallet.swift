@@ -247,6 +247,10 @@ public final class MoneroWallet: Wallet {
         return self.moneroAdapter.integratedAddress(for: paymentId)
     }
     
+    public func getTransactionKey(for transactionId: String) -> String {
+        return moneroAdapter.getTxKey(for: transactionId)
+    }
+    
     public func rescan(from height: UInt64, node: NodeDescription) throws {
 //        let isRecovery = true
 //        MoneroWalletGateway().recoveryWallet(withName: name, andSeed: seed, password: "", restoreHeight: 0)
