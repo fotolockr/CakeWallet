@@ -12,7 +12,7 @@ struct TransactionDetailsCellItem: CellItem {
 }
 
 enum TransactionDetailsRows: Stringify {
-    case id, paymentId, date, amount, height, fee, exchangeID
+    case id, paymentId, date, amount, height, fee, exchangeID, transactionKey
     
     func string() -> String {
         switch self {
@@ -30,6 +30,8 @@ enum TransactionDetailsRows: Stringify {
             return  NSLocalizedString("fee", comment: "")
         case .exchangeID:
             return "Exchange ID"
+        case .transactionKey:
+            return "Transaction key"
         }
     }
 }
@@ -122,8 +124,7 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
         items.append(contentsOf: [
             TransactionDetailsCellItem(row: .date, value: dateFormatter.string(from: transactionDescription.date)),
             TransactionDetailsCellItem(row: .height, value: String(transactionDescription.height)),
-            TransactionDetailsCellItem(row: .amount, value: transactionDescription.totalAmount.formatted()),
-            
+            TransactionDetailsCellItem(row: .amount, value: transactionDescription.totalAmount.formatted())
             ])
         
         let fee = MoneroAmountParser.formatValue(transactionDescription.fee.value) ?? "0.0"
@@ -134,6 +135,12 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
         
         if let tradeID = ExchangeTransactions.shared.getTradeID(by: transactionDescription.id) {
             items.append(TransactionDetailsCellItem(row: .exchangeID, value: tradeID))
+        }
+        
+        if
+            let transactionKey = getTransactionKey(for: transactionDescription.id),
+            !transactionKey.isEmpty {
+            items.append(TransactionDetailsCellItem(row: .transactionKey , value: transactionKey))
         }
         
         contentView.table.reloadData()

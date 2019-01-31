@@ -67,6 +67,7 @@
 - (NSString *)printedBalance;
 - (NSString *)printedUnlockedBalance;
 - (NSString *)integratedAddressFor: (NSString *) paymentId;
+- (NSString *)getTxKeyFor: (NSString *)txId;
 - (BOOL)setPassword:(NSString *) password error:(NSError **) error;
 - (void)pauseRefresh;
 - (void)close;
