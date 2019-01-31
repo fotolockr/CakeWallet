@@ -7,6 +7,7 @@ final class FromSeedSeedView: BaseFlexView {
     let seedTextField: UITextField
     let nextButton: UIButton
     let actionButtonsContainer: UIView
+    let pasteButton: PasteButton
     
     required init() {
         cardHolder = UIView()
@@ -15,6 +16,7 @@ final class FromSeedSeedView: BaseFlexView {
         seedTextField = FloatingLabelTextField(placeholder: "Seed")
         nextButton = PrimaryButton(title: "Next")
         actionButtonsContainer = UIView()
+        pasteButton = PasteButton(pastable: seedTextField)
         
         super.init()
     }
@@ -24,8 +26,10 @@ final class FromSeedSeedView: BaseFlexView {
     }
     
     override func configureConstraints() {
-        cardView.flex.padding(UIEdgeInsets(top: 30, left: 20, bottom: 30, right: 20)).define { flex in
-            flex.addItem(seedTextField).height(50)
+        cardView.flex.direction(.row).justifyContent(.spaceBetween)
+            .padding(UIEdgeInsets(top: 30, left: 20, bottom: 30, right: 20)).define { flex in
+                flex.addItem(seedTextField).grow(1).height(50)
+                flex.addItem(pasteButton).width(40).height(40).marginLeft(10)
         }
         
         actionButtonsContainer.flex.justifyContent(.center).alignItems(.center).define { flex in

@@ -76,7 +76,8 @@ final class ReceiveViewController: BaseViewController<ReceiveView> {
                 action: #selector(shareAction)
             ),
             UIBarButtonItem(
-                barButtonSystemItem: .bookmarks,
+                image: UIImage(named: "subaddress_icon")?.resized(to: CGSize(width: 25, height: 25)),
+                style: .plain,
                 target: self,
                 action: #selector(presentSubaddresses)
             )

@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "garbage.png",
+      "filename" : "address_book_light_icon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "garbage@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "garbage@3x.png",
       "scale" : "3x"
     }
   ],

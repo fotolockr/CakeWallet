@@ -18,7 +18,7 @@ final class NewAddressView: BaseFlexView {
         cardView = CardView()
         contactNameTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Contact Name", comment: ""))
         
-        addressView = AddressView()
+        addressView = AddressView(withAddressBook: false)
         
         saveButton = PrimaryButton(title: NSLocalizedString("save", comment: ""))
         resetButton = SecondaryButton(title: NSLocalizedString("reset", comment: ""))

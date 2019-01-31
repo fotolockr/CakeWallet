@@ -8,7 +8,6 @@ final class SettingsFlow: Flow {
         case changePin
         case changeLanguage
         case terms
-        case addressBook
     }
     
     var rootController: UIViewController {
@@ -55,9 +54,6 @@ final class SettingsFlow: Flow {
         case .terms:
             let termsViewController = TermsViewController()
             navigationController.pushViewController(termsViewController, animated: true)
-        case .addressBook:
-            let addressBook = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: false)
-            navigationController.pushViewController(addressBook, animated: true)
         }
     }
     

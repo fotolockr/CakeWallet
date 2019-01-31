@@ -23,7 +23,7 @@ final class AddressView: BaseFlexView {
     let textView: FloatingLabelTextView
     let qrScanButton: UIButton?
     let pasteButton: PasteButton
-    let addressBookButton: SecondaryButton
+    let addressBookButton: UIButton?
     let container: UIView
     let buttonsWrapper: UIView
     let firstButtonWrapper: UIView
@@ -44,28 +44,28 @@ final class AddressView: BaseFlexView {
         textView = FloatingLabelTextView(placeholder: NSLocalizedString("address", comment: ""))
         qrScanButton = SecondaryButton(image: UIImage(named: "qr_icon")?
             .resized(to: CGSize(width: 16, height: 16)))
+        addressBookButton = SecondaryButton(image: UIImage(named: "address_book_light_icon")?.resized(to: CGSize(width: 20, height: 20)))
         pasteButton = PasteButton(pastable: textView)
         container = UIView()
         buttonsWrapper = UIView()
         firstButtonWrapper = UIView()
         lastButtonsWrapper = UIView()
-        addressBookButton = SecondaryButton(title: "A")
         super.init()
     }
     
-    
-    init(withQRScan showQRScanButton: Bool = true) {
+    init(withQRScan showQRScanButton: Bool = true, withAddressBook showAddressBookButton: Bool = true) {
         textView = FloatingLabelTextView(placeholder: NSLocalizedString("address", comment: ""))
+        addressBookButton = showAddressBookButton
+            ? SecondaryButton(image: UIImage(named: "address_book_light_icon")?.resized(to: CGSize(width: 20, height: 20)))
+            : nil
         qrScanButton = showQRScanButton
-            ? SecondaryButton(image: UIImage(named: "qr_icon")?
-                .resized(to: CGSize(width: 16, height: 16)))
+            ? SecondaryButton(image: UIImage(named: "qr_icon")?.resized(to: CGSize(width: 16, height: 16)))
             : nil
         pasteButton = PasteButton(pastable: textView)
         container = UIView()
         buttonsWrapper = UIView()
         firstButtonWrapper = UIView()
         lastButtonsWrapper = UIView()
-        addressBookButton = SecondaryButton(title: "A")
         super.init()
     }
     
@@ -74,7 +74,7 @@ final class AddressView: BaseFlexView {
         textView.isScrollEnabled = false
         backgroundColor = .clear
         qrScanButton?.addTarget(self, action: #selector(scanQr), for: .touchUpInside)
-        addressBookButton.addTarget(self, action: #selector(fromAddressBook), for: .touchUpInside)
+        addressBookButton?.addTarget(self, action: #selector(fromAddressBook), for: .touchUpInside)
     }
     
     override func configureConstraints() {
@@ -87,7 +87,9 @@ final class AddressView: BaseFlexView {
                 flex.addItem(qrScanButton).height(40).width(40).margin(UIEdgeInsets(top: 0, left: 10, bottom: 8, right: 0))
             }
             
-            flex.addItem(addressBookButton).height(40).width(40).marginLeft(10)
+            if let addressBookButton = addressBookButton {
+                flex.addItem(addressBookButton).height(40).width(40).marginLeft(10)
+            }
         }
         
         rootFlexContainer.flex.direction(.row).justifyContent(.spaceBetween).backgroundColor(.clear).define { flex in

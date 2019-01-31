@@ -6,6 +6,7 @@ final class DashboardFlow: Flow {
         case wallets
         case send
         case receive
+        case addressBook
     }
     
     var rootController: UIViewController {
@@ -39,7 +40,12 @@ final class DashboardFlow: Flow {
             presentPopup(navController)
         case .wallets:
             presentWallets()
+            
+        case .addressBook:
+            let addressBook = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: false)
+            navigationController.pushViewController(addressBook, animated: true)
         }
+
     }
     
     private func presentReceive() {

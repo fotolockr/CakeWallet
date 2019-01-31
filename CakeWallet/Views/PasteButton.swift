@@ -4,23 +4,11 @@ protocol Pastable: class {
     func paste(text: String)
 }
 
-//extension UITextView: Pastable {
-//    func paste(text: String) {
-//        changeText(text)
-//    }
-//}
-
 extension UITextField: Pastable {
     func paste(text: String) {
         self.text = text
     }
 }
-
-//extension FloatingLabelTextField: Pastable {
-//    func paste(text: String) {
-//        self.text = text
-//    }
-//}
 
 extension FloatingLabelTextView: Pastable {
     func paste(text: String) {

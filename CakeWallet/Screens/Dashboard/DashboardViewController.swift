@@ -9,12 +9,12 @@ extension TransactionDescription: CellItem {
     }
 }
 
-
 final class DashboardController: BaseViewController<DashboardView>, StoreSubscriber, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
     let navigationTitleView = WalletsNavigationTitle()
     weak var dashboardFlow: DashboardFlow?
     private var showAbleBalance: Bool
     private(set) var syncButton: UIBarButtonItem?
+    private(set) var addressBookButton: UIBarButtonItem?
     private var transactions: [TransactionDescription] = []
     private var initialHeight: UInt64
     private lazy var refreshControl: UIRefreshControl = {
@@ -64,16 +64,26 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             target: self,
             action: #selector(reconnectAction)
         )
-        navigationItem.rightBarButtonItem = syncButton
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.vividBlue
+        addressBookButton = UIBarButtonItem(
+            image: UIImage(named: "address_book_icon")?
+                .resized(to: CGSize(width: 24, height: 24)),
+            style: .plain,
+            target: self,
+            action: #selector(toAddressBookAction)
+        )
+        
+        syncButton?.tintColor = UIColor.vividBlue
+        addressBookButton?.tintColor = UIColor.vividBlue
+        
+        if let syncButton = syncButton,
+           let addressBookButton = addressBookButton{
+            navigationItem.rightBarButtonItems = [syncButton, addressBookButton]
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         store.subscribe(self)
-//        onStateChange(store.state)
-//        contentView.statusView.flex.markDirty()
-//        contentView.rootFlexContainer.flex.layout()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,8 +95,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         title = NSLocalizedString("wallet", comment: "")
     }
     
-    // MARK: StoreSubscriber
-    
     func onStateChange(_ state: ApplicationState) {
         updateStatus(state.blockchainState.connectionStatus)
         updateCryptoBalance(showAbleBalance ? state.balanceState.unlockedBalance : state.balanceState.balance)
@@ -95,8 +103,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         updateTransactions(state.transactionsState.transactions)
         updateInitialHeight(state.blockchainState)
     }
-    
-    // MARK: UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactions.count
@@ -135,8 +141,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-    
-    // MARK: UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {        
         guard scrollView.contentOffset.y > contentView.cardView.frame.height else {
@@ -177,24 +181,16 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         
         if case let .syncing(height) = blockchainState.connectionStatus {
             initialHeight = height
-        } else {
-//            initialHeight = blockchainState.currentHeight
         }
     }
     
     @objc
     private func presentReceive() {
         dashboardFlow?.change(route: .receive)
-//        let receiveViewController = ReceiveViewController(store: store, receiveFlow: nil)
-//        let navController = UINavigationController(rootViewController: receiveViewController)
-//        tabBarController?.presentWithBlur(navController, animated: true)
     }
     
     @objc
     private func presentSend() {
-//        let sendController = SendViewController(store: store)
-//        let navController = UINavigationController(rootViewController: sendController)
-//        tabBarController?.presentWithBlur(navController, animated: true)
         dashboardFlow?.change(route: .send)
     }
     
@@ -203,18 +199,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         let nav = UINavigationController(rootViewController: transactionDetailsViewController)
         tabBarController?.presentWithBlur(nav, animated: true)
     }
-    
-//    private func presentWallets() {
-//        let walletsViewController = WalletsViewController(store: store)
-//        let navController = UINavigationController(rootViewController: walletsViewController)
-//        walletsViewController.modalPresentationStyle = .overCurrentContext
-//        navigationItem.titleView?.isHidden = true
-//        walletsViewController.onDismissHandler = { [weak self] in
-//            self?.navigationItem.titleView?.isHidden = false
-//        }
-//        tabBarController?.presentWithBlur(navController, animated: true)
-//    }
-    
+ 
     private func updateSyncing(_ currentHeight: UInt64, blockchainHeight: UInt64) {
         if blockchainHeight < currentHeight || blockchainHeight == 0 {
             store.dispatch(BlockchainActions.fetchBlockchainHeight)
@@ -370,10 +355,12 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     @objc
+    private func toAddressBookAction() {
+        dashboardFlow?.change(route: .addressBook)
+    }
+    
+    @objc
     private func refresh(_ refreshControl: UIRefreshControl) {
         store.dispatch(TransactionsActions.forceUpdateTransactions)
-//        Dispatcher.standart.dispatch(TransactionsActions.standart.forceUpdateTransactions()) {
-//            refreshControl.endRefreshing()
-//        }
     }
 }
