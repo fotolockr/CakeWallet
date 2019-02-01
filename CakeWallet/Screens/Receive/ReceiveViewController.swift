@@ -61,6 +61,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView> {
         contentView.resetButton.addTarget(self, action: #selector(resetOptions), for: .touchUpInside)
         contentView.amountTextField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
         contentView.newPaymentId.addTarget(self, action: #selector(generatePaymentId), for: .touchUpInside)
+        contentView.subAdressButton.addTarget(self, action: #selector(presentSubaddresses), for: .touchUpInside)
         contentView.copyIntegratedButton.alertPresenter = self
         contentView.copyPaymentIdButton.alertPresenter = self
         switchOptionsButton()
@@ -74,12 +75,6 @@ final class ReceiveViewController: BaseViewController<ReceiveView> {
                 style: .plain,
                 target: self,
                 action: #selector(shareAction)
-            ),
-            UIBarButtonItem(
-                image: UIImage(named: "subaddress_icon")?.resized(to: CGSize(width: 25, height: 25)),
-                style: .plain,
-                target: self,
-                action: #selector(presentSubaddresses)
             )
         ]
         changeAddress(store.state.walletState.address)

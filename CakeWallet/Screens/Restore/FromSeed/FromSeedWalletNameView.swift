@@ -12,7 +12,7 @@ final class FromSeedWalletNameView: BaseFlexView {
         cardHolder = UIView()
         cardView = CardView()
         
-        walletNameTextField = FloatingLabelTextField(placeholder: "Wallet name")
+        walletNameTextField = FloatingLabelTextField(placeholder: NSLocalizedString("wallet_name", comment: ""))
         nextButton = PrimaryButton(title: "Next")
         actionButtonsContainer = UIView()
         

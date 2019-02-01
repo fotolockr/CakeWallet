@@ -6,6 +6,7 @@ final class ReceiveView: BaseScrollFlexView {
     let qrImage: UIImageView
     let addressLabel: UILabel
     let copyAddressButton: UIButton
+    let subAdressButton: TransparentButton
     let switchOptionsButton: UIButton
     let optionsView: UIView
     let amountTextField: UITextField
@@ -17,6 +18,10 @@ final class ReceiveView: BaseScrollFlexView {
     let paymentIdContainer: UIView
     let integratedAddressContainer: UIView
     let newPaymentId: UIButton
+    
+    let topSectionWrapper: UIView
+    let qrCodeWrapper: UIView
+    let subAddressesButtonWrapper: UIView
 
     required init() {
         cardView = CardView()
@@ -24,9 +29,14 @@ final class ReceiveView: BaseScrollFlexView {
         addressLabel = UILabel(fontSize: 14)
         copyAddressButton = PrimaryButton(title: NSLocalizedString("copy_address", comment: ""))
         switchOptionsButton = UIButton()
+        
+        subAdressButton = TransparentButton(image: UIImage(named: "subaddress_icon")?
+            .resized(to: CGSize(width: 38, height: 34))
+            .withRenderingMode(.alwaysTemplate))
+        
         optionsView = UIView()
         amountTextField = FloatingLabelTextField(placeholder: NSLocalizedString("amount", comment: ""), isOptional: true)
-            paymentIdTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Payment ID", comment: ""), isOptional: true)
+        paymentIdTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Payment ID", comment: ""), isOptional: true)
         integratedAddressTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Integrated address", comment: ""), isOptional: true)
         integratedAddressContainer = UIView()
         paymentIdContainer = UIView()
@@ -42,6 +52,11 @@ final class ReceiveView: BaseScrollFlexView {
                 .resized(to: CGSize(width: 16, height: 16))
                 .withRenderingMode(.alwaysTemplate)
         )
+        
+        topSectionWrapper = UIView()
+        qrCodeWrapper = UIView()
+        subAddressesButtonWrapper = UIView()
+        
         super.init()
     }
     
@@ -49,9 +64,6 @@ final class ReceiveView: BaseScrollFlexView {
         super.configureView()
         newPaymentId.titleLabel?.font = UIFont.systemFont(ofSize: 12) // fixme: hardcoded font family
         resetButton.titleLabel?.font = UIFont.systemFont(ofSize: 12) // fixme: hardcoded font family
-//        backgroundColor = .clear
-//        rootFlexContainer.backgroundColor = .clear
-//        isOpaque = true
         addressLabel.textAlignment = .center
         addressLabel.numberOfLines = 0
         amountTextField.keyboardType = .decimalPad
@@ -62,8 +74,14 @@ final class ReceiveView: BaseScrollFlexView {
     }
     
     override func configureConstraints() {
+   
+        topSectionWrapper.flex.direction(.row).justifyContent(.spaceBetween).alignItems(.start).width(100%).define {flex in
+            flex.addItem(qrCodeWrapper).alignItems(.center).width(100%).addItem(qrImage).size(CGSize(width: 150, height: 160)).marginTop(20)
+            flex.addItem(subAddressesButtonWrapper).position(.absolute).top(10).right(-10).addItem(subAdressButton)
+        }
+        
         paymentIdContainer.flex.direction(.row).justifyContent(.spaceBetween).alignItems(.center).define { flex in
-            flex.addItem(paymentIdTextField).marginTop(10).height(50).grow(1).marginRight(10)
+            flex.addItem(paymentIdTextField).marginTop(10).height(60).grow(1).marginRight(10)
             flex.addItem(newPaymentId).height(40).width(40).marginRight(10)
             flex.addItem(copyPaymentIdButton).height(40).width(40)
         }
@@ -79,8 +97,8 @@ final class ReceiveView: BaseScrollFlexView {
             flex.addItem(paymentIdContainer).marginTop(10).height(50)
         }
         
-        cardView.flex.alignItems(.center).padding(20, 20, 20, 20).define { flex in
-            flex.addItem(qrImage).size(CGSize(width: 160, height: 160))
+        cardView.flex.alignItems(.center).padding(5, 20, 20, 20).define { flex in
+            flex.addItem(topSectionWrapper)
             flex.addItem(addressLabel).marginTop(10)
             flex.addItem(copyAddressButton).marginTop(10).height(56).width(160)
             flex.addItem(optionsView).width(100%)

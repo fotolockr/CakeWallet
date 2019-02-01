@@ -28,11 +28,13 @@ final class FromKeysKeysView: BaseFlexView {
     
     override func configureView() {
         super.configureView()
+        addressView.textView.delegate = self
+        addressView.textView.isScrollEnabled = false
     }
     
     override func configureConstraints() {
         cardView.flex.padding(20).define { flex in
-            flex.addItem(addressView).height(50).marginTop(10)
+            flex.addItem(addressView).marginTop(10)
             flex.addItem(viewKeyTextField).height(70).marginTop(10)
             flex.addItem(spendKeyTextField).height(70).marginTop(10)
         }

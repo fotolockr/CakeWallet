@@ -276,6 +276,7 @@
 		6AE7241120DD5C5C003D6559 /* NodesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7241020DD5C5C003D6559 /* NodesList.swift */; };
 		6AF4786820C18CBE0072796B /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF4786720C18CBE0072796B /* AuthenticationViewController.swift */; };
 		6AFC5C7D20C2CDCE007DFB53 /* WalletFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */; };
+		A5280C3622047ADB00B1AE58 /* TransparentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5280C3522047ADB00B1AE58 /* TransparentButton.swift */; };
 		A5610DDE21FF032D00C38F99 /* NewAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5610DDC21FF032D00C38F99 /* NewAddressViewController.swift */; };
 		A5610DDF21FF032D00C38F99 /* NewAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5610DDD21FF032D00C38F99 /* NewAddressView.swift */; };
 		A5610DE121FF050600C38F99 /* RestoreWalletFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5610DE021FF050600C38F99 /* RestoreWalletFlow.swift */; };
@@ -723,6 +724,7 @@
 		6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletFlow.swift; sourceTree = "<group>"; };
 		6D019C5E8387F4D77238C508 /* Pods-CakeWalletLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWalletLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWalletLib/Pods-CakeWalletLib.release.xcconfig"; sourceTree = "<group>"; };
 		784D7BF72CC17977C433AE9E /* Pods_CWMonero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CWMonero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5280C3522047ADB00B1AE58 /* TransparentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentButton.swift; sourceTree = "<group>"; };
 		A5610DDC21FF032D00C38F99 /* NewAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressViewController.swift; sourceTree = "<group>"; };
 		A5610DDD21FF032D00C38F99 /* NewAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressView.swift; sourceTree = "<group>"; };
 		A5610DE021FF050600C38F99 /* RestoreWalletFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreWalletFlow.swift; sourceTree = "<group>"; };
@@ -1377,6 +1379,7 @@
 				640A2A9F21761C640047E60C /* CWAlertViewController.swift */,
 				640A2AA121761C870047E60C /* CWAlertView.swift */,
 				640A2AA321761D1E0047E60C /* CWAlertAction.swift */,
+				A5280C3522047ADB00B1AE58 /* TransparentButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2303,6 +2306,7 @@
 				6A4DB73C20C9A27100647F21 /* WelcomeView.swift in Sources */,
 				6A212D9C20DA9DCC00CD8594 /* UpdateEstimatedFeeEffect.swift in Sources */,
 				640A2AA821761DF40047E60C /* Mymonero.swift in Sources */,
+				A5280C3622047ADB00B1AE58 /* TransparentButton.swift in Sources */,
 				64BEB646210CDBFC00B63D67 /* ChangeLanguageViewController.swift in Sources */,
 				643062D520EC2FAB00853394 /* OnCurrentNodeChangeEffect.swift in Sources */,
 				A5680F4E21FF07B0005956DA /* FromSeedWalletNameView.swift in Sources */,

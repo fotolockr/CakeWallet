@@ -12,7 +12,7 @@ final class FromSeedSeedVC: BaseViewController<FromSeedSeedView> {
     }
     
     override func configureBinds() {
-        title = "Seed"
+        title = NSLocalizedString("seed", comment: "")
         contentView.nextButton.addTarget(self, action: #selector(nextStep), for: .touchUpInside)
         contentView.seedTextField.text = wizzardStore.state.seed
         super.configureBinds()
