@@ -379,7 +379,81 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                     }
                 }
                 
-                self?.present(authVC, animated: true)
+                let authNavVC = UINavigationController(rootViewController: authVC)
+                self?.present(authNavVC, animated: true)
+        })
+        let autoBackupSwitcher = SettingsSwitchCellItem(
+            title: "Auto backup",
+            isOn: UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
+        ) { isEnabled, _ in
+            UserDefaults.standard.set(isEnabled, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
+            
+            if isEnabled {
+                autoBackup()
+            }
+        }
+        let changeMasterPassword = SettingsCellItem(
+            title: "Change master password",
+            action: { [weak self] in
+                let changeAction = CWAlertAction(title: "Change", handler: { alert in
+                    alert.alertView?.dismiss(animated: true) {
+                        let authVC = AuthenticationViewController(store: self!.store, authentication: AuthenticationImpl())
+                        authVC.handler = { [weak self, weak authVC] in
+                            authVC?.dismiss(animated: true) {
+                                let changePassword: (String, (() -> Void)?) -> Void = { password, handler in
+                                    let keychainStorage = KeychainStorageImpl.standart
+                                    do {
+                                        try keychainStorage.set(value: password, forKey: .masterPassword)
+                                        handler?()
+                                        autoBackup(force: true) { error in
+                                            if let error = error {
+                                                self?.dismissAlert({
+                                                    self?.showError(error: error)
+                                                })
+                                            }
+                                        }
+                                    } catch {
+                                        self?.showError(error: error)
+                                    }
+                                }
+                                let alert = UIAlertController(title: "Change master password", message: "Enter new password", preferredStyle: .alert)
+                                
+                                alert.addTextField { textField in
+                                    textField.isSecureTextEntry = true
+                                }
+                                
+                                alert.addAction(UIAlertAction(title: "Generate new", style: .default, handler: { _ in
+                                    let password = UUID().uuidString
+                                    changePassword(password) {
+                                        let copyAction = CWAlertAction(title: "Copy", handler: { [weak self] action in
+                                            action.alertView?.dismiss(animated: true) {
+                                                UIPasteboard.general.string = self?.masterPassword
+                                            }
+                                        })
+                                        
+                                        self?.showInfo(title: "Master password", message: "Master password has changed successfuly!\nYour new master password: \(password)", actions: [.okAction, copyAction])
+                                    }
+                                }))
+                                
+                                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] _ in
+                                    guard let password = alert?.textFields?.first?.text else {
+                                        return
+                                    }
+                                    
+                                    changePassword(password) {
+                                        self?.showInfo(title: "Master password", message: "Master password has changed successfuly", actions: [.okAction])
+                                    }
+                                }))
+                                
+                                self?.present(alert, animated: true)
+                            }
+                        }
+                        
+                        let authNavVC = UINavigationController(rootViewController: authVC)
+                        self?.present(authNavVC, animated: true)
+                    }
+                })
+                self?.showInfo(title: "Master password", message: "After you will change the master password your previous backups will not be working with your new master password!", actions: [.cancelAction, changeAction])
         })
     
         sections[.wallets] = [
@@ -398,7 +472,9 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         ]
         sections[.backup] = [
             showMasterPasswordCellItem,
-            createBackupCellItem
+            changeMasterPassword,
+            createBackupCellItem,
+            autoBackupSwitcher
         ]
         
         

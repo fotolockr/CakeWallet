@@ -5,6 +5,8 @@ import IQKeyboardManagerSwift
 import ZIPFoundation
 import CryptoSwift
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -63,6 +65,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if !UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.masterPassword) {
             generateMasterPassword()
+        }
+        
+        if UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.isAutoBackupEnabled) {
+            let backupService = BackupServiceImpl()
+            let icloudStorage = ICloudStorage()
+            autoBackup()
         }
 
         if !UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.walletsDirectoryPathMigrated) {
