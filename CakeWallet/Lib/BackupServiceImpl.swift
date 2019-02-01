@@ -11,6 +11,12 @@ import SwiftyJSON
 final class BackupServiceImpl: BackupService {
     
     private static let salt = ""
+    private static var defaultBackupName: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        let dateFormatted = dateFormatter.string(from: Date())
+        return String(format: "%@_%@", "backup", dateFormatted)
+    }
     
     let fileManager: FileManager
     let keychain: KeychainStorage
@@ -64,12 +70,8 @@ final class BackupServiceImpl: BackupService {
         return encrypted
     }
     
-    func export(withPassword password: String, to storage: CloudStorage) throws {
+    func export(withPassword password: String, to storage: CloudStorage, filename: String = BackupServiceImpl.defaultBackupName) throws {
         let data = try export(withPassword: password)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
-        let dateFormatted = dateFormatter.string(from: Date())
-        let filename = String(format: "%@_%@", "backup", dateFormatted)
         try storage.write(data: data, to: filename)
     }
     

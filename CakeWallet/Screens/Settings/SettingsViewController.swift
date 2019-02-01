@@ -381,6 +381,16 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 
                 self?.present(authVC, animated: true)
         })
+        let autoBackupSwitcher = SettingsSwitchCellItem(
+            title: "Auto backup",
+            isOn: UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
+        ) { isEnabled, _ in
+            UserDefaults.standard.set(isEnabled, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
+            
+            if isEnabled {
+                autoBackup()
+            }
+        }
     
         sections[.wallets] = [
             fiatCurrencyCellItem,
@@ -398,7 +408,8 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         ]
         sections[.backup] = [
             showMasterPasswordCellItem,
-            createBackupCellItem
+            createBackupCellItem,
+            autoBackupSwitcher
         ]
         
         
