@@ -90,8 +90,16 @@ public final class MoneroWalletGateway: WalletGateway {
     }
     
     public func remove(withName name: String) throws {
-        let walletDir = try FileManager.default.walletDirectory(for: name)
-        try FileManager.default.removeItem(atPath: walletDir.path)
+        guard let walletsDir = FileManager.default.walletDirectory else {
+            throw FileManagerError.cannotFindWalletDir
+        }
+        
+        let walletDir = walletsDir.appendingPathComponent(MoneroWalletGateway.path)
+            .appendingPathComponent(name)
+        
+        if FileManager.default.fileExists(atPath: walletDir.path) {
+            try FileManager.default.removeItem(atPath: walletDir.path)
+        }
     }
     
     public func fetchSeed(for wallet: WalletIndex) throws -> String {
