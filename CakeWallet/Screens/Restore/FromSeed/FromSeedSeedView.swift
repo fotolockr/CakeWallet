@@ -4,7 +4,7 @@ import FlexLayout
 final class FromSeedSeedView: BaseFlexView {
     let cardHolder: UIView
     let cardView: UIView
-    let seedTextField: UITextField
+    let seedTextField: FloatingLabelTextView
     let nextButton: UIButton
     let actionButtonsContainer: UIView
     let pasteButton: PasteButton
@@ -13,7 +13,7 @@ final class FromSeedSeedView: BaseFlexView {
         cardHolder = UIView()
         cardView = CardView()
         
-        seedTextField = FloatingLabelTextField(placeholder: "Seed")
+        seedTextField = FloatingLabelTextView(placeholder: NSLocalizedString("seed", comment: ""))
         nextButton = PrimaryButton(title: "Next")
         actionButtonsContainer = UIView()
         pasteButton = PasteButton(pastable: seedTextField)
@@ -23,6 +23,9 @@ final class FromSeedSeedView: BaseFlexView {
     
     override func configureView() {
         super.configureView()
+        
+        seedTextField.delegate = self
+        seedTextField.isScrollEnabled = false
     }
     
     override func configureConstraints() {

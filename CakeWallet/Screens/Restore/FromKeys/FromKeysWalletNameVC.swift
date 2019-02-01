@@ -13,7 +13,7 @@ final class FromKeysWalletNameVC: BaseViewController<FromKeysWalletNameView> {
     }
     
     override func configureBinds() {
-        title = "Wallet name"
+        title = NSLocalizedString("wallet_name", comment: "")
         contentView.nextButton.addTarget(self, action: #selector(nextStep), for: .touchUpInside)
         contentView.walletNameTextField.text = wizzardStore.state.name
         super.configureBinds()

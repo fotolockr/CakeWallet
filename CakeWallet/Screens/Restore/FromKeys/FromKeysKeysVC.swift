@@ -12,7 +12,7 @@ final class FromKeysKeysVC: BaseViewController<FromKeysKeysView> {
     }
     
     override func configureBinds() {
-        title = "Address and keys"
+        title = NSLocalizedString("address", comment: "")
         contentView.nextButton.addTarget(self, action: #selector(nextStep), for: .touchUpInside)
         contentView.addressView.textView.text = wizzardStore.state.address
         contentView.viewKeyTextField.text = wizzardStore.state.viewKey

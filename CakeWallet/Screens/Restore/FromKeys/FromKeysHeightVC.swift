@@ -17,7 +17,7 @@ final class FromKeysHeightVC: BaseViewController<FromKeysHeightView> {
     }
     
     override func configureBinds() {
-        title = "Height or date"
+        title =  NSLocalizedString("restore_height", comment: "")
         if let height = wizzardStore.state.height {
             contentView.restoreFromHeightView.restoreHeightTextField.text = String(height)
         }
