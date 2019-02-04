@@ -75,10 +75,22 @@ final class BackupServiceImpl: BackupService {
         try storage.write(data: data, to: filename)
     }
     
+    func export(withPassword password: String, to url: URL) throws {
+        let data = try export(withPassword: password)
+        try data.write(to: url)
+    }
+    
+    func exportToTmpFile(withPassword password: String, filename: String = BackupServiceImpl.defaultBackupName) throws -> URL {
+        let tmpDirURL = try getTmpDirecroryURL()
+        let fileURL = tmpDirURL.appendingPathComponent(filename)
+        try export(withPassword: password, to: fileURL)
+        return fileURL
+    }
+    
     func `import`(from url: URL, withPassword password: String) throws {
         let decrypted = try decrypt(at: url, withPassword: password, andSalt: BackupServiceImpl.salt)
         let tmpFilename = "___tmp_backup_import.zip"
-        let tmpDirectoryURL = try getTmpDerecroryURL()
+        let tmpDirectoryURL = try getTmpDirecroryURL()
         let tmpURL = tmpDirectoryURL.appendingPathComponent(tmpFilename)
         fileManager.createFile(atPath: tmpURL.path, contents: decrypted, attributes: nil)
         let documentsURL = try getDocumentsURL()
@@ -217,7 +229,7 @@ final class BackupServiceImpl: BackupService {
         return url
     }
     
-    private func getTmpDerecroryURL() throws -> URL {
+    private func getTmpDirecroryURL() throws -> URL {
         let url = try getDocumentsURL().appendingPathComponent("tmp")
         
         if !fileManager.fileExists(atPath: url.path) {

@@ -325,17 +325,29 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 self?.settingsFlow?.change(route: .terms)
         })
         let createBackupCellItem = SettingsCellItem(
-            title: "Create backup to iCloud",
+            title: "Create backup file",
             action: { [weak self] in
                 self?.showSpinner(withTitle: "Creating backup") { [weak self] alert in
                     do {
-                        guard let password = self?.masterPassword else {
+                        guard
+                            let password = self?.masterPassword,
+                            let backupService = self?.backupService else {
                             return
                         }
                         
-                        try self?.backupService.export(withPassword: password, to: ICloudStorage())
+                        
+                        let url = try backupService.exportToTmpFile(withPassword: password)
+                        
                         alert.dismiss(animated: true) {
-                            self?.showInfo(title: "Backup uploaded", message: "Backup is uploaded to your iCloud", actions: [.okAction])
+                            let activityViewController = UIActivityViewController(
+                                activityItems: [url],
+                                applicationActivities: nil)
+                            activityViewController.excludedActivityTypes = [
+                                UIActivityType.message, UIActivityType.mail,
+                                UIActivityType.print, UIActivityType.airDrop]
+                            self?.present(activityViewController, animated: true)
+                            
+//                            self?.showInfo(title: "Backup uploaded", message: "Backup is uploaded to your iCloud", actions: [.okAction])
                         }
                     } catch {
                         alert.dismiss(animated: true) {
@@ -361,7 +373,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 }
         })
         let showMasterPasswordCellItem = SettingsCellItem(
-            title: "Show master password",
+            title: "Show backup password",
             action: { [weak self] in
                 let copyAction = CWAlertAction(title: "Copy", handler: { [weak self] action in
                     action.alertView?.dismiss(animated: true) {
@@ -383,7 +395,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 self?.present(authNavVC, animated: true)
         })
         let autoBackupSwitcher = SettingsSwitchCellItem(
-            title: "Auto backup",
+            title: "Auto backup to iCloud",
             isOn: UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
         ) { isEnabled, _ in
             UserDefaults.standard.set(isEnabled, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
@@ -393,7 +405,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             }
         }
         let changeMasterPassword = SettingsCellItem(
-            title: "Change master password",
+            title: "Change backup password",
             action: { [weak self] in
                 let changeAction = CWAlertAction(title: "Change", handler: { alert in
                     alert.alertView?.dismiss(animated: true) {
@@ -453,7 +465,10 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                         self?.present(authNavVC, animated: true)
                     }
                 })
-                self?.showInfo(title: "Master password", message: "After you will change the master password your previous backups will not be working with your new master password!", actions: [.cancelAction, changeAction])
+                self?.showInfo(
+                    title: "Master password",
+                    message: "If you change the master password for backups, the previous MANUAL backups will not work with the new password. Auto backups will continue to work with the new password.",
+                    actions: [.cancelAction, changeAction])
         })
     
         sections[.wallets] = [

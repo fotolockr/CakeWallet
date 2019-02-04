@@ -68,8 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.isAutoBackupEnabled) {
-            let backupService = BackupServiceImpl()
-            let icloudStorage = ICloudStorage()
             autoBackup()
         }
 
@@ -222,6 +220,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedStringKey.foregroundColor: UIColor.black,
             NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)
         ]
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let filename = url.lastPathComponent
+        let restore = CWAlertAction(title: "Restore") { action in
+            let alert = UIAlertController(title: "Restore from backup", message: "Enter password", preferredStyle: .alert)
+            
+            alert.addTextField { textField in
+                textField.isSecureTextEntry = true
+            }
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] _ in
+                guard let password = alert?.textFields?.first?.text else {
+                    return
+                }
+                
+                UIApplication.topViewController()?.showSpinner(withTitle: "Restoring from backup", callback: { [weak self] spinner in
+                    do {
+                        let backup = BackupServiceImpl()
+                        try backup.import(from: url, withPassword: password)
+                        let handler = LoadCurrentWalletHandler()
+                        handler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
+                            DispatchQueue.main.async {
+                                guard let action = action else {
+                                    return
+                                }
+                                
+                                store._defaultDispatch(action)
+                                
+                                if
+                                    let action = action as? ApplicationState.Action,
+                                    case let .changedError(_error) = action,
+                                    let error = _error {
+                                    spinner.dismiss(animated: true) {
+                                        UIApplication.topViewController()?.showError(error: error)
+                                    }
+                                    return
+                                }
+                                
+                                if let action = action as? WalletState.Action, case .loaded(_) = action {
+                                    spinner.dismiss(animated: true) {
+                                        self?.walletFlow = WalletFlow()
+                                        self?.walletFlow?.change(route: .start)
+                                        
+                                        self?.window?.rootViewController = self?.walletFlow?.rootController
+                                    }
+                                }
+                            }
+                        })
+                    } catch {
+                        spinner.dismiss(animated: true) {
+                            UIApplication.topViewController()?.showError(error: error)
+                        }
+                    }
+                })
+            }))
+            
+            action.alertView?.dismiss(animated: true) {
+                UIApplication.topViewController()?.present(alert, animated: true)
+            }
+        }
+        UIApplication.topViewController()?.showInfo(
+            title: "Restore from backup",
+            message: "Are you sure that want to restore the app from backup - \(filename)",
+            actions: [.cancelAction, restore])
+        return true
     }
 }
 
