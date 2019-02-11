@@ -11,6 +11,7 @@
 
 "create_new" = "नया बनाएं";
 "restore" = "पुराना लोड करें";
+"restore_from_seed_keys" = "पुराना लोड करें";
 
 // Pin
 

@@ -123,7 +123,7 @@ final class SwitchView: BaseView {
 
 final class SettingsViewController: BaseViewController<SettingsView>, UITableViewDelegate, UITableViewDataSource {
     enum SettingsSections: Int {
-        case wallets, personal, backup, advanced, support
+        case wallets, personal, backup, manualBackup, advanced, support
     }
     
     struct SettingsTextViewCellItem: CellItem {
@@ -347,8 +347,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                                     UIActivityType.message, UIActivityType.mail,
                                     UIActivityType.print, UIActivityType.airDrop]
                                 self?.present(activityViewController, animated: true)
-                                
-    //                            self?.showInfo(title: "Backup uploaded", message: "Backup is uploaded to your iCloud", actions: [.okAction])
                             }
                         } catch {
                             alert.dismiss(animated: true) {
@@ -371,6 +369,40 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                                 self?.showError(error: error)
                             }
                         }
+                    }
+                }
+        })
+        let backupNowCellItem = SettingsCellItem(
+            title: "Backup now to iCloud",
+            action: { [weak self] in
+                self?.askToShowBackupPasswordAlert() {
+                    self?.showSpinner(withTitle: "Creating backup") { [weak self] alert in
+                        autoBackup(force: true, handler: { error in
+                            alert.dismiss(animated: true) {
+                                if let error = error {
+                                    if case ICloudStorageError.notEnabled = error {
+                                        let openSettings = CWAlertAction(title: "Open settings", handler: { alert in
+                                            guard let url = URL(string: "App-prefs:root=CASTLE&path=STORAGE_AND_BACKUP"),
+                                                UIApplication.shared.canOpenURL(url) else {
+                                                    return
+                                            }
+                                            
+                                            UIApplication.shared.open(url, options: [:]) { _ in
+                                                alert.alertView?.dismiss(animated: true)
+                                            }
+                                        })
+                                        
+                                        self?.showInfo(message: error.localizedDescription, actions: [.cancelAction, openSettings])
+                                        return
+                                    }
+                                    
+                                    self?.showError(error: error)
+                                    return
+                                }
+                                
+                                self?.showInfo(title: "Backup uploaded", message: "Backup is uploaded to your iCloud", actions: [.okAction])
+                            }
+                        })
                     }
                 }
         })
@@ -480,8 +512,11 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         sections[.backup] = [
             showMasterPasswordCellItem,
             changeMasterPassword,
-            createBackupCellItem,
-            autoBackupSwitcher
+            autoBackupSwitcher,
+            backupNowCellItem
+        ]
+        sections[.manualBackup] = [
+            createBackupCellItem
         ]
         
         
@@ -608,6 +643,8 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             titleLabel.text = NSLocalizedString("support", comment: "")
         case .backup:
             titleLabel.text = "Backup"
+        case .manualBackup:
+            titleLabel.text = "Manual backup"
         }
         
         return view

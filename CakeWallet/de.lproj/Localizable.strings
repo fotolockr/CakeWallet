@@ -13,7 +13,7 @@
 
 "create_new" = "Erstellen";
 "restore" = "Wiederherstellen";
-
+"restore_from_seed_keys" = "Wiederherstellen";
 
 // Pin
 

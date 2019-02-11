@@ -11,6 +11,8 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
     let createWallet: UIButton
     let recoveryWallet: UIButton
     let restoreFromCloud: UIButton
+    let restoreFromBackupLabel: UILabel
+    let separatorView: UIView
     
     required init() {
         titleContainer = UIView()
@@ -20,8 +22,10 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
         descriptionTextView = UITextView()
         buttonsContiner = UIView()
         createWallet = PrimaryButton(title: NSLocalizedString("create_new", comment: ""))
-        recoveryWallet = SecondaryButton(title: NSLocalizedString("restore", comment: ""))
+        recoveryWallet = SecondaryButton(title: NSLocalizedString("restore_from_seed_keys", comment: ""))
         restoreFromCloud = SecondaryButton(title: "Restore from backup")
+        restoreFromBackupLabel = UILabel(fontSize: 12)
+        separatorView = UIView()
         super.init()
     }
     
@@ -37,6 +41,9 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
         welcomeLabel.numberOfLines = 0
         welcomeSubtitleLabel.numberOfLines = 0
         welcomeSubtitleLabel.textColor = UIColor(red: 126, green: 147, blue: 177)
+        restoreFromBackupLabel.textColor = .gray
+        restoreFromBackupLabel.textAlignment = .center
+        restoreFromBackupLabel.numberOfLines = 0
     }
     
     override func configureConstraints() {
@@ -53,6 +60,8 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
         buttonsContiner.flex.define { flex in
             flex.addItem(createWallet).height(56)
             flex.addItem(recoveryWallet).height(56).marginTop(10)
+            flex.addItem(separatorView).height(1).width(100%).backgroundColor(.vividBlue).margin(UIEdgeInsets(top: 25, left: 0, bottom: 10, right: 0))
+            flex.addItem(restoreFromBackupLabel).width(100%).marginBottom(15)
             flex.addItem(restoreFromCloud).height(56).marginTop(10).marginBottom(25)
         }
         

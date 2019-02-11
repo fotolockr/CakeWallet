@@ -11,6 +11,7 @@
 
 "create_new" = "创建新的";
 "restore" = "恢复";
+"restore_from_seed_keys" = "恢复";
 
 // Pin
 

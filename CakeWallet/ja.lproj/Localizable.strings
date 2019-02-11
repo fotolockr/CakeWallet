@@ -11,6 +11,7 @@
 
 "create_new" = "新規作成";
 "restore" = "リストア";
+"restore_from_seed_keys" = "リストア";
 
 // Pin
 

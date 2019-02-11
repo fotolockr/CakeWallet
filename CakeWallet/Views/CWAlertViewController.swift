@@ -78,16 +78,16 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
         }
         
         let actionsAxis: NSLayoutConstraint.Axis
-        let sortedActions = actions.sorted { a, _ in
-            return a.style == .cancel
-        }
         
         if let axis = axis {
             actionsAxis = axis
         } else {
-            actionsAxis = sortedActions.count > 2 ? .vertical : .horizontal
+            actionsAxis = actions.count > 2 ? .vertical : .horizontal
         }
         
+        let sortedActions = actions.sorted { a, _ in
+            return actionsAxis != .vertical ? a.style == .cancel : a.style != .cancel
+        }
         
         for (index, action) in sortedActions.enumerated() {
             let width: CGFloat
@@ -100,6 +100,7 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
             
             //            action.frame = CGRect(origin: .zero, size: CGSize(width: width, height: CWAlertAction.defaultHeight))
             action.widthAnchor.constraint(equalToConstant: width).isActive = true
+            action.heightAnchor.constraint(equalToConstant: CWAlertAction.defaultHeight).isActive = true
             action.alertView = self
             action.backgroundColor = .clear
             contentView.actionsStackView.addArrangedSubview(action)
@@ -108,6 +109,11 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
                 let separatorView = UIView()
                 separatorView.backgroundColor = .lightBlueGrey
                 separatorView.widthAnchor.constraint(equalToConstant: 1).isActive = true
+                contentView.actionsStackView.addArrangedSubview(separatorView)
+            } else if actionsAxis == .vertical && index != sortedActions.count {
+                let separatorView = UIView()
+                separatorView.backgroundColor = .lightBlueGrey
+                separatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
                 contentView.actionsStackView.addArrangedSubview(separatorView)
             }
         }

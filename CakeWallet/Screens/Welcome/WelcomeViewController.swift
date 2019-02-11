@@ -33,10 +33,10 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
         }
         
         // FIXME: Unnamed constant
+        
+        contentView.restoreFromBackupLabel.text = "You can also restore the whole app from a backed-up file."
 
         contentView.descriptionTextView.text = NSLocalizedString("starting_creation_selection", comment: "")
-        + "\n\n"
-        + NSLocalizedString("enjoy_this_wallet", comment: "")
         + "\n\n"
         + NSLocalizedString("love_your_feedback", comment: "")
     }

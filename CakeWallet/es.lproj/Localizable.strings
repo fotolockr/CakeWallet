@@ -11,6 +11,7 @@
 
 "create_new" = "Crear";
 "restore" = "Recuperar";
+"restore_from_seed_keys" = "Recuperar";
 
 // Pin
 
