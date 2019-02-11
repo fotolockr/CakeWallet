@@ -11,6 +11,7 @@
 
 "create_new" = "Criar nova carteira";
 "restore" = "Restaurar carteira";
+"restore_from_seed_keys" = "Restaurar carteira";
 
 // Pin
 

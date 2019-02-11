@@ -11,7 +11,7 @@
 
 "create_new" = "Utwórz nowy portfel";
 "restore" = "Wczytaj";
-
+"restore_from_seed_keys" = "Wczytaj";
 // Pin
 
 "use_6_pin" = "Użyj 6-cyfrowego PIN'u";

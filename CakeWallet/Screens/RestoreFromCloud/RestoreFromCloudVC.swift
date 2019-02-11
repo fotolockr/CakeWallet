@@ -15,6 +15,7 @@ final class RestoreFromCloudVC: BaseViewController<RestoreFromCloudView>, UIDocu
         super.viewDidLoad()
         title = "Import backup"
         contentView.importFromCloudButton.addTarget(self, action: #selector(openDocumentsPickerFromCloud), for: .touchUpInside)
+        contentView.descriptionLabel.text = "You can also restore from a backup file from other locations.  In order to do this, please open the file from where it is saved and use the share menu to open it in Cake Wallet."
     }
     
     // MARK: UIDocumentPickerDelegate

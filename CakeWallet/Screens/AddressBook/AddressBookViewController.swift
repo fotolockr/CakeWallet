@@ -313,22 +313,29 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
             dismissAction()
             doneHandler?(contact.address)
         } else {
+            var actions = [
+                .cancelAction,
+                CWAlertAction(title: "Copy", handler: { action in
+                    UIPasteboard.general.string = contact.address
+                    action.alertView?.dismiss(animated: true)
+                })
+            ]
+            
+            // fixme: hardcoded value .monero, it must be depend on current wallet type or will be removed when send screen will support exchange
+            if contact.type == .monero {
+                actions.append(CWAlertAction(title: "Send", handler: { action in
+                    action.alertView?.dismiss(animated: true) {
+                        let sendVC = SendViewController(store: self.store, address: contact.address)
+                        let sendNavigation = UINavigationController(rootViewController: sendVC)
+                        self.present(sendNavigation, animated: true)
+                    }
+                }))
+            }
+            
             showInfo(
                 title: contact.name,
                 message: contact.address,
-                actions: [
-                    CWAlertAction(title: "Send", handler: { action in
-                        action.alertView?.dismiss(animated: true) {
-                            let sendVC = SendViewController(store: self.store, address: contact.address)
-                            let sendNavigation = UINavigationController(rootViewController: sendVC)
-                            self.present(sendNavigation, animated: true)
-                        }
-                    }),
-                    CWAlertAction(title: "Copy", handler: { action in
-                        UIPasteboard.general.string = contact.address
-                        action.alertView?.dismiss(animated: true)
-                    })
-                ]
+                actions: actions
             )
         }
     }

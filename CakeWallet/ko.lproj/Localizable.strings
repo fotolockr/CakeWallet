@@ -13,6 +13,7 @@
 
 "create_new" = "새로 만들기";
 "restore" = "복구";
+"restore_from_seed_keys" = "복구";
 
 
 // Pin

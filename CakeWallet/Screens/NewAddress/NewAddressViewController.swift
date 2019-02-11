@@ -2,7 +2,7 @@ import UIKit
 import CakeWalletLib
 import CakeWalletCore
 
-final class NewAddressViewController: BaseViewController<NewAddressView>, UIPickerViewDataSource, UIPickerViewDelegate {
+final class NewAddressViewController: BaseViewController<NewAddressView>, UIPickerViewDataSource, UIPickerViewDelegate, QRUriUpdateResponsible {
     let addressBoook: AddressBook
     let contact: Contact?
     
@@ -40,6 +40,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
         title = NSLocalizedString("New Address", comment: "")
         contentView.resetButton.addTarget(self, action: #selector(resetAction), for: .touchUpInside)
         contentView.saveButton.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
+        contentView.addressView.updateResponsible = self
     }
     
     @objc
@@ -89,5 +90,21 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return CryptoCurrency.all[row].formatted()
+    }
+    
+    // QRUriUpdateResponsible
+    
+    func getCrypto(for adressView: AddressView) -> CryptoCurrency {
+        guard
+            let typeText = contentView.pickerTextField.text,
+            let type = CryptoCurrency(from: typeText) else {
+            return .monero
+        }
+        
+        return type
+    }
+    
+    func update(uri: QRUri) {
+        contentView.addressView.textView.changeText(uri.address)
     }
 }
