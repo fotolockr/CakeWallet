@@ -667,13 +667,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         authViewController.handler = { [weak self, weak authViewController] in
             authViewController?.dismiss(animated: false, completion: {
                 self?.settingsFlow?.change(route: .changePin)
-//                guard let store = self?.store else { return }
-//
-//                let setupPinViewController = SetupPinViewController(store: store)
-//                setupPinViewController.afterPinSetup = { [weak setupPinViewController] in
-//                    setupPinViewController?.dismiss(animated: true)
-//                }
-//                self?.present(UINavigationController(rootViewController: setupPinViewController), animated: true)
             })
         }
         
@@ -692,13 +685,10 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 onCancelHandler?()
             }
         }
-//        savedAction.backgroundColor = .blueBolt
-//        savedAction.titleLabel.backgroundColor = .vividBlue
+
         savedAction.titleLabel.textColor = .vividBlue
-//        showBackupPassowrd.backgroundColor = .vividBlue
-//        showBackupPassowrd.titleLabel.backgroundColor = .vividBlue
         showBackupPassowrd.titleLabel.textColor = .vividBlue
-        showInfo(title: "Backup", message: "Did you save your backup password?", actions: [savedAction, showBackupPassowrd])
+        showInfo(title: "Backup", message: "Did you save your backup password?", actions: [savedAction, showBackupPassowrd, .cancelAction])
     }
     
     private func showBackupPassword() {
