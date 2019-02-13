@@ -32,5 +32,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     cp $CPPZMQ_SOURCES_PATH/$CPPZMQ_HEADER_FILE $CPPZMQ_HEADER_PATH
   fi
  
-  ./install-missing-headers.sh
+  ./install_missing_headers.sh
 fi
