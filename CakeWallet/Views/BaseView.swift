@@ -19,8 +19,6 @@ class BaseView: UIView {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         configureConstraints()
-//        setNeedsLayout()
-//        layoutIfNeeded()
     }
     
     override func configureView() {
