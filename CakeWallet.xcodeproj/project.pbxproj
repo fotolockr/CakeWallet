@@ -22,6 +22,11 @@
 		0C6E3A1721FA02C700030C92 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6E3A1621FA02C700030C92 /* CloudKit.framework */; };
 		0C9B94A921B014FE001F9868 /* DisclaimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B94A821B014FE001F9868 /* DisclaimerView.swift */; };
 		0C9B94AB21B01506001F9868 /* DisclaimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B94AA21B01506001F9868 /* DisclaimerViewController.swift */; };
+		0CAF2BA5221441420092A720 /* libeasylogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAF2BA1221441420092A720 /* libeasylogging.a */; };
+		0CAF2BA6221441420092A720 /* libunbound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAF2BA2221441420092A720 /* libunbound.a */; };
+		0CAF2BA7221441420092A720 /* libwallet_merged.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAF2BA3221441420092A720 /* libwallet_merged.a */; };
+		0CAF2BA8221441420092A720 /* libepee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAF2BA4221441420092A720 /* libepee.a */; };
+		0CAF2BAA221441540092A720 /* libminiupnpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAF2BA9221441540092A720 /* libminiupnpc.a */; };
 		0CB841C722031AE200AF4985 /* getTransactionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB841C622031AE200AF4985 /* getTransactionKey.swift */; };
 		0CE9690F2204A31B006D6100 /* autoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE9690E2204A31B006D6100 /* autoBackup.swift */; };
 		361CA1C7D01950BBA7C9570F /* Pods_CakeWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F899B21444E0E00B085AC /* Pods_CakeWallet.framework */; };
@@ -115,11 +120,6 @@
 		645F896621443BD700B085AC /* lmdb.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 645F896321443BD700B085AC /* lmdb.h */; };
 		645F899221443C7000B085AC /* liblmdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F896121443BD600B085AC /* liblmdb.a */; };
 		6463B746216132A400040801 /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64DD51D2215FFD620013309D /* libsodium.a */; };
-		6463B74821613FC500040801 /* libeasylogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F894B21443A9E00B085AC /* libeasylogging.a */; };
-		6463B74921613FC500040801 /* libepee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F894C21443A9E00B085AC /* libepee.a */; };
-		6463B74A21613FC500040801 /* libunbound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F894D21443A9E00B085AC /* libunbound.a */; };
-		6463B74B21613FC500040801 /* libwallet_merged.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F894E21443A9E00B085AC /* libwallet_merged.a */; };
-		6463B74C2161403700040801 /* libminiupnpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F894521443A7200B085AC /* libminiupnpc.a */; };
 		646FF2A720E11FFE00ADF30C /* CakeWalletCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 646FF2A520E11FFE00ADF30C /* CakeWalletCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		646FF2C920E1201F00ADF30C /* WalletType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF2B020E1201D00ADF30C /* WalletType.swift */; };
 		646FF2CB20E1201F00ADF30C /* WalletKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FF2B220E1201D00ADF30C /* WalletKeys.swift */; };
@@ -406,6 +406,11 @@
 		0CA88B262189D1FE000BF96F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0CA88B272189D1FE000BF96F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		0CA88B282189D1FE000BF96F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0CAF2BA1221441420092A720 /* libeasylogging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeasylogging.a; path = "SharedExternal/libs/monero/libs/lib-ios/libeasylogging.a"; sourceTree = "<group>"; };
+		0CAF2BA2221441420092A720 /* libunbound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libunbound.a; path = "SharedExternal/libs/monero/libs/lib-ios/libunbound.a"; sourceTree = "<group>"; };
+		0CAF2BA3221441420092A720 /* libwallet_merged.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwallet_merged.a; path = "SharedExternal/libs/monero/libs/lib-ios/libwallet_merged.a"; sourceTree = "<group>"; };
+		0CAF2BA4221441420092A720 /* libepee.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libepee.a; path = "SharedExternal/libs/monero/libs/lib-ios/libepee.a"; sourceTree = "<group>"; };
+		0CAF2BA9221441540092A720 /* libminiupnpc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminiupnpc.a; path = SharedExternal/libs/monero/libs/lib/libminiupnpc.a; sourceTree = "<group>"; };
 		0CB841C622031AE200AF4985 /* getTransactionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getTransactionKey.swift; sourceTree = "<group>"; };
 		0CE9690E2204A31B006D6100 /* autoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = autoBackup.swift; sourceTree = "<group>"; };
 		18D074870196D8D45C865918 /* Pods-CWMonero.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CWMonero.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CWMonero/Pods-CWMonero.debug.xcconfig"; sourceTree = "<group>"; };
@@ -778,11 +783,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6463B74C2161403700040801 /* libminiupnpc.a in Frameworks */,
-				6463B74821613FC500040801 /* libeasylogging.a in Frameworks */,
-				6463B74921613FC500040801 /* libepee.a in Frameworks */,
-				6463B74A21613FC500040801 /* libunbound.a in Frameworks */,
-				6463B74B21613FC500040801 /* libwallet_merged.a in Frameworks */,
+				0CAF2BAA221441540092A720 /* libminiupnpc.a in Frameworks */,
+				0CAF2BA5221441420092A720 /* libeasylogging.a in Frameworks */,
+				0CAF2BA6221441420092A720 /* libunbound.a in Frameworks */,
+				0CAF2BA7221441420092A720 /* libwallet_merged.a in Frameworks */,
+				0CAF2BA8221441420092A720 /* libepee.a in Frameworks */,
 				6463B746216132A400040801 /* libsodium.a in Frameworks */,
 				645F899221443C7000B085AC /* liblmdb.a in Frameworks */,
 				645F894321443A6100B085AC /* libcrypto.a in Frameworks */,
@@ -1471,6 +1476,11 @@
 		93B531BDF22CFC9B27F1D9F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0CAF2BA9221441540092A720 /* libminiupnpc.a */,
+				0CAF2BA1221441420092A720 /* libeasylogging.a */,
+				0CAF2BA4221441420092A720 /* libepee.a */,
+				0CAF2BA2221441420092A720 /* libunbound.a */,
+				0CAF2BA3221441420092A720 /* libwallet_merged.a */,
 				0C6E3A1621FA02C700030C92 /* CloudKit.framework */,
 				643A24412160035C006F5D81 /* libepee.a */,
 				643A24422160035C006F5D81 /* liblmdb.a */,
@@ -2509,14 +2519,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/src",
-					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/include",
-					"$(PROJECT_DIR)/External/OpenSSL/include",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/external",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/external/easylogging++",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/contrib/epee/include",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/external/unbound",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/libsodium/libsodium-ios/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/src",
+					"$(PROJECT_DIR)/SharedExternal/libs/boost/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/OpenSSL/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/external",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/external/easylogging++",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/contrib/epee/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/external/unbound",
+					"$(PROJECT_DIR)/SharedExternal/libs/sodium/include",
 				);
 				INFOPLIST_FILE = CWMonero/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2528,12 +2538,14 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/ios",
-					"$(PROJECT_DIR)/External/OpenSSL/lib",
-					"$(PROJECT_DIR)/CWMonero/External/monero-gui/monero/lib",
-					"$(PROJECT_DIR)/CWMonero/External/monero-gui/monero/lib-ios",
-					"$(PROJECT_DIR)/CWMonero/External/libsodium/libsodium-ios/lib",
-					"$(PROJECT_DIR)/CWMonero/External/monero-gui/monero/lib-armv8-a",
+					"$(PROJECT_DIR)/SharedExternal/libs/boost/lib",
+					"$(PROJECT_DIR)/SharedExternal/libs/OpenSSL/lib",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/lib",
+					"$(PROJECT_DIR)/SharedExternal/libsi/monero/lib-ios",
+					"$(PROJECT_DIR)/SharedExternal/libs/sodium/lib",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/lib-armv8-a",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/libs/lib-ios",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/libs/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fotolockr.cakewallet.CWMonero;
@@ -2565,14 +2577,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/src",
-					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/include",
-					"$(PROJECT_DIR)/External/OpenSSL/include",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/external",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/external/easylogging++",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/contrib/epee/include",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/monero-gui/monero/external/unbound",
-					"$(PROJECT_DIR)/$(SWIFT_MODULE_NAME)/External/libsodium/libsodium-ios/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/src",
+					"$(PROJECT_DIR)/SharedExternal/libs/boost/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/OpenSSL/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/external",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/external/easylogging++",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/contrib/epee/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/include/external/unbound",
+					"$(PROJECT_DIR)/SharedExternal/libs/sodium/include",
 				);
 				INFOPLIST_FILE = CWMonero/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2584,12 +2596,14 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/ios",
-					"$(PROJECT_DIR)/External/OpenSSL/lib",
-					"$(PROJECT_DIR)/CWMonero/External/monero-gui/monero/lib",
-					"$(PROJECT_DIR)/CWMonero/External/monero-gui/monero/lib-ios",
-					"$(PROJECT_DIR)/CWMonero/External/libsodium/libsodium-ios/lib",
-					"$(PROJECT_DIR)/CWMonero/External/monero-gui/monero/lib-armv8-a",
+					"$(PROJECT_DIR)/SharedExternal/libs/boost/lib",
+					"$(PROJECT_DIR)/SharedExternal/libs/OpenSSL/lib",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/lib",
+					"$(PROJECT_DIR)/SharedExternal/libsi/monero/lib-ios",
+					"$(PROJECT_DIR)/SharedExternal/libs/sodium/lib",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/lib-armv8-a",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/libs/lib-ios",
+					"$(PROJECT_DIR)/SharedExternal/libs/monero/libs/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fotolockr.cakewallet.CWMonero;
@@ -2840,8 +2854,8 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/include",
-					"$(PROJECT_DIR)/External/OpenSSL/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/boost/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/OpenSSL/include",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = CakeWallet/Info.plist;
@@ -2887,8 +2901,8 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/External/ofxiOSBoost/libs/boost/include",
-					"$(PROJECT_DIR)/External/OpenSSL/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/boost/include",
+					"$(PROJECT_DIR)/SharedExternal/libs/OpenSSL/include",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = CakeWallet/Info.plist;
