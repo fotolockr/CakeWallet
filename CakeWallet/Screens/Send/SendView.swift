@@ -101,7 +101,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
             flex.addItem(cardView).marginTop(20)
         }
         
-        bottomSectionView.flex.define { flex in
+        bottomSectionView.flex.paddingTop(20).define { flex in
             flex.addItem(sendButton).height(56)
         }
     }
