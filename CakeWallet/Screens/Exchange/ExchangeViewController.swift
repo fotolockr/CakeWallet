@@ -598,7 +598,7 @@ private func fetchLimits(for inputAsset: CryptoCurrency, and outputAsset: Crypto
                 let json = try? JSON(data: data) else {
                     return
             }
-            
+        
             if
                 let success = json["success"].bool,
                 !success {
@@ -1022,6 +1022,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         contentView.depositView.maxLabel.text = String(format: "%@: %@ %@ ", NSLocalizedString("max", comment: ""), max.formatted(), max.currency.formatted())
         contentView.depositView.minLabel.flex.markDirty()
         contentView.depositView.maxLabel.flex.markDirty()
+        contentView.depositView.flex.layout()
         contentView.depositView.limitsRow.isHidden = false
     }
     
