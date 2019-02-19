@@ -720,7 +720,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     private var maxReceiveAmount: Amount?
     
     init(store: Store<ApplicationState>, exchangeFlow: ExchangeFlow?) {
-        cryptos = CryptoCurrency.all.filter({ $0 != CryptoCurrency.bitcoinCash })
+        cryptos = CryptoCurrency.all //.filter({ $0 != CryptoCurrency.bitcoinCash })
         exchangeActionCreators = ExchangeActionCreators.shared
         depositCrypto = .monero
         receiveCrypto = .bitcoin

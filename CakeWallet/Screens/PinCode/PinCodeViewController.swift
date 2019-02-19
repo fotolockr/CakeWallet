@@ -1,4 +1,5 @@
 import UIKit
+import AudioToolbox
 
 public enum PinLength {
     case fourDigits, sixDigits
@@ -87,5 +88,27 @@ class PinCodeViewController: BaseViewController<PinCodeView> {
     func cleanPin() {
         pin = []
         contentView.pinCodesView.pinCodeIndicatorViews.forEach { $0.clear() }
+    }
+    
+    func executeErrorAnimation() {
+        let pinCodesView = contentView.pinCodesView
+        
+        CATransaction.begin()
+        
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.06
+        animation.repeatCount = 3
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: pinCodesView.center.x - 12, y: pinCodesView.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: pinCodesView.center.x + 12, y: pinCodesView.center.y))
+        
+        CATransaction.setCompletionBlock{ [weak self] in
+            self?.cleanPin()
+        }
+        
+        pinCodesView.layer.add(animation, forKey: "position")
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        
+        CATransaction.commit()
     }
 }

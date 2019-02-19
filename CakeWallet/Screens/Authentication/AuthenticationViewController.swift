@@ -2,6 +2,7 @@ import UIKit
 import FlexLayout
 import CakeWalletLib
 import CakeWalletCore
+import LocalAuthentication
 
 final class AuthenticationViewController: BaseViewController<BaseFlexView> {
     let pinCodeViewController: PinCodeViewController
@@ -48,22 +49,23 @@ final class AuthenticationViewController: BaseViewController<BaseFlexView> {
     
     override func configureBinds() {
         pinCodeViewController.handler = { [weak self] pin in
-            //            self?.showSpinner(withTitle: NSLocalizedString("authentication", comment: ""), callback: { alert in
             self?.authentication.authenticate(pin: pin.string(), handler: { result in
                 DispatchQueue.main.async {
-                    //                    alert.dismiss(animated: true) {
                     switch result {
                     case .success(_):
                         self?.handler?()
                     case let .failed(error):
+                        if case AuthenticationError.incorrectPassword = error {
+                            self?.pinCodeViewController.executeErrorAnimation()
+                            return
+                        }
+                        
                         self?.showError(error: error) { _ in
                             self?.pinCodeViewController.cleanPin()
                         }
                     }
                 }
-                //                    }
             })
-            //            })
         }
     }
     
