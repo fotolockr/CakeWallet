@@ -14,6 +14,10 @@ extension ICloudStorageError  {
 }
 
 final class ICloudStorage: CloudStorage {
+    func isEnabled() -> Bool {
+        return (try? getContainerUrl()) != nil
+    }
+    
     func getContainerUrl() throws -> URL {
         guard let containerUrl = FileManager.default.url(forUbiquityContainerIdentifier: nil) else {
             throw ICloudStorageError.notEnabled

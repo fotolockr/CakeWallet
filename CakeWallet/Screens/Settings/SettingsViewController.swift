@@ -350,23 +350,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                             }
                         } catch {
                             alert.dismiss(animated: true) {
-                                if case ICloudStorageError.notEnabled = error {
-                                    let openSettings = CWAlertAction(title: "Open settings", handler: { alert in
-                                        guard let url = URL(string: "App-prefs:root=CASTLE&path=STORAGE_AND_BACKUP"),
-                                            UIApplication.shared.canOpenURL(url) else {
-                                                return
-                                        }
-
-                                        UIApplication.shared.open(url, options: [:]) { _ in
-                                            alert.alertView?.dismiss(animated: true)
-                                        }
-                                    })
-                                    
-                                    self?.showInfo(message: error.localizedDescription, actions: [.cancelAction, openSettings])
-                                    return
-                                }
-                                
-                                self?.showError(error: error)
+                                self?.onBackupSave(error: error)
                             }
                         }
                     }
@@ -379,28 +363,12 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                     self?.showSpinner(withTitle: "Creating backup") { [weak self] alert in
                         autoBackup(force: true, handler: { error in
                             alert.dismiss(animated: true) {
-                                if let error = error {
-                                    if case ICloudStorageError.notEnabled = error {
-                                        let openSettings = CWAlertAction(title: "Open settings", handler: { alert in
-                                            guard let url = URL(string: UIApplicationOpenSettingsURLString),
-                                                UIApplication.shared.canOpenURL(url) else {
-                                                    return
-                                            }
-                                            
-                                            UIApplication.shared.open(url, options: [:]) { _ in
-                                                alert.alertView?.dismiss(animated: true)
-                                            }
-                                        })
-                                        
-                                        self?.showInfo(message: error.localizedDescription, actions: [.cancelAction, openSettings])
-                                        return
-                                    }
-                                    
-                                    self?.showError(error: error)
+                                guard let error = error else {
+                                    self?.showInfo(title: "Backup uploaded", message: "Backup is uploaded to your iCloud", actions: [.okAction])
                                     return
                                 }
                                 
-                                self?.showInfo(title: "Backup uploaded", message: "Backup is uploaded to your iCloud", actions: [.okAction])
+                                self?.onBackupSave(error: error)
                             }
                         })
                     }
@@ -414,13 +382,32 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         let autoBackupSwitcher = SettingsSwitchCellItem(
             title: "Auto backup to iCloud",
             isOn: UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
-        ) { [weak self] isEnabled, item in
+        ) { [weak self] isEnabled, item in            
             if isEnabled {
+                let icloud = ICloudStorage()
+                guard icloud.isEnabled() else {
+                    UserDefaults.standard.set(false, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
+                    item.switcher.isOn = false
+                    self?.showICloudIsNotEnabledAlert()
+                    return
+                }
+                
                 self?.askToShowBackupPasswordAlert(onCancelHandler: {
                     item.switcher.isOn = false
+                    UserDefaults.standard.set(false, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
                     }, onSavedHandler: {
-                        UserDefaults.standard.set(isEnabled, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
-                        autoBackup()
+                        UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
+                        autoBackup(cloudStorage: icloud, force: true, queue: .main) { error in
+                            DispatchQueue.main.async {
+                                guard let error = error else {
+                                    return
+                                }
+                                
+                                item.switcher.isOn = false
+                                self?.showICloudIsNotEnabledAlert()
+                                self?.onBackupSave(error: error)
+                            }
+                        }
                 })
                 
                 return
@@ -685,10 +672,18 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 onCancelHandler?()
             }
         }
+        let cancel = CWAlertAction(
+            title: NSLocalizedString("cancel", comment: ""),
+            style: .cancel,
+            handler: {
+                $0.alertView?.dismiss(animated: true) {
+                    onCancelHandler?()
+                }
+        })
 
         savedAction.titleLabel.textColor = .vividBlue
         showBackupPassowrd.titleLabel.textColor = .vividBlue
-        showInfo(title: "Backup", message: "Did you save your backup password?", actions: [savedAction, showBackupPassowrd, .cancelAction])
+        showInfo(title: "Backup", message: "Did you save your backup password?", actions: [savedAction, showBackupPassowrd, cancel])
     }
     
     private func showBackupPassword() {
@@ -718,5 +713,19 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     
     private func toggleNightMode(isOn: Bool) {
         NotificationCenter.default.post(name: Notification.Name("changeTheme"), object: isOn ? Theme.night : Theme.def)
+    }
+    
+    private func showICloudIsNotEnabledAlert() {
+        showInfo(message: "Please enable iCloud in the iPhone settings", actions: [.okAction])
+    }
+    
+    
+    private func onBackupSave(error: Error) {
+        if case ICloudStorageError.notEnabled = error {
+            showICloudIsNotEnabledAlert()
+            return
+        }
+        
+        showError(error: error)
     }
 }

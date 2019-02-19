@@ -1,8 +1,14 @@
 import Foundation
 import CakeWalletLib
 
-func autoBackup(backupService: BackupService = BackupServiceImpl(), cloudStorage: CloudStorage = ICloudStorage(), keychain: KeychainStorage = KeychainStorageImpl.standart, filename: String = "auto_backup", force: Bool = false, handler: ((Error?) -> Void)? = nil) {
-    let queue = DispatchQueue(label: "com.fotolockr.cakewawllet.autobackup", qos: .utility)
+func autoBackup(
+    backupService: BackupService = BackupServiceImpl(),
+    cloudStorage: CloudStorage = ICloudStorage(),
+    keychain: KeychainStorage = KeychainStorageImpl.standart,
+    filename: String = "auto_backup",
+    force: Bool = false,
+    queue:  DispatchQueue = DispatchQueue(label: "com.fotolockr.cakewawllet.autobackup", qos: .utility),
+    handler: ((Error?) -> Void)? = nil) {
     queue.async {
         do {
             if force {
