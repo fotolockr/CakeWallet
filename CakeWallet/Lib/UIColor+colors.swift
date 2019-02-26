@@ -28,4 +28,20 @@ extension UIColor {
     static var lightBlueGrey: UIColor {
         return UIColor(red: 224, green: 233, blue: 246)
     }
+    
+    static var purpley: UIColor {
+        return UIColor(red: 124, green: 83, blue: 240)
+    }
+    
+    static var turquoiseBlue: UIColor {
+        return UIColor(red: 52, green: 186, blue: 204)
+    }
+    
+    static var greyBlue: UIColor {
+        return UIColor(red: 126, green: 147, blue: 177)
+    }
+    
+    static var veryLightBlue: UIColor {
+        return UIColor(red: 224, green: 233, blue: 246)
+    }
 }

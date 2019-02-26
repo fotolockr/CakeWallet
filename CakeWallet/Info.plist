@@ -92,6 +92,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Semibold.ttf</string>
+		<string>Lato-Bold.ttf</string>
+	</array>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
 </dict>

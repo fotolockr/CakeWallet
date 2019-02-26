@@ -39,10 +39,12 @@ class Button: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = frame.size.height * 0.3
+        layer.cornerRadius = frame.size.height * 0.25
     }
     
     override func configureView() {
+//        self.applyGradient(colours: [UIColor.yellow, UIColor.blue])
+        
         backgroundColor = Theme.current.primaryButton.background
         setTitleColor(Theme.current.primaryButton.text, for: .normal)
         layer.masksToBounds = false
@@ -51,8 +53,10 @@ class Button: UIButton {
         layer.shadowOpacity = 0.3
         layer.shadowColor = UIColor.lightGray.cgColor
         contentHorizontalAlignment = .center
-        titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        titleLabel?.font = applyFont(weight: .semibold)
         titleLabel?.numberOfLines = 0
         titleLabel?.textAlignment = .center
     }
+    
+    
 }
