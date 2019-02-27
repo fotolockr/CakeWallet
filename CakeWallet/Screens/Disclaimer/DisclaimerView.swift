@@ -7,13 +7,15 @@ final class DisclaimerView: BaseFlexView {
     let bottomView: UIView
     let acceptButton: UIButton
     let rejectButton: UIButton
+    let checkBox: CheckBox
     
     required init() {
         titleLabel = UILabel(fontSize: 14)
         textView = UITextView()
         bottomView = UIView()
-        acceptButton = PrimaryButton(title: "Accept", font: UIFont.systemFont(ofSize: 14))
-        rejectButton = SecondaryButton(title: "Reject", font: UIFont.systemFont(ofSize: 14))
+        acceptButton = PrimaryButton(title: "Accept")
+        rejectButton = SecondaryButton(title: "Reject")
+        checkBox = CheckBox()
         super.init()
     }
     
@@ -24,13 +26,13 @@ final class DisclaimerView: BaseFlexView {
     }
     
     override func configureConstraints() {
-        
-        bottomView.flex.padding(15).define { flex in
-            flex.addItem(rejectButton).height(56).width(100%).marginBottom(10)
+        bottomView.flex.define { flex in
+//            flex.addItem(rejectButton).height(56).width(100%).marginBottom(10)
+            flex.addItem(checkBox)
             flex.addItem(acceptButton).height(56).width(100%)
         }
         
-        rootFlexContainer.flex.define{ flex in
+        rootFlexContainer.flex.alignItems(.center).padding(0, 15, 15, 15).define{ flex in
             flex.addItem(textView).marginBottom(10).marginBottom(150)
             flex.addItem(bottomView).height(150).position(.absolute).bottom(0).width(100%)
         }

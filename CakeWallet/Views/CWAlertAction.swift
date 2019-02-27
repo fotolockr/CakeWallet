@@ -52,7 +52,7 @@ final class CWAlertAction: BaseView {
         titleLabel.text = title
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
-        titleLabel.textColor = .blueBolt
+        titleLabel.textColor = .purpley
         addSubview(titleLabel)
     }
     

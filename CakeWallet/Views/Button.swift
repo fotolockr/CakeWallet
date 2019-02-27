@@ -22,13 +22,19 @@ class Button: UIButton {
     
     init(image: UIImage?) {
         super.init(frame: .zero)
+        
+        // ?
         setImage(image, for: .normal)
+        
         configureView()
     }
     
     init(title: String) {
         super.init(frame: .zero)
+        
+        // ?
         setTitle(title, for: .normal)
+        
         configureView()
         contentEdgeInsets = UIEdgeInsets(top: 0, left: Button.leftOffset, bottom: 0, right: Button.rightOffset)
     }
@@ -43,8 +49,6 @@ class Button: UIButton {
     }
     
     override func configureView() {
-//        self.applyGradient(colours: [UIColor.yellow, UIColor.blue])
-        
         backgroundColor = Theme.current.primaryButton.background
         setTitleColor(Theme.current.primaryButton.text, for: .normal)
         layer.masksToBounds = false
@@ -57,6 +61,4 @@ class Button: UIButton {
         titleLabel?.numberOfLines = 0
         titleLabel?.textAlignment = .center
     }
-    
-    
 }

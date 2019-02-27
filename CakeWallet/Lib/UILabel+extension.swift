@@ -14,6 +14,12 @@ extension UILabel {
         self.textColor = Theme.current.text
     }
     
+    convenience init(text: String = "") {
+        self.init()
+        self.text = text
+        self.textColor = Theme.current.text
+    }
+    
     static func withLightText(font: UIFont = UIFont.systemFont(ofSize: 16)) -> UILabel {
         let label = UILabel(font: font)
         label.textColor = Theme.current.lightText

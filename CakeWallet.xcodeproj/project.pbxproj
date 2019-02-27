@@ -287,7 +287,7 @@
 		A5680F4D21FF07B0005956DA /* FromSeedHeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4421FF07AF005956DA /* FromSeedHeightVC.swift */; };
 		A5680F4E21FF07B0005956DA /* FromSeedWalletNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4521FF07AF005956DA /* FromSeedWalletNameView.swift */; };
 		A5680F4F21FF07B0005956DA /* FromSeedSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4621FF07AF005956DA /* FromSeedSeedView.swift */; };
-		A5680F5021FF07B0005956DA /* RecoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4721FF07AF005956DA /* RecoverView.swift */; };
+		A5680F5021FF07B0005956DA /* RestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4721FF07AF005956DA /* RestoreView.swift */; };
 		A5680F5121FF07B0005956DA /* RestoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F4821FF07AF005956DA /* RestoreVC.swift */; };
 		A5680F5421FF21D6005956DA /* FromKeysWalletNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5321FF21D6005956DA /* FromKeysWalletNameView.swift */; };
 		A5680F5621FF21E6005956DA /* FromKeysWalletNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5521FF21E6005956DA /* FromKeysWalletNameVC.swift */; };
@@ -306,6 +306,8 @@
 		CA1D6546209A3EBC00A1FDDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA1D6545209A3EBC00A1FDDB /* Assets.xcassets */; };
 		CA1D6554209A3EBC00A1FDDB /* CakeWalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1D6553209A3EBC00A1FDDB /* CakeWalletTests.swift */; };
 		CF597971B2D04B48B3BA7407 /* Pods_CakeWalletLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3BA9289B966EEF23CDA77D9 /* Pods_CakeWalletLib.framework */; };
+		D11519A12225520D009B6706 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11519A02225520D009B6706 /* CheckBox.swift */; };
+		D11519A32225894C009B6706 /* WelcomeFlowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11519A22225894C009B6706 /* WelcomeFlowCardView.swift */; };
 		D15BDBE522200A9B006320E0 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D15BDBD322200A62006320E0 /* Lato-Bold.ttf */; };
 		D15BDBE922200A9B006320E0 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D15BDBD722200A62006320E0 /* Lato-Regular.ttf */; };
 		D15BDBEC22200A9B006320E0 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D15BDBDA22200A62006320E0 /* Lato-Semibold.ttf */; };
@@ -750,7 +752,7 @@
 		A5680F4421FF07AF005956DA /* FromSeedHeightVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedHeightVC.swift; sourceTree = "<group>"; };
 		A5680F4521FF07AF005956DA /* FromSeedWalletNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedWalletNameView.swift; sourceTree = "<group>"; };
 		A5680F4621FF07AF005956DA /* FromSeedSeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromSeedSeedView.swift; sourceTree = "<group>"; };
-		A5680F4721FF07AF005956DA /* RecoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverView.swift; sourceTree = "<group>"; };
+		A5680F4721FF07AF005956DA /* RestoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreView.swift; sourceTree = "<group>"; };
 		A5680F4821FF07AF005956DA /* RestoreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreVC.swift; sourceTree = "<group>"; };
 		A5680F5321FF21D6005956DA /* FromKeysWalletNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromKeysWalletNameView.swift; sourceTree = "<group>"; };
 		A5680F5521FF21E6005956DA /* FromKeysWalletNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromKeysWalletNameVC.swift; sourceTree = "<group>"; };
@@ -772,6 +774,8 @@
 		CA1D654F209A3EBC00A1FDDB /* CakeWalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CakeWalletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1D6553209A3EBC00A1FDDB /* CakeWalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakeWalletTests.swift; sourceTree = "<group>"; };
 		CA1D6555209A3EBC00A1FDDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D11519A02225520D009B6706 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		D11519A22225894C009B6706 /* WelcomeFlowCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeFlowCardView.swift; sourceTree = "<group>"; };
 		D15BDBD322200A62006320E0 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		D15BDBD722200A62006320E0 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		D15BDBDA22200A62006320E0 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
@@ -1407,6 +1411,8 @@
 				640A2AA121761C870047E60C /* CWAlertView.swift */,
 				640A2AA321761D1E0047E60C /* CWAlertAction.swift */,
 				A5280C3522047ADB00B1AE58 /* TransparentButton.swift */,
+				D11519A02225520D009B6706 /* CheckBox.swift */,
+				D11519A22225894C009B6706 /* WelcomeFlowCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1540,7 +1546,7 @@
 				D1886AE92222DDE900A46E9E /* RestoreRoot */,
 				A5680F4921FF07AF005956DA /* FromKeys */,
 				A5680F4021FF07AF005956DA /* FromSeed */,
-				A5680F4721FF07AF005956DA /* RecoverView.swift */,
+				A5680F4721FF07AF005956DA /* RestoreView.swift */,
 				A5680F4821FF07AF005956DA /* RestoreVC.swift */,
 				A5680F5F21FF3C2F005956DA /* RestoreStateModel.swift */,
 			);
@@ -2289,8 +2295,9 @@
 				6AAF1E9520B6023F000E4E02 /* UIColor+colors.swift in Sources */,
 				640A2AA221761C870047E60C /* CWAlertView.swift in Sources */,
 				64F8AB2820EA2E3700C59254 /* RestoreFromKeysViewController.swift in Sources */,
+				D11519A12225520D009B6706 /* CheckBox.swift in Sources */,
 				6AAF1E9320B6022C000E4E02 /* ColorSchemes.swift in Sources */,
-				A5680F5021FF07B0005956DA /* RecoverView.swift in Sources */,
+				A5680F5021FF07B0005956DA /* RestoreView.swift in Sources */,
 				A587BFF8221443C200AFDFCB /* AddressBook.swift in Sources */,
 				64F8AB4620EBBD2700C59254 /* SettingsHandlers.swift in Sources */,
 				64C28A5E21039C0500327509 /* ExchangeResultViewController.swift in Sources */,
@@ -2344,6 +2351,7 @@
 				D1886AED2222DE0E00A46E9E /* RestoreRootVC.swift in Sources */,
 				64F8AB2C20EA447400C59254 /* WalletsNavigationTitle.swift in Sources */,
 				A5680F5421FF21D6005956DA /* FromKeysWalletNameView.swift in Sources */,
+				D11519A32225894C009B6706 /* WelcomeFlowCardView.swift in Sources */,
 				6A24468A20BADA6E00C87C81 /* UserDefaults+extensions.swift in Sources */,
 				64C28A5A21021FC100327509 /* ExchangeState.swift in Sources */,
 				6A6B0C0920BEFC6C004B5DFF /* WalletsView.swift in Sources */,

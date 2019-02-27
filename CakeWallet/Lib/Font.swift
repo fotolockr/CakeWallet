@@ -4,19 +4,23 @@ public enum FontWeight: String {
     case regular, semibold, bold
 }
 
-public enum DeviceSqure: String {
-    case xsMax = "iPhone XS Max"
-    case x = "iPhone 7"
-}
+//public enum DeviceSqure: String {
+//
+//
+//    case xsMax = "iPhone XS Max"
+//    case x = "iPhone 7"
+//}
+
+//struct DeviceSqure {
+//    let bounds = UIScreen.main.bounds
+//    let width = bounds.size.width
+//    let height = bounds.size.height
+//    static let deviceScreenSquare = width * height
+//}
 
 public func applyFont(ofSize: Int = 18, weight: FontWeight = .regular, dynamic: Bool = false) -> UIFont {
     var selectedFont: String
     
-    let bounds = UIScreen.main.bounds
-    let width = bounds.size.width
-    let height = bounds.size.height
-    let square = width * height
-        
     switch weight {
     case .regular:
         selectedFont = "Lato-Regular"
@@ -35,4 +39,8 @@ public func applyFont(ofSize: Int = 18, weight: FontWeight = .regular, dynamic: 
     }
     
     return UIFontMetrics.default.scaledFont(for: customFont)
+}
+
+public class Font {
+    
 }

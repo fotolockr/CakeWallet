@@ -14,15 +14,8 @@ final class RestoreRootVC: BaseViewController<RestoreRootView> {
     override func configureBinds() {
         title = "Restore"
         
-        contentView.restoreWalletTitle.text = "Restore from seed/keys"
-        contentView.restoreWalletDescription.text = "Get back your wallet from seed/keys that you’ve saved to secure place."
-        contentView.restoreWalletButtonText.text = "Next"
-        contentView.restoreWalletButton.addTarget(self, action: #selector(restoreWallet), for: .touchUpInside)
-        
-        contentView.restoreAppTitle.text = "Restore app from backup file"
-        contentView.restoreAppDescription.text = "You can restore the whole app from a backed-up file."
-        contentView.restoreAppButtonText.text = "Next"
-        contentView.restoreAppButton.addTarget(self, action: #selector(restoreApp), for: .touchUpInside)
+        contentView.restoreWalletCard.button.addTarget(self, action: #selector(restoreWallet), for: .touchUpInside)
+        contentView.restoreAppCard.button.addTarget(self, action: #selector(restoreApp), for: .touchUpInside)        
     }
     
     @objc

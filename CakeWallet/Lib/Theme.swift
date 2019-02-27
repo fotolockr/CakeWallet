@@ -25,7 +25,7 @@ enum Theme: String {
     var primaryButton: ButtonColorScheme {
         switch self {
         case .def:
-            return ButtonColorScheme(background: .vividBlue, text: .white)
+            return ButtonColorScheme(background: .turquoiseBlue, text: .white)
         case .night:
             return ButtonColorScheme(background: .whiteSmoke, text: .vividBlue)
         }
@@ -41,7 +41,7 @@ enum Theme: String {
     }
     
     var pin: PinIndicatorScheme {
-        return PinIndicatorScheme(background: .white, value: .vividBlue)
+        return PinIndicatorScheme(background: .white, value: .turquoiseBlue)
     }
     
     var pinKey: PinKeyScheme {

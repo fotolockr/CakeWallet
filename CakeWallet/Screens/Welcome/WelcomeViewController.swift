@@ -18,11 +18,6 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-//    override func viewDidLayoutSubviews() {
-//        print(self.contentView.logoImage.frame.size)
-//        print("-----------------------")
-//    }
-    
     override func configureBinds() {
         contentView.createWalletButton.addTarget(self, action: #selector(createWalletAction), for: .touchUpInside)
         contentView.restoreButton.addTarget(self, action: #selector(restore), for: .touchUpInside)
