@@ -17,6 +17,7 @@ class Button: UIButton {
     
     convenience init(title: String, font: UIFont) {
         self.init(title: title)
+        // self.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
         titleLabel?.font = font
     }
     

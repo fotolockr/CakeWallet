@@ -6,26 +6,24 @@ final class DisclaimerViewController: BaseViewController<DisclaimerView> {
         vc.dismiss(animated: true)
     }
     
-    var onReject: (() -> Void)? = {
-        exit(-1)
-    }
-    
     override func configureBinds() {
         super.configureBinds()
         title = NSLocalizedString("terms", comment: "")
         loadAndDisplayDocument()
         contentView.acceptButton.addTarget(self, action: #selector(onAccessAction), for: .touchUpInside)
-        contentView.rejectButton.addTarget(self, action: #selector(onRejectAction), for: .touchUpInside)
+        contentView.checkBoxTitleButton.addTarget(self, action: #selector(toggleCheckBox), for: .touchUpInside)
     }
     
     @objc
     private func onAccessAction() {
-        onAccept?(self)
+        if contentView.checkBox.isChecked {
+            onAccept?(self)
+        }
     }
     
     @objc
-    private func onRejectAction() {
-        onReject?()
+    func toggleCheckBox() {
+        contentView.checkBox.isChecked = !contentView.checkBox.isChecked
     }
     
     private func loadAndDisplayDocument() {
