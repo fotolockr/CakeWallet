@@ -40,7 +40,3 @@ public func applyFont(ofSize: Int = 18, weight: FontWeight = .regular, dynamic: 
     
     return UIFontMetrics.default.scaledFont(for: customFont)
 }
-
-public class Font {
-    
-}

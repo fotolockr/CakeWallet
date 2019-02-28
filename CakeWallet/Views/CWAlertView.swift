@@ -18,18 +18,6 @@ final class CWAlertView: CWBaseAlertView {
     
     override func configureView() {
         super.configureView()
-//        isOpaque = true
-//        rootFlexContainer.backgroundColor = UIColor.whiteSmoke.withAlphaComponent(0.4)
-//        contentView.layer.masksToBounds = false
-//        titleLabel.textAlignment = .center
-//        titleLabel.numberOfLines = 0
-//        titleLabel.textColor = UIColor.blueBolt
-//        contentView.layer.shadowRadius = 20
-//        contentView.layer.shadowOffset = CGSize(width: 2, height: 1)
-//        contentView.layer.shadowOpacity = 0.3
-//        contentView.layer.shadowColor = UIColor.lightGray.cgColor
-        //        actionsStackView.distribution = .fill
-        //        actionsStackView.alignment = .fill
         separatorView.isHidden = true
     }
     

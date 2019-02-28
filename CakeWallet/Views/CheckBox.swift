@@ -1,47 +1,54 @@
 import UIKit
 
 class CheckBox: UIButton {
-//    var cvstPosition: Double
+    static let defaultSize = CGSize(width: 25, height: 25)
+    
     let checkedImage = UIImage(named: "checked")! as UIImage
     let uncheckedImage = UIImage(named: "close_symbol")! as UIImage
     
-    var handler: ((Bool) -> Void)?
-    
-    var isChecked: Bool = true {
+    var isChecked: Bool = false {
         didSet{
-            if isChecked == false {
-                self.setImage(checkedImage, for: UIControlState.normal)
-            } else {
-                self.setImage(uncheckedImage, for: UIControlState.normal)
-            }
+            let image = isChecked ? checkedImage : nil
+            self.setImage(image, for: UIControlState.normal)
         }
     }
     
-    override open var intrinsicContentSize: CGSize {
-        let intrinsicContentSize = super.intrinsicContentSize
-        let adjustedWidth = intrinsicContentSize.width + titleEdgeInsets.left + titleEdgeInsets.right
-        let adjustedHeight = intrinsicContentSize.height + titleEdgeInsets.top + titleEdgeInsets.bottom
-        return CGSize(width: adjustedWidth, height: adjustedHeight)
-    }
-        
-//    override func configureView() {
-//        super.configureView()
-//        backgroundColor = Theme.current.secondaryButton.background
-//        layer.applySketchShadow(color: UIColor(hex: 0x9bacc5), alpha: 0.34, x: 0, y: 10, blur: 20, spread: -10)
-//    }
+    private let size: CGSize
     
-    override func awakeFromNib() {
-        self.addTarget(self, action: #selector(buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
-        self.isChecked = false
+    required init(size: CGSize = CheckBox.defaultSize) {
+        self.size = size
+        super.init(frame: .zero)
+        configureView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        selfResize()
+    }
+    
+    override func configureView() {
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.wildDarkBlue.cgColor
+        layer.cornerRadius = 8
+        contentVerticalAlignment = .fill
+        contentHorizontalAlignment = .fill
+        imageEdgeInsets = UIEdgeInsetsMake(1, 6, 1, 6)
+        
+        addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        
+        super.configureView()
+    }
+    
+    private func selfResize() {
+        frame = CGRect(origin: frame.origin, size: size)
     }
     
     @objc
-    func buttonClicked(sender: UIButton) {
-        if sender == self {
-            if let handler = handler {
-                handler(!isChecked)
-            }
-            isChecked = !isChecked
-        }
+    func buttonClicked() {
+        isChecked = !isChecked
     }
 }
