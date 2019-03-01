@@ -27,7 +27,7 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
             contentView.welcomeSubtitleLabel.text = NSLocalizedString("first_wallet_text", comment: "")
         }
         
-        contentView.descriptionTextView.text = "Please make selection below to create or recover your wallet"
+        contentView.descriptionTextView.text = NSLocalizedString("please_make_selection", comment: "")
     }
     
     @objc

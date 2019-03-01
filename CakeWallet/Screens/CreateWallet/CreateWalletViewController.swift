@@ -33,7 +33,7 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
         
         signUpFlow?.change(route: .seed(Date(), name, seed))
     }
- 
+    
     @objc
     private func onContinueHandler() {
         let name = self.name
@@ -41,15 +41,15 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
         let title = NSLocalizedString("creating_wallet", comment: "")
             + " "
             + name
-//        showSpinner(withTitle: title) { [weak self] alert in
-//            self?.store.dispatch(
-//                WalletActions.create(
-//                    withName: name,
-//                    andType: type,
-//                    handler: { [weak self] seed in self?.showSeed(seed) }
-//                )
-//            )
-//        }
+        showSpinner(withTitle: title) { [weak self] alert in
+            self?.store.dispatch(
+                WalletActions.create(
+                    withName: name,
+                    andType: type,
+                    handler: { [weak self] seed in self?.showSeed(seed) }
+                )
+            )
+        }
         
         self.store.dispatch(
             WalletActions.create(

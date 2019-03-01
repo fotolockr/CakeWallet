@@ -22,7 +22,7 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
         descriptionTextView = UITextView()
         buttonsContiner = UIView()
         createWalletButton = PrimaryButton(title: NSLocalizedString("create_new", comment: ""))
-        restoreButton = SecondaryButton(title: "Restore")
+        restoreButton = SecondaryButton(title: NSLocalizedString("restore", comment: ""))
     
         super.init()
     }

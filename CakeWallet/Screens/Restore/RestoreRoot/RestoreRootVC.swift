@@ -15,7 +15,7 @@ final class RestoreRootVC: BaseViewController<RestoreRootView> {
         title = "Restore"
         
         contentView.restoreWalletCard.button.addTarget(self, action: #selector(restoreWallet), for: .touchUpInside)
-        contentView.restoreAppCard.button.addTarget(self, action: #selector(restoreApp), for: .touchUpInside)        
+        contentView.restoreAppCard.button.addTarget(self, action: #selector(restoreApp), for: .touchUpInside)
     }
     
     @objc

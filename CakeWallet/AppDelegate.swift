@@ -9,7 +9,6 @@ import CryptoSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     var signUpFlow: SignUpFlow?
     var walletFlow: WalletFlow?

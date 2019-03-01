@@ -9,6 +9,8 @@
 "enjoy_this_wallet" = "Please enjoy this wallet.";
 "love_your_feedback" = "We would love your feedback!";
 
+"terms_of_use_agree" = "Acepto los términos de uso";
+"accept" = "Aceptar";
 "create_new" = "Crear";
 "restore" = "Recuperar";
 "restore_from_seed_keys" = "Recuperar";

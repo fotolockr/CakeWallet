@@ -15,12 +15,12 @@ final class DisclaimerView: BaseFlexView {
         titleLabel = UILabel(fontSize: 14)
         textView = UITextView()
         bottomView = UIView()
-        acceptButton = PrimaryButton(title: "Accept")
+        acceptButton = PrimaryButton(title: NSLocalizedString("accept", comment: ""))
         checkBoxWrapper = UIView()
-        checkBoxTitleButton = TransparentButton(title: "I agree to Terms of Use")
+        checkBoxTitleButton = TransparentButton(title: NSLocalizedString("terms_of_use_agree", comment: ""))
         checkBox = CheckBox()
         gradientView = UIView()
-
+        
         super.init()
     }
     
@@ -34,12 +34,12 @@ final class DisclaimerView: BaseFlexView {
         var newFrame = gradientView.frame
         newFrame.size.width = UIScreen.main.bounds.size.width
         newFrame.size.height = 40
-
+        
         gradientView.frame = newFrame
         
         let mask = CAGradientLayer()
-        mask.startPoint = CGPoint(x: 0.5, y: 0.0)
-        mask.endPoint = CGPoint(x: 0.0, y: 2.5)
+        mask.startPoint = CGPoint(x: 0.0, y: 0.0)
+        mask.endPoint = CGPoint(x: 0.0, y: 3.0)
         let whiteColor = UIColor.white
         
         mask.colors = [
@@ -59,14 +59,14 @@ final class DisclaimerView: BaseFlexView {
         }
         
         bottomView.flex.define { flex in
-            flex.addItem(gradientView).position(.absolute).top(-35).backgroundColor(.red) // Theme.current.container.background
+            flex.addItem(gradientView).position(.absolute).top(-35).backgroundColor(Theme.current.container.background)
             flex.addItem(checkBoxWrapper)
             flex.addItem(acceptButton).height(56).width(100%)
         }
         
-        rootFlexContainer.flex.alignItems(.center).padding(0, 15, 5, 15).define{ flex in
+        rootFlexContainer.flex.alignItems(.center).padding(0, 15, 0, 15).define{ flex in
             flex.addItem(textView).marginBottom(10).marginBottom(100)
-            flex.addItem(bottomView).height(100).position(.absolute).bottom(0).width(100%)
+            flex.addItem(bottomView).height(130).position(.absolute).bottom(0).width(100%).backgroundColor(Theme.current.container.background)
         }
     }
 }
