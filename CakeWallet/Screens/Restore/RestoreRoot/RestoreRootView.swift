@@ -33,23 +33,31 @@ final class RestoreRootView: BaseScrollFlexView {
     }
     
     override func configureConstraints() {
+        let imageViewBackgroundColor = Theme.current.card.background
+        let imageHeight: CGFloat = adaptiveLayout.getSize(forLarge: 170, forBig: 150, defaultSize: 115)
+        let imageWidth: CGFloat = adaptiveLayout.getSize(forLarge: 340, forBig: 320, defaultSize: 240)
+        
         restoreWalletImageView.constraintsSetup = { [weak self] root in
-            root.flex.padding(5, 0, 10, 0).define { flex in
+            root.flex.padding(5, 0, 10, 0).backgroundColor(imageViewBackgroundColor).define { flex in
                 if let restoreWalletImage = self?.restoreWalletImage {
-                    flex.addItem(restoreWalletImage).height(120).width(200)
+                    flex.addItem(restoreWalletImage)
+                        .height(imageHeight)
+                        .width(imageWidth)
                 }
             }
         }
         
         restoreAppImageView.constraintsSetup = { [weak self] root in
-            root.flex.padding(5, 0, 10, 0).backgroundColor(Theme.current.card.background).define { flex in
+            root.flex.padding(5, 0, 10, 0).backgroundColor(imageViewBackgroundColor).define { flex in
                 if let restoreAppImage = self?.restoreAppImage {
-                    flex.addItem(restoreAppImage).height(120).width(200)
+                    flex.addItem(restoreAppImage)
+                        .height(imageHeight)
+                        .width(imageWidth)
                 }
             }
         }
         
-        rootFlexContainer.flex.alignItems(.center).padding(20).define { flex in
+        rootFlexContainer.flex.alignItems(.center).padding(15, 20, 15, 20).define { flex in
             flex.addItem(restoreWalletCard).width(100%)
             flex.addItem(restoreAppCard).width(100%)
         }
