@@ -30,7 +30,7 @@ final class CWAlertAction: BaseView {
     
     init(title: String, style: Style = .default, handler: @escaping (CWAlertAction) -> Void) {
         self.style = style
-        titleLabel = UILabel(font: style == .default ? UIFont.systemFont(ofSize: 19) : UIFont.boldSystemFont(ofSize: 19))
+        titleLabel = UILabel(font: style == .default ? UIFont.systemFont(ofSize: 17) : UIFont.boldSystemFont(ofSize: 17))
         self.title = title
         self.handler = handler
         super.init()
@@ -38,7 +38,7 @@ final class CWAlertAction: BaseView {
     
     required init() {
         self.style = .default
-        titleLabel = UILabel(font: style == .default ? UIFont.systemFont(ofSize: 19) : UIFont.boldSystemFont(ofSize: 19))
+        titleLabel = UILabel(font: style == .default ? UIFont.systemFont(ofSize: 17) : UIFont.boldSystemFont(ofSize: 17))
         self.title = NSLocalizedString("ok", comment: "")
         self.handler = { $0.alertView?.dismiss(animated: true) }
         super.init()
@@ -49,6 +49,7 @@ final class CWAlertAction: BaseView {
         backgroundColor = .clear
         let onTapGesture = UITapGestureRecognizer(target: self, action: #selector(_handler))
         addGestureRecognizer(onTapGesture)
+        titleLabel.font = applyFont(ofSize: 17, weight: .bold)
         titleLabel.text = title
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0

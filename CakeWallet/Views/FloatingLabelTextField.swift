@@ -38,7 +38,7 @@ final class FloatingLabelTextField: SkyFloatingLabelTextField {
     
     override func configureView() {
         super.configureView()
-        font = UIFont.systemFont(ofSize: 14)
+        font = applyFont(ofSize: 14, weight: .regular)
         placeholderColor = UIColor(hex: 0x9bacc5) // FIXME: Unnamed cons
         lineColor = UIColor(hex: 0xe0e9f6) // FIXME: Unnamed cons
         lineHeight = 2
@@ -46,7 +46,7 @@ final class FloatingLabelTextField: SkyFloatingLabelTextField {
     
     private func addOptional() {
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 15)))
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = applyFont(ofSize: 12, weight: .regular)
         label.textColor = UIColor(hex: 0x9bacc5) // FIXME: Unnamed cons
         label.text = NSLocalizedString("optional", comment: "")
         rightView = label

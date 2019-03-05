@@ -19,19 +19,7 @@ final class PinCodeKeyButton: UIButton {
         
         configureView()
     }
-    
-    //    init(title: String) {
-    //        super.init(frame: .zero)
-    //
-    //        configureView()
-    //    }
-    
-    //    init(image: UIImage?) {
-    //        super.init(frame: .zero)
-    //        setImage(image, for: .normal)
-    //        configureView()
-    //    }
-    
+        
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -40,7 +28,9 @@ final class PinCodeKeyButton: UIButton {
         showsTouchWhenHighlighted = false
         contentHorizontalAlignment = .center
         setTitleColor(.white, for: .normal)
-        titleLabel?.font = UIFont.systemFont(ofSize: 25)
+        titleLabel?.font = applyFont(ofSize: 26, weight: .regular)
+        
+        
         backgroundColor = Theme.current.pinKey.background
         layer.applySketchShadow(color: UIColor(hex: 0x9BACC5), alpha: 0.45, x: 0, y: 19, blur: 22, spread: -11)
     }

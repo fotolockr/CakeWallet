@@ -18,7 +18,7 @@ public enum FontWeight: String {
 //    static let deviceScreenSquare = width * height
 //}
 
-public func applyFont(ofSize: Int = 18, weight: FontWeight = .regular, dynamic: Bool = false) -> UIFont {
+public func applyFont(ofSize: Int = 18, weight: FontWeight = .regular) -> UIFont {
     var selectedFont: String
     
     switch weight {

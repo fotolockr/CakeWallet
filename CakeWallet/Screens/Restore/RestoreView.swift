@@ -15,8 +15,8 @@ final class RestoreView: BaseScrollFlexView {
         restoreFromSeedImage = UIImageView(image: UIImage(named: "restore_seed_image"))
         restoreFromSeedCard = WelcomeFlowCardView(
             imageView: restoreFromSeedImageView,
-            titleText: "Restore from seed",
-            descriptionText: "Restore your wallet from either the 25 word or 12 word seed",
+            titleText: NSLocalizedString("restore_seed_card_title", comment: ""),
+            descriptionText: NSLocalizedString("restore_seed_card_description", comment: ""),
             textColor: .purpley
         )
         
@@ -24,8 +24,8 @@ final class RestoreView: BaseScrollFlexView {
         restoreFromKeysImage = UIImageView(image: UIImage(named: "restore_keys_image"))
         restoreFromKeysCard = WelcomeFlowCardView(
             imageView: restoreFromKeysImageView,
-            titleText: "Restore from keys",
-            descriptionText: "Restore your wallet from your private keys",
+            titleText: NSLocalizedString("restore_keys_card_title", comment: ""),
+            descriptionText: NSLocalizedString("restore_keys_card_description", comment: ""),
             textColor: .turquoiseBlue
         )
         
@@ -34,12 +34,12 @@ final class RestoreView: BaseScrollFlexView {
     
     override func configureConstraints() {
         let imageViewBackgroundColor = Theme.current.card.background
-        let imageHeight: CGFloat = adaptiveLayout.getSize(forLarge: 120, forBig: 110, defaultSize: 85)
-        let imageWidth: CGFloat = adaptiveLayout.getSize(forLarge: 370, forBig: 240, defaultSize: 200)
+        let imageHeight = adaptiveLayout.getSize(forLarge: 135, forBig: 100, defaultSize: 85)
+        let imageWidth = adaptiveLayout.getSize(forLarge: 290, forBig: 240, defaultSize: 200)
+        let imagePaddingTop = adaptiveLayout.getSize(forLarge: 50, forBig: 50, defaultSize: 30)
         
-        // TODO: padding as ^ 
         restoreFromSeedImageView.constraintsSetup = { [weak self] root in
-            root.flex.padding(30, 0, 10, 0).backgroundColor(imageViewBackgroundColor).define { flex in
+            root.flex.padding(imagePaddingTop, 0, 10, 0).backgroundColor(imageViewBackgroundColor).define { flex in
                 if let restoreFromSeedImage = self?.restoreFromSeedImage {
                     flex.addItem(restoreFromSeedImage)
                         .height(imageHeight)
@@ -49,7 +49,7 @@ final class RestoreView: BaseScrollFlexView {
         }
         
         restoreFromKeysImageView.constraintsSetup = { [weak self] root in
-            root.flex.padding(30, 0, 10, 0).backgroundColor(imageViewBackgroundColor).define { flex in
+            root.flex.padding(imagePaddingTop, 0, 10, 0).backgroundColor(imageViewBackgroundColor).define { flex in
                 if let restoreFromKeysImage = self?.restoreFromKeysImage {
                     flex.addItem(restoreFromKeysImage)
                         .height(imageHeight)

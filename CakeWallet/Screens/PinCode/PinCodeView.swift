@@ -16,6 +16,7 @@ final class PinCodeView: BaseFlexView {
     override func configureView() {
         super.configureView()
         titleLabel.text = NSLocalizedString("enter_your_pin", comment: "")
+        titleLabel.font = applyFont(ofSize: 24, weight: .regular)
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
     }
@@ -27,7 +28,6 @@ final class PinCodeView: BaseFlexView {
             let pinPasswordKeyboardContainer = UIView()
             pinPasswordKeyboardContainer.flex.justifyContent(.end).grow(1).marginBottom(10.8%).marginTop(25).addItem(pinPasswordKeyboard).marginLeft(10.8%).marginRight(10.8%)
             flex.addItem(pinPasswordKeyboardContainer)
-            //            flex.addItem(UIView()).height(10.8%).minHeight(15)
         }
     }
 }

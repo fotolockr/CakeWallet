@@ -5,8 +5,6 @@ import IQKeyboardManagerSwift
 import ZIPFoundation
 import CryptoSwift
 
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -211,7 +209,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().clipsToBounds = true
         UITabBar.appearance().tintColor = .vividBlue
         UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
+        
+        let backImage = UIImage(named: "arrow_back")?.resized(to: CGSize(width: 30, height: 15))
+        UINavigationBar.appearance().tintColor = .black
+        UINavigationBar.appearance().backIndicatorImage = backImage
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .highlighted)
+
+        UINavigationBar.appearance().backItem?.title = ""
         UINavigationBar.appearance().backgroundColor = .clear
+        
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()

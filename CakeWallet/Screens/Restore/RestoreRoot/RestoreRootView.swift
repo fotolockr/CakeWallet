@@ -34,8 +34,8 @@ final class RestoreRootView: BaseScrollFlexView {
     
     override func configureConstraints() {
         let imageViewBackgroundColor = Theme.current.card.background
-        let imageHeight: CGFloat = adaptiveLayout.getSize(forLarge: 170, forBig: 150, defaultSize: 115)
-        let imageWidth: CGFloat = adaptiveLayout.getSize(forLarge: 340, forBig: 320, defaultSize: 240)
+        let imageHeight = adaptiveLayout.getSize(forLarge: 180, forBig: 150, defaultSize: 115)
+        let imageWidth = adaptiveLayout.getSize(forLarge: 360, forBig: 320, defaultSize: 240)
         
         restoreWalletImageView.constraintsSetup = { [weak self] root in
             root.flex.padding(5, 0, 10, 0).backgroundColor(imageViewBackgroundColor).define { flex in

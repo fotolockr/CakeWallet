@@ -3,7 +3,6 @@
 "setup_pin" = "Настройка пин";
 "create_new" = "Создать новый";
 "restore" = "Восстановить";
-"restore_from_seed_keys" = "Восстановить";
 "welcome" = "Добро пожаловать\nв %@.";
 "first_wallet_text" = "Первый iOS кошелек\nдля Monero.";
 "starting_creation_selection" = "Пожалуйста, выберите способ создания кошелька: создать новый, или восстановить ваш, уже существующий.";
@@ -23,6 +22,20 @@
 "setup_pin" = "Настройка пин-кода";
 "pin_setup_success" = "Ваш пин-код установлен успешно!";
 "incorrect_pin" = "Неверный пин-код";
+
+// Restore root
+
+"restore_from_seed_keys" = "Восстановить из код-фразы/ключей";
+"restore_from_seed_keys_long" = "Восстановить ваш кошелёк, используя код-фразу или ключ";
+"restore_from_backup" = "Восстановить из резервного копирования";
+"restore_from_backup_long" = "Восстановить приложение полностью из резервного копирования";
+
+// Restore cards
+
+"restore_seed_card_title" = "Восстановить с помощью код-фразы";
+"restore_seed_card_description" = "Восстановить с помощью код-фразы из 25 или 12 слов";
+"restore_keys_card_title" = "Восстановить с помощью ключей";
+"restore_keys_card_description" = "Восстановить с помощью приватных ключей";
 
 // Restore
 

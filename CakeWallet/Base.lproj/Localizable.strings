@@ -14,10 +14,6 @@
 "please_make_selection" = "Please make a selection below to either create a new wallet or restore a wallet";
 "create_new" = "Create new";
 "restore" = "Restore";
-"restore_from_seed_keys" = "Restore from seed/keys";
-"restore_from_seed_keys_long" = "Restore your wallet from your seed or keys";
-"restore_from_backup" = "Restore from a back-up file";
-"restore_from_backup_long" = "Restore the whole Cake Wallet app from your back-up file";
 
 // Pin
 
@@ -29,6 +25,20 @@
 "setup_pin" = "Setup PIN";
 "pin_setup_success" = "Your PIN has been set up successfully!";
 "incorrect_pin" = "Incorrect PIN.";
+
+// Restore root
+
+"restore_from_seed_keys" = "Restore from seed/keys";
+"restore_from_seed_keys_long" = "Restore your wallet from your seed or keys";
+"restore_from_backup" = "Restore from a back-up file";
+"restore_from_backup_long" = "Restore the whole Cake Wallet app from your back-up file";
+
+// Restore cards
+
+"restore_seed_card_title" = "Restore from seed";
+"restore_seed_card_description" = "Restore your wallet from either the 25 word or 12 word seed";
+"restore_keys_card_title" = "Restore from keys";
+"restore_keys_card_description" = "Restore your wallet from your private keys";
 
 // Restore
 
@@ -48,7 +58,7 @@
 "continue_restore" = "Continue restore";
 "set_restore_height" = "Set restore height";
 
-"restore_height" = "Restore height";
+"restore_height" = "Restore from blockheight";
 "restore_from_date" = "Restore from date";
 "address" = "Address";
 "view_key_(private)" = "View key (private)";
@@ -229,7 +239,7 @@
 "terms_accepting_message" = "By using this app, you agree to the Terms of Agreement set forth below";
 "support" = "Support";
 "version" = "Version";
-"ok" = "Ok";
+"ok" = "OK";
 "change_language" = "Change language";
 "change_language_ask" = "Change application language to %@ ?";
 

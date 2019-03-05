@@ -30,7 +30,9 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
     override func configureView() {
         super.configureView()
         
-        welcomeLabel.font = applyFont(ofSize: 26, weight: .bold)
+        let welcomeLabelFontSize = Int(adaptiveLayout.getSize(forLarge: 30, forBig: 28, defaultSize: 24))
+        
+        welcomeLabel.font = applyFont(ofSize: welcomeLabelFontSize, weight: .bold)
         welcomeLabel.textAlignment = NSTextAlignment.center
         welcomeLabel.numberOfLines = 0
         
@@ -50,9 +52,8 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
     }
     
     override func configureConstraints() {
-        let deviceHeight = bounds.size.height
-        
-        print(deviceHeight)
+        let logoImageTopPosition = adaptiveLayout.getSize(forLarge: 50, forBig: 20, defaultSize: -10)
+        let bodyContainerPaddingTop = adaptiveLayout.getSize(forLarge: 400, forBig: 340, defaultSize: 280)
         
         titleContainer.flex.alignItems(.center).define { flex in
             flex.addItem(welcomeLabel).marginBottom(10)
@@ -72,9 +73,9 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
         rootFlexContainer.flex.justifyContent(.spaceBetween).width(100%).define { flex in
             flex.addItem(logoImage)
                 .position(.absolute)
-                .top(deviceHeight > 850 ? 35 : 0)
+                .top(logoImageTopPosition)
                 .left(0).width(100%).marginBottom(15)
-            flex.addItem(bodyContainer).paddingTop(deviceHeight * 0.4)
+            flex.addItem(bodyContainer).paddingTop(bodyContainerPaddingTop)
         }
         
         bottomSectionView.flex.define { flex in

@@ -175,8 +175,8 @@ final class RestoreFromHeightView: BaseFlexView {
     
     required init() {
         wrapper = UIView()
-        restoreHeightTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_height", comment: ""), isOptional: true)
-        dateTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), isOptional: true)
+        restoreHeightTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_height", comment: ""))
+        dateTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_from_date", comment: ""))
         separatorTextField = UITextField()
         datePicker = UIDatePicker()
         super.init()

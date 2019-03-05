@@ -277,6 +277,7 @@
 		6AE7241120DD5C5C003D6559 /* NodesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7241020DD5C5C003D6559 /* NodesList.swift */; };
 		6AF4786820C18CBE0072796B /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF4786720C18CBE0072796B /* AuthenticationViewController.swift */; };
 		6AFC5C7D20C2CDCE007DFB53 /* WalletFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */; };
+		A5178DE7222EBCAF00EC4829 /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5178DE6222EBCAF00EC4829 /* AdaptiveLayout.swift */; };
 		A5280C3622047ADB00B1AE58 /* TransparentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5280C3522047ADB00B1AE58 /* TransparentButton.swift */; };
 		A5610DDE21FF032D00C38F99 /* NewAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5610DDC21FF032D00C38F99 /* NewAddressViewController.swift */; };
 		A5610DDF21FF032D00C38F99 /* NewAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5610DDD21FF032D00C38F99 /* NewAddressView.swift */; };
@@ -742,6 +743,7 @@
 		6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletFlow.swift; sourceTree = "<group>"; };
 		6D019C5E8387F4D77238C508 /* Pods-CakeWalletLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWalletLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWalletLib/Pods-CakeWalletLib.release.xcconfig"; sourceTree = "<group>"; };
 		784D7BF72CC17977C433AE9E /* Pods_CWMonero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CWMonero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5178DE6222EBCAF00EC4829 /* AdaptiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayout.swift; sourceTree = "<group>"; };
 		A5280C3522047ADB00B1AE58 /* TransparentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentButton.swift; sourceTree = "<group>"; };
 		A5610DDC21FF032D00C38F99 /* NewAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressViewController.swift; sourceTree = "<group>"; };
 		A5610DDD21FF032D00C38F99 /* NewAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressView.swift; sourceTree = "<group>"; };
@@ -1378,6 +1380,7 @@
 				0CB841C622031AE200AF4985 /* getTransactionKey.swift */,
 				0CE9690E2204A31B006D6100 /* autoBackup.swift */,
 				D15BDBF422205129006320E0 /* Font.swift */,
+				A5178DE6222EBCAF00EC4829 /* AdaptiveLayout.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -2059,7 +2062,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
@@ -2094,7 +2097,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2368,6 +2371,7 @@
 				640A2AAA2176209E0047E60C /* Queue.swift in Sources */,
 				64DACEDB214804CE0057B604 /* TermsViewController.swift in Sources */,
 				644E32F52134511F00331241 /* ExchangeFlow.swift in Sources */,
+				A5178DE7222EBCAF00EC4829 /* AdaptiveLayout.swift in Sources */,
 				64AA49AE21456E55002CE1FE /* UIViewController+UIAlertController.swift in Sources */,
 				648D7F7C20F770A6004C6200 /* ExchangeView.swift in Sources */,
 				64B2D3A4211334EC00AFBCAA /* BaseScrollFlexView.swift in Sources */,
