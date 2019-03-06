@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         register(handler: UpdateSubaddressesHistroyHandler())
         register(handler: AddNewSubaddressesHandler())
         register(handler: ChangeBiometricAuthenticationHandler())
+        register(handler: ConnectToCurrentNodeHandler())
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -79,48 +80,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if !store.state.walletState.name.isEmpty && pin != nil {
             let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
-            let handler = LoadCurrentWalletHandler()
-
-            authController.handler = { [weak authController] in
+            let splashController = SplashViewController(store: store)
+            let loadWalletHandler = LoadCurrentWalletHandler()
+            
+            window?.rootViewController = splashController
+            
+            splashController.handler = { [weak self] in
+                let splashQueue = DispatchQueue(label: "splash", qos: .default)
+                
+                splashQueue.async {
+                    loadWalletHandler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
+                        guard let action = action else {
+                            return
+                        }
+                        
+                        store._defaultDispatch(action)
+                        
+                        DispatchQueue.main.async {
+                            self?.window?.rootViewController = authController
+                        }
+                    })
+                }
+            }
+            
+            authController.handler = { [weak self] in
                 store.dispatch(SettingsState.Action.isAuthenticated)
+                store.dispatch(WalletActions.connectToCurrentNode)
                 DispatchQueue.main.async {
-                    authController?.showSpinner(withTitle: NSLocalizedString("loading_wallet", comment: "")) { alert in //fixme
-                        handler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
-                            DispatchQueue.main.async {
-                                guard let action = action else {
-                                    return
-                                }
-
-                                store._defaultDispatch(action)
-
-                                if
-                                    let action = action as? ApplicationState.Action,
-                                    case let .changedError(_error) = action,
-                                    let error = _error {
-                                    alert.dismiss(animated: true) {
-                                        authController?.showError(error: error)
-                                    }
-                                    return
-                                }
-
-                                if let action = action as? WalletState.Action, case .loaded(_) = action {
-                                    alert.dismiss(animated: true) { [weak self] in
-                                        self?.walletFlow = WalletFlow()
-                                        self?.walletFlow?.change(route: .start)
-
-                                        self?.window?.rootViewController = self?.walletFlow?.rootController
-
-                                        if !termsOfUseAccepted {
-                                            self?.window?.rootViewController?.present(DisclaimerViewController(), animated: false)
-                                        }
-                                    }
-                                }
-                            }
-                        })
+                    self?.walletFlow = WalletFlow()
+                    self?.walletFlow?.change(route: .start)
+                    
+                    self?.window?.rootViewController = self?.walletFlow?.rootController
+                    
+                    if !termsOfUseAccepted {
+                        self?.window?.rootViewController?.present(DisclaimerViewController(), animated: false)
                     }
                 }
             }
-            window?.rootViewController = authController
         } else {
             let navigationController = UINavigationController()
             restoreWalletFlow = RestoreWalletFlow(navigationController: navigationController)
@@ -204,18 +200,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setAppearance() {
-        UITabBar.appearance().backgroundColor = .white
+//        UITabBar.appearance().backgroundColor = .white
         UITabBar.appearance().layer.borderWidth = 0.0
         UITabBar.appearance().clipsToBounds = true
         UITabBar.appearance().tintColor = .vividBlue
         UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
         
         let backImage = UIImage(named: "arrow_back")?.resized(to: CGSize(width: 30, height: 15))
+        
         UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().backIndicatorImage = backImage
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .highlighted)
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .highlighted)
 
         UINavigationBar.appearance().backItem?.title = ""
         UINavigationBar.appearance().backgroundColor = .clear

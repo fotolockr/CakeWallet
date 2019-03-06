@@ -9,6 +9,7 @@ public enum WalletActions: HandlableAction {
     case restoreFromKeys(withName: String, andAddress: String, viewKey: String, spendKey: String, restoreHeight: UInt64, type: WalletType, handler: () -> Void)
     case connect(NodeDescription)
     case reconnect
+    case connectToCurrentNode
     case fetchSeed
     case fetchWalletKeys
     case save

@@ -18,6 +18,25 @@ public struct ConnectToNodeHandler: AsyncHandler {
     }
 }
 
+public struct ConnectToCurrentNodeHandler: AsyncHandler {
+    public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
+        guard
+            case .connectToCurrentNode = action,
+            let node = store.state.settingsState.node else { return }
+        
+        walletQueue.async {
+            do {
+                handler(BlockchainState.Action.changedConnectionStatus(.connection))
+                try currentWallet.connect(toNode: node)
+                checkConnectionTimer.resume()
+            } catch {
+                handler(ApplicationState.Action.changedError(error))
+                handler(BlockchainState.Action.changedConnectionStatus(ConnectionStatus.failed))
+            }
+        }
+    }
+}
+
 public struct ReconnectToNodeHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case .reconnect = action else { return }
@@ -28,18 +47,6 @@ public struct ReconnectToNodeHandler: AsyncHandler {
         }
         
         handler(nil)
-        
-//        workQueue.async {
-//            do {
-//                if let node = store.state.settingsState.node {
-//                    handler(BlockchainState.Action.changedConnectionStatus(.connection))
-//                    try currentWallet.connect(toNode: node)
-//                }
-//            } catch {
-//                handler(ApplicationState.Action.changedError(error))
-//                handler(BlockchainState.Action.changedConnectionStatus(ConnectionStatus.failed))
-//            }
-//        }
     }
 }
 
@@ -121,56 +128,24 @@ public struct RescanHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case let .rescan(height, completionHandler) = action else { return }
         
-//        workQueue.async {
-            do {
-                let name = currentWallet.name
-                let moneroWallet = currentWallet as! MoneroWallet
-                let password = try KeychainStorageImpl.standart.fetch(
-                    forKey: KeychainKey.walletPassword(
-                        WalletIndex(name: name, type: .monero)
-                    )
+        do {
+            let name = currentWallet.name
+            let moneroWallet = currentWallet as! MoneroWallet
+            let password = try KeychainStorageImpl.standart.fetch(
+                forKey: KeychainKey.walletPassword(
+                    WalletIndex(name: name, type: .monero)
                 )
+            )
 
-                try moneroWallet.rescan(from: height, password: password)
-                
-//
-//                let type = WalletType.monero
-//                let gateway = getGateway(for: type)
-//                currentWallet.close()
-//                try gateway.remove(withName: name)
-//                let wallet = try gateway.recoveryWallet(
-//                    withName: name,
-//                    andSeed: seed,
-//                    password: password,
-//                    restoreHeight: height)
-//
-                handler(WalletState.Action.restored(currentWallet))
-                completionHandler()
-////
-//                store.dispatch(
-//                    WalletActions.restoreFromSeed(withName: name, andSeed: seed, restoreHeight: height, type: .monero, handler: compHandler)
-//                )
-//                currentWallet = try gateway.recoveryWallet(withName: name, andSeed: seed, password: password, restoreHeight: height)
-//                try currentWallet.connect(toNode: node)
-//                compHandler()
-//                try currentWallet.rescan(from: height, node: node)
-//                guard let moneroWallet = currentWallet as? MoneroWallet else {
-//                    return
-//                }
-//
-//                try moneroWallet.rescan(
-//                    from: height,
-//                    password: try KeychainStorageImpl.standart.fetch(forKey: KeychainKey.walletPassword(WalletIndex(name: moneroWallet.name, type: .monero))),
-//                    node: node)
-//                handler(
-//                    BlockchainState.Action.changedConnectionStatus(.startingSync)
-//                )
-            } catch {
-                handler(ApplicationState.Action.changedError(error))
-                completionHandler()
-            }
+            try moneroWallet.rescan(from: height, password: password)
+            
+            handler(WalletState.Action.restored(currentWallet))
+            completionHandler()
+        } catch {
+            handler(ApplicationState.Action.changedError(error))
+            completionHandler()
         }
-//    }
+    }
 }
 
 public struct FetchSeedHandler: Handler {
@@ -209,25 +184,17 @@ public struct LoadCurrentWalletHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case .loadCurrentWallet = action else { return }
         
-//        walletQueue.async {
         let name = store.state.walletState.name.isEmpty ? UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.currentWalletName) ?? "" : store.state.walletState.name
             
-            do {
-                let type = store.state.walletState.walletType
-                let index = WalletIndex(name: name, type: type)
-                let password = try KeychainStorageImpl.standart.fetch(forKey: KeychainKey.walletPassword(index))
-                let wallet = try getGateway(for: type).load(withName: name, andPassword: password)
-                handler(WalletState.Action.loaded(wallet))
-            } catch {
-//                if error.localizedDescription == "std::bad_alloc" {
-//                    try! MoneroWalletGateway.init().removeCacheFile(for: name)
-//                    self.handle(action: action, store: store, handler: handler)
-//                    return
-//                }
-
-                handler(ApplicationState.Action.changedError(error))
-            }
-//        }
+        do {
+            let type = store.state.walletState.walletType
+            let index = WalletIndex(name: name, type: type)
+            let password = try KeychainStorageImpl.standart.fetch(forKey: KeychainKey.walletPassword(index))
+            let wallet = try getGateway(for: type).load(withName: name, andPassword: password)
+            handler(WalletState.Action.inited(wallet))
+        } catch {
+            handler(ApplicationState.Action.changedError(error))
+        }
     }
 }
 

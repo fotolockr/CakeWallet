@@ -10,12 +10,11 @@ private func onWalletChange(_ wallet: Wallet) {
         UserDefaults.standard.set(wallet.name, forKey: Configurations.DefaultsKeys.currentWalletName)
     }
     
-//    workQueue.async {
-        if currentWallet != nil && (currentWallet.name != wallet.name) {
-            currentWallet.close()
-        }
-        
-        currentWallet = wallet
+    if currentWallet != nil && (currentWallet.name != wallet.name) {
+        currentWallet.close()
+    }
+    
+    currentWallet = wallet
     
     currentWallet.onNewBlock = { block in
         updateQueue.async {
@@ -47,11 +46,6 @@ private func onWalletChange(_ wallet: Wallet) {
     store.dispatch(
         TransactionsActions.updateTransactionHistory(currentWallet.transactions())
     )
-    //    }
-    
-    //    store.dispatch(
-    //        TransactionsActions.updateTransactions([])
-    //    )
     
     store.dispatch(
         BlockchainState.Action.changedCurrentHeight(wallet.currentHeight)
@@ -74,6 +68,8 @@ public final class OnWalletChangeEffect: Effect {
         case let .created(wallet):
             onWalletChange(wallet)
         case let .restored(wallet):
+            onWalletChange(wallet)
+        case let .inited(wallet):
             onWalletChange(wallet)
         default:
             break

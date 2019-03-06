@@ -13,6 +13,7 @@ public struct WalletState: StateType {
         case changedIsWatchOnly(Bool)
         case reseted(String, String, String, Bool, WalletType, WalletKeys)
         case created(Wallet)
+        case inited(Wallet)
         case loaded(Wallet)
         case restored(Wallet)
         case fetchedWalletKeys(WalletKeys)
@@ -66,6 +67,8 @@ public struct WalletState: StateType {
             return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: .changed)
         case let .changedWalletStage(stage):
             return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage)
+        case let .inited(wallet):
+            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed)
         }
     }
     
