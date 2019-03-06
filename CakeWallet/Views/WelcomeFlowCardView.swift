@@ -37,25 +37,26 @@ final class WelcomeFlowCardView: BaseFlexView {
     override func configureView() {
         super.configureView()
         
-        title.font = applyFont(ofSize: 20, weight: .semibold)
+        let titleFontSize = adaptiveLayout.getSize(forLarge: 23, forBig: 21, defaultSize: 20)
+        let descriptionFontSize = adaptiveLayout.getSize(forLarge: 17, forBig: 16, defaultSize: 16)
+        let buttonFontSize = adaptiveLayout.getSize(forLarge: 19, forBig: 18, defaultSize: 17)
+        
+        title.font = applyFont(ofSize: Int(titleFontSize), weight: .semibold)
         title.textColor = textColor
         title.numberOfLines = 1
         
-        descriptionText.font = applyFont(ofSize: 16)
+        descriptionText.font = applyFont(ofSize: Int(descriptionFontSize))
         descriptionText.textColor = .greyBlue
         descriptionText.numberOfLines = 2
         descriptionText.textAlignment = .center
         
-        buttonText.font = applyFont(ofSize: 18, weight: .semibold)
+        buttonText.font = applyFont(ofSize: Int(buttonFontSize), weight: .semibold)
         buttonText.textColor = textColor
-        
-        
-//        textHolder.layer.borderWidth = 1
     }
 
     override func configureConstraints() {
         rootFlexContainer.layer.cornerRadius = 12
-        rootFlexContainer.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 10, blur: 10, spread: -3)
+        rootFlexContainer.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 0, blur: 20, spread: -10)
         rootFlexContainer.backgroundColor = Theme.current.card.background
         
         // TODO: step

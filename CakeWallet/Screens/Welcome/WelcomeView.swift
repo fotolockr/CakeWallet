@@ -30,18 +30,20 @@ final class WelcomeView: BaseScrollFlexViewWithBottomSection {
     override func configureView() {
         super.configureView()
         
-        let welcomeLabelFontSize = Int(adaptiveLayout.getSize(forLarge: 30, forBig: 28, defaultSize: 24))
+        let welcomeLabelFontSize = Int(adaptiveLayout.getSize(forLarge: 32, forBig: 30, defaultSize: 24))
+        let welcomeSubtitleFontSize = Int(adaptiveLayout.getSize(forLarge: 24, forBig: 22, defaultSize: 20))
+        let welcomeDescriptionFontSize = Int(adaptiveLayout.getSize(forLarge: 17, forBig: 16, defaultSize: 16))
         
         welcomeLabel.font = applyFont(ofSize: welcomeLabelFontSize, weight: .bold)
         welcomeLabel.textAlignment = NSTextAlignment.center
         welcomeLabel.numberOfLines = 0
         
-        welcomeSubtitleLabel.font = applyFont(ofSize: 22)
+        welcomeSubtitleLabel.font = applyFont(ofSize: welcomeSubtitleFontSize, weight: .semibold)
         welcomeSubtitleLabel.textAlignment = NSTextAlignment.center
         welcomeSubtitleLabel.numberOfLines = 0
         welcomeSubtitleLabel.textColor = UIColor(red: 126, green: 147, blue: 177)
         
-        descriptionTextView.font = applyFont(ofSize: 16)
+        descriptionTextView.font = applyFont(ofSize: welcomeDescriptionFontSize)
         descriptionTextView.textAlignment = NSTextAlignment.center
         descriptionTextView.textColor = UIColor(red: 126, green: 147, blue: 177)
         descriptionTextView.isEditable = false
