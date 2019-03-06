@@ -1,10 +1,10 @@
 import UIKit
+import FlexLayout
 
 class CheckBox: UIButton {
     static let defaultSize = CGSize(width: 25, height: 25)
     
     let checkedImage = UIImage(named: "checked")! as UIImage
-    let uncheckedImage = UIImage(named: "close_symbol")! as UIImage
     
     var isChecked: Bool = false {
         didSet{
@@ -52,3 +52,55 @@ class CheckBox: UIButton {
         isChecked = !isChecked
     }
 }
+
+class BoxCheck: BaseFlexView, UIGestureRecognizerDelegate {
+    let wrapper: UIView
+
+    var activeColor: UIColor = .red
+    var isChecked: Bool = false {
+        didSet {
+            activeColor = isChecked ? .blue : .red
+        }
+    }
+    
+    required init() {
+        wrapper = UIView()
+        
+        super.init()
+    }
+    
+    override func configureView() {
+        super.configureView()
+        let UITapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onPressAction))
+        UITapRecognizer.delegate = self
+        self.addGestureRecognizer(UITapRecognizer)
+        
+        print("configure view")
+    }
+
+    @objc
+    func onPressAction() {
+        isChecked = !isChecked
+        self.wrapper.backgroundColor = .blue
+    }
+    
+    override func configureConstraints() {
+//        let backgroundColor = isChecked ? UIColor.red : UIColor.blue
+        
+        print(activeColor)
+        
+        rootFlexContainer.flex.define { flex in
+            flex.addItem(wrapper).justifyContent(.center).alignItems(.center).width(25).height(25).backgroundColor(.red)
+        }
+    }
+}
+
+//UIView.animate(
+//    withDuration: 0.6,
+//    animations: {
+//        self.button.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+//},
+//    completion: { _ in UIView.animate(withDuration: 0.6) {
+//        self.button.transform = CGAffineTransform.identity
+//        }}
+//)
