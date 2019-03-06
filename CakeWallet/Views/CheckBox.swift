@@ -1,7 +1,7 @@
 import UIKit
 import FlexLayout
 
-class CheckBox: UIButton {
+class BoxCheck: UIButton {
     static let defaultSize = CGSize(width: 25, height: 25)
     
     let checkedImage = UIImage(named: "checked")! as UIImage
@@ -15,7 +15,7 @@ class CheckBox: UIButton {
     
     private let size: CGSize
     
-    required init(size: CGSize = CheckBox.defaultSize) {
+    required init(size: CGSize = BoxCheck.defaultSize) {
         self.size = size
         super.init(frame: .zero)
         configureView()
@@ -53,18 +53,32 @@ class CheckBox: UIButton {
     }
 }
 
-class BoxCheck: BaseFlexView, UIGestureRecognizerDelegate {
-    let wrapper: UIView
 
-    var activeColor: UIColor = .red
+
+
+class CheckBox: BaseFlexView, UIGestureRecognizerDelegate {
+    let wrapper: UIView
+    let iconImage: UIImageView
+
     var isChecked: Bool = false {
         didSet {
-            activeColor = isChecked ? .blue : .red
+            iconImage.isHidden = !isChecked
+            
+            UIView.animate(
+                withDuration: 0.1,
+                animations: { [weak self] in
+                    self?.iconImage.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                },
+                completion: { _ in UIView.animate(withDuration: 0.1) {
+                    self.iconImage.transform = CGAffineTransform.identity
+                    }}
+            )
         }
     }
     
     required init() {
         wrapper = UIView()
+        iconImage = UIImageView(image: UIImage(named: "checked"))
         
         super.init()
     }
@@ -75,32 +89,31 @@ class BoxCheck: BaseFlexView, UIGestureRecognizerDelegate {
         UITapRecognizer.delegate = self
         self.addGestureRecognizer(UITapRecognizer)
         
-        print("configure view")
+        wrapper.layer.borderWidth = 1
+        wrapper.layer.cornerRadius = 8
+        wrapper.layer.borderColor = UIColor.wildDarkBlue.cgColor
+        
+        iconImage.isHidden = false
     }
 
     @objc
     func onPressAction() {
         isChecked = !isChecked
-        self.wrapper.backgroundColor = .blue
     }
     
     override func configureConstraints() {
-//        let backgroundColor = isChecked ? UIColor.red : UIColor.blue
-        
-        print(activeColor)
+        wrapper.flex
+            .justifyContent(.center)
+            .alignItems(.center)
+            .width(25)
+            .height(25).define{ flex in
+                flex.addItem(iconImage)
+        }
         
         rootFlexContainer.flex.define { flex in
-            flex.addItem(wrapper).justifyContent(.center).alignItems(.center).width(25).height(25).backgroundColor(.red)
+            flex.addItem(wrapper)
         }
     }
 }
 
-//UIView.animate(
-//    withDuration: 0.6,
-//    animations: {
-//        self.button.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-//},
-//    completion: { _ in UIView.animate(withDuration: 0.6) {
-//        self.button.transform = CGAffineTransform.identity
-//        }}
-//)
+
