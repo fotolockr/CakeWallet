@@ -9,9 +9,12 @@
 "enjoy_this_wallet" = "请享受这个钱包.";
 "love_your_feedback" = "我们很乐意接受您的意见!";
 
+"terms_of_use_agree" = "我同意使用条款";
+"accept" = "接受";
 "create_new" = "创建新的";
 "restore" = "恢复";
 "restore_from_seed_keys" = "恢复";
+"please_make_selection" = "请在下方选择创建新钱包或恢复钱包";
 
 // Pin
 
@@ -23,6 +26,20 @@
 "setup_pin" = "设置 PIN";
 "pin_setup_success" = "您的PIN已成功设置!";
 "incorrect_pin" = " PIN错误.";
+
+// Restore root
+
+"restore_from_seed_keys" = "从种子/密钥恢复";
+"restore_from_seed_keys_long" = "从种子或钥匙中恢复您的钱包";
+"restore_from_backup" = "从备份文件还原";
+"restore_from_backup_long" = "从备份文件还原";
+
+// Restore cards
+
+"restore_seed_card_title" = "从种子恢复";
+"restore_seed_card_description" = "从25字或12字种子恢复您的钱包";
+"restore_keys_card_title" = "从密钥恢复";
+"restore_keys_card_description" = "从您的私钥恢复您的钱包";
 
 // Restore
 

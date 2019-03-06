@@ -9,9 +9,13 @@
 "enjoy_this_wallet" = "Ciesz się Twoim portfelem.";
 "love_your_feedback" = "Daj nam znać jak Ci się podoba!";
 
+"terms_of_use_agree" = "Zgadzam się na Warunki użytkowania";
+"accept" = "Zaakceptować";
+"please_make_selection" = "Wybierz poniżej, aby utworzyć nowy portfel lub przywrócić portfel";
 "create_new" = "Utwórz nowy portfel";
 "restore" = "Wczytaj";
 "restore_from_seed_keys" = "Wczytaj";
+
 // Pin
 
 "use_6_pin" = "Użyj 6-cyfrowego PIN'u";
@@ -22,6 +26,20 @@
 "setup_pin" = "Ustaw PIN";
 "pin_setup_success" = "PIN został ustawiony pomyślnie!";
 "incorrect_pin" = "Nieprawidłowy PIN.";
+
+// Restore root
+
+"restore_from_seed_keys" = "Przywróć z seed/keys";
+"restore_from_seed_keys_long" = "Przywróć swój portfel z nasion lub kluczy";
+"restore_from_backup" = "Przywróć z pliku zapasowego";
+"restore_from_backup_long" = "Przywróć całą aplikację Cake Wallet z pliku kopii zapasowej";
+
+// Restore cards
+
+"restore_seed_card_title" = "Przywróć z seed";
+"restore_seed_card_description" = "Przywróć portfel z 25 lub 12 słów seed";
+"restore_keys_card_title" = "Przywróć z klawiszy";
+"restore_keys_card_description" = "Przywróć swój portfel ze swoich prywatnych kluczy";
 
 // Restore
 
