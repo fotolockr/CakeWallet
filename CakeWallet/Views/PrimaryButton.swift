@@ -22,8 +22,8 @@ final class PrimaryButton: Button {
         super.configureView()
         self.applyGradient(colours: [UIColor.yellow, UIColor.blue])
         
-        
-        layer.applySketchShadow(color: UIColor(hex: 0x298aff), alpha: 0.34, x: 0, y: 10, blur: 20, spread: -10)
+//        layer.applySketchShadow(color: UIColor(hex: 0x298aff), alpha: 0.34, x: 0, y: 10, blur: 20, spread: -10)
+        layer.applySketchShadow(color: UIColor(hex: 0xdfd0ff), alpha: 0.34, x: 0, y: 11, blur: 20, spread: -6)
     }
     
     override func layoutSubviews() {

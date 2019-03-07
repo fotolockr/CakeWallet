@@ -3,11 +3,12 @@ import FlexLayout
 
 final class CreateWalletView: BaseFlexView {
     let nameTextField: UITextField
-    let continueButton: UIButton
+    let continueButton: LoadingButton
     
     required init() {
         nameTextField = FloatingLabelTextField(placeholder: NSLocalizedString("wallet_name", comment: ""))
-        continueButton = PrimaryButton(title: NSLocalizedString("continue", comment: ""))
+        continueButton = PrimaryLoadingButton(type: .custom)
+        continueButton.setTitle(NSLocalizedString("continue", comment: ""), for: .normal)
         super.init()
     }
     

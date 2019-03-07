@@ -14,7 +14,7 @@ final class SplashView: BaseFlexView {
     }
     
     override func configureConstraints() {
-        let logo = UIImageView(image: UIImage(named: "cake_logo_image")?.resized(to: CGSize(width: 120, height: 120)))
+        let logo = UIImageView(image: UIImage(named: "cake_logo_image")?.resized(to: CGSize(width: 100, height: 100)))
         
         wrapper.flex.define{ flex in
             flex.addItem(logo)

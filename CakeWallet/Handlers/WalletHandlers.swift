@@ -210,10 +210,10 @@ public struct CreateWalletHandler: AsyncHandler {
                 try KeychainStorageImpl.standart.set(value: password, forKey: KeychainKey.walletPassword(index))
                 try KeychainStorageImpl.standart.set(value: wallet.seed, forKey: .seed(index))
                 handler(WalletState.Action.created(wallet))
-                completionHandler(wallet.seed)
+                completionHandler(.success(wallet.seed))
             } catch {
                 handler(ApplicationState.Action.changedError(error))
-                completionHandler(nil)
+                completionHandler(.failed(error))
             }
         }
     }

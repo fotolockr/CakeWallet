@@ -17,25 +17,18 @@ class Button: UIButton {
     
     convenience init(title: String, font: UIFont) {
         self.init(title: title)
-        // self.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
         titleLabel?.font = font
     }
     
     init(image: UIImage?) {
         super.init(frame: .zero)
-        
-        // ?
         setImage(image, for: .normal)
-        
         configureView()
     }
     
     init(title: String) {
         super.init(frame: .zero)
-        
-        // ?
         setTitle(title, for: .normal)
-        
         configureView()
         contentEdgeInsets = UIEdgeInsets(top: 0, left: Button.leftOffset, bottom: 0, right: Button.rightOffset)
     }
@@ -50,6 +43,8 @@ class Button: UIButton {
     }
     
     override func configureView() {
+        super.configureView()
+        
         backgroundColor = Theme.current.primaryButton.background
         setTitleColor(Theme.current.primaryButton.text, for: .normal)
         layer.masksToBounds = false

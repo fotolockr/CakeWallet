@@ -5,6 +5,7 @@ import CakeWalletCore
 final class CreateWalletViewController: BaseViewController<CreateWalletView> {
     weak var signUpFlow: SignUpFlow?
     let store: Store<ApplicationState>
+    
     private var name: String {
         return contentView.nameTextField.text ?? ""
     }
@@ -38,24 +39,23 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
     private func onContinueHandler() {
         let name = self.name
         let type = WalletType.monero
-        let title = NSLocalizedString("creating_wallet", comment: "")
-            + " "
-            + name
-        showSpinner(withTitle: title) { [weak self] alert in
-            self?.store.dispatch(
-                WalletActions.create(
-                    withName: name,
-                    andType: type,
-                    handler: { [weak self] seed in self?.showSeed(seed) }
-                )
-            )
-        }
+   
+        contentView.continueButton.showLoading()
         
         self.store.dispatch(
             WalletActions.create(
                 withName: name,
                 andType: type,
-                handler: { [weak self] seed in self?.showSeed(seed) }
+                handler: { [weak self] res in
+                    self?.contentView.continueButton.hideLoading()
+                    
+                    switch res {
+                    case let .success(seed):
+                        self?.showSeed(seed)
+                    case let .failed(error):
+                        self?.showError(error: error)
+                    }
+                }
             )
         )
     }
