@@ -71,7 +71,7 @@ class CheckBox: BaseFlexView, UIGestureRecognizerDelegate {
                 },
                 completion: { _ in UIView.animate(withDuration: 0.1) {
                     self.iconImage.transform = CGAffineTransform.identity
-                    }}
+                }}
             )
         }
     }
@@ -93,7 +93,7 @@ class CheckBox: BaseFlexView, UIGestureRecognizerDelegate {
         wrapper.layer.cornerRadius = 8
         wrapper.layer.borderColor = UIColor.wildDarkBlue.cgColor
         
-        iconImage.isHidden = false
+        iconImage.isHidden = true
     }
 
     @objc

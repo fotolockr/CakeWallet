@@ -54,7 +54,7 @@ final class DisclaimerView: BaseFlexView {
     
     override func configureConstraints() {
         checkBoxWrapper.flex.direction(.row).alignItems(.center).marginBottom(10).define{ flex in
-            flex.addItem(checkBox).marginTop(9)
+            flex.addItem(checkBox)
             flex.addItem(checkBoxTitleButton)
         }
         
