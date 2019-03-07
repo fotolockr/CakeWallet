@@ -47,13 +47,15 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
                 withName: name,
                 andType: type,
                 handler: { [weak self] res in
-                    self?.contentView.continueButton.hideLoading()
-                    
-                    switch res {
-                    case let .success(seed):
-                        self?.showSeed(seed)
-                    case let .failed(error):
-                        self?.showError(error: error)
+                    DispatchQueue.main.async {
+                        self?.contentView.continueButton.hideLoading()
+                        
+                        switch res {
+                        case let .success(seed):
+                            self?.showSeed(seed)
+                        case let .failed(error):
+                            self?.showError(error: error)
+                        }
                     }
                 }
             )

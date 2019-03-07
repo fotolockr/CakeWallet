@@ -202,7 +202,7 @@ public struct CreateWalletHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case let .create(name, type, completionHandler) = action else { return }
         
-        walletQueue.sync {
+        walletQueue.async {
             do {
                 let password = UUID().uuidString
                 let wallet = try getGateway(for: type).create(withName: name, andPassword: password)
