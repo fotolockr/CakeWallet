@@ -11,6 +11,7 @@ PODS:
   - SkyFloatingLabelTextField (3.5.1)
   - Starscream (3.0.5)
   - SwiftSoup (1.7.1)
+  - SwiftSVG (2.2.0)
   - SwiftyJSON (4.1.0)
   - ZIPFoundation (0.9.6)
 
@@ -27,6 +28,7 @@ DEPENDENCIES:
   - SkyFloatingLabelTextField (~> 3.01)
   - Starscream (~> 3.0.2)
   - SwiftSoup
+  - SwiftSVG (~> 2.0)
   - SwiftyJSON
   - ZIPFoundation (~> 0.9)
 
@@ -44,6 +46,7 @@ SPEC REPOS:
     - SkyFloatingLabelTextField
     - Starscream
     - SwiftSoup
+    - SwiftSVG
     - SwiftyJSON
     - ZIPFoundation
 
@@ -60,9 +63,10 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
   Starscream: faf918b2f2eff7d5dd21180646bf015a669673bd
   SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
+  SwiftSVG: 19bc4e434dcf236ece45ddf75f5ee1d3ef8061e6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   ZIPFoundation: 68c35eb2637c21abe56dc60b3277636443bc1501
 
-PODFILE CHECKSUM: 219a0f9f6b6069db49a777cef809c1f7dce7a280
+PODFILE CHECKSUM: b1566be92a4fcf93c7de37d550b5a7ea089f5358
 
 COCOAPODS: 1.6.0

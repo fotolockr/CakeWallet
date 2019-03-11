@@ -16,6 +16,7 @@ target 'CakeWallet' do
     pod 'Starscream', '~> 3.0.2'
     pod 'ZIPFoundation', '~> 0.9'
     pod 'CryptoSwift'
+    pod 'SwiftSVG', '~> 2.0'
 end
 
 target 'CWMonero' do

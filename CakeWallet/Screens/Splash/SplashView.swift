@@ -1,5 +1,6 @@
 import UIKit
 import FlexLayout
+import SwiftSVG
 
 final class SplashView: BaseFlexView {
     let wrapper: UIView
@@ -14,9 +15,11 @@ final class SplashView: BaseFlexView {
     }
     
     override func configureConstraints() {
-        let logo = UIImageView(image: UIImage(named: "cake_logo_image")?.resized(to: CGSize(width: 100, height: 100)))
+        let logo = UIView(SVGNamed: "cake_logo_svg") { (svgLayer) in
+            svgLayer.resizeToFit(self.wrapper.bounds)
+        }
         
-        wrapper.flex.define{ flex in
+        wrapper.flex.width(120).height(120).define{ flex in
             flex.addItem(logo)
         }
         

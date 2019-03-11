@@ -37,9 +37,9 @@ final class WelcomeFlowCardView: BaseFlexView {
     override func configureView() {
         super.configureView()
         
-        let titleFontSize = adaptiveLayout.getSize(forLarge: 23, forBig: 21, defaultSize: 20)
-        let descriptionFontSize = adaptiveLayout.getSize(forLarge: 17, forBig: 16, defaultSize: 16)
-        let buttonFontSize = adaptiveLayout.getSize(forLarge: 19, forBig: 18, defaultSize: 17)
+        let titleFontSize = adaptiveLayout.getFontSize(forLarge: 23, forBig: 21, defaultSize: 20)
+        let descriptionFontSize = adaptiveLayout.getFontSize(forLarge: 17, forBig: 16, defaultSize: 16)
+        let buttonFontSize = adaptiveLayout.getFontSize(forLarge: 19, forBig: 18, defaultSize: 17)
         
         title.font = applyFont(ofSize: Int(titleFontSize), weight: .semibold)
         title.textColor = textColor

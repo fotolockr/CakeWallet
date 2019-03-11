@@ -77,6 +77,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("error \(error)")
             }
         }
+        
+    
+        
+        
+//        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
+//        let splashController = SplashViewController(store: store)
+//        let loadWalletHandler = LoadCurrentWalletHandler()
+//        let splashQueue = DispatchQueue(label: "splash", qos: .default)
+//    
+//        splashQueue.async {
+//            loadWalletHandler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
+//                guard let action = action else {
+//                    return
+//                }
+//                
+//                store._defaultDispatch(action)
+//                
+//                DispatchQueue.main.async {
+//                    self.window?.rootViewController = authController
+//                }
+//            })
+//        }
+        
+        
+        
+        
+        
+        
 
         if !store.state.walletState.name.isEmpty && pin != nil {
             let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())

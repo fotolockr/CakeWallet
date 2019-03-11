@@ -15,8 +15,6 @@ class AdaptiveLayout {
     
     var screenType: ScreenType {
         switch UIScreen.main.nativeBounds.height {
-        case 960:
-            return .iPhones_4_4S
         case 1136:
             return .iPhones_5_5s_5c_SE
         case 1334:
@@ -35,14 +33,29 @@ class AdaptiveLayout {
     }
     
     // TODO: smart adjusments for other devices (increasing sizes from milestones)
-    func getSize(forLarge large: Int, forBig big: Int, defaultSize: Int) -> CGFloat {
+    func getSize(forLarge large: CGFloat, forBig big: CGFloat, defaultSize: CGFloat) -> CGFloat {
         switch screenType {
         case .iPhone_XSMax:
-            return CGFloat(large)
-        case .iPhones_X_XS, .iPhones_6Plus_6sPlus_7Plus_8Plus, .iPhone_XR:
-            return CGFloat(big)
+            return large
+        case .iPhones_X_XS:
+            return big
+        case .iPhones_6Plus_6sPlus_7Plus_8Plus:
+            return defaultSize * 1.1
+//        case .iPhone_XR:
+//            return defaultSize * 1.34
         default:
             return CGFloat(defaultSize)
+        }
+    }
+    
+    func getFontSize(forLarge large: CGFloat, forBig big: CGFloat, defaultSize: CGFloat) -> CGFloat {
+        switch screenType {
+        case .iPhone_XSMax, .iPhones_6Plus_6sPlus_7Plus_8Plus, .iPhone_XR:
+            return large
+        case .iPhones_X_XS: //, .iPhone_XR:
+            return big
+        default:
+            return defaultSize
         }
     }
 }
