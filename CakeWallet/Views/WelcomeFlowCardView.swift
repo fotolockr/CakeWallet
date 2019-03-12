@@ -53,13 +53,12 @@ final class WelcomeFlowCardView: BaseFlexView {
         buttonText.font = applyFont(ofSize: Int(buttonFontSize), weight: .semibold)
         buttonText.textColor = textColor
     }
-
+    
     override func configureConstraints() {
         rootFlexContainer.layer.cornerRadius = 12
         rootFlexContainer.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 0, blur: 20, spread: -10)
         rootFlexContainer.backgroundColor = Theme.current.card.background
         
-        // TODO: step
         let getButtonHeight: CGFloat = adaptiveLayout.getSize(forLarge: 60, forBig: 52, defaultSize: 48)
         
         textHolder.flex

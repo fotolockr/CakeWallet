@@ -246,8 +246,12 @@ final class ReceiveExchangeCardView: BaseFlexView, ExchangableCardView {
 }
 
 final class ExchangeView: BaseScrollFlexView {
-    let depositView: DepositExchangeCardView
-    let receiveView: ReceiveExchangeCardView
+    let depositeCardView: ExchangeCardView
+    let receiveCardView: ExchangeCardView
+    
+    
+//    let depositView: DepositExchangeCardView
+//    let receiveView: ReceiveExchangeCardView
     let arrowDownImageView: UIImageView
     let clearButton: UIButton
     let exchangeButton: UIButton
@@ -257,8 +261,11 @@ final class ExchangeView: BaseScrollFlexView {
     let exchangeDescriptionLabel: UILabel
     
     required init() {
-        depositView = DepositExchangeCardView()
-        receiveView = ReceiveExchangeCardView()
+        depositeCardView = ExchangeCardView(cardTitle: "Deposite")
+        receiveCardView = ExchangeCardView(cardTitle: "Receive")
+        
+//        depositView = DepositExchangeCardView()
+//        receiveView = ReceiveExchangeCardView()
         arrowDownImageView = UIImageView(image: UIImage(named: "arrow_down_dotted"))
         clearButton = SecondaryButton(title: NSLocalizedString("clear", comment: ""))
         exchangeButton = PrimaryButton(title: NSLocalizedString("exchange", comment: ""))
@@ -271,17 +278,17 @@ final class ExchangeView: BaseScrollFlexView {
     
     override func configureView() {
         super.configureView()
-        depositView.exchangePickerView.pickerView.tag = 2000
-        receiveView.exchangePickerView.pickerView.tag = 2001
-        depositView.addressContainer.tag = 2000
-        receiveView.addressContainer.tag = 2001
+//        depositView.exchangePickerView.pickerView.tag = 2000
+//        receiveView.exchangePickerView.pickerView.tag = 2001
+//        depositView.addressContainer.tag = 2000
+//        receiveView.addressContainer.tag = 2001
         exchangeDescriptionLabel.textColor = .wildDarkBlue
     }
     
     override func configureConstraints() {
         buttonsRow.flex.direction(.row).justifyContent(.spaceBetween).marginTop(20).define { rowFlex in
-            rowFlex.addItem(clearButton).height(56).width(45%)
-            rowFlex.addItem(exchangeButton).height(56).width(45%)
+//            rowFlex.addItem(clearButton).height(56).width(45%)
+            rowFlex.addItem(exchangeButton).height(56).width(100%)
         }
         
         descriptionView.flex.direction(.row).justifyContent(.center).define { flex in
@@ -290,10 +297,8 @@ final class ExchangeView: BaseScrollFlexView {
         }
         
         rootFlexContainer.flex.padding(20, 15, 20, 20).define { flex in
-            let arrowDownTopOffset = -arrowDownImageView.frame.size.height / 2
-            flex.addItem(depositView)
-            flex.addItem(receiveView).marginTop(10)
-                .addItem(arrowDownImageView).position(.absolute).right(40).top(arrowDownTopOffset)
+            flex.addItem(depositeCardView)
+            flex.addItem(receiveCardView)
             flex.addItem(buttonsRow)
             flex.addItem(descriptionView).width(100%).marginTop(10).alignItems(.center)
         }

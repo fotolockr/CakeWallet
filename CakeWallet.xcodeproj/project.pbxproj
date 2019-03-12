@@ -318,6 +318,7 @@
 		D15BDBF522205129006320E0 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15BDBF422205129006320E0 /* Font.swift */; };
 		D1886AEB2222DDFF00A46E9E /* RestoreRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1886AEA2222DDFF00A46E9E /* RestoreRootView.swift */; };
 		D1886AED2222DE0E00A46E9E /* RestoreRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1886AEC2222DE0E00A46E9E /* RestoreRootVC.swift */; };
+		D194985C2236BCC60075565B /* ExchangeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D194985B2236BCC60075565B /* ExchangeCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -790,6 +791,7 @@
 		D15BDBF422205129006320E0 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D1886AEA2222DDFF00A46E9E /* RestoreRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreRootView.swift; sourceTree = "<group>"; };
 		D1886AEC2222DE0E00A46E9E /* RestoreRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreRootVC.swift; sourceTree = "<group>"; };
+		D194985B2236BCC60075565B /* ExchangeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeCardView.swift; sourceTree = "<group>"; };
 		DF8D71357842AFE3FDCA691E /* Pods-CakeWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		DFAE49FFDFBAD955397A6FF1 /* Pods-CakeWalletLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWalletLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWalletLib/Pods-CakeWalletLib.debug.xcconfig"; sourceTree = "<group>"; };
 		F3BA9289B966EEF23CDA77D9 /* Pods_CakeWalletLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CakeWalletLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -899,6 +901,7 @@
 		642CA23E20F643FE00D1E340 /* Exchange */ = {
 			isa = PBXGroup;
 			children = (
+				D194985D2236BD030075565B /* ExchangeCardView */,
 				642CA23F20F6440C00D1E340 /* ExchangeViewController.swift */,
 				648D7F7B20F770A6004C6200 /* ExchangeView.swift */,
 				64C28A5B21039BFD00327509 /* ExchangeResultView.swift */,
@@ -1395,8 +1398,10 @@
 		6AAF1E9820B602ED000E4E02 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				64B2D3A3211334EB00AFBCAA /* BaseScrollFlexView.swift */,
+				D14B7D382237187D005B11A3 /* Alert */,
+				D14B7D3722371838005B11A3 /* Buttons */,
 				6A72CB1320CADCC700CFABC9 /* Cells */,
+				64B2D3A3211334EB00AFBCAA /* BaseScrollFlexView.swift */,
 				6AAF1E9920B60308000E4E02 /* BaseView.swift */,
 				6AAF1E9B20B6031C000E4E02 /* BaseFlexView.swift */,
 				6AAF1E9D20B60345000E4E02 /* CardView.swift */,
@@ -1409,21 +1414,9 @@
 				64AA49A921456DF6002CE1FE /* BaseViewController.swift */,
 				64AA49AB21456E12002CE1FE /* UIViewController+presentWithBlur.swift */,
 				64AA49AD21456E55002CE1FE /* UIViewController+UIAlertController.swift */,
-				64AA49BA2145704F002CE1FE /* Button.swift */,
-				64AA49BC21457067002CE1FE /* StandartButton.swift */,
-				64AA49BE2145707C002CE1FE /* PrimaryButton.swift */,
-				64AA49C021457090002CE1FE /* SecondaryButton.swift */,
-				64AA49C2214570A7002CE1FE /* PasteButton.swift */,
-				64AA49C4214570F5002CE1FE /* MiniCopyButton.swift */,
-				64AA49C62145710A002CE1FE /* CopyButton.swift */,
-				64AA49C821457125002CE1FE /* PinCodeKeyButton.swift */,
-				640A2A9F21761C640047E60C /* CWAlertViewController.swift */,
-				640A2AA121761C870047E60C /* CWAlertView.swift */,
-				640A2AA321761D1E0047E60C /* CWAlertAction.swift */,
 				A5280C3522047ADB00B1AE58 /* TransparentButton.swift */,
 				D11519A02225520D009B6706 /* CheckBox.swift */,
 				D11519A22225894C009B6706 /* WelcomeFlowCardView.swift */,
-				A5178DF92231365D00EC4829 /* LoadingButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1687,6 +1680,32 @@
 			path = CakeWalletTests;
 			sourceTree = "<group>";
 		};
+		D14B7D3722371838005B11A3 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				64AA49C821457125002CE1FE /* PinCodeKeyButton.swift */,
+				64AA49C4214570F5002CE1FE /* MiniCopyButton.swift */,
+				64AA49C2214570A7002CE1FE /* PasteButton.swift */,
+				64AA49C021457090002CE1FE /* SecondaryButton.swift */,
+				64AA49BC21457067002CE1FE /* StandartButton.swift */,
+				64AA49BA2145704F002CE1FE /* Button.swift */,
+				A5178DF92231365D00EC4829 /* LoadingButton.swift */,
+				64AA49BE2145707C002CE1FE /* PrimaryButton.swift */,
+				64AA49C62145710A002CE1FE /* CopyButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		D14B7D382237187D005B11A3 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				640A2AA321761D1E0047E60C /* CWAlertAction.swift */,
+				640A2AA121761C870047E60C /* CWAlertView.swift */,
+				640A2A9F21761C640047E60C /* CWAlertViewController.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		D15BDBCE22200A62006320E0 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1704,6 +1723,14 @@
 				D1886AEC2222DE0E00A46E9E /* RestoreRootVC.swift */,
 			);
 			path = RestoreRoot;
+			sourceTree = "<group>";
+		};
+		D194985D2236BD030075565B /* ExchangeCardView */ = {
+			isa = PBXGroup;
+			children = (
+				D194985B2236BCC60075565B /* ExchangeCardView.swift */,
+			);
+			path = ExchangeCardView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2412,6 +2439,7 @@
 				64AA49CD21457256002CE1FE /* PinCodeKeyboardKey.swift in Sources */,
 				6AF4786820C18CBE0072796B /* AuthenticationViewController.swift in Sources */,
 				6AAF1EB920B6170B000E4E02 /* Flow.swift in Sources */,
+				D194985C2236BCC60075565B /* ExchangeCardView.swift in Sources */,
 				A5178DF2222FEAA200EC4829 /* SplashView.swift in Sources */,
 				6A24467920B99FF600C87C81 /* SetupPinViewController.swift in Sources */,
 				0C5EFB9022022F9E0069AF7F /* BackupServiceImpl.swift in Sources */,
