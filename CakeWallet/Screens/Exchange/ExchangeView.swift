@@ -2,6 +2,10 @@ import UIKit
 import FlexLayout
 import PinLayout
 
+enum ExchangeCardType: String {
+    case deposit, receive
+}
+
 final class ExchangePickerItemView: BaseView {
     static let rowHeight: CGFloat = 56
     static let rowWidth: CGFloat = 56
@@ -261,8 +265,8 @@ final class ExchangeView: BaseScrollFlexView {
     let exchangeDescriptionLabel: UILabel
     
     required init() {
-        depositeCardView = ExchangeCardView(cardTitle: "Deposite")
-        receiveCardView = ExchangeCardView(cardTitle: "Receive")
+        depositeCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Deposit")
+        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.receive, cardTitle: "Receive")
         
 //        depositView = DepositExchangeCardView()
 //        receiveView = ReceiveExchangeCardView()
@@ -286,8 +290,7 @@ final class ExchangeView: BaseScrollFlexView {
     }
     
     override func configureConstraints() {
-        buttonsRow.flex.direction(.row).justifyContent(.spaceBetween).marginTop(20).define { rowFlex in
-//            rowFlex.addItem(clearButton).height(56).width(45%)
+        buttonsRow.flex.direction(.row).justifyContent(.spaceBetween).define { rowFlex in
             rowFlex.addItem(exchangeButton).height(56).width(100%)
         }
         
@@ -300,7 +303,7 @@ final class ExchangeView: BaseScrollFlexView {
             flex.addItem(depositeCardView)
             flex.addItem(receiveCardView)
             flex.addItem(buttonsRow)
-            flex.addItem(descriptionView).width(100%).marginTop(10).alignItems(.center)
+            flex.addItem(descriptionView).width(100%).marginTop(15).alignItems(.center)
         }
     }
 }

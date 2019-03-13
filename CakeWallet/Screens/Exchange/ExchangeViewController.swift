@@ -660,7 +660,38 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         )
     }
     
+    @objc
+    func tick1() {
+        print("qrCodeButton 1")
+    }
+    
+    @objc
+    func tick2() {
+        print("addressBookButton 2")
+    }
+    
     override func configureBinds() {
+        contentView.depositeCardView.addressTextField.qrCodeButton.addTarget(self, action: #selector(tick1), for: .touchUpInside)
+        contentView.depositeCardView.addressTextField.addressBookButton.addTarget(self, action: #selector(tick2), for: .touchUpInside)
+        
+        
+//        for (index, subView) in contentView.depositeCardView.amountTextField.textField.subviews.enumerated() {
+//            if let button = subView as? UIButton {
+//                if index == 0 {
+//                    button.addTarget(self, action: #selector(tick1), for: .touchUpInside)
+//                }
+//                
+//                if index == 1 {
+//                    button.addTarget(self, action: #selector(tick2), for: .touchUpInside)
+//                }
+//            }
+//        }
+        
+        
+        
+        
+//        contentView.depositeCardView.amountTextField.textField.leftView.
+        
 //        contentView.receiveView.addressContainer.textView.delegate = contentView
 //        contentView.depositView.addressContainer.textView.delegate = contentView
 //        contentView.depositView.addressContainer.presenter = self
