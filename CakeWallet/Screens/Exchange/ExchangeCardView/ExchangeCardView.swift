@@ -51,9 +51,11 @@ final class ExchangeCardView: BaseFlexView {
         
         receiveViewTitle.font = applyFont(ofSize: 15)
         receiveViewTitle.textColor = UIColor.wildDarkBlue
+        receiveViewTitle.textAlignment = .right
         
         receiveViewAmount.font = applyFont(ofSize: 22, weight: .semibold)
         receiveViewAmount.textColor = UIColor.purpley
+        receiveViewAmount.textAlignment = .right
     }
     
     override func configureConstraints() {
@@ -71,7 +73,7 @@ final class ExchangeCardView: BaseFlexView {
             .alignItems(.end)
             .define{ flex in
             flex.addItem(receiveViewTitle)
-            flex.addItem(receiveViewAmount)
+            flex.addItem(receiveViewAmount).width(100%)
         }
         
         topCardView.flex
