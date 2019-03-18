@@ -250,12 +250,9 @@ final class ReceiveExchangeCardView: BaseFlexView, ExchangableCardView {
 }
 
 final class ExchangeView: BaseScrollFlexView {
-    let depositeCardView: ExchangeCardView
+    let depositCardView: ExchangeCardView
     let receiveCardView: ExchangeCardView
     
-    
-//    let depositView: DepositExchangeCardView
-//    let receiveView: ReceiveExchangeCardView
     let arrowDownImageView: UIImageView
     let clearButton: UIButton
     let exchangeButton: UIButton
@@ -265,11 +262,8 @@ final class ExchangeView: BaseScrollFlexView {
     let exchangeDescriptionLabel: UILabel
     
     required init() {
-        depositeCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Deposit")
+        depositCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Deposit")
         receiveCardView = ExchangeCardView(cardType: ExchangeCardType.receive, cardTitle: "Receive")
-        
-//        depositView = DepositExchangeCardView()
-//        receiveView = ReceiveExchangeCardView()
         arrowDownImageView = UIImageView(image: UIImage(named: "arrow_down_dotted"))
         clearButton = SecondaryButton(title: NSLocalizedString("clear", comment: ""))
         exchangeButton = PrimaryButton(title: NSLocalizedString("exchange", comment: ""))
@@ -282,10 +276,6 @@ final class ExchangeView: BaseScrollFlexView {
     
     override func configureView() {
         super.configureView()
-//        depositView.exchangePickerView.pickerView.tag = 2000
-//        receiveView.exchangePickerView.pickerView.tag = 2001
-//        depositView.addressContainer.tag = 2000
-//        receiveView.addressContainer.tag = 2001
         exchangeDescriptionLabel.textColor = .wildDarkBlue
     }
     
@@ -300,7 +290,7 @@ final class ExchangeView: BaseScrollFlexView {
         }
         
         rootFlexContainer.flex.padding(20, 15, 20, 20).define { flex in
-            flex.addItem(depositeCardView)
+            flex.addItem(depositCardView)
             flex.addItem(receiveCardView)
             flex.addItem(buttonsRow)
             flex.addItem(descriptionView).width(100%).marginTop(15).alignItems(.center)

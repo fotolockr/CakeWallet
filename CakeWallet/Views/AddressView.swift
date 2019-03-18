@@ -24,6 +24,7 @@ final class AddressView: BaseFlexView {
     let borderView, buttonsView: UIView
     let qrScanButton, addressBookButton: UIButton
     let placeholder: String
+    let hideAddressBookButton: Bool
 
     weak var presenter: UIViewController?
     weak var updateResponsible: QRUriUpdateResponsible?
@@ -36,8 +37,9 @@ final class AddressView: BaseFlexView {
         return QRCodeReaderViewController(builder: builder)
     }()
     
-    required init(placeholder: String) {
+    required init(placeholder: String, hideAddressBookButton: Bool = false) {
         self.placeholder = placeholder
+        self.hideAddressBookButton = hideAddressBookButton
         textView = UITextField()
         borderView = UIView()
         buttonsView = UIView()
@@ -81,7 +83,7 @@ final class AddressView: BaseFlexView {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 191, green: 201, blue: 215)]
         )
 
-        textView.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 0))
+        textView.rightView = UIView(frame: CGRect(x: 0, y: 0, width: !hideAddressBookButton ? 80 : 40, height: 0))
         textView.rightViewMode = .always
     }
     
@@ -94,7 +96,10 @@ final class AddressView: BaseFlexView {
             .width(80)
             .define{ flex in
                 flex.addItem(qrScanButton).width(35).height(35)
-                flex.addItem(addressBookButton).width(35).height(35).marginLeft(5)
+                
+                if !hideAddressBookButton {
+                    flex.addItem(addressBookButton).width(35).height(35).marginLeft(5)
+                }
         }
         
         rootFlexContainer.flex

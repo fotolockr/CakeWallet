@@ -30,16 +30,22 @@ final class CurrencyPickerViewController: BaseViewController<CurrencyPickerView>
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func doneAction() {
-        dismiss(animated: true)
-    }
-    
     override func configureBinds() {
         super.configureBinds()
+        
         contentView.picker.register(items: [CryptoCurrency.self])
         contentView.picker.dataSource = self
         contentView.picker.delegate = self
-//        contentView.doneButton.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
+    }
+    
+    override func viewDidLoad() {
+        let receiveOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDismiss))
+        contentView.backgroundBlurView.addGestureRecognizer(receiveOnTapGesture)
+    }
+    
+    @objc
+    func onDismiss() {
+        dismiss(animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,13 +63,11 @@ final class CurrencyPickerViewController: BaseViewController<CurrencyPickerView>
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        var selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
+        let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         selectedCell.selectionStyle = .none
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        
         let crypto = cryptos[indexPath.row]
         
         delegate?.onPicked(item: crypto, pickerType: type)

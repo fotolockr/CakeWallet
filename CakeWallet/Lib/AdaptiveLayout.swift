@@ -58,6 +58,14 @@ class AdaptiveLayout {
             return defaultSize
         }
     }
+    
+    func getScreenBounds() -> (screenWidth: CGFloat, screenHeight: CGFloat) {
+        let screenRect = UIScreen.main.bounds
+        let screenWidth = screenRect.size.width
+        let screenHeight = screenRect.size.height
+        
+        return (screenWidth, screenHeight)
+    }
 }
 
 let adaptiveLayout = AdaptiveLayout()

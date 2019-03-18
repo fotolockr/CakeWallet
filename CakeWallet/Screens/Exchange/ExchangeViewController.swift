@@ -681,12 +681,12 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     let store: Store<ApplicationState>
     
     var depositAmount: Amount {
-        let stringAmount = contentView.depositeCardView.amountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? ""
+        let stringAmount = contentView.depositCardView.amountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? ""
         return makeAmount(from: stringAmount, for: depositCrypto)
     }
     
     var depositRefund: String {
-        return contentView.depositeCardView.addressContainer.textView.text ?? ""
+        return contentView.depositCardView.addressContainer.textView.text ?? ""
     }
     
     var receiveAddress: String {
@@ -755,21 +755,21 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     override func configureBinds() {
         let depositOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDepositPickerButtonTap))
-        contentView.depositeCardView.pickerButtonView.addGestureRecognizer(depositOnTapGesture)
+        contentView.depositCardView.pickerButtonView.addGestureRecognizer(depositOnTapGesture)
         
         let receiveOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onReceivePickerButtonTap))
         contentView.receiveCardView.pickerButtonView.addGestureRecognizer(receiveOnTapGesture)
         
 //        contentView.receiveView.addressContainer.textView.delegate = contentView
 //        contentView.depositView.addressContainer.textView.delegate = contentView
-        contentView.depositeCardView.addressContainer.presenter = self
+        contentView.depositCardView.addressContainer.presenter = self
         contentView.receiveCardView.addressContainer.presenter = self
 //
 //        contentView.depositView.exchangePickerView.pickerView.dataSource = self
 //        contentView.depositView.exchangePickerView.pickerView.delegate = self
 //        contentView.depositView.exchangePickerView.pickerView.selectRow(cryptos.index(of: depositCrypto) ?? 0, inComponent: 0, animated: false)
 //        onDepositCryptoChange(depositCrypto)
-        contentView.depositeCardView.amountTextField.textField.addTarget(self, action: #selector(onDepositAmountChange(_:)), for: .editingChanged)
+        contentView.depositCardView.amountTextField.textField.addTarget(self, action: #selector(onDepositAmountChange(_:)), for: .editingChanged)
 //        contentView.depositView.addressContainer.updateResponsible = self
 //
 //        contentView.receiveView.amountTextField.addTarget(self, action: #selector(onReceiveAmountChange(_:)), for: .editingChanged)
@@ -816,6 +816,20 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         }
     }
     
+    override func viewDidLoad() {
+        let clearButton = UIBarButtonItem()
+        clearButton.title = "Clear"
+        clearButton.action = #selector(clear)
+        
+        clearButton.setTitleTextAttributes([
+            NSAttributedStringKey.font: applyFont(ofSize: 16, weight: .regular),
+            NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue], for: .normal)
+        clearButton.setTitleTextAttributes([
+            NSAttributedStringKey.font: applyFont(ofSize: 16, weight: .regular),
+            NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue], for: .highlighted)
+        navigationItem.rightBarButtonItem = clearButton
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         store.unsubscribe(self)
@@ -839,22 +853,22 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
 //            }
 //        }
         
-        contentView.depositeCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
+        contentView.depositCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
         
         
         if store.state.walletState.walletType.currency == crypto {
-            contentView.depositeCardView.walletNameLabel.text = store.state.walletState.name
-            contentView.depositeCardView.walletNameLabel.isHidden = false
+            contentView.depositCardView.walletNameLabel.text = store.state.walletState.name
+            contentView.depositCardView.walletNameLabel.isHidden = false
 //            contentView.depositeCardView.hideAddressViewField()
 //            contentView.depositeCardView.showWalletName()
         } else {
-            contentView.depositeCardView.walletNameLabel.isHidden = true
+            contentView.depositCardView.walletNameLabel.isHidden = true
 //            contentView.depositView.showAddressViewField()
 //            contentView.depositView.hideWalletName()
         }
 
         updateReceiveResult(with: depositAmount)
-        contentView.depositeCardView.flex.markDirty()
+        contentView.depositCardView.flex.markDirty()
         contentView.setNeedsLayout()
         updateLimits()
     }
@@ -1116,10 +1130,12 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     @objc
     private func clear() {
-//        contentView.receiveView.amountTextField.text = nil
+        contentView.depositCardView.amountTextField.textField.text = ""
+        contentView.depositCardView.addressContainer.textView.text = ""
+        contentView.receiveCardView.addressContainer.textView.text = ""
+////        contentView.receiveCardView.amountTextField = nil
 //        contentView.depositView.amountTextField.text = nil
-//        contentView.depositView.addressContainer.textView.text = ""
-//        contentView.receiveView.addressContainer.textView.text = ""
+        
         updateReceiveResult(with: makeAmount(from: 0, for: receiveCrypto))
         store.dispatch(ExchangeState.Action.changedTrade(nil))
     }

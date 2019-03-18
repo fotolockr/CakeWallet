@@ -18,9 +18,6 @@ final class CurrencyPickerTableCell: FlexCell {
     
     override func configureConstraints() {
         contentView.flex
-//            .margin(UIEdgeInsets(top: 7, left: 20, bottom: 0, right: 20))
-//            .padding(5, 28, 5, 10)
-//            .height(50)
             .paddingLeft(18)
             .paddingTop(20)
             .direction(.row)
@@ -41,19 +38,24 @@ final class CurrencyPickerView: BaseFlexView {
     var pickerHolderView: UIView
     let picker: UITableView
     let pickerTitle: UILabel
+    var backgroundBlurView: UIView
+    
+    static let screenWidth = adaptiveLayout.getScreenBounds().screenWidth
+    static let screenHeight = adaptiveLayout.getScreenBounds().screenHeight
     
     required init() {
         pickerHolderView = UIView()
         picker = UITableView()
         pickerTitle = UILabel(text: "Change Currency")
-        
+        backgroundBlurView = UIView(frame: CGRect(x: 0, y: 0, width: CurrencyPickerView.screenWidth, height: CurrencyPickerView.screenHeight))
+        backgroundBlurView.isUserInteractionEnabled = true
         super.init()
     }
     
     override func configureView() {
         super.configureView()
         
-        pickerTitle.font = applyFont(ofSize: 16, weight: .semibold)
+        pickerTitle.font = applyFont(ofSize: 16, weight: .bold)
         
         isOpaque = false
         backgroundColor = .clear
@@ -62,13 +64,7 @@ final class CurrencyPickerView: BaseFlexView {
     }
     
     override func configureConstraints() {
-        let screenRect = UIScreen.main.bounds
-        let screenWidth = screenRect.size.width
-        let screenHeight = screenRect.size.height
-        
-        let backgroundBlurView = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
-        
-        let visualEffectView = VisualEffectView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        let visualEffectView = VisualEffectView(frame: CGRect(x: 0, y: 0, width: CurrencyPickerView.screenWidth, height: CurrencyPickerView.screenHeight))
         visualEffectView.colorTint = UIColor(red: 211, green: 219, blue: 231)
         visualEffectView.colorTintAlpha = 0.65
         visualEffectView.blurRadius = 3

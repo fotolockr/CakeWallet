@@ -22,14 +22,21 @@ final class PickerButtonView: BaseFlexView {
     }
     
     override func configureConstraints() {
+        let currencyWithArrowHolder = UIView()
+        
+        currencyWithArrowHolder.flex
+            .direction(.row)
+            .alignItems(.center)
+            .define{ flex in
+                flex.addItem(pickedCurrency).width(65)
+                flex.addItem(pickerIcon)
+        }
+        
         rootFlexContainer.flex
-            .width(100)
-            .height(50)
             .backgroundColor(.white)
             .define{ flex in
-                flex.addItem(pickedCurrency)
+                flex.addItem(currencyWithArrowHolder)
                 flex.addItem(walletNameLabel)
-                flex.addItem(pickerIcon).position(.absolute).top(10).right(30)
         }
     }
 }
@@ -48,7 +55,6 @@ final class ExchangeCardView: BaseFlexView {
     let receiveView: UIView
     let receiveViewTitle: UILabel
     let receiveViewAmount: UILabel
-    
     let pickerButtonView: PickerButtonView
     
     required init(cardType: ExchangeCardType, cardTitle: String) {
@@ -60,7 +66,6 @@ final class ExchangeCardView: BaseFlexView {
         pickedCurrency = UILabel(text: "BTC")
         walletNameLabel = UILabel(text: "Main wallet")
         amountTextField = TextField(placeholder: "0.000", fontSize: 25, withTextAlignmentReverse: true)
-        // TODO: coin address
         addressContainer = AddressView(placeholder: cardType == .deposit ? "Refund address" : "Address")
         pickerIcon = UIImageView(image: UIImage(named: "arrow_bottom_purple_icon"))
         receiveView = UIView()
