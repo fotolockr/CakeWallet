@@ -7,8 +7,8 @@ final class PickerButtonView: BaseFlexView {
     
     required init() {
         pickerIcon = UIImageView(image: UIImage(named: "arrow_bottom_purple_icon"))
-        pickedCurrency = UILabel(text: "BTC")
-        walletNameLabel = UILabel(text: "Main wallet")
+        pickedCurrency = UILabel(text: "")
+        walletNameLabel = UILabel(text: "")
         
         super.init()
     }
@@ -40,15 +40,11 @@ final class ExchangeCardView: BaseFlexView {
     let topCardView: UIView
     let pickerRow: UIView
     let pickerButton: UIView
-    let pickedCurrency: UILabel
-    let walletNameLabel: UILabel
     let amountTextField: TextField
     let addressContainer: AddressView
-    let pickerIcon: UIImageView
     let receiveView: UIView
     let receiveViewTitle: UILabel
     let receiveViewAmount: UILabel
-    
     let pickerButtonView: PickerButtonView
     
     required init(cardType: ExchangeCardType, cardTitle: String) {
@@ -57,18 +53,12 @@ final class ExchangeCardView: BaseFlexView {
         topCardView = UIView()
         pickerRow = UIView()
         pickerButton = UIView()
-        pickedCurrency = UILabel(text: "BTC")
-        walletNameLabel = UILabel(text: "Main wallet")
         amountTextField = TextField(placeholder: "0.000", fontSize: 25, withTextAlignmentReverse: true)
-        // TODO: coin address
         addressContainer = AddressView(placeholder: cardType == .deposit ? "Refund address" : "Address")
-        pickerIcon = UIImageView(image: UIImage(named: "arrow_bottom_purple_icon"))
         receiveView = UIView()
         receiveViewTitle = UILabel(text: "You will receive")
-        receiveViewAmount = UILabel(text: "24.092")
-        
+        receiveViewAmount = UILabel(text: "")
         pickerButtonView = PickerButtonView()
-        
         super.init()
     }
     
@@ -78,19 +68,12 @@ final class ExchangeCardView: BaseFlexView {
     
     override func configureView() {
         super.configureView()
-        
         cardTitle.font = applyFont(ofSize: 17, weight: .semibold)
-        
-        pickedCurrency.font = applyFont(ofSize: 26, weight: .bold)
-        walletNameLabel.font = applyFont(ofSize: 13)
-        walletNameLabel.textColor = UIColor.wildDarkBlue
-        
+        amountTextField.textField.textAlignment = .right
         amountTextField.textField.keyboardType = .decimalPad
-        
         receiveViewTitle.font = applyFont(ofSize: 15)
         receiveViewTitle.textColor = UIColor.wildDarkBlue
         receiveViewTitle.textAlignment = .right
-        
         receiveViewAmount.font = applyFont(ofSize: 22, weight: .semibold)
         receiveViewAmount.textColor = UIColor.purpley
         receiveViewAmount.textAlignment = .right
