@@ -19,14 +19,15 @@ public struct MoneroAmount: Amount {
     public init(from string: String) {
         var _string = string
         let splitResult = string.split(separator: ".")
-        
+
         if splitResult.count > 1 {
             let afterDot = splitResult[1]
 
             if afterDot.count > 12 {
-                _string = "0." + String(String(afterDot)[0..<13])
-            } else {
-                _string = string
+                let forCut = String(afterDot)
+                let cut = String(forCut[0..<12])
+                let beforeDot = String(splitResult[0])
+                _string = String(format: "%@.%@", beforeDot, cut)
             }
         }
         

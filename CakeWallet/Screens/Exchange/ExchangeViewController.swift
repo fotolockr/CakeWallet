@@ -985,21 +985,21 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             :self.store.state.exchangeState.rates[depositCrypto]?[receiveCrypto] ?? 0
         let formattedAmount = amount.formatted().replacingOccurrences(of: ",", with: ".")
         let result = rate * (Double(formattedAmount) ?? 0)
-        let amount: Amount
+        let outputAmount: Amount
         
         switch receiveCrypto {
         case .bitcoin:
-            amount = BitcoinAmount(from: String(result))
+            outputAmount = BitcoinAmount(from: String(result))
         case .monero:
-            amount = MoneroAmount(from: String(result))
+            outputAmount = MoneroAmount(from: String(result))
         case .bitcoinCash, .dash, .liteCoin:
-            amount = EDAmount(from: String(result), currency: receiveCrypto)
+            outputAmount = EDAmount(from: String(result), currency: receiveCrypto)
         case .ethereum:
-            amount = EthereumAmount(from: String(result))
+            outputAmount = EthereumAmount(from: String(result))
         }
         
-        
-        contentView.receiveCardView.receiveViewAmount.text = String(format: "%@ %@", amount.formatted(), receiveCrypto.formatted())
+        let formattedOutputAmount = amountForDisplayFormatted(from: outputAmount.formatted())
+        contentView.receiveCardView.receiveViewAmount.text = String(format: "%@ %@", formattedOutputAmount, receiveCrypto.formatted())
     }
     
     private func updateDeposit(min: Amount, max: Amount) {
@@ -1022,12 +1022,12 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
 //            contentView.depositView.amountLabel.isHidden = false
 //        }
         
-        let rate = depositCrypto == receiveCrypto
-            ? 1
-            :self.store.state.exchangeState.rates[receiveCrypto]?[depositCrypto] ?? 0
-        let formattedAmount = amount.formatted().replacingOccurrences(of: ",", with: ".")
-        let doubleAmount = (Double(formattedAmount) ?? 0)
-        let result = rate == 0 ? 0 : doubleAmount * rate
+//        let rate = depositCrypto == receiveCrypto
+//            ? 1
+//            :self.store.state.exchangeState.rates[receiveCrypto]?[depositCrypto] ?? 0
+//        let formattedAmount = amount.formatted().replacingOccurrences(of: ",", with: ".")
+//        let doubleAmount = (Double(formattedAmount) ?? 0)
+//        let result = rate == 0 ? 0 : doubleAmount * rate
 //        contentView.depositView.amountLabel.text = String(format: "%@ %@", String(format: "%.4f", result), depositCrypto.formatted())
 //        contentView.depositView.amountLabel.flex.markDirty()
 //        contentView.depositView.flex.layout()
@@ -1179,10 +1179,8 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             crypto: receiveCrypto)
         let amount = depositAmount
         showSpinner(withTitle: NSLocalizedString("create_exchange", comment: "")) { alert in
-            if
-                isXMRTO,
-                let receiveAmount = self.receiveAmount {
-                self.exchangeActionCreators.createTradeXMRTO(withMoneroAmount: receiveAmount, address: self.receiveAddress) { result in
+            if isXMRTO {
+                self.exchangeActionCreators.createTradeXMRTO(withMoneroAmount: amount, address: self.receiveAddress) { result in
                     alert.dismiss(animated: true) { [weak self] in
                         guard let this = self else {
                             return
