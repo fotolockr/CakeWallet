@@ -686,11 +686,11 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     }
     
     var depositRefund: String {
-        return contentView.depositeCardView.addressTextField.textField.text ?? ""
+        return contentView.depositeCardView.addressContainer.textView.text ?? ""
     }
     
     var receiveAddress: String {
-        return contentView.receiveCardView.addressTextField.textField.text ?? ""
+        return contentView.receiveCardView.addressContainer.textView.text ?? ""
     }
     
     private var receiveAmount: Amount?
@@ -762,8 +762,8 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         
 //        contentView.receiveView.addressContainer.textView.delegate = contentView
 //        contentView.depositView.addressContainer.textView.delegate = contentView
-//        contentView.depositView.addressContainer.presenter = self
-//        contentView.receiveView.addressContainer.presenter = self
+        contentView.depositeCardView.addressContainer.presenter = self
+        contentView.receiveCardView.addressContainer.presenter = self
 //
 //        contentView.depositView.exchangePickerView.pickerView.dataSource = self
 //        contentView.depositView.exchangePickerView.pickerView.delegate = self

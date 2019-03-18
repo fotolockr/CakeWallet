@@ -30,7 +30,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
             }
             
             contentView.contactNameTextField.text = contact.name
-            contentView.addressView.textView.changeText(contact.address)
+            contentView.addressView.textView.text = contact.address
         }
     }
     
@@ -105,6 +105,6 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     }
     
     func update(uri: QRUri) {
-        contentView.addressView.textView.changeText(uri.address)
+        contentView.addressView.textView.text = uri.address
     }
 }

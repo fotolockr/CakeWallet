@@ -12,7 +12,7 @@ extension UITextField: Pastable {
 
 extension FloatingLabelTextView: Pastable {
     func paste(text: String) {
-        changeText(text)
+//        changeText(text)
     }
 }
 

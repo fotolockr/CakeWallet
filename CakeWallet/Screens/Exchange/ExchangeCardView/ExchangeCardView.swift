@@ -43,7 +43,7 @@ final class ExchangeCardView: BaseFlexView {
     let pickedCurrency: UILabel
     let walletNameLabel: UILabel
     let amountTextField: TextField
-    let addressTextField: IconTextField
+    let addressContainer: AddressView
     let pickerIcon: UIImageView
     let receiveView: UIView
     let receiveViewTitle: UILabel
@@ -60,7 +60,8 @@ final class ExchangeCardView: BaseFlexView {
         pickedCurrency = UILabel(text: "BTC")
         walletNameLabel = UILabel(text: "Main wallet")
         amountTextField = TextField(placeholder: "0.000", fontSize: 25, withTextAlignmentReverse: true)
-        addressTextField = IconTextField(placeholder: "Refund address", fontSize: 16)
+        // TODO: coin address
+        addressContainer = AddressView(placeholder: cardType == .deposit ? "Refund address" : "Address")
         pickerIcon = UIImageView(image: UIImage(named: "arrow_bottom_purple_icon"))
         receiveView = UIView()
         receiveViewTitle = UILabel(text: "You will receive")
@@ -114,7 +115,7 @@ final class ExchangeCardView: BaseFlexView {
             .width(100%)
             .define{ flex in
                 flex.addItem(pickerButtonView)
-                flex.addItem(cardType == ExchangeCardType.deposit ? amountTextField : receiveView)
+                flex.addItem(cardType == .deposit ? amountTextField : receiveView)
                     .width(67%)
                     .paddingBottom(7)
         }
@@ -127,7 +128,7 @@ final class ExchangeCardView: BaseFlexView {
             .define{ flex in
                 flex.addItem(cardTitle).marginBottom(25)
                 flex.addItem(topCardView).marginBottom(25)
-                flex.addItem(addressTextField).width(100%)
+                flex.addItem(addressContainer).width(100%)
         }
     }
 }

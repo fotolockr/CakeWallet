@@ -70,7 +70,7 @@ final class RestoreFromKeysView: BaseScrollFlexViewWithBottomSection {
     required init() {
         cardView = CardView()
         walletNameTextField = FloatingLabelTextView(placeholder: NSLocalizedString("wallet_name", comment: ""))
-        addressView = AddressView(withQRScan: false)
+        addressView = AddressView(placeholder: "Value")
         viewKeyTextField = FloatingLabelTextView(placeholder: NSLocalizedString("view_key_(private)", comment: ""))
         spendKeyTextField = FloatingLabelTextView(placeholder: NSLocalizedString("spend_key_(private)", comment: ""))
         restoreFromHeightView = RestoreFromHeightView()
@@ -82,7 +82,6 @@ final class RestoreFromKeysView: BaseScrollFlexViewWithBottomSection {
     
     override func configureView() {
         super.configureView()
-        addressView.textView.delegate = self
         viewKeyTextField.isScrollEnabled = false
         viewKeyTextField.delegate = self
         spendKeyTextField.isScrollEnabled = false

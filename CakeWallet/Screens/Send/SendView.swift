@@ -26,7 +26,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     
     required init() {
         cardView = CardView()
-        addressView = AddressView()
+        addressView = AddressView(placeholder: "Monero address")
         takeFromAddressBookButton = SecondaryButton(title: NSLocalizedString("A", comment: ""))
         paymentIdTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Payment ID", comment: ""), isOptional: true)
         pastPaymentIDButton =  PasteButton(pastable: paymentIdTextField)
@@ -51,7 +51,6 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     
     override func configureView() {
         super.configureView()
-        addressView.textView.delegate = self
         estimatedFeeValueLabel.numberOfLines = 0
         estimatedFeeValueLabel.textAlignment = .right
         cryptoAmountTitleLabel.textColor = .vividBlue

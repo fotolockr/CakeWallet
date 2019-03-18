@@ -127,7 +127,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         super.viewDidAppear(animated)
         
         if let address = self.address {
-            contentView.addressView.textView.changeText(address)
+            contentView.addressView.textView.text = address
         }
     }
     
@@ -187,7 +187,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     private func takeFromAddressBook() {
         let addressBookVC = AddressBookViewController(addressBook: AddressBook.shared, store: self.store, isReadOnly: true)
         addressBookVC.doneHandler = { [weak self] address in
-            self?.contentView.addressView.textView.changeText(address)
+            self?.contentView.addressView.textView.text = address
         }
         let sendNavigation = UINavigationController(rootViewController: addressBookVC)
         self.present(sendNavigation, animated: true)

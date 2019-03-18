@@ -138,7 +138,7 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
         titleLabel.text = NSLocalizedString("deposit", comment: "")
         titleLabel.textAlignment = .center
         amountTextField.keyboardType = .decimalPad
-        addressContainer.textView.placeholder = NSLocalizedString("refund_address", comment: "")
+//        addressContainer.textView.placeholder = NSLocalizedString("refund_address", comment: "")
         layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.16, x: 0, y: 16, blur: 46, spread: -5)
         backgroundColor = .white
         walletNameLabel.textAlignment = .center

@@ -18,7 +18,7 @@ final class NewAddressView: BaseFlexView {
         cardView = CardView()
         contactNameTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Contact Name", comment: ""))
         
-        addressView = AddressView(withAddressBook: false)
+        addressView = AddressView(placeholder: "Value")
         
         saveButton = PrimaryButton(title: NSLocalizedString("save", comment: ""))
         resetButton = SecondaryButton(title: NSLocalizedString("reset", comment: ""))
@@ -29,11 +29,6 @@ final class NewAddressView: BaseFlexView {
         pickerTextField.inputView = pickerView
         
         super.init()
-    }
-    
-    override func configureView() {
-        super.configureView()
-        addressView.textView.delegate = self
     }
     
     override func configureConstraints() {

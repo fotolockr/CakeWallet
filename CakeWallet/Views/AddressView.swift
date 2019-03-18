@@ -20,15 +20,11 @@ extension UITextView {
 }
 
 final class AddressView: BaseFlexView {
-    let textView: FloatingLabelTextView
-    let qrScanButton: UIButton?
-    let pasteButton: PasteButton
-    let addressBookButton: UIButton?
-    let container: UIView
-    let buttonsWrapper: UIView
-    let firstButtonWrapper: UIView
-    let lastButtonsWrapper: UIView
-    
+    let textView: UITextField
+    let borderView, buttonsView: UIView
+    let qrScanButton, addressBookButton: UIButton
+    let placeholder: String
+
     weak var presenter: UIViewController?
     weak var updateResponsible: QRUriUpdateResponsible?
     
@@ -40,71 +36,75 @@ final class AddressView: BaseFlexView {
         return QRCodeReaderViewController(builder: builder)
     }()
     
-    required init() {
-        textView = FloatingLabelTextView(placeholder: NSLocalizedString("address", comment: ""))
-        qrScanButton = SecondaryButton(image: UIImage(named: "qr_icon")?
-            .resized(to: CGSize(width: 16, height: 16)))
-        addressBookButton = SecondaryButton(image: UIImage(named: "address_book_light_icon")?.resized(to: CGSize(width: 20, height: 20)))
-        pasteButton = PasteButton(pastable: textView)
-        container = UIView()
-        buttonsWrapper = UIView()
-        firstButtonWrapper = UIView()
-        lastButtonsWrapper = UIView()
+    required init(placeholder: String) {
+        self.placeholder = placeholder
+        textView = UITextField()
+        borderView = UIView()
+        buttonsView = UIView()
+        qrScanButton = UIButton()
+        addressBookButton = UIButton()
+        
         super.init()
     }
     
-    init(withQRScan showQRScanButton: Bool = true, withAddressBook showAddressBookButton: Bool = true) {
-        textView = FloatingLabelTextView(placeholder: NSLocalizedString("address", comment: ""))
-        addressBookButton = showAddressBookButton
-            ? SecondaryButton(image: UIImage(named: "address_book_light_icon")?.resized(to: CGSize(width: 20, height: 20)))
-            : nil
-        qrScanButton = showQRScanButton
-            ? SecondaryButton(image: UIImage(named: "qr_icon")?.resized(to: CGSize(width: 16, height: 16)))
-            : nil
-        pasteButton = PasteButton(pastable: textView)
-        container = UIView()
-        buttonsWrapper = UIView()
-        firstButtonWrapper = UIView()
-        lastButtonsWrapper = UIView()
-        super.init()
+    required init() {
+        fatalError("init() has not been implemented")
     }
     
     override func configureView() {
         super.configureView()
-        textView.isScrollEnabled = false
-        backgroundColor = .clear
-        qrScanButton?.addTarget(self, action: #selector(scanQr), for: .touchUpInside)
-        addressBookButton?.addTarget(self, action: #selector(fromAddressBook), for: .touchUpInside)
+        
+        qrScanButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        qrScanButton.backgroundColor = .clear
+        qrScanButton.layer.cornerRadius = 5
+        qrScanButton.backgroundColor = UIColor.whiteSmoke
+        
+        addressBookButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        addressBookButton.backgroundColor = .clear
+        addressBookButton.layer.cornerRadius = 5
+        addressBookButton.backgroundColor = UIColor.whiteSmoke
+        
+        if let qrScanImage = UIImage(named: "qr_code_icon") {
+            qrScanButton.setImage(qrScanImage, for: .normal)
+        }
+        
+        if let addressBookImage = UIImage(named: "address_book") {
+            addressBookButton.setImage(addressBookImage, for: .normal)
+        }
+        
+        qrScanButton.addTarget(self, action: #selector(scanQr), for: .touchUpInside)
+        addressBookButton.addTarget(self, action: #selector(fromAddressBook), for: .touchUpInside)
+        
+        textView.font = applyFont(ofSize: 16, weight: .regular)
+        textView.attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 191, green: 201, blue: 215)]
+        )
+
+        textView.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 0))
+        textView.rightViewMode = .always
     }
     
     override func configureConstraints() {
-        firstButtonWrapper.flex.define { flex in
-            flex.addItem(pasteButton).height(40).width(40)
+        let border = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 1.5))
+        
+        buttonsView.flex
+            .direction(.row)
+            .justifyContent(.spaceBetween)
+            .width(80)
+            .define{ flex in
+                flex.addItem(qrScanButton).width(35).height(35)
+                flex.addItem(addressBookButton).width(35).height(35).marginLeft(5)
         }
         
-        lastButtonsWrapper.flex.alignItems(.center).define { flex in
-            if let qrScanButton = qrScanButton {
-                flex.addItem(qrScanButton).height(40).width(40).margin(UIEdgeInsets(top: 0, left: 10, bottom: 8, right: 0))
-            }
-            
-            if let addressBookButton = addressBookButton {
-                flex.addItem(addressBookButton).height(40).width(40).marginLeft(10)
-            }
-        }
-        
-        rootFlexContainer.flex.direction(.row).justifyContent(.spaceBetween).backgroundColor(.clear).define { flex in
-            flex.addItem(textView).grow(1).height(56)
-            
-            flex.addItem(buttonsWrapper).define({ wrapperFlex in
-                wrapperFlex
-                    .direction(.row)
-                    .justifyContent(.spaceBetween)
-                    .alignItems(.start)
-                    .marginLeft(10)
-                    .addItem(firstButtonWrapper)
-                    
-                wrapperFlex.addItem(lastButtonsWrapper)
-            })
+        rootFlexContainer.flex
+            .width(100%)
+            .backgroundColor(.white)
+            .define{ flex in
+                flex.addItem(textView).width(100%).marginBottom(11)
+                flex.addItem(border).width(100%).backgroundColor(UIColor.veryLightBlue)
+                
+                flex.addItem(buttonsView).position(.absolute).top(-10).right(0)
         }
     }
     
@@ -114,12 +114,12 @@ final class AddressView: BaseFlexView {
             guard let this = self else {
                 return
             }
-            
+
             if
                 let value = result?.value,
                 let crypto = this.updateResponsible?.getCrypto(for: this) {
                 let uri: QRUri
-                
+
                 switch crypto {
                 case .bitcoin:
                     uri = BitcoinQRResult(uri: value)
@@ -128,15 +128,15 @@ final class AddressView: BaseFlexView {
                 default:
                     uri = DefaultCryptoQRResult(uri: value, for: crypto)
                 }
-                
+
                 this.updateAddress(from: uri)
                 this.updateResponsible?.update(uri: uri)
             }
-            
+
             this.QRReaderVC.stopScanning()
             this.QRReaderVC.dismiss(animated: true)
         }
-        
+
         QRReaderVC.modalPresentationStyle = .overFullScreen
         presenter?.parent?.present(QRReaderVC, animated: true)
     }
@@ -145,13 +145,13 @@ final class AddressView: BaseFlexView {
     private func fromAddressBook() {
         let addressBookVC = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: true)
         addressBookVC.doneHandler = { [weak self] address in
-            self?.textView.changeText(address)
+            self?.textView.text = address
         }
         let sendNavigation = UINavigationController(rootViewController: addressBookVC)
         presenter?.present(sendNavigation, animated: true)
     }
     
     private func updateAddress(from uri: QRUri) {
-        textView.changeText(uri.address)
+        textView.text = uri.address
     }
 }

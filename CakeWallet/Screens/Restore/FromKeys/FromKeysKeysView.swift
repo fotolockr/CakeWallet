@@ -16,7 +16,7 @@ final class FromKeysKeysView: BaseFlexView {
         cardHolder = UIView()
         cardView = CardView()
         
-        addressView = AddressView(withQRScan: false, withAddressBook: false)
+        addressView = AddressView(placeholder: "Value")
         viewKeyTextField = FloatingLabelTextView(placeholder: NSLocalizedString("view_key_(private)", comment: ""))
         spendKeyTextField = FloatingLabelTextView(placeholder: NSLocalizedString("spend_key_(private)", comment: ""))
         
@@ -25,13 +25,7 @@ final class FromKeysKeysView: BaseFlexView {
         
         super.init()
     }
-    
-    override func configureView() {
-        super.configureView()
-        addressView.textView.delegate = self
-        addressView.textView.isScrollEnabled = false
-    }
-    
+        
     override func configureConstraints() {
         cardView.flex.padding(20).define { flex in
             flex.addItem(addressView).marginTop(10)
