@@ -693,7 +693,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         return contentView.receiveCardView.addressContainer.textView.text ?? ""
     }
     
-    private var receiveAmount: Amount?
+//    private var receiveAmount: Amount?
     
     private(set) var depositCrypto: CryptoCurrency {
         didSet {
@@ -709,15 +709,19 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     private var minDepositAmount: Amount?
     private var maxDepositAmount: Amount?
+    private var didSetCurrentAddressForDeposit: Bool
+    private var didSetCurrentAddressForReceive: Bool
     
-    private var minReceiveAmount: Amount?
-    private var maxReceiveAmount: Amount?
+//    private var minReceiveAmount: Amount?
+//    private var maxReceiveAmount: Amount?
     
     init(store: Store<ApplicationState>, exchangeFlow: ExchangeFlow?) {
         cryptos = CryptoCurrency.all
         exchangeActionCreators = ExchangeActionCreators.shared
         depositCrypto = .monero
         receiveCrypto = .bitcoin
+        didSetCurrentAddressForDeposit = false
+        didSetCurrentAddressForReceive = false
         self.exchangeFlow = exchangeFlow
         self.store = store
         super.init()
@@ -795,6 +799,11 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         
         contentView.clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
         contentView.exchangeButton.addTarget(self, action: #selector(exhcnage), for: .touchUpInside)
+        
+        onDepositCryptoChange(depositCrypto)
+        onReceiveCryptoChange(receiveCrypto)
+        didSetCurrentAddressForDeposit = false
+        didSetCurrentAddressForReceive = false
         setProviderTitle()
     }
     
@@ -808,12 +817,18 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             //
         }
         
+//        onDepositCryptoChange(depositCrypto)
+//        onReceiveCryptoChange(receiveCrypto)
+        
+//        if let receiveAmount = receiveAmount {
+//            updateDepositAmount(receiveAmount)
+//        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         onDepositCryptoChange(depositCrypto)
         onReceiveCryptoChange(receiveCrypto)
-        
-        if let receiveAmount = receiveAmount {
-            updateDepositAmount(receiveAmount)
-        }
     }
     
     override func viewDidLoad() {
@@ -846,6 +861,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     }
     
     private func onDepositCryptoChange(_ crypto: CryptoCurrency) {
+
 //        if depositCrypto == .monero && receiveCrypto == .bitcoin {
 //            contentView.depositView.amountTextField.text = nil
 //            if let amount = receiveAmount {
@@ -854,23 +870,24 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
 //        }
         
         contentView.depositCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
-        
+
         
         if store.state.walletState.walletType.currency == crypto {
-            contentView.depositCardView.walletNameLabel.text = store.state.walletState.name
-            contentView.depositCardView.walletNameLabel.isHidden = false
-//            contentView.depositeCardView.hideAddressViewField()
-//            contentView.depositeCardView.showWalletName()
+            contentView.depositCardView.pickerButtonView.walletNameLabel.text = store.state.walletState.name
+            
+            if !didSetCurrentAddressForDeposit {
+                didSetCurrentAddressForDeposit = true
+                contentView.depositCardView.addressContainer.textView.change(text: store.state.walletState.address)
+            }
         } else {
-            contentView.depositCardView.walletNameLabel.isHidden = true
-//            contentView.depositView.showAddressViewField()
-//            contentView.depositView.hideWalletName()
+            didSetCurrentAddressForDeposit = false
+            contentView.depositCardView.pickerButtonView.walletNameLabel.text = nil
         }
 
         updateReceiveResult(with: depositAmount)
-        contentView.depositCardView.flex.markDirty()
-        contentView.setNeedsLayout()
-        updateLimits()
+//        contentView.depositCardView.flex.markDirty()
+//        contentView.setNeedsLayout()
+//        updateLimits()
     }
     
     @objc
@@ -878,96 +895,96 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         updateReceiveResult(with: depositAmount)
     }
     
-    @objc
-    private func onReceiveAmountChange(_ textField: UITextField) {
-        guard let text = textField.text else {
-            return
-        }
-        
-        let amount = makeAmount(from: text.replacingOccurrences(of: ",", with: "."), for: receiveCrypto)
-        receiveAmount = amount
-        updateReceiveResult(with: amount)
-        updateDepositAmount(amount)
-    }
+//    @objc
+//    private func onReceiveAmountChange(_ textField: UITextField) {
+//        guard let text = textField.text else {
+//            return
+//        }
+//
+//        let amount = makeAmount(from: text.replacingOccurrences(of: ",", with: "."), for: receiveCrypto)
+//        receiveAmount = amount
+//        updateReceiveResult(with: amount)
+//        updateDepositAmount(amount)
+//    }
     
-    private func updateLimits() {
-        if depositCrypto == .monero && receiveCrypto == .bitcoin {
-            hideAmountTextFieldForDeposit()
-            showAmountTextFieldForReceive()
-            setProviderTitle()
-            fetchXMRTOLimits() { [weak self] result in
-                DispatchQueue.main.async {
-                    guard let receiveCrypto = self?.receiveCrypto else {
-                        return
-                    }
-                    
-                    switch result {
-                    case let .success(limits):
-                        let min = makeAmount(from: String(limits.min), for: receiveCrypto)
-                        let max = makeAmount(from: String(limits.max), for: receiveCrypto)
-                        self?.hideLimitsForDeposit()
-                        self?.updateReceive(min: min, max: max)
-                    case let.failed(error):
-                        print(error)
-                    }
-                }
-            }
-            return
-        }
-        
-        hideAmountLabelsForDeposit()
-        hideAmountTextFieldForReceive()
-        showAmountTextFieldForDeposit()
-        setProviderTitle()
-        
-        fetchLimits(for: depositCrypto, and: receiveCrypto) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let depositCrypto = self?.depositCrypto else {
-                    return
-                }
-                
-                switch result {
-                case let .success(limits):
-                    let min = makeAmount(from: limits.min, for: depositCrypto)
-                    let max = makeAmount(from: limits.max, for: depositCrypto)
-                    self?.updateDeposit(min: min, max: max)
-                case let.failed(error):
-                    print(error)
-                }
-            }
-        }
-        
-        hideLimitsForReceive()
-    }
+//    private func updateLimits() {
+//        if depositCrypto == .monero && receiveCrypto == .bitcoin {
+//            hideAmountTextFieldForDeposit()
+//            showAmountTextFieldForReceive()
+//            setProviderTitle()
+//            fetchXMRTOLimits() { [weak self] result in
+//                DispatchQueue.main.async {
+//                    guard let receiveCrypto = self?.receiveCrypto else {
+//                        return
+//                    }
+//
+//                    switch result {
+//                    case let .success(limits):
+//                        let min = makeAmount(from: String(limits.min), for: receiveCrypto)
+//                        let max = makeAmount(from: String(limits.max), for: receiveCrypto)
+//                        self?.hideLimitsForDeposit()
+////                        self?.updateReceive(min: min, max: max)
+//                    case let.failed(error):
+//                        print(error)
+//                    }
+//                }
+//            }
+//            return
+//        }
+//
+//        hideAmountLabelsForDeposit()
+//        hideAmountTextFieldForReceive()
+//        showAmountTextFieldForDeposit()
+//        setProviderTitle()
+//
+//        fetchLimits(for: depositCrypto, and: receiveCrypto) { [weak self] result in
+//            DispatchQueue.main.async {
+//                guard let depositCrypto = self?.depositCrypto else {
+//                    return
+//                }
+//
+//                switch result {
+//                case let .success(limits):
+//                    let min = makeAmount(from: limits.min, for: depositCrypto)
+//                    let max = makeAmount(from: limits.max, for: depositCrypto)
+//                    self?.updateDeposit(min: min, max: max)
+//                case let.failed(error):
+//                    print(error)
+//                }
+//            }
+//        }
+//
+//        hideLimitsForReceive()
+//    }
     
     private func onReceiveCryptoChange(_ crypto: CryptoCurrency) {
-//        if depositCrypto == .monero && receiveCrypto == .bitcoin {
-//            contentView.depositView.amountTextField.text = nil
-//            contentView.receiveView.amountTextField.text = nil
-//        }
-//
-//        if store.state.walletState.walletType.currency == receiveCrypto {
-//            contentView.receiveView.walletNameLabel.text = store.state.walletState.name
-//            contentView.receiveView.walletNameLabel.isHidden = false
-//            contentView.receiveView.hideAddressViewField()
-//            contentView.receiveView.showWalletName()
-//        } else {
-//            contentView.receiveView.walletNameLabel.isHidden = true
-//            contentView.receiveView.showAddressViewField()
-//            contentView.receiveView.hideWalletName()
-//        }
-//
-//        updateReceiveResult(with: depositAmount)
-//        contentView.receiveView.flex.markDirty()
-        
         contentView.receiveCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
         
+        if store.state.walletState.walletType.currency == crypto {
+            contentView.receiveCardView.pickerButtonView.walletNameLabel.text = store.state.walletState.name
+            
+            if !didSetCurrentAddressForReceive {
+                didSetCurrentAddressForReceive = true
+                contentView.receiveCardView.addressContainer.textView.change(text: store.state.walletState.address)
+            }
+        } else {
+            didSetCurrentAddressForReceive = false
+            contentView.receiveCardView.pickerButtonView.walletNameLabel.text = nil
+        }
         
         updateReceiveResult(with: depositAmount)
-        contentView.receiveCardView.flex.markDirty()
+//        contentView.receiveCardView.flex.markDirty()
+//        contentView.setNeedsLayout()
+//        updateLimits()
         
-        contentView.setNeedsLayout()
-        updateLimits()
+//        contentView.receiveCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
+//
+//
+//        updateReceiveResult(with: depositAmount)
+//        contentView.receiveCardView.flex.markDirty()
+//
+//        contentView.setNeedsLayout()
+//        updateLimits()
     }
 
     private func changedWallet(type: WalletType) {
@@ -1118,15 +1135,15 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         contentView.descriptionView.flex.layout()
     }
     
-    private func updateReceive(min: Amount, max: Amount) {
-        minReceiveAmount = min
-        maxReceiveAmount = max
-//        contentView.receiveView.minLabel.text = String(format: "%@: %@ %@ ", NSLocalizedString("min", comment: ""), min.formatted(), min.currency.formatted())
-//        contentView.receiveView.maxLabel.text = String(format: "%@: %@ %@ ", NSLocalizedString("max", comment: ""), max.formatted(), max.currency.formatted())
-//        contentView.receiveView.minLabel.flex.markDirty()
-//        contentView.receiveView.maxLabel.flex.markDirty()
-//        contentView.receiveView.limitsRow.isHidden = false
-    }
+//    private func updateReceive(min: Amount, max: Amount) {
+//        minReceiveAmount = min
+//        maxReceiveAmount = max
+////        contentView.receiveView.minLabel.text = String(format: "%@: %@ %@ ", NSLocalizedString("min", comment: ""), min.formatted(), min.currency.formatted())
+////        contentView.receiveView.maxLabel.text = String(format: "%@: %@ %@ ", NSLocalizedString("max", comment: ""), max.formatted(), max.currency.formatted())
+////        contentView.receiveView.minLabel.flex.markDirty()
+////        contentView.receiveView.maxLabel.flex.markDirty()
+////        contentView.receiveView.limitsRow.isHidden = false
+//    }
     
     @objc
     private func clear() {

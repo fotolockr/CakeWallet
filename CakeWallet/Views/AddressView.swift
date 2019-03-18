@@ -19,8 +19,75 @@ extension UITextView {
     }
 }
 
+final class AddressTextField: UITextField {
+    private static let holder = "..."
+    var originText: String?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        delegate = self
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        delegate = self
+    }
+    
+    func change(text: String?) {
+        originText = text
+        
+        guard let text = text else {
+            self.text = nil
+            return
+        }
+        
+        let length = numberOfCharactersThatFit(for: text)
+        
+        guard text.count > length else {
+            self.text = text
+            return
+        }
+        
+        let middle = length / 2
+        let begin = text[0..<middle]
+        let end = text.suffix(middle - 1)
+        let formattedText = begin + AddressTextField.holder + end
+        self.text = formattedText
+    }
+    
+    private func numberOfCharactersThatFit(for text: String?) -> Int {
+        let fontRef = CTFontCreateWithName(font!.fontName as CFString, font!.pointSize, nil)
+        let attributes = [kCTFontAttributeName : fontRef]
+        let attributedString = NSAttributedString(string: text!, attributes: attributes as [NSAttributedStringKey : Any])
+        let frameSetterRef = CTFramesetterCreateWithAttributedString(attributedString as CFAttributedString)
+        
+        var characterFitRange: CFRange = CFRange()
+        
+        let rightViewWidth = rightView?.frame.size.width ?? 0
+        let width = bounds.size.width - rightViewWidth
+        let height = bounds.size.height
+        CTFramesetterSuggestFrameSizeWithConstraints(frameSetterRef, CFRangeMake(0, 0), nil, CGSize(width: width, height: height), &characterFitRange)
+        return Int(characterFitRange.length)
+    }
+}
+
+extension AddressTextField: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        text = originText
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        change(text: originText)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        originText = string
+        return true
+    }
+}
+
 final class AddressView: BaseFlexView {
-    let textView: UITextField
+    let textView: AddressTextField
     let borderView, buttonsView: UIView
     let qrScanButton, addressBookButton: UIButton
     let placeholder: String
@@ -40,7 +107,7 @@ final class AddressView: BaseFlexView {
     required init(placeholder: String, hideAddressBookButton: Bool = false) {
         self.placeholder = placeholder
         self.hideAddressBookButton = hideAddressBookButton
-        textView = UITextField()
+        textView = AddressTextField()
         borderView = UIView()
         buttonsView = UIView()
         qrScanButton = UIButton()
@@ -93,7 +160,7 @@ final class AddressView: BaseFlexView {
         buttonsView.flex
             .direction(.row)
             .justifyContent(.spaceBetween)
-            .width(80)
+            .width(!hideAddressBookButton ? 80 : 40)
             .define{ flex in
                 flex.addItem(qrScanButton).width(35).height(35)
                 
@@ -150,13 +217,13 @@ final class AddressView: BaseFlexView {
     private func fromAddressBook() {
         let addressBookVC = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: true)
         addressBookVC.doneHandler = { [weak self] address in
-            self?.textView.text = address
+            self?.textView.change(text: address)
         }
         let sendNavigation = UINavigationController(rootViewController: addressBookVC)
         presenter?.present(sendNavigation, animated: true)
     }
     
     private func updateAddress(from uri: QRUri) {
-        textView.text = uri.address
+        textView.change(text: uri.address)
     }
 }
