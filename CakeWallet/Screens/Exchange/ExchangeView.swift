@@ -3,7 +3,7 @@ import FlexLayout
 import PinLayout
 
 enum ExchangeCardType: String {
-    case deposit, receive
+    case deposit, receive, unknown
 }
 
 final class ExchangePickerItemView: BaseView {

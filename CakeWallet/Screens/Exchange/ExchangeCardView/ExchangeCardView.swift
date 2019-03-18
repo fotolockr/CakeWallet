@@ -1,6 +1,39 @@
 import UIKit
 import FlexLayout
 
+final class PickerButtonView: BaseFlexView {
+    let pickedCurrency, walletNameLabel: UILabel
+    let pickerIcon: UIImageView
+    
+    required init() {
+        pickerIcon = UIImageView(image: UIImage(named: "arrow_bottom_purple_icon"))
+        pickedCurrency = UILabel(text: "BTC")
+        walletNameLabel = UILabel(text: "Main wallet")
+        
+        super.init()
+    }
+    
+    override func configureView() {
+        super.configureView()
+        
+        pickedCurrency.font = applyFont(ofSize: 26, weight: .bold)
+        walletNameLabel.font = applyFont(ofSize: 13)
+        walletNameLabel.textColor = UIColor.wildDarkBlue
+    }
+    
+    override func configureConstraints() {
+        rootFlexContainer.flex
+            .width(100)
+            .height(50)
+            .backgroundColor(.white)
+            .define{ flex in
+                flex.addItem(pickedCurrency)
+                flex.addItem(walletNameLabel)
+                flex.addItem(pickerIcon).position(.absolute).top(10).right(30)
+        }
+    }
+}
+
 final class ExchangeCardView: BaseFlexView {
     let cardType: ExchangeCardType
     let cardTitle: UILabel
@@ -16,6 +49,8 @@ final class ExchangeCardView: BaseFlexView {
     let receiveViewTitle: UILabel
     let receiveViewAmount: UILabel
     
+    let pickerButtonView: PickerButtonView
+    
     required init(cardType: ExchangeCardType, cardTitle: String) {
         self.cardType = cardType
         self.cardTitle = UILabel(text: cardTitle)
@@ -30,6 +65,8 @@ final class ExchangeCardView: BaseFlexView {
         receiveView = UIView()
         receiveViewTitle = UILabel(text: "You will receive")
         receiveViewAmount = UILabel(text: "24.092")
+        
+        pickerButtonView = PickerButtonView()
         
         super.init()
     }
@@ -63,12 +100,6 @@ final class ExchangeCardView: BaseFlexView {
         rootFlexContainer.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 0, blur: 20, spread: -10)
         rootFlexContainer.backgroundColor = Theme.current.card.background
         
-        pickerButton.flex.width(100).height(50).define{ flex in
-            flex.addItem(pickedCurrency)
-            flex.addItem(walletNameLabel)
-            flex.addItem(pickerIcon).position(.absolute).top(10).right(35)
-        }
-        
         receiveView.flex
             .alignItems(.end)
             .define{ flex in
@@ -82,7 +113,7 @@ final class ExchangeCardView: BaseFlexView {
             .alignItems(.end)
             .width(100%)
             .define{ flex in
-                flex.addItem(pickerButton)
+                flex.addItem(pickerButtonView)
                 flex.addItem(cardType == ExchangeCardType.deposit ? amountTextField : receiveView)
                     .width(67%)
                     .paddingBottom(7)

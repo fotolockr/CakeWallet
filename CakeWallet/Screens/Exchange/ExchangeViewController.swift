@@ -661,7 +661,19 @@ func makeAmount(from value: UInt64, for crypto: CryptoCurrency) -> Amount {
     }
 }
 
-final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubscriber, UIPickerViewDelegate, UIPickerViewDataSource {
+final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubscriber, CurrencyPickerDelegate {
+    func onPicked(item: CryptoCurrency, pickerType: ExchangeCardType) {
+        
+        switch pickerType {
+        case .deposit:
+            depositCrypto = item
+        case .receive:
+            receiveCrypto = item
+        case .unknown:
+            return
+        }
+    }
+    
     weak var exchangeFlow: ExchangeFlow?
     
     let cryptos: [CryptoCurrency]
@@ -702,7 +714,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     private var maxReceiveAmount: Amount?
     
     init(store: Store<ApplicationState>, exchangeFlow: ExchangeFlow?) {
-        cryptos = CryptoCurrency.all //.filter({ $0 != CryptoCurrency.bitcoinCash })
+        cryptos = CryptoCurrency.all
         exchangeActionCreators = ExchangeActionCreators.shared
         depositCrypto = .monero
         receiveCrypto = .bitcoin
@@ -717,25 +729,36 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     }
     
     @objc
-    func tick1() {
-        print("qrCodeButton 1")
-    }
-    
-    @objc
-    func tick2() {
-        print("addressBookButton 2")
-    }
-    
-    @objc
     func onDepositPickerButtonTap() {
-        depositCrypto = depositCrypto == .bitcoin ? CryptoCurrency.monero : CryptoCurrency.bitcoin
+        providesPresentationContextTransitionStyle = true
+        definesPresentationContext = true
+        
+        let currencyPickerVC = CurrencyPickerViewController()
+        currencyPickerVC.type = .deposit
+        currencyPickerVC.delegate = self
+        currencyPickerVC.modalPresentationStyle = .overCurrentContext
+        tabBarController?.modalPresentationStyle = .overFullScreen
+        tabBarController?.present(currencyPickerVC, animated: true)
+    }
+    
+    @objc
+    func onReceivePickerButtonTap() {
+        providesPresentationContextTransitionStyle = true
+        definesPresentationContext = true
+        
+        let currencyPickerVC = CurrencyPickerViewController()
+        currencyPickerVC.type = .receive
+        currencyPickerVC.delegate = self
+        currencyPickerVC.modalPresentationStyle = .overCurrentContext
+        tabBarController?.present(currencyPickerVC, animated: true)
     }
     
     override func configureBinds() {
-        contentView.depositeCardView.addressTextField.qrCodeButton.addTarget(self, action: #selector(tick1), for: .touchUpInside)
-        contentView.depositeCardView.addressTextField.addressBookButton.addTarget(self, action: #selector(tick2), for: .touchUpInside)
         let depositOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDepositPickerButtonTap))
-        contentView.depositeCardView.pickerButton.addGestureRecognizer(depositOnTapGesture)
+        contentView.depositeCardView.pickerButtonView.addGestureRecognizer(depositOnTapGesture)
+        
+        let receiveOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onReceivePickerButtonTap))
+        contentView.receiveCardView.pickerButtonView.addGestureRecognizer(receiveOnTapGesture)
         
 //        contentView.receiveView.addressContainer.textView.delegate = contentView
 //        contentView.depositView.addressContainer.textView.delegate = contentView
@@ -808,68 +831,6 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         changedWallet(type: state.walletState.walletType)
     }
     
-    // MARK: UIPickerViewDataSource
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        pickerView.hideSelectionIndicator()
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return cryptos.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard cryptos.count > row else { return nil }
-        return cryptos[row].formatted()
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return ExchangePickerItemView.rowHeight
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return ExchangePickerItemView.rowWidth
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        guard cryptos.count > row else { return UIView() }
-        
-        let _view = view as? ExchangePickerItemView ?? ExchangePickerItemView()
-        _view.label.text = cryptos[row].formatted()
-        
-        let crypto = pickerView.tag == 2000 ? depositCrypto : receiveCrypto
-        
-        if crypto == cryptos[row] {
-            _view.select()
-        }
-        
-        return _view
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedCrypto = cryptos[row]
-        onSelect(crypto: selectedCrypto, from: pickerView)
-    }
-    
-    private func onSelect(crypto: CryptoCurrency, from pickerView: UIPickerView) {
-        if pickerView.tag == 2000 {
-            if depositCrypto != crypto {
-//                contentView.depositView.addressContainer.textView.changeText("")
-            }
-            
-            depositCrypto = crypto
-        } else {
-            if receiveCrypto != crypto {
-//                contentView.receiveView.addressContainer.textView.changeText("")
-            }
-            
-            receiveCrypto = crypto
-        }
-        
-        pickerView.reloadAllComponents()
-    }
-    
     private func onDepositCryptoChange(_ crypto: CryptoCurrency) {
 //        if depositCrypto == .monero && receiveCrypto == .bitcoin {
 //            contentView.depositView.amountTextField.text = nil
@@ -878,7 +839,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
 //            }
 //        }
         
-        contentView.depositeCardView.pickedCurrency.text = crypto.formatted()
+        contentView.depositeCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
         
         
         if store.state.walletState.walletType.currency == crypto {
@@ -984,6 +945,13 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
 //
 //        updateReceiveResult(with: depositAmount)
 //        contentView.receiveView.flex.markDirty()
+        
+        contentView.receiveCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
+        
+        
+        updateReceiveResult(with: depositAmount)
+        contentView.receiveCardView.flex.markDirty()
+        
         contentView.setNeedsLayout()
         updateLimits()
     }

@@ -17,6 +17,7 @@ target 'CakeWallet' do
     pod 'ZIPFoundation', '~> 0.9'
     pod 'CryptoSwift'
     pod 'SwiftSVG', '~> 2.0'
+    pod 'VisualEffectView'
 end
 
 target 'CWMonero' do
