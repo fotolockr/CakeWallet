@@ -303,14 +303,19 @@ final class ExchangeView: BaseScrollFlexView {
 extension BaseView: UITextViewDelegate {
     @objc
     func textViewDidChange(_ textView: UITextView) {
+        if let placeholderLabel = textView.viewWithTag(100) as? UILabel {
+            placeholderLabel.isHidden = textView.text.count > 0
+        }
+        
         let fixedWidth = textView.frame.size.width
-        let newSize = textView.sizeThatFits(
+        let newHeight = textView.sizeThatFits(
             CGSize(
                 width: fixedWidth,
                 height: CGFloat.greatestFiniteMagnitude
             )
-        )
+        ).height
         
+        let newSize = CGSize(width: fixedWidth, height: newHeight)
         textView.flex.size(newSize).markDirty()
         setNeedsLayout()
     }

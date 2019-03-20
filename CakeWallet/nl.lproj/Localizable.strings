@@ -43,6 +43,7 @@
 
 // Restore
 
+"recover" = "Herstellen";
 "restore_your_wallet" = "Uw wallet herstellen";
 "restore_selection_text" = "Er zijn twee mogelijkheden om uw wallet te herstellen. U kunt uw seed invoeren. Dit is een reeks van 25 woorden. Of u kunt uw privésleutels invoeren. Selecteer hieronder een optie.";
 "from_seed" = "Met de seed";

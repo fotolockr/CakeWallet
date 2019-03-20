@@ -78,33 +78,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-    
-        
-        
-//        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
-//        let splashController = SplashViewController(store: store)
-//        let loadWalletHandler = LoadCurrentWalletHandler()
-//        let splashQueue = DispatchQueue(label: "splash", qos: .default)
-//    
-//        splashQueue.async {
-//            loadWalletHandler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
-//                guard let action = action else {
-//                    return
-//                }
-//                
-//                store._defaultDispatch(action)
-//                
-//                DispatchQueue.main.async {
-//                    self.window?.rootViewController = authController
-//                }
-//            })
-//        }
-        
-        
-        
-        
-        
-        
 
         if !store.state.walletState.name.isEmpty && pin != nil {
             let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
@@ -227,6 +200,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    
+    
     private func setAppearance() {
 //        UITabBar.appearance().backgroundColor = .white
         UITabBar.appearance().layer.borderWidth = 0.0
@@ -234,25 +209,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = .vividBlue
         UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
         
-        let backImage = UIImage(named: "arrow_back")?.resized(to: CGSize(width: 30, height: 15))
+//        let backImage = UIImage(named: "arrow_back")?.resized(to: CGSize(width: 30, height: 15))
         
         UINavigationBar.appearance().tintColor = .black
-        UINavigationBar.appearance().backIndicatorImage = backImage
-        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
+//        UINavigationItem
+//        UINavigationBar.appearance()
+        
+//        UINavigationBar.appearance().backIndicatorImage = backImage
+//        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
 //        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
 //        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .highlighted)
 
-        UINavigationBar.appearance().backItem?.title = ""
+//        UINavigationBar.appearance().backItem?.title = ""
         UINavigationBar.appearance().backgroundColor = .clear
         
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
+        
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedStringKey.foregroundColor: UIColor.black,
             NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)
         ]
     }
+    
+    
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let filename = url.lastPathComponent

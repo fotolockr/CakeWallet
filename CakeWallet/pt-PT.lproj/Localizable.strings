@@ -39,7 +39,7 @@
 "restore_keys_card_description" = "Restaure sua carteira das suas chaves privadas";
 
 // Restore
-
+"recover" = "Recuperar";
 "restore_your_wallet" = "Restaurar Carteira";
 "restore_selection_text" = "Existem duas maneiras de restaurar uma carteira. Você pode inserir sua chave-semente que é um código de 25 palavras, ou você pode inserir suas chaves privadas. Por favor, selecione uma opção.";
 "from_seed" = "Utilizar a chave-semente";

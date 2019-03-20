@@ -7,13 +7,20 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
     let store: Store<ApplicationState>
     
     private var name: String {
-        return contentView.nameTextField.text ?? ""
+        return contentView.nameTextField.textField.text ?? ""
     }
     
     init(signUpFlow: SignUpFlow, store: Store<ApplicationState>) {
         self.signUpFlow = signUpFlow
         self.store = store
         super.init()
+    }
+    
+    override func viewDidLoad() {
+//        let BarButtonItemAppearance = UIBarButtonItem.appearance()
+//        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+        navigationItem.backBarButtonItem?.title = ""
     }
     
     override func configureBinds() {

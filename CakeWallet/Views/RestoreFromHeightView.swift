@@ -114,71 +114,41 @@ func getHeight(from date: Date, handler: @escaping (UInt64) -> Void) {
     DispatchQueue.global(qos: .background).async {
         let height = getHeight(of: date)
         handler(height)
-//        let timestamp = Int(date.timeIntervalSince1970)
-//        var url =  URLComponents(string: "https://chainradar.com/xmr/blocks")!
-//        url.queryItems = [
-//            URLQueryItem(name: "filter[timestamp_greater]", value: "\(timestamp)")
-//        ]
-//        var request = URLRequest(url: url.url!)
-//        request.httpMethod = "GET"
-//
-//        let connection = URLSession.shared.dataTask(with: request) { data, response, error in
-//            do {
-//                if let error = error {
-//                    print(error)
-//                    handler(0)
-//                    return
-//                }
-//
-//                guard
-//                    let data = data,
-//                    let html = String(data: data, encoding: String.Encoding.utf8),
-//                    let doc: Document = try? SwiftSoup.parse(html)  else {
-//                        handler(0)
-//                        return
-//                }
-//
-//                if
-//                    let row: Element = try  doc.getElementById("blocks-tbody")!.children().first(),
-//                    let heightStr = try row.children().first()?.text(),
-//                    let height = UInt64(heightStr) {
-//                    handler(height)
-//                } else {
-//                    handler(0)
-//                }
-//            } catch {
-//                print(error)
-//                handler(0)
-//            }
-//        }
-//
-//        connection.resume()
     }
 }
 
 final class RestoreFromHeightView: BaseFlexView {
+    let withTransparentBackground: Bool
     let wrapper: UIView
-    let restoreHeightTextField: UITextField
-    let dateTextField: UITextField
-    let separatorTextField: UITextField
+    let restoreHeightTextField: TextField
+    let dateTextField: TextField
     let datePicker: UIDatePicker
     var restoreHeight: UInt64 {
         var height: UInt64 = 0
         if
-            let heightStr = restoreHeightTextField.text,
+            let heightStr = restoreHeightTextField.textField.text,
             let _height = UInt64(heightStr) {
             height = _height
         }
         return height
     }
     
+    required init(withTransparentBackground: Bool = false) {
+        self.withTransparentBackground = withTransparentBackground
+        wrapper = UIView()
+        restoreHeightTextField = TextField(placeholder: NSLocalizedString("restore_height", comment: ""), fontSize: 16, isTransparent: withTransparentBackground)
+        dateTextField = TextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), fontSize: 16, isTransparent: withTransparentBackground)
+        datePicker = UIDatePicker()
+        super.init()
+    }
     
     required init() {
+        self.withTransparentBackground = false
         wrapper = UIView()
-        restoreHeightTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_height", comment: ""))
-        dateTextField = FloatingLabelTextField(placeholder: NSLocalizedString("restore_from_date", comment: ""))
-        separatorTextField = UITextField()
+        restoreHeightTextField = TextField(placeholder: NSLocalizedString("restore_height", comment: ""), fontSize: 16, isTransparent: withTransparentBackground)
+        dateTextField = TextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), fontSize: 16, isTransparent: withTransparentBackground)
         datePicker = UIDatePicker()
+        
         super.init()
     }
     
@@ -186,16 +156,13 @@ final class RestoreFromHeightView: BaseFlexView {
         super.configureView()
         
         backgroundColor = .clear
-        restoreHeightTextField.keyboardType = .numberPad
+        restoreHeightTextField.textField.keyboardType = .numberPad
         datePicker.datePickerMode = .date
         datePicker.locale = Locale.current
-        dateTextField.inputView = datePicker
+        dateTextField.textField.inputView = datePicker
         datePicker.maximumDate = Date()
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         datePicker.addTarget(self, action: #selector(onDateChange(_:)), for: .valueChanged)
-        separatorTextField.text = "OR"
-        separatorTextField.font = .systemFont(ofSize: 15)
-        separatorTextField.textColor = UIColor(hex: 0x9bacc5)
         addSubview(restoreHeightTextField)
         addSubview(dateTextField)
     }
@@ -206,7 +173,7 @@ final class RestoreFromHeightView: BaseFlexView {
         
         getHeight(from: date) { [weak self] height in
             DispatchQueue.main.async {
-                self?.restoreHeightTextField.text = "\(height)"
+                self?.restoreHeightTextField.textField.text = "\(height)"
             }
         }
     }
@@ -217,16 +184,17 @@ final class RestoreFromHeightView: BaseFlexView {
         dateFormatter.locale = Locale.current
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = Locale.current.regionCode?.lowercased() == "us" ? "MMMM d, yyyy" : "d MMMM, yyyy" //fixme hardcoded regionCode value
-        dateTextField.text = dateFormatter.string(from: datePicker.date)
+        dateTextField.textField.text = dateFormatter.string(from: datePicker.date)
     }
     
     override func configureConstraints() {
-        rootFlexContainer.flex.backgroundColor(.clear).define { flex in
-            flex.addItem(wrapper).padding(15).define({ wrapperFlex in
-                wrapperFlex.addItem(restoreHeightTextField).marginTop(10).height(50)
-                wrapperFlex.addItem(separatorTextField).marginTop(25)
-                wrapperFlex.addItem(dateTextField).marginTop(10).height(50)
-            })
+        let adaptiveMargin = adaptiveLayout.getSize(forLarge: 34, forBig: 32, defaultSize: 30)
+        
+        rootFlexContainer.flex
+            .backgroundColor(.clear)
+            .define { flex in
+                flex.addItem(restoreHeightTextField).marginBottom(adaptiveMargin).width(100%)
+                flex.addItem(dateTextField).width(100%)
         }
     }
 }

@@ -65,16 +65,25 @@ final class RestoreFromSeedViewController: BaseViewController<RestoreFromSeedVie
                     andSeed: seed,
                     restoreHeight: restoreHeight,
                     type: type,
-                    handler: { [weak self] in
-                        if let error = self?.store.state.error {
+                    handler: { [weak self] result in
+                        switch result {
+                        case .success(_):
+                            self?.done()
+                        case let .failed(error):
                             alert.dismiss(animated: true) {
                                 self?.showInfo(title: nil, message: error.localizedDescription, actions: [CWAlertAction.cancelAction])
                             }
-                            
-                            return
                         }
                         
-                        self?.done()
+//                        if let error = self?.store.state.error {
+//                            alert.dismiss(animated: true) {
+//                                self?.showInfo(title: nil, message: error.localizedDescription, actions: [CWAlertAction.cancelAction])
+//                            }
+//
+//                            return
+//                        }
+                        
+//                        self?.done()
                     }
                 )
             )

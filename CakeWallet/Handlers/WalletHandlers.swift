@@ -220,7 +220,7 @@ public struct CreateWalletHandler: AsyncHandler {
 }
 
 // fixme
-private func restoreFromMymonero(seed: String, name: String, restoreHeight: UInt64, handler: @escaping (AnyAction?) -> Void, completionHandler: @escaping () -> Void) {
+private func restoreFromMymonero(seed: String, name: String, restoreHeight: UInt64, handler: @escaping (AnyAction?) -> Void, completionHandler: @escaping (Result<Void>) -> Void) {
     let mn = mndecode(seed: seed)
     var _d = toByteArray(mn)
     let psk = MoneroWalletAdapter.psk(&_d)!
@@ -267,10 +267,10 @@ public struct RestoreFromSeedWalletHandler: AsyncHandler {
                 try KeychainStorageImpl.standart.set(value: password, forKey: KeychainKey.walletPassword(index))
                 try KeychainStorageImpl.standart.set(value: wallet.seed, forKey: .seed(index))
                 handler(WalletState.Action.restored(wallet))
-                completionHandler()
+                completionHandler(.success(()))
             } catch {
                 handler(ApplicationState.Action.changedError(error))
-                completionHandler()
+                completionHandler(.failed(error))
             }
         }
     }
@@ -294,10 +294,10 @@ public struct RestoreFromKeysWalletHandler: AsyncHandler {
                 try KeychainStorageImpl.standart.set(value: password, forKey: KeychainKey.walletPassword(index))
                 try KeychainStorageImpl.standart.set(value: wallet.seed, forKey: .seed(index))
                 handler(WalletState.Action.restored(wallet))
-                completionHandler()
+                completionHandler(.success(()))
             } catch {
                 handler(ApplicationState.Action.changedError(error))
-                completionHandler()
+                completionHandler(.failed(error))
             }
         }
     }
