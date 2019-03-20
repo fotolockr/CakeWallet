@@ -33,7 +33,6 @@ class TextField: BaseFlexView {
     override func configureView() {
         super.configureView()
         
-//        textField.keyboardType = UIKeyboardType.decimalPad
         textField.font = applyFont(ofSize: fontSize, weight: .regular)
     }
     

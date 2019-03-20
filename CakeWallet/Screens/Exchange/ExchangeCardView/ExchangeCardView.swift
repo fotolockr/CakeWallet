@@ -63,7 +63,7 @@ final class ExchangeCardView: BaseFlexView {
         topCardView = UIView()
         pickerRow = UIView()
         pickerButton = UIView()
-        amountTextField = TextField(placeholder: "0.000", fontSize: 25)
+        amountTextField = TextField(placeholder: "0.000", fontSize: 25, isTransparent: false)
         addressContainer = AddressView(placeholder: cardType == .deposit ? "Refund address" : "Address")
         receiveView = UIView()
         receiveViewTitle = UILabel(text: "You will receive")
