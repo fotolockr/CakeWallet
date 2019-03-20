@@ -114,7 +114,7 @@ final class AddressView: BaseFlexView {
         return QRCodeReaderViewController(builder: builder)
     }()
     
-    required init(placeholder: String, hideAddressBookButton: Bool = false) {
+    required init(placeholder: String = "", hideAddressBookButton: Bool = false) {
         self.placeholder = placeholder
         self.hideAddressBookButton = hideAddressBookButton
         textView = AddressTextField()
@@ -127,7 +127,15 @@ final class AddressView: BaseFlexView {
     }
     
     required init() {
-        fatalError("init() has not been implemented")
+        self.placeholder = ""
+        self.hideAddressBookButton = false
+        textView = AddressTextField()
+        borderView = UIView()
+        buttonsView = UIView()
+        qrScanButton = UIButton()
+        addressBookButton = UIButton()
+        
+        super.init()
     }
     
     override func configureView() {
@@ -157,10 +165,13 @@ final class AddressView: BaseFlexView {
         textView.font = applyFont(ofSize: 16, weight: .regular)
         textView.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 191, green: 201, blue: 215)]
+            attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor.wildDarkBlue,
+                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: CGFloat(16))!
+            ]
         )
 
-        textView.rightView = UIView(frame: CGRect(x: 0, y: 0, width: !hideAddressBookButton ? 80 : 40, height: 0))
+        textView.rightView = UIView(frame: CGRect(x: 0, y: 0, width: !hideAddressBookButton ? 80 : 35, height: 0))
         textView.rightViewMode = .always
     }
     
@@ -170,7 +181,7 @@ final class AddressView: BaseFlexView {
         buttonsView.flex
             .direction(.row)
             .justifyContent(.spaceBetween)
-            .width(!hideAddressBookButton ? 80 : 40)
+            .width(!hideAddressBookButton ? 80 : 35)
             .define{ flex in
                 flex.addItem(qrScanButton).width(35).height(35)
                 

@@ -42,7 +42,7 @@
 "restore_keys_card_description" = "あなたの秘密鍵からあなたの財布を復元する";
 
 // Restore
-
+"recover" = "回復する";
 "restore_your_wallet" = "ウォレットをリストア";
 "restore_selection_text" = "あなたのウォレットを復元するには2つの方法があります。あなたは、25語のシードを入力するか、または鍵を入力することができます。選択してください。";
 "from_seed" = "シードから";

@@ -2,53 +2,57 @@ import UIKit
 import FlexLayout
 
 class TextField: BaseFlexView {
-    let placeholder: String
-    let fontSize: Int
-    let withTextAlignmentReverse: Bool
-    let textField: UITextField
+    var placeholder: String {
+        get { return textField.placeholder ?? "" }
+        set { setPlaceholder(newValue) }
+    }
+    var fontSize: Int
+    var isTransparent: Bool
+    var textField: UITextField
     let borderView: UIView
     
-    required init(placeholder: String, fontSize: Int = 18, withTextAlignmentReverse: Bool = false) {
-        self.placeholder = placeholder
+    required init(placeholder: String = "", fontSize: Int = 18, isTransparent: Bool = true) {
         self.fontSize = fontSize
-        self.withTextAlignmentReverse = withTextAlignmentReverse
+        self.isTransparent = isTransparent
+        textField = UITextField()
+        borderView = UIView()
+        
+        super.init()
+        setPlaceholder(placeholder)
+    }
+    
+    required init() {
+        self.fontSize = 18
+        self.isTransparent = true
         textField = UITextField()
         borderView = UIView()
         
         super.init()
     }
     
-    required init() {
-        fatalError("init() has not been implemented")
-    }
-    
     override func configureView() {
         super.configureView()
         
-        textField.keyboardType = UIKeyboardType.decimalPad
         textField.font = applyFont(ofSize: fontSize, weight: .regular)
-        textField.attributedPlaceholder = NSAttributedString(
-            string: placeholder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor(red: 191, green: 201, blue: 215)]
-        )
-        
-        // TODO
-        if withTextAlignmentReverse {
-            let placeholderStringLength = placeholder.count
-            //            let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: textField.frame.height))
-            
-            //            textField.leftView = view
-            //            textField.leftViewMode = .always
-        }
     }
     
     override func configureConstraints() {
         rootFlexContainer.flex
             .width(100%)
-            .backgroundColor(.white)
+            .backgroundColor(isTransparent ? Theme.current.container.background : .white)
             .define{ flex in
                 flex.addItem(textField).width(100%).marginBottom(11)
                 flex.addItem(borderView).width(100%).height(1.5).backgroundColor(UIColor.veryLightBlue)
         }
+    }
+    
+    private func setPlaceholder(_ placeholder: String) {
+        textField.attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor.wildDarkBlue,
+                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: CGFloat(fontSize))!
+            ]
+        )
     }
 }

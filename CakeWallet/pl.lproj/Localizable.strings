@@ -43,6 +43,7 @@
 
 // Restore
 
+"recover" = "Wyzdrowieć";
 "restore_your_wallet" = "Wczytaj Twój portfel";
 "restore_selection_text" = "Są dwa sposoby wczytania Twojego portfela. Możesz wczytać go używając 25 słów frazy odzyskiwania portfela, albo możesz wprowadzić ręcznie klucze. Wybierz jedną z możliwości poniżej.";
 "from_seed" = "Z frazy";

@@ -43,6 +43,7 @@
 
 // Restore
 
+"recover" = "恢复";
 "restore_your_wallet" = "恢复您的钱包";
 "restore_selection_text" = "有两种方法可以恢复您的钱包。您可以输入种子密语，这是一个25字的短语，或者您可以输入您的密钥。请在下面选择一个.";
 "from_seed" = "选择种子密语";

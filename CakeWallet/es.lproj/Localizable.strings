@@ -42,6 +42,7 @@
 
 // Restore
 
+"recover" = "Recuperar";
 "restore_your_wallet" = "Restaurar tu cartera";
 "restore_selection_text" = "Hay dos maneras de restaurar tu cartera. Puedes entrar tu semilla, que es una frase de 25 palabras, o puedes entrar tus claves privados. Por favor, selecciona uno.";
 "from_seed" = "De la semilla";

@@ -43,7 +43,7 @@
 "restore_keys_card_description" = "Stellen Sie Ihre Brieftasche mit Ihren privaten Schlüsseln wieder her";
 
 // Restore
-
+"recover" = "Genesen";
 "restore_your_wallet" = "Wallet wiederherstellen";
 "restore_selection_text" = "Es gibt zwei Möglichkeiten, um Ihre Wallet wiederherzustellen. Sie können entweder Ihre Seed eingeben, was eine 25-Wort-Phrase ist, oder Sie können Ihre privaten Schlüssel eingeben. Bitte wählen Sie eine Option aus";
 "from_seed" = "Mit der Seed";

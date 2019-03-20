@@ -42,6 +42,7 @@
 
 // Restore
 
+"recover" = "Recover";
 "restore_your_wallet" = "Restore Your Wallet";
 "restore_selection_text" = "There are two ways to restore your wallet. You can either enter your seed, which is a 25 word phrase, or you can enter your keys. Please select one below.";
 "from_seed" = "From seed";

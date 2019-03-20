@@ -66,7 +66,7 @@ final class RestoreFromKeysViewController: BaseViewController<RestoreFromKeysVie
                     spendKey: spendKey,
                     restoreHeight: restoreHeight,
                     type: type,
-                    handler: { [weak self] in self?.done() }
+                    handler: { [weak self] _ in self?.done() }
                 )
             )
         }

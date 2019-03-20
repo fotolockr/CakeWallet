@@ -43,6 +43,7 @@
 
 // Restore
 
+"recover" = "다시 덮다";
 "restore_your_wallet" = "지갑 복구";
 "restore_selection_text" = "지갑 복구에는 2가지 방법이 있으며 25단어의 시드단어를 이용하거나 키를 입력하는 것입니다. ";
 "from_seed" = "시드입력";

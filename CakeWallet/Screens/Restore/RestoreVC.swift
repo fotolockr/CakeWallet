@@ -14,17 +14,17 @@ final class RestoreVC: BaseViewController<RestoreView> {
     override func configureBinds() {
         title = NSLocalizedString("restore", comment: "")
         
-        contentView.restoreFromKeysCard.button.addTarget(self, action: #selector(fromKeys), for: .touchUpInside)
         contentView.restoreFromSeedCard.button.addTarget(self, action: #selector(fromSeed), for: .touchUpInside)
+        contentView.restoreFromKeysCard.button.addTarget(self, action: #selector(fromKeys), for: .touchUpInside)
     }
     
     @objc
     private func fromSeed() {
-        restoreWalletFlow?.change(route: .fromSeedWalletName)
+        restoreWalletFlow?.change(route: .recoverFromSeed)
     }
     
     @objc
     private func fromKeys() {
-        restoreWalletFlow?.change(route: .fromKeysWalletName)
+        restoreWalletFlow?.change(route: .recoverFromKeys)
     }
 }
