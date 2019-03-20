@@ -43,14 +43,14 @@ final class AddressTextField: UITextField {
         
         let length = numberOfCharactersThatFit(for: text)
         
-        guard text.count > length else {
+        guard text.count > length && length > 0 else {
             self.text = text
             return
         }
         
         let middle = length / 2
         let begin = text[0..<middle]
-        let end = text.suffix(middle - 1)
+        let end = text.suffix(middle - 3)
         let formattedText = begin + AddressTextField.holder + end
         self.text = formattedText
     }
@@ -73,10 +73,20 @@ final class AddressTextField: UITextField {
 
 extension AddressTextField: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard text != nil && !text!.isEmpty else {
+            originText = nil
+            return
+        }
+        
         text = originText
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        guard text != nil && !text!.isEmpty else {
+            originText = nil
+            return
+        }
+        
         change(text: originText)
     }
     
