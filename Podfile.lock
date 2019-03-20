@@ -8,6 +8,11 @@ PODS:
   - PinLayout (1.7.7)
   - QRCode (2.0)
   - QRCodeReader.swift (8.0.4)
+  - RxAtomic (4.4.1)
+  - RxCocoa (4.4.1):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.1):
+    - RxAtomic (~> 4.4)
   - SkyFloatingLabelTextField (3.5.1)
   - Starscream (3.0.5)
   - SwiftSoup (1.7.1)
@@ -26,6 +31,8 @@ DEPENDENCIES:
   - PinLayout
   - QRCode
   - QRCodeReader.swift (~> 8.0.3)
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
   - SkyFloatingLabelTextField (~> 3.01)
   - Starscream (~> 3.0.2)
   - SwiftSoup
@@ -45,6 +52,9 @@ SPEC REPOS:
     - PinLayout
     - QRCode
     - QRCodeReader.swift
+    - RxAtomic
+    - RxCocoa
+    - RxSwift
     - SkyFloatingLabelTextField
     - Starscream
     - SwiftSoup
@@ -63,6 +73,9 @@ SPEC CHECKSUMS:
   PinLayout: 0777b5d8d73822aa203454d90118d4e98086e43a
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   QRCodeReader.swift: 9730cfa7ed5f0dd839765df8cf18d41db20e4081
+  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
+  RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
+  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
   Starscream: faf918b2f2eff7d5dd21180646bf015a669673bd
   SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
@@ -71,6 +84,6 @@ SPEC CHECKSUMS:
   VisualEffectView: 922eedf8d7d7e776a367ac11e0a4d4a0b2ba3545
   ZIPFoundation: 68c35eb2637c21abe56dc60b3277636443bc1501
 
-PODFILE CHECKSUM: 384b172f41e0e152d228ec4e5797ee6b525ba09f
+PODFILE CHECKSUM: 72a94197ac464fa064130f9e0239b6a3f4739e01
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0

@@ -53,6 +53,9 @@ final class ExchangeCardView: BaseFlexView {
     let receiveViewTitle: UILabel
     let receiveViewAmount: UILabel
     let pickerButtonView: PickerButtonView
+    let limitsRow: UIView
+    let maxLabel: UILabel
+    let minLabel: UILabel
     
     required init(cardType: ExchangeCardType, cardTitle: String) {
         self.cardType = cardType
@@ -66,6 +69,9 @@ final class ExchangeCardView: BaseFlexView {
         receiveViewTitle = UILabel(text: "You will receive")
         receiveViewAmount = UILabel(text: "")
         pickerButtonView = PickerButtonView()
+        limitsRow = UIView()
+        maxLabel = UILabel(fontSize: 10)
+        minLabel = UILabel(fontSize: 10)
         super.init()
     }
     
@@ -84,6 +90,10 @@ final class ExchangeCardView: BaseFlexView {
         receiveViewAmount.font = applyFont(ofSize: 22, weight: .semibold)
         receiveViewAmount.textColor = UIColor.purpley
         receiveViewAmount.textAlignment = .right
+        maxLabel.textColor = .wildDarkBlue
+        maxLabel.textAlignment = .right
+        minLabel.textColor = .wildDarkBlue
+        minLabel.textAlignment = .right
     }
     
     override func configureConstraints() {
@@ -91,11 +101,16 @@ final class ExchangeCardView: BaseFlexView {
         rootFlexContainer.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 0, blur: 20, spread: -10)
         rootFlexContainer.backgroundColor = Theme.current.card.background
         
+        limitsRow.flex.direction(.row).define { flex in
+            flex.addItem(minLabel).width(50%)
+            flex.addItem(maxLabel).width(50%)
+        }
+        
         receiveView.flex
             .alignItems(.end)
             .define{ flex in
-            flex.addItem(receiveViewTitle)
-            flex.addItem(receiveViewAmount).width(100%)
+                flex.addItem(receiveViewTitle)
+                flex.addItem(receiveViewAmount).width(100%)
         }
         
         topCardView.flex
@@ -105,16 +120,19 @@ final class ExchangeCardView: BaseFlexView {
             .width(100%)
             .define{ flex in
                 flex.addItem(pickerButtonView)
-                flex.addItem(cardType == .deposit ? amountTextField : receiveView)
+                flex.addItem(UIView())
                     .width(67%)
                     .paddingBottom(7)
+                    .define({ flex in
+                        flex.addItem(cardType == .deposit ? amountTextField : receiveView)
+                        flex.addItem(limitsRow).height(20).width(100%)
+                })
         }
         
         rootFlexContainer.flex
             .justifyContent(.start)
             .alignItems(.center)
             .padding(18, 15, 35, 15)
-            .marginBottom(25)
             .define{ flex in
                 flex.addItem(cardTitle).marginBottom(25)
                 flex.addItem(topCardView).marginBottom(25)

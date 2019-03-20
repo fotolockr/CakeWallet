@@ -12,8 +12,9 @@ final class CurrencyPickerTableCell: FlexCell {
     
     override func configureView() {
         super.configureView()
-        
+        cryptoLabel.textAlignment = .center
         cryptoLabel.font = applyFont(ofSize: 17, weight: .semibold)
+        selectionStyle = .none
     }
     
     override func configureConstraints() {
@@ -24,12 +25,13 @@ final class CurrencyPickerTableCell: FlexCell {
             .justifyContent(.center)
             .alignItems(.center)
             .define { flex in
-                flex.addItem(cryptoLabel)
+                flex.addItem(cryptoLabel).width(100%)
         }
     }
     
-    func configure(crypto: String) {
+    func configure(crypto: String, isSelected: Bool) {
         cryptoLabel.text = crypto
+        cryptoLabel.textColor = isSelected ? UIColor(red: 138, green: 80, blue: 255) : .black
         contentView.flex.layout()
     }
 }
@@ -55,12 +57,13 @@ final class CurrencyPickerView: BaseFlexView {
     override func configureView() {
         super.configureView()
         
-        pickerTitle.font = applyFont(ofSize: 16, weight: .bold)
-        
         isOpaque = false
         backgroundColor = .clear
-        pickerHolderView.layer.cornerRadius = 10
-        picker.layer.cornerRadius = 10
+        pickerTitle.font = applyFont(ofSize: 16, weight: .bold)
+        pickerHolderView.layer.cornerRadius = 18
+        pickerHolderView.layer.applySketchShadow(color: UIColor(red: 41, green: 23, blue: 77), alpha: 0.34, x: 0, y: 16, blur: 46, spread: -5)
+        picker.layer.cornerRadius = 18
+        picker.showsVerticalScrollIndicator = false
     }
     
     override func configureConstraints() {

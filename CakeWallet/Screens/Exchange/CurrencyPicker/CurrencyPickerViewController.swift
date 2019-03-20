@@ -1,39 +1,37 @@
 import UIKit
 import CakeWalletLib
 
-extension CryptoCurrency: CellItem {
-    func setup(cell: CurrencyPickerTableCell) {
-        cell.configure(crypto: formatted())
-    }
-}
-
 protocol CurrencyPickerDelegate: class {
     func onPicked(item: CryptoCurrency, pickerType: ExchangeCardType)
+}
+
+struct CryptoCurrencyCellItem: CellItem {
+    let currency: CryptoCurrency
+    let isSelected: Bool
+    
+    func setup(cell: CurrencyPickerTableCell) {
+        cell.configure(crypto: currency.formatted(), isSelected: isSelected)
+    }
 }
 
 final class CurrencyPickerViewController: BaseViewController<CurrencyPickerView>, UITableViewDelegate, UITableViewDataSource {
     weak var delegate: CurrencyPickerDelegate?
     
     var type: ExchangeCardType
-    let cryptos: [CryptoCurrency]
+    let cryptos: [CryptoCurrencyCellItem]
     private(set) var depositCrypto: CryptoCurrency
-
-    override init() {
-        type = .unknown
-        cryptos = CryptoCurrency.all
-        depositCrypto = .monero
-        
-        super.init()
-    }
     
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    init(selectedItem: CryptoCurrency) {
+        type = .unknown
+        cryptos = CryptoCurrency.all.map { CryptoCurrencyCellItem(currency: $0, isSelected: $0 == selectedItem) }
+        depositCrypto = .monero
+        super.init()
     }
     
     override func configureBinds() {
         super.configureBinds()
         
-        contentView.picker.register(items: [CryptoCurrency.self])
+        contentView.picker.register(items: [CryptoCurrencyCellItem.self])
         contentView.picker.dataSource = self
         contentView.picker.delegate = self
     }
@@ -62,14 +60,8 @@ final class CurrencyPickerViewController: BaseViewController<CurrencyPickerView>
         return 64
     }
     
-    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
-        selectedCell.selectionStyle = .none
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let crypto = cryptos[indexPath.row]
-        
+        let crypto = cryptos[indexPath.row].currency
         delegate?.onPicked(item: crypto, pickerType: type)
         dismiss(animated: true)
     }

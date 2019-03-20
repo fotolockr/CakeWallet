@@ -258,12 +258,13 @@ final class ExchangeView: BaseScrollFlexView {
     let exchangeButton: UIButton
     let buttonsRow: UIView
     let descriptionView: UIView
+    let dispclaimerLabel: UILabel
     let exchangeLogoImage: UIImageView
     let exchangeDescriptionLabel: UILabel
     
     required init() {
         depositCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Deposit")
-        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.receive, cardTitle: "Receive")
+        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Receive")
         arrowDownImageView = UIImageView(image: UIImage(named: "arrow_down_dotted"))
         clearButton = SecondaryButton(title: NSLocalizedString("clear", comment: ""))
         exchangeButton = PrimaryButton(title: NSLocalizedString("exchange", comment: ""))
@@ -271,12 +272,15 @@ final class ExchangeView: BaseScrollFlexView {
         exchangeDescriptionLabel = UILabel(fontSize: 14)
         descriptionView = UIView()
         exchangeLogoImage = UIImageView(image: UIImage(named: "morphtoken_logo"))
+        dispclaimerLabel = UILabel(fontSize: 12)
         super.init()
     }
     
     override func configureView() {
         super.configureView()
         exchangeDescriptionLabel.textColor = .wildDarkBlue
+        dispclaimerLabel.textColor = .lightGray
+        dispclaimerLabel.textAlignment = .center
     }
     
     override func configureConstraints() {
@@ -286,12 +290,13 @@ final class ExchangeView: BaseScrollFlexView {
         
         descriptionView.flex.direction(.row).justifyContent(.center).define { flex in
             flex.addItem(exchangeLogoImage).width(32).height(32)
-            flex.addItem(exchangeDescriptionLabel).marginLeft(10)
+            flex.addItem(exchangeDescriptionLabel).marginLeft(10).height(20)
         }
         
         rootFlexContainer.flex.padding(20, 15, 20, 20).define { flex in
-            flex.addItem(depositCardView)
-            flex.addItem(receiveCardView)
+            flex.addItem(depositCardView).marginBottom(25)
+            flex.addItem(receiveCardView).marginBottom(10)
+            flex.addItem(dispclaimerLabel).width(100%).height(20).marginBottom(25)
             flex.addItem(buttonsRow)
             flex.addItem(descriptionView).width(100%).marginTop(15).alignItems(.center)
         }

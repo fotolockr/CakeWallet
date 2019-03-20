@@ -26,6 +26,7 @@ final class DisclaimerView: BaseFlexView {
     
     override func configureView() {
         super.configureView()
+        textView.font = applyFont(ofSize: 14)
         textView.isEditable = false
         checkBoxTitleButton.setTitleColor(.black, for: .normal)
         checkBoxTitleButton.titleLabel?.font = applyFont(ofSize: 13, weight: .semibold)
