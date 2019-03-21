@@ -38,24 +38,28 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     override func configureBinds() {
-        navigationItem.titleView = navigationTitleView
+        navigationItem.titleView = UIView()
         contentView.transactionsTableView.register(items: [TransactionDescription.self])
         contentView.transactionsTableView.delegate = self
         contentView.transactionsTableView.dataSource = self
         contentView.transactionsTableView.addSubview(refreshControl)
-        contentView.receiveButton.addTarget(self, action: #selector(presentReceive), for: .touchUpInside)
-        contentView.sendButton.addTarget(self, action: #selector(presentSend), for: .touchUpInside)
+//        contentView.receiveButton.addTarget(self, action: #selector(presentReceive), for: .touchUpInside)
+//        contentView.sendButton.addTarget(self, action: #selector(presentSend), for: .touchUpInside)
         contentView.shortStatusBarView.receiveButton.addTarget(self, action: #selector(presentReceive), for: .touchUpInside)
         contentView.shortStatusBarView.sendButton.addTarget(self, action: #selector(presentSend), for: .touchUpInside)
         contentView.shortStatusBarView.isHidden = true
         let onCryptoAmountTap = UITapGestureRecognizer(target: self, action: #selector(changeShownBalance))
         contentView.cryptoAmountLabel.isUserInteractionEnabled = true
         contentView.cryptoAmountLabel.addGestureRecognizer(onCryptoAmountTap)
-        updateCryptoIcon(for: store.state.walletState.walletType)
         
         navigationTitleView.switchHandler = { [weak self] in
             self?.dashboardFlow?.change(route: .wallets)
         }
+
+        insertNavigationItems()
+    }
+    
+    private func insertNavigationItems() {
         syncButton = UIBarButtonItem(
             image: UIImage(named: "sync_icon")?
                 .withRenderingMode(.alwaysOriginal)
@@ -76,8 +80,8 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         addressBookButton?.tintColor = UIColor.vividBlue
         
         if let syncButton = syncButton,
-           let addressBookButton = addressBookButton{
-            navigationItem.rightBarButtonItems = [syncButton, addressBookButton]
+            let addressBookButton = addressBookButton{
+//            navigationItem.rightBarButtonItems = [syncButton, addressBookButton]
         }
     }
     
@@ -171,7 +175,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         
         initialHeight = 0
         updateTitle(walletState.name)
-        updateCryptoIcon(for: walletState.walletType)
     }
     
     private func updateInitialHeight(_ blockchainState: BlockchainState) {
@@ -335,16 +338,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             navigationTitleView.title = title
         }
     }
-    
-    private func updateCryptoIcon(for walletType: WalletType) {
-        switch walletType {
-        case .monero:
-            contentView.cryptoIconView.image = UIImage(named: "monero_logo")
-        default:
-            break
-        }
-    }
-    
+        
     @objc
     private func reconnectAction() {
         let reconnetionAction = CWAlertAction(title: NSLocalizedString("reconnect", comment: "")) { [weak self] action in

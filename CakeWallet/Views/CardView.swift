@@ -1,9 +1,16 @@
 import UIKit
 
+extension UIView {
+    func applyCardSketchShadow() {
+        self.layer.applySketchShadow(color: UIColor(red: 000, green: 000, blue: 000, alpha: 0.1), alpha: 0.5, x: 0, y: 8, blur: 12, spread: -8)
+    }
+}
+
 class CardView: BaseView {
     override func configureView() {
         super.configureView()
-        layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.16, x: 0, y: 16, blur: 46, spread: -5)
+        
+        applyCardSketchShadow()
         backgroundColor = Theme.current.card.background
     }
     
