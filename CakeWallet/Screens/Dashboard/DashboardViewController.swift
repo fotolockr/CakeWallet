@@ -13,15 +13,11 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     let navigationTitleView = WalletsNavigationTitle()
     weak var dashboardFlow: DashboardFlow?
     private var showAbleBalance: Bool
-    private(set) var syncButton: UIBarButtonItem?
-    private(set) var addressBookButton: UIBarButtonItem?
+    private(set) var presentWalletsListButtonTitle: UIBarButtonItem?
+    private(set) var presentWalletsListButtonImage: UIBarButtonItem?
     private var transactions: [TransactionDescription] = []
     private var initialHeight: UInt64
-    private lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
-        return refreshControl
-    }()
+    private var refreshControl: UIRefreshControl
     let store: Store<ApplicationState>
     
     init(store: Store<ApplicationState>, dashboardFlow: DashboardFlow?) {
@@ -29,6 +25,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         self.dashboardFlow = dashboardFlow
         showAbleBalance = true
         initialHeight = 0
+        refreshControl = UIRefreshControl()
         super.init()
         tabBarItem = UITabBarItem(
             title: title,
@@ -39,18 +36,33 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     
     override func configureBinds() {
         navigationItem.titleView = UIView()
+//        contentView.walletNameLabel.text = store.state.walletState.name
+//        contentView.walletNameLabel.flex.markDirty()
+//        contentView.cardView.flex.layout()
+        
         contentView.transactionsTableView.register(items: [TransactionDescription.self])
         contentView.transactionsTableView.delegate = self
         contentView.transactionsTableView.dataSource = self
         contentView.transactionsTableView.addSubview(refreshControl)
-//        contentView.receiveButton.addTarget(self, action: #selector(presentReceive), for: .touchUpInside)
-//        contentView.sendButton.addTarget(self, action: #selector(presentSend), for: .touchUpInside)
+        contentView.transactionsTableView.bringSubview(toFront: contentView.tableHeaderView)
+        
         contentView.shortStatusBarView.receiveButton.addTarget(self, action: #selector(presentReceive), for: .touchUpInside)
         contentView.shortStatusBarView.sendButton.addTarget(self, action: #selector(presentSend), for: .touchUpInside)
         contentView.shortStatusBarView.isHidden = true
+        
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        
         let onCryptoAmountTap = UITapGestureRecognizer(target: self, action: #selector(changeShownBalance))
         contentView.cryptoAmountLabel.isUserInteractionEnabled = true
         contentView.cryptoAmountLabel.addGestureRecognizer(onCryptoAmountTap)
+        
+        let sendButtonTap = UITapGestureRecognizer(target: self, action: #selector(presentSend))
+        contentView.sendButton.isUserInteractionEnabled = true
+        contentView.sendButton.addGestureRecognizer(sendButtonTap)
+        
+        let receiveButtonTap = UITapGestureRecognizer(target: self, action: #selector(presentReceive))
+        contentView.receiveButton.isUserInteractionEnabled = true
+        contentView.receiveButton.addGestureRecognizer(receiveButtonTap)
         
         navigationTitleView.switchHandler = { [weak self] in
             self?.dashboardFlow?.change(route: .wallets)
@@ -60,28 +72,42 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     private func insertNavigationItems() {
-        syncButton = UIBarButtonItem(
-            image: UIImage(named: "sync_icon")?
-                .withRenderingMode(.alwaysOriginal)
-                .resized(to: CGSize(width: 24, height: 24)),
+        presentWalletsListButtonTitle = UIBarButtonItem(
+            title: "Change",
             style: .plain,
             target: self,
-            action: #selector(reconnectAction)
+            action: #selector(presentWalletsList)
         )
-        addressBookButton = UIBarButtonItem(
-            image: UIImage(named: "address_book_icon")?
-                .resized(to: CGSize(width: 24, height: 24)),
+        
+        presentWalletsListButtonImage = UIBarButtonItem(
+            image: UIImage(named: "arrow_bottom_purple_icon")?
+                .resized(to: CGSize(width: 11, height: 9)).withRenderingMode(.alwaysOriginal),
             style: .plain,
             target: self,
-            action: #selector(toAddressBookAction)
+            action: #selector(presentWalletsList)
         )
         
-        syncButton?.tintColor = UIColor.vividBlue
-        addressBookButton?.tintColor = UIColor.vividBlue
+        presentWalletsListButtonTitle?.tintColor = UIColor.vividBlue
+        presentWalletsListButtonImage?.tintColor = UIColor.vividBlue
         
-        if let syncButton = syncButton,
-            let addressBookButton = addressBookButton{
-//            navigationItem.rightBarButtonItems = [syncButton, addressBookButton]
+        let titleLabel = UIBarButtonItem(title: "Monero Wallets", style: .plain, target: self, action: nil)
+        navigationItem.leftBarButtonItem = titleLabel
+        
+        if let presentWalletsListButtonTitle = presentWalletsListButtonTitle,
+           let presentWalletsListButtonImage = presentWalletsListButtonImage{
+            
+            presentWalletsListButtonTitle.setTitleTextAttributes([
+                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 13.0)!,
+                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
+            ], for: .normal)
+            
+            presentWalletsListButtonTitle.setTitleTextAttributes([
+                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 13.0)!,
+                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
+            ], for: .highlighted)
+            
+            
+            navigationItem.rightBarButtonItems = [presentWalletsListButtonImage, presentWalletsListButtonTitle]
         }
     }
     
@@ -146,7 +172,11 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         return 70
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {        
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if scrollView.frame.size.height > 0 {
+//            observePullAction(for: scrollView.contentOffset.y)
+//        }
+
         guard scrollView.contentOffset.y > contentView.cardView.frame.height else {
             contentView.shortStatusBarView.isHidden = true
             updateCryptoBalance(store.state.balanceState.balance)
@@ -177,6 +207,27 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         updateTitle(walletState.name)
     }
     
+    private func observePullAction(for offset: CGFloat) {
+        guard offset < -40 && offset != -64 else {
+            return
+        }
+        
+        let reconnetionAction = CWAlertAction(title: NSLocalizedString("reconnect", comment: "")) { [weak self] action in
+            self?.store.dispatch(WalletActions.reconnect)
+            action.alertView?.dismiss(animated: true)
+        }
+        let cancelAction = CWAlertAction(
+            title: NSLocalizedString("cancel", comment: ""),
+            style: .cancel,
+            handler: { [weak self] in
+                self?.refreshControl.endRefreshing()
+                $0.alertView?.dismiss(animated: true)
+            }
+        )
+        
+        showInfo(title: NSLocalizedString("reconnection", comment: ""), message: NSLocalizedString("reconnect_alert_text", comment: ""), actions: [reconnetionAction, cancelAction])
+    }
+    
     private func updateInitialHeight(_ blockchainState: BlockchainState) {
         guard initialHeight == 0 else {
             return
@@ -185,6 +236,11 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         if case let .syncing(height) = blockchainState.connectionStatus {
             initialHeight = height
         }
+    }
+    
+    @objc
+    private func presentWalletsList() {
+        dashboardFlow?.change(route: .wallets)
     }
     
     @objc
@@ -307,17 +363,17 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
-        
+
         contentView.transactionTitleLabel.isHidden = transactions.count <= 0
-        
+
         guard self.transactions != transactions else {
             return
         }
-        
+
         self.transactions = transactions.sorted(by: {
             return $0.date > $1.date
         })
-        
+
         if self.transactions.count > 0 {
             if contentView.transactionTitleLabel.isHidden {
                 contentView.transactionTitleLabel.isHidden = false
@@ -356,5 +412,20 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     @objc
     private func refresh(_ refreshControl: UIRefreshControl) {
         store.dispatch(TransactionsActions.forceUpdateTransactions)
+        refreshControl.endRefreshing()
+        
+//        let reconnetionAction = CWAlertAction(title: NSLocalizedString("reconnect", comment: "")) { [weak self] action in
+//            self?.store.dispatch(WalletActions.reconnect)
+//            action.alertView?.dismiss(animated: true)
+//        }
+//        let cancelAction = CWAlertAction(
+//            title: NSLocalizedString("cancel", comment: ""),
+//            style: .cancel,
+//            handler: { [weak self] in
+//                self?.refreshControl.endRefreshing()
+//                $0.alertView?.dismiss(animated: true)
+//            }
+//        )
+//        showInfo(title: NSLocalizedString("reconnection", comment: ""), message: NSLocalizedString("reconnect_alert_text", comment: ""), actions: [reconnetionAction, cancelAction])
     }
 }

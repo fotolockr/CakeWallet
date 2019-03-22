@@ -98,7 +98,7 @@ final class ExchangeCardView: BaseFlexView {
     
     override func configureConstraints() {
         rootFlexContainer.layer.cornerRadius = 12
-        rootFlexContainer.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 0, blur: 20, spread: -10)
+        rootFlexContainer.applyCardSketchShadow()
         rootFlexContainer.backgroundColor = Theme.current.card.background
         
         limitsRow.flex.direction(.row).define { flex in

@@ -16,6 +16,6 @@ class CardView: BaseView {
     
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        layer.cornerRadius = frame.size.width * 0.05
+        layer.cornerRadius = 12
     }
 }
