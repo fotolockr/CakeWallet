@@ -11,10 +11,19 @@ final class TransactionUITableViewCell: FlexCell {
     let _contentContainer: UIView
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        statusLabel = UILabel(fontSize: 14)
+        statusLabel = UILabel()
+        statusLabel.font = applyFont(ofSize: 14)
+        
         dateLabel = UILabel.withLightText(fontSize: 12)
+        dateLabel.font = applyFont(ofSize: 12)
+        
         cryptoLabel = UILabel(fontSize: 14)
+        cryptoLabel.font = applyFont(ofSize: 14)
+        cryptoLabel.textColor = .black
+        
         fiatLabel = UILabel.withLightText(fontSize: 12)
+        fiatLabel.font = applyFont(ofSize: 12)
+        
         topRow = UIView()
         bottomRow = UIView()
         _contentContainer = UIView()
@@ -63,14 +72,14 @@ final class TransactionUITableViewCell: FlexCell {
         
         if direction == .incoming {
             status = NSLocalizedString("receive", comment: "") // FIXME: Hardcoded value
-            color = .greenMalachite
+            color = UIColor(red: 104, green: 221, blue: 133)
             amountPrefix = "+"
-            imageView?.image = UIImage(named: "arrow_down_bg")?.resized(to: CGSize(width: 22, height: 22))
+            imageView?.image = UIImage(named: "arrow_down_green_icon")?.resized(to: CGSize(width: 22, height: 22))
         } else {
             status = NSLocalizedString("sent", comment: "") // FIXME: Hardcoded value
-            color = .wildDarkBlue
+            color = UIColor(red: 177, green: 140, blue: 238)
             amountPrefix = "-"
-            imageView?.image = UIImage(named: "arrow_up_bg")?.resized(to: CGSize(width: 22, height: 22))
+            imageView?.image = UIImage(named: "arrow_top_purple_icon")?.resized(to: CGSize(width: 22, height: 22))
         }
         
         if isPending {

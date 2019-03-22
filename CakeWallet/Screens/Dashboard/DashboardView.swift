@@ -65,8 +65,8 @@ final class DashboardActionButton: BaseFlexView {
             .alignItems(.center)
             .backgroundColor(.white)
             .define{ flex in
-                flex.addItem(buttonImageView).position(.absolute).top(17).left(12)
-                flex.addItem(label)
+                flex.addItem(buttonImageView).position(.absolute).top(17).left(15)
+                flex.addItem(label).marginLeft(12)
         }
         
         rootFlexContainer.flex
@@ -156,7 +156,7 @@ final class DashboardView: BaseFlexView {
         cryptoTitleLabel.textAlignment = .center
         
         transactionsTableView.separatorStyle = .none
-        tableHeaderView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: 345))
+        tableHeaderView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: 360))
         transactionsTableView.tableHeaderView = tableHeaderView
         transactionsTableView.tableFooterView = UIView()
         transactionsTableView.backgroundColor = .clear
@@ -176,30 +176,36 @@ final class DashboardView: BaseFlexView {
         let cardViewCoreDataWrapper = UIView()
         let cardViewStatusBarUIWrapper = UIView()
         
-        statusView.flex.direction(.row).justifyContent(.center).alignItems(.center).define { flex in
-            flex.addItem(syncingImageView).height(12).width(12)
-            flex.addItem(statusLabel).height(100%).width(100%)
+        statusView.flex
+            .direction(.row)
+            .justifyContent(.center)
+            .alignItems(.center)
+            .define { flex in
+                flex.addItem(syncingImageView).height(12).width(12)
+                flex.addItem(statusLabel).height(100%).width(100%).marginRight(syncingImageView.isHidden ? 12 : 0)
         }
     
         cardViewCoreDataWrapper.flex
             .alignItems(.center)
             .paddingTop(20)
+            .width(100%)
             .define{ flex in
                 flex.addItem(cryptoTitleLabel)
-                flex.addItem(cryptoAmountLabel).marginBottom(5)
-                flex.addItem(fiatAmountLabel)
+                flex.addItem(cryptoAmountLabel).marginBottom(5).width(100%)
+                flex.addItem(fiatAmountLabel).width(100%)
         }
         
         cardViewStatusBarUIWrapper.flex
             .alignItems(.center)
             .define{ flex in
                 flex.addItem(statusView).width(100%).marginBottom(8)
-                flex.addItem(progressBar).width(80%).height(4)
+                flex.addItem(progressBar).width(85%).height(4)
         }
         
         cardView.flex
             .alignItems(.center)
             .padding(20)
+            .marginTop(15)
             .justifyContent(.spaceBetween)
             .alignItems(.center)
             .define { flex in
@@ -207,23 +213,31 @@ final class DashboardView: BaseFlexView {
                 flex.addItem(cardViewStatusBarUIWrapper).width(100%)
         }
         
-        buttonsRow.flex.direction(.row).justifyContent(.spaceBetween).marginTop(15).define { flex in
-            flex.addItem(sendButton).width(48%)
-            flex.addItem(receiveButton).width(48%)
+        buttonsRow.flex
+            .direction(.row)
+            .justifyContent(.spaceBetween)
+            .marginTop(15)
+            .define { flex in
+                flex.addItem(sendButton).width(48%)
+                flex.addItem(receiveButton).width(48%)
         }
         
-        transactionsCardView.flex.padding(30, 0, 20, 0).define { flex in
-            flex.addItem(transactionsTableView).marginLeft(10).grow(1).minHeight(40)
+        transactionsCardView.flex
+            .padding(30, 0, 20, 0)
+            .define { flex in
+                flex.addItem(transactionsTableView).marginLeft(10).grow(1).minHeight(40)
         }
         
-        rootFlexContainer.flex.define { flex in
-            flex.addItem(transactionsTableView).margin(UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 20))
-            flex.addItem(shortStatusBarView).position(.absolute).width(100%)
+        rootFlexContainer.flex
+            .define { flex in
+                flex.addItem(transactionsTableView).margin(UIEdgeInsets(top: 20, left: 15, bottom: 30, right: 20))
+                flex.addItem(shortStatusBarView).position(.absolute).width(100%)
         }
         
         tableHeaderView.rootFlexContainer.flex
             .alignItems(.center)
-            .padding(20).margin(-35)
+            .padding(20)
+            .margin(-35)
             .define { flex in
                 flex.addItem(cardView).width(92%)
                 flex.addItem(buttonsRow).marginTop(15).width(92%)
