@@ -30,6 +30,7 @@ extension UILabel {
     static func withLightText(fontSize size: CGFloat = 16) -> UILabel {
         let label = UILabel(fontSize: size)
         label.textColor = Theme.current.lightText
+        label.font = applyFont(ofSize: Int(size))
         label.numberOfLines = 0
         return label
     }

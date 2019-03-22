@@ -16,7 +16,8 @@ enum Theme: String {
     var container: ContainerColorScheme {
         switch self {
         case .def:
-            return ContainerColorScheme(background: .whiteSmoke)
+            return ContainerColorScheme(background: UIColor(red: 234, green: 240, blue: 248))
+//            return ContainerColorScheme(background: .whiteSmoke)
         case .night:
             return ContainerColorScheme(background: .wildDarkBlue)
         }
@@ -75,6 +76,6 @@ enum Theme: String {
     }
     
     var progressBar: ProgressBarScheme {
-        return ProgressBarScheme(value: .greenMalachite, background: .whiteSmoke)
+        return ProgressBarScheme(value: .turquoiseBlue, background: .whiteSmoke)
     }
 }

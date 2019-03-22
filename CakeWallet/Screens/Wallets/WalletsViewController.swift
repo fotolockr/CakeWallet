@@ -3,6 +3,54 @@ import CakeWalletLib
 import CakeWalletCore
 import CWMonero
 
+protocol WalletActionsPresentable {
+//    func presetWalletActionsMenu()
+//    func presentKeys(for wallet: WalletIndex)
+    func presentSeed(for wallet: WalletIndex, withConfig walletConfig: WalletConfig)
+}
+
+extension WalletActionsPresentable where Self: AnyBaseViewController {
+//    func presentSeed(for wallet: WalletIndex, withConfig: WalletConfig) {
+//        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
+//        let navController = UINavigationController(rootViewController: authController)
+//        authController.onDismissHandler = onDismissHandler
+//        authController.handler = { [weak authController, weak self] in
+//            do {
+//                authController?.dismiss(animated: true) {
+//                    let seedViewController = SeedViewController(walletName: wallet.name, date: walletConfig.date, seed: seed, doneFlag: true)
+//                    seedViewController.doneHandler = { [weak seedViewController] in
+//                        seedViewController?.dismiss(animated: true)
+//                    }
+//                    let navigationController = UINavigationController(rootViewController: seedViewController)
+//                    self?.navigationController?.viewControllers.first?.present(navigationController, animated: true)
+//                }
+//                
+//            } catch {
+//                self?.showError(error: error)
+//            }
+//        }
+//        
+//        present(navController, animated: true)
+//    }
+    
+    
+    func presentKeys() {
+//        let walletsFlow: WalletsFlow?
+        
+        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
+        let navController = UINavigationController(rootViewController: authController)
+        authController.onDismissHandler = onDismissHandler
+        
+        authController.handler = { [weak authController] in
+            authController?.dismiss(animated: true) {
+//                walletsFlow?.change(route: .showKeys)
+            }
+        }
+        
+        present(navController, animated: true)
+    }
+}
+
 struct WalletCellItem: CellItem {
     let wallet: WalletIndex
     let isCurrent: Bool

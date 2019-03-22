@@ -32,7 +32,7 @@ extension UIColor {
     static var purpley: UIColor {
         return UIColor(red: 124, green: 83, blue: 240)
     }
-    
+        
     static var turquoiseBlue: UIColor {
         return UIColor(red: 52, green: 186, blue: 204)
     }

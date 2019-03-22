@@ -31,10 +31,6 @@ final class CWAlertViewController: BaseViewController<CWAlertView> {
         return nil
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-    
     init(title: String?, message: String? = nil, status: Status) {
         self.innerView = nil
         self.message = message
