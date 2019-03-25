@@ -147,7 +147,7 @@ final class DashboardView: BaseFlexView {
         super.configureView()
         
         statusLabel.textAlignment = .center
-        cryptoAmountLabel.font = applyFont(ofSize: 48)
+        cryptoAmountLabel.font = applyFont(ofSize: 33)
         cryptoAmountLabel.textAlignment = .center
         fiatAmountLabel.textAlignment = .center
         

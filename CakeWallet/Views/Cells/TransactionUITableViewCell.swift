@@ -12,7 +12,7 @@ final class TransactionUITableViewCell: FlexCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         statusLabel = UILabel()
-        statusLabel.font = applyFont(ofSize: 14)
+        statusLabel.font = applyFont(ofSize: 14, weight: .semibold)
         
         dateLabel = UILabel.withLightText(fontSize: 12)
         dateLabel.font = applyFont(ofSize: 12)
@@ -67,18 +67,15 @@ final class TransactionUITableViewCell: FlexCell {
     
     func configure(direction: TransactionDirection, date: Date, isPending: Bool, cryptoAmount: Amount, fiatAmount: String) {
         let color: UIColor
-        let amountPrefix: String
         var status = ""
         
         if direction == .incoming {
             status = NSLocalizedString("receive", comment: "") // FIXME: Hardcoded value
-            color = UIColor(red: 104, green: 221, blue: 133)
-            amountPrefix = "+"
+            color = .black
             imageView?.image = UIImage(named: "arrow_down_green_icon")?.resized(to: CGSize(width: 22, height: 22))
         } else {
             status = NSLocalizedString("sent", comment: "") // FIXME: Hardcoded value
-            color = UIColor(red: 177, green: 140, blue: 238)
-            amountPrefix = "-"
+            color = .black
             imageView?.image = UIImage(named: "arrow_top_purple_icon")?.resized(to: CGSize(width: 22, height: 22))
         }
         
@@ -89,7 +86,7 @@ final class TransactionUITableViewCell: FlexCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy, HH:mm"
         statusLabel.text = status
-        cryptoLabel.text = "\(amountPrefix)\(cryptoAmount.formatted()) \(cryptoAmount.currency.formatted())"
+        cryptoLabel.text = "\(cryptoAmount.formatted()) \(cryptoAmount.currency.formatted())"
         cryptoLabel.textColor = color
         dateLabel.text = dateFormatter.string(from: date)
         fiatLabel.text = fiatAmount
