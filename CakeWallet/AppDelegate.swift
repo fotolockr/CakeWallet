@@ -6,7 +6,6 @@ import ZIPFoundation
 import CryptoSwift
 
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

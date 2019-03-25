@@ -136,7 +136,7 @@ public:
     self = [super init];
     if (self) {
         Monero::Utils::onStartup();
-        Monero::WalletImpl *wallet = new Monero::WalletImpl();
+        Monero::WalletImpl *wallet = new Monero::WalletImpl(Monero::NetworkType::MAINNET, 1);
         MonerWalletListener *listener = new MonerWalletListener();
         listener->wallet = self;
         wallet->setListener(listener);

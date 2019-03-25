@@ -11,6 +11,7 @@ import SwiftyJSON
 final class BackupServiceImpl: BackupService {
     
     private static let salt = ""
+    private static let keychainSalt = ""
     private static var defaultBackupName: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
@@ -39,7 +40,7 @@ final class BackupServiceImpl: BackupService {
         try fileManager.zipItem(at: walletsDirURL, to: tmpURL)
         
         if let archive = Archive(url: tmpURL, accessMode: .update) {
-            let keychainData = try exportKeychainDump() as NSData
+            let keychainData = try encrypt(data: exportKeychainDump(), withPassword: password, andSalt: BackupServiceImpl.keychainSalt) as NSData
             let keychainSize = UInt32(keychainData.length)
             let userSettingsData = try exportUserSettings() as NSData
             let userSettingsSize = UInt32(userSettingsData.length)
@@ -96,7 +97,8 @@ final class BackupServiceImpl: BackupService {
         let documentsURL = try getDocumentsURL()
         try fileManager.unzipItem(at: tmpURL, to: documentsURL)
         let keychainDumpURL = documentsURL.appendingPathComponent("keychain.json")
-        try importKeychain(from: keychainDumpURL)
+        try importKeychain(from: keychainDumpURL, withPassword: password)
+        try fileManager.removeItem(at: tmpURL)
         try fileManager.removeItem(at: keychainDumpURL)
         let userSettingsURL = documentsURL.appendingPathComponent("user_settings.json")
         try importUserSettings(from: userSettingsURL)
@@ -149,8 +151,8 @@ final class BackupServiceImpl: BackupService {
         try json.rawData().write(to: url)
     }
     
-    func importKeychain(from url: URL) throws {
-        let data = try Data(contentsOf: url)
+    func importKeychain(from url: URL, withPassword password: String, andSalt salt: String = BackupServiceImpl.keychainSalt) throws {
+        let data = try decrypt(at: url, withPassword: password, andSalt: salt)
         let json = try JSON(data: data)
         
         try json["wallets"].arrayValue.forEach { json in
@@ -200,6 +202,12 @@ final class BackupServiceImpl: BackupService {
     
     private func encrypt(at url: URL, withPassword password: String, andSalt salt: String) throws -> Data {
         let data = try Data(contentsOf: url)
+        let cipher = try makeCipher(with: password, andSalt: salt)
+        
+        return try Data(bytes: cipher.encrypt(data))
+    }
+    
+    private func encrypt(data: Data, withPassword password: String, andSalt salt: String) throws -> Data {
         let cipher = try makeCipher(with: password, andSalt: salt)
         
         return try Data(bytes: cipher.encrypt(data))
