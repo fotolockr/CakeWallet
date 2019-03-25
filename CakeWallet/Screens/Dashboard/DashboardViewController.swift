@@ -3,6 +3,8 @@ import CakeWalletLib
 import CakeWalletCore
 import FlexLayout
 
+
+
 extension TransactionDescription: CellItem {
     func setup(cell: TransactionUITableViewCell) {
         let price = store.state.balanceState.price
@@ -89,7 +91,9 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         presentWalletsListButtonTitle?.tintColor = UIColor.vividBlue
         presentWalletsListButtonImage?.tintColor = UIColor.vividBlue
         
-        let titleLabel = UIBarButtonItem(title: store.state.walletState.name, style: .plain, target: self, action: #selector(presetnWalletActions))
+        let titleLabel = UIBarButtonItem(title: store.state.walletState.name, style: .plain, target: self, action: #selector(presentWalletActions))
+        titleLabel.setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 18.0)!], for: .normal)
+        titleLabel.setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 18.0)!], for: .highlighted)
         navigationItem.leftBarButtonItem = titleLabel
         
         if let presentWalletsListButtonTitle = presentWalletsListButtonTitle,
@@ -188,13 +192,9 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     @objc
-    private func presetnWalletActions() {
+    private func presentWalletActions() {
         let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel)
-        
-//        let presentSeedAction = UIAlertAction(title: NSLocalizedString("reconnect", comment: ""), style: .default) { [weak self] _ in
-////            self?.presentSeed(for: self?.store.w)
-//        }
         
         let presentReconnectAction = UIAlertAction(title: NSLocalizedString("reconnect", comment: ""), style: .default) { [weak self] _ in
             self?.reconnectAction()
@@ -232,7 +232,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     private func observePullAction(for offset: CGFloat) {
-        guard offset < -40 && offset != -64 else {
+        guard offset < -40 else {
             return
         }
         
