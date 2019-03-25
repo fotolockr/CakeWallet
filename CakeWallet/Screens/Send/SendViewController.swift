@@ -97,8 +97,8 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         title = NSLocalizedString("send", comment: "")
         contentView.takeFromAddressBookButton.addTarget(self, action: #selector(takeFromAddressBook), for: .touchUpInside)
         contentView.sendAllButton.addTarget(self, action: #selector(setAllAmount), for: .touchUpInside)
-        contentView.cryptoAmountTextField.addTarget(self, action: #selector(onCryptoValueChange(_:)), for: .editingChanged)
-        contentView.fiatAmountTextField.addTarget(self, action: #selector(onFiatValueChange(_:)), for: .editingChanged)
+        contentView.cryptoAmountTextField.textField.addTarget(self, action: #selector(onCryptoValueChange(_:)), for: .editingChanged)
+        contentView.fiatAmountTextField.textField.addTarget(self, action: #selector(onFiatValueChange(_:)), for: .editingChanged)
         contentView.estimatedFeeTitleLabel.text = NSLocalizedString("estimated_fee", comment: "") + ":"
         contentView.addressView.presenter = self
         contentView.addressView.updateResponsible = self
@@ -146,21 +146,6 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         updateSendingStage(state.transactionsState.sendingStage)
         updateFiat(state.settingsState.fiatCurrency)
         updateEstimatedFee(state.transactionsState.estimatedFee)
-        
-//        if let error = state.error {
-//            store.dispatch(TransactionsState.Action.changedSendingStage(.none))
-//            store.dispatch(ApplicationState.Action.changedError(nil))
-//
-//            if presentedViewController != nil {
-//                dismissAlert() {
-//                    self.showError(title: error.localizedDescription)
-//                }
-//
-//                return
-//            }
-//
-//            showError(title: error.localizedDescription)
-//        }
     }
     
     // MARK: QRUriUpdateResponsible
@@ -231,16 +216,16 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         contentView.cryptoAmountTitleLabel.text = type.currency.formatted()
             + " "
             + NSLocalizedString("available_balance", comment: "")
-        contentView.cryptoAmountTextField.placeholder = type.currency.formatted()
-        contentView.cryptoAmountTextField.title = type.currency.formatted()
+//        contentView.cryptoAmountTextField.placeholder = type.currency.formatted()
+//        contentView.cryptoAmountTextField.title = type.currency.formatted()
         contentView.cryptoAmountTitleLabel.flex.markDirty()
         contentView.walletContainer.flex.markDirty()
         contentView.rootFlexContainer.flex.layout()
     }
     
     private func updateFiat(_ fiat: FiatCurrency) {
-        contentView.fiatAmountTextField.placeholder = fiat.formatted()
-        contentView.fiatAmountTextField.title = fiat.formatted()
+//        contentView.fiatAmountTextField.placeholder = fiat.formatted()
+//        contentView.fiatAmountTextField.title = fiat.formatted()
     }
     
     @objc
@@ -248,12 +233,12 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         guard
             let fiatValueStr = textField.text?.replacingOccurrences(of: ",", with: "."),
             let fiatValue = Double(fiatValueStr) else {
-                contentView.fiatAmountTextField.text = nil
+                contentView.fiatAmountTextField.textField.text = nil
                 return
         }
         
         let val = fiatValue * price
-        contentView.fiatAmountTextField.text = String(val)
+        contentView.fiatAmountTextField.textField.text  = String(val)
     }
     
     @objc
@@ -261,12 +246,12 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         guard
             let cryptoValueStr = textField.text?.replacingOccurrences(of: ",", with: "."),
             let cryptoValue = Double(cryptoValueStr) else {
-                contentView.cryptoAmountTextField.text = nil
+                contentView.cryptoAmountTextField.textField.text  = nil
                 return
         }
         
         let val = cryptoValue / price
-        contentView.cryptoAmountTextField.text = String(format: "%.12f", val)
+        contentView.cryptoAmountTextField.textField.text  = String(format: "%.12f", val)
     }
     
     private func updateSendingStage(_ stage: SendingStage) {
@@ -318,7 +303,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     private func onTransactionCreating() {
         let sendAction = CWAlertAction(title: NSLocalizedString("send", comment: "")) { [weak self] action in
             action.alertView?.dismiss(animated: true) {
-                    self?.createTransaction()
+                self?.createTransaction()
             }
         }
         
@@ -388,14 +373,14 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     private func createTransaction(_ handler: (() -> Void)? = nil) {
         let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
         let navController = UINavigationController(rootViewController: authController)
-        let paymentID = contentView.paymentIdTextField.text ?? ""
+        let paymentID = contentView.paymentIdTextField.textField.text  ?? ""
         
         authController.handler = { [weak self] in
             authController.dismiss(animated: true) {
                 self?.showSpinner(withTitle: NSLocalizedString("creating_transaction", comment: ""), callback: { alert in
-                    let amount = self?.contentView.cryptoAmountTextField.text == SendViewController.allSymbol
+                    let amount = self?.contentView.cryptoAmountTextField.textField.text  == SendViewController.allSymbol
                         ? nil
-                        : MoneroAmount(from: self!.contentView.cryptoAmountTextField.text?.replacingOccurrences(of: ",", with: ".") ?? "0.0")
+                        : MoneroAmount(from: self!.contentView.cryptoAmountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? "0.0")
                     let address = self?.contentView.addressView.textView.text ?? ""
                     guard let priority = self?.priority else { return }
                     self?.store.dispatch(
@@ -424,8 +409,8 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     }
     
     private func resetForm() {
-        contentView.fiatAmountTextField.text = ""
-        contentView.cryptoAmountTextField.text = ""
+        contentView.fiatAmountTextField.textField.text  = ""
+        contentView.cryptoAmountTextField.textField.text  = ""
         contentView.addressView.textView.text = ""
         store.dispatch(TransactionsState.Action.changedSendingStage(.none))
     }
@@ -437,15 +422,15 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     
     @objc
     private func setAllAmount() {
-        contentView.cryptoAmountTextField.text = SendViewController.allSymbol
+        contentView.cryptoAmountTextField.textField.text  = SendViewController.allSymbol
     }
     
     private func updateAmount(_ amount: Amount) {
-        contentView.cryptoAmountTextField.text = amount.formatted()
+        contentView.cryptoAmountTextField.textField.text  = amount.formatted()
     }
     
     private func updatePaymentId(_ paymentId: String?) {
-        contentView.paymentIdTextField.text = paymentId
+        contentView.paymentIdTextField.textField.text  = paymentId
     }
     
     private func updateAddress(_ address: String) {

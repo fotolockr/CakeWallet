@@ -82,7 +82,7 @@
 
 // Wallet
 
-"available_balance" = "Available Balance";
+"available_balance" = "Balance";
 "reconnection" = "Reconnection";
 "reconnect" = "Reconnect";
 "reconnect_alert_text" = "Are you sure to reconnect ?";
@@ -110,7 +110,7 @@
 
 // Send
 
-"all" = "All";
+"all" = "ALL";
 "optional" = "Optional";
 "estimated_fee" = "Estimated fee";
 "creating_transaction" = "Creating transaction";

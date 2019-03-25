@@ -162,7 +162,7 @@ final class AddressView: BaseFlexView {
         qrScanButton.addTarget(self, action: #selector(scanQr), for: .touchUpInside)
         addressBookButton.addTarget(self, action: #selector(fromAddressBook), for: .touchUpInside)
         
-        textView.font = applyFont(ofSize: 16, weight: .regular)
+        textView.font = applyFont(ofSize: 15, weight: .regular)
         textView.attributedPlaceholder = NSAttributedString(
             string: placeholder,
             attributes: [

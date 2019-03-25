@@ -980,7 +980,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             }
         }
     }
-    
+
     private func onReceiveCryptoChange(_ crypto: CryptoCurrency) {
         contentView.receiveCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
         
@@ -1087,7 +1087,10 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     private func clear() {
         contentView.depositCardView.amountTextField.textField.text = ""
         contentView.depositCardView.addressContainer.textView.text = ""
-        contentView.receiveCardView.addressContainer.textView.text = ""
+
+        contentView.receiveCardView.amountTextField.textField.text = ""
+        contentView.receiveCardView.addressContainer.textView.text = ""        
+        
         updateReceiveResult(with: makeAmount(from: 0, for: receiveCrypto.value))
         store.dispatch(ExchangeState.Action.changedTrade(nil))
     }
