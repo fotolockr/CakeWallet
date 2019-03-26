@@ -79,7 +79,7 @@ struct WalletCellItem: CellItem {
     }
 }
 
-final class WalletsViewController: BaseViewController<WalletsView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
+final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
     let navigationTitleView: WalletsNavigationTitle
     weak var walletsFlow: WalletsFlow?
     private lazy var signUpFlow: SignUpFlow? = { [weak self] in

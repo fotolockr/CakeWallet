@@ -14,7 +14,7 @@ struct CryptoCurrencyCellItem: CellItem {
     }
 }
 
-final class CurrencyPickerViewController: BaseViewController<CurrencyPickerView>, UITableViewDelegate, UITableViewDataSource {
+final class CurrencyPickerViewController: BlurredBaseViewController<CurrencyPickerView>, UITableViewDelegate, UITableViewDataSource {
     weak var delegate: CurrencyPickerDelegate?
     
     var type: ExchangeCardType
@@ -37,8 +37,9 @@ final class CurrencyPickerViewController: BaseViewController<CurrencyPickerView>
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         let receiveOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDismiss))
-        contentView.backgroundBlurView.addGestureRecognizer(receiveOnTapGesture)
+        contentView.backgroundView.addGestureRecognizer(receiveOnTapGesture)
     }
     
     @objc

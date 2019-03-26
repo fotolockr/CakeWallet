@@ -6,7 +6,7 @@ import CakeWalletLib
 import CakeWalletCore
 import CWMonero
 
-final class ReceiveViewController: BaseViewController<ReceiveView> {
+final class ReceiveViewController: BlurredBaseViewController<ReceiveView> {
     var paymentId: String? {
         get {
             return contentView.paymentIdTextField.text

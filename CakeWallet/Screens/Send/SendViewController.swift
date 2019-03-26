@@ -74,7 +74,7 @@ struct DefaultCryptoQRResult: QRUri {
 }
 
 
-final class SendViewController: BaseViewController<SendView>, StoreSubscriber, QRUriUpdateResponsible {
+final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscriber, QRUriUpdateResponsible {
     private static let allSymbol = NSLocalizedString("all", comment: "")
     
     let store: Store<ApplicationState>

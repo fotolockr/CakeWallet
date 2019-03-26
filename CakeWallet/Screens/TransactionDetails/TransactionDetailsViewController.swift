@@ -36,7 +36,7 @@ enum TransactionDetailsRows: Stringify {
     }
 }
 
-final class TransactionDetailsViewController: BaseViewController<TransactionDetailsView>, UITableViewDataSource, UITableViewDelegate {
+final class TransactionDetailsViewController: BlurredBaseViewController<TransactionDetailsView>, UITableViewDataSource, UITableViewDelegate {
     private static let emptyPaymentId = "0000000000000000"
     private(set) var items: [TransactionDetailsCellItem]
     private let transactionDescription: TransactionDescription

@@ -56,7 +56,6 @@ final class ReceiveView: BaseScrollFlexView {
         topSectionWrapper = UIView()
         qrCodeWrapper = UIView()
         subAddressesButtonWrapper = UIView()
-        
         super.init()
     }
     
@@ -106,7 +105,7 @@ final class ReceiveView: BaseScrollFlexView {
             flex.addItem(resetButton).position(.absolute).right(20).bottom(20).height(40).width(40)
         }
         
-        rootFlexContainer.flex.alignItems(.center).justifyContent(.spaceBetween).padding(20).define { flex in
+        rootFlexContainer.flex.alignItems(.center).justifyContent(.spaceBetween).padding(20).backgroundColor(.clear).define { flex in
             flex.addItem(cardView).width(100%)
         }
     }

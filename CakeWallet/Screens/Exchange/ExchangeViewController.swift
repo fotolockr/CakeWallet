@@ -738,7 +738,6 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         currencyPickerVC.type = .deposit
         currencyPickerVC.delegate = self
         currencyPickerVC.modalPresentationStyle = .overCurrentContext
-        tabBarController?.modalPresentationStyle = .overFullScreen
         tabBarController?.present(currencyPickerVC, animated: true)
     }
     
