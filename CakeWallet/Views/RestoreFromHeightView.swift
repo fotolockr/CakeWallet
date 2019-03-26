@@ -188,7 +188,12 @@ final class RestoreFromHeightView: BaseFlexView {
     }
     
     override func configureConstraints() {
-        let adaptiveMargin = adaptiveLayout.getSize(forLarge: 34, forBig: 32, defaultSize: 30)
+        var adaptiveMargin: CGFloat
+        adaptiveMargin = adaptiveLayout.getSize(forLarge: 34, forBig: 32, defaultSize: 30)
+        
+        if adaptiveLayout.screenType == .iPhones_5_5s_5c_SE {
+            adaptiveMargin = 18
+        }
         
         rootFlexContainer.flex
             .backgroundColor(.clear)

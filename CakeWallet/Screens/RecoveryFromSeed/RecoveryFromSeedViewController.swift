@@ -74,16 +74,6 @@ final class RestoreFromSeedViewController: BaseViewController<RestoreFromSeedVie
                                 self?.showInfo(title: nil, message: error.localizedDescription, actions: [CWAlertAction.cancelAction])
                             }
                         }
-                        
-//                        if let error = self?.store.state.error {
-//                            alert.dismiss(animated: true) {
-//                                self?.showInfo(title: nil, message: error.localizedDescription, actions: [CWAlertAction.cancelAction])
-//                            }
-//
-//                            return
-//                        }
-                        
-//                        self?.done()
                     }
                 )
             )

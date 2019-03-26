@@ -27,10 +27,16 @@ final class RecoverFromSeedView: BaseFlexView {
     }
     
     override func configureConstraints() {
+        var adaptiveMargin: CGFloat
         cardWrapper.layer.cornerRadius = 12
         cardWrapper.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 0, blur: 20, spread: -10)
         cardWrapper.backgroundColor = Theme.current.card.background
-        let adaptiveMargin = adaptiveLayout.getSize(forLarge: 34, forBig: 32, defaultSize: 30)
+        
+        adaptiveMargin = adaptiveLayout.getSize(forLarge: 34, forBig: 32, defaultSize: 30)
+        
+        if adaptiveLayout.screenType == .iPhones_5_5s_5c_SE {
+            adaptiveMargin = 18
+        }
         
         cardWrapper.flex
             .justifyContent(.start)
