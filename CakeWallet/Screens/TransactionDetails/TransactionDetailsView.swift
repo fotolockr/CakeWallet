@@ -24,6 +24,8 @@ final class TransactionDetailsView: BaseFlexView {
 //        table.isScrollEnabled = false
 //        table.bounces = false
 //        table.estimatedRowHeight = 0
+        backgroundColor = .clear
+        isOpaque = false
     }
     
     override func configureConstraints() {
@@ -31,7 +33,7 @@ final class TransactionDetailsView: BaseFlexView {
 //            flex.addItem(table).width(100%)
 //        }
         
-        rootFlexContainer.flex.padding(20).define { flex in
+        rootFlexContainer.flex.padding(20).backgroundColor(.clear).define { flex in
 //            flex.addItem(cardView).width(100%)
             flex.addItem(table).width(100%).height(100%) //.padding(20)
         }

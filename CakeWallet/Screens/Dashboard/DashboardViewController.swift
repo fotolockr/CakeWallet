@@ -280,6 +280,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private func presentTransactionDetails(for tx: TransactionDescription) {
         let transactionDetailsViewController = TransactionDetailsViewController(transactionDescription: tx)
         let nav = UINavigationController(rootViewController: transactionDetailsViewController)
+        nav.modalPresentationStyle = .custom
         tabBarController?.presentWithBlur(nav, animated: true)
     }
  

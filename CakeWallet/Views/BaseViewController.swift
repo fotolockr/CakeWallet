@@ -2,6 +2,7 @@ import UIKit
 import FlexLayout
 import CakeWalletLib
 import CakeWalletCore
+import VisualEffectView
 
 class BaseViewController<View: BaseView>: AnyBaseViewController {
     var contentView: View { return view as! View }

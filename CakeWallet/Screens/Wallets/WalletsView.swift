@@ -6,7 +6,7 @@ final class WalletsView: BaseScrollFlexViewWithBottomSection {
     let walletsCardView: CardView
     let createWalletButton: UIButton
     let restoreWalletButton: UIButton
-    
+
     required init() {
         walletsTableView = UITableView()
         walletsCardView = CardView()

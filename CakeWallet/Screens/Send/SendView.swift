@@ -50,6 +50,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     
     override func configureView() {
         super.configureView()
+        
         walletNameLabel.font = applyFont(ofSize: 17)
         walletNameLabel.textColor = .wildDarkBlue
         estimatedFeeValueLabel.numberOfLines = 0
@@ -127,7 +128,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
             flex.addItem(estimatedDescriptionLabel).marginTop(20).width(100%)
         }
         
-        rootFlexContainer.flex.padding(20).define { flex in
+        rootFlexContainer.flex.padding(20).backgroundColor(.clear).define { flex in
             flex.addItem(walletContainer)
             flex.addItem(cardView).marginTop(20)
         }

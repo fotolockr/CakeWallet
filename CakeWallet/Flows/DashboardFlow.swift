@@ -40,7 +40,6 @@ final class DashboardFlow: Flow {
             presentPopup(navController)
         case .wallets:
             presentWallets()
-            
         case .addressBook:
             let addressBook = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: false)
             navigationController.pushViewController(addressBook, animated: true)
@@ -63,21 +62,7 @@ final class DashboardFlow: Flow {
     private func presentPopup(_ viewController: UIViewController) {
         let rootViewController = navigationController.viewControllers.first
         let presenter = rootViewController?.tabBarController
-        let viewControllerToPresent: AnyBaseViewController
-        
-        if let navigationController = viewController as? UINavigationController {
-            viewControllerToPresent = navigationController.viewControllers.first as! AnyBaseViewController
-        } else {
-            viewControllerToPresent = viewController as! AnyBaseViewController
-        }
-        
-        rootViewController?.navigationItem.titleView?.isHidden = true
-        viewControllerToPresent.modalPresentationStyle = .overCurrentContext
-        
-        viewControllerToPresent.onDismissHandler = { [weak rootViewController] in
-            rootViewController?.navigationItem.titleView?.isHidden = false
-        }
-        
+        viewController.modalPresentationStyle = .custom
         presenter?.present(viewController, animated: true)
     }
 }
