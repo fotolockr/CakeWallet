@@ -138,7 +138,6 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
         titleLabel.text = NSLocalizedString("deposit", comment: "")
         titleLabel.textAlignment = .center
         amountTextField.keyboardType = .decimalPad
-//        addressContainer.textView.placeholder = NSLocalizedString("refund_address", comment: "")
         layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.16, x: 0, y: 16, blur: 46, spread: -5)
         backgroundColor = .white
         walletNameLabel.textAlignment = .center
@@ -255,7 +254,7 @@ final class ExchangeView: BaseScrollFlexView {
     
     let arrowDownImageView: UIImageView
     let clearButton: UIButton
-    let exchangeButton: UIButton
+    let exchangeButton: LoadingButton
     let buttonsRow: UIView
     let descriptionView: UIView
     let dispclaimerLabel: UILabel
@@ -263,11 +262,11 @@ final class ExchangeView: BaseScrollFlexView {
     let exchangeDescriptionLabel: UILabel
     
     required init() {
-        depositCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Deposit")
-        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Receive")
+        depositCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Deposit", addressPlaceholder: "Refund address")
+        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Receive", addressPlaceholder: "Address")
         arrowDownImageView = UIImageView(image: UIImage(named: "arrow_down_dotted"))
         clearButton = SecondaryButton(title: NSLocalizedString("clear", comment: ""))
-        exchangeButton = PrimaryButton(title: NSLocalizedString("exchange", comment: ""))
+        exchangeButton = PrimaryLoadingButton()
         buttonsRow = UIView()
         exchangeDescriptionLabel = UILabel(fontSize: 14)
         descriptionView = UIView()
@@ -281,6 +280,7 @@ final class ExchangeView: BaseScrollFlexView {
         exchangeDescriptionLabel.textColor = .wildDarkBlue
         dispclaimerLabel.textColor = .lightGray
         dispclaimerLabel.textAlignment = .center
+        exchangeButton.setTitle(NSLocalizedString("exchange", comment: ""), for: .normal)
     }
     
     override func configureConstraints() {

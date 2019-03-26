@@ -57,14 +57,14 @@ final class ExchangeCardView: BaseFlexView {
     let maxLabel: UILabel
     let minLabel: UILabel
     
-    required init(cardType: ExchangeCardType, cardTitle: String) {
+    required init(cardType: ExchangeCardType, cardTitle: String, addressPlaceholder: String) {
         self.cardType = cardType
         self.cardTitle = UILabel(text: cardTitle)
         topCardView = UIView()
         pickerRow = UIView()
         pickerButton = UIView()
         amountTextField = TextField(placeholder: "0.000", fontSize: 25, isTransparent: false)
-        addressContainer = AddressView(placeholder: cardType == .deposit ? "Refund address" : "Address")
+        addressContainer = AddressView(placeholder: addressPlaceholder)
         receiveView = UIView()
         receiveViewTitle = UILabel(text: "You will receive")
         receiveViewAmount = UILabel(text: "")

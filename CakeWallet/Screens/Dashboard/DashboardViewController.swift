@@ -224,11 +224,28 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     private func reconnectAction() {
-        let reconnetionAction = CWAlertAction(title: NSLocalizedString("reconnect", comment: "")) { [weak self] action in
-            self?.store.dispatch(WalletActions.reconnect)
-            action.alertView?.dismiss(animated: true)
-        }
-        showInfo(title: NSLocalizedString("reconnection", comment: ""), message: NSLocalizedString("reconnect_alert_text", comment: ""), actions: [reconnetionAction, CWAlertAction.cancelAction])
+        let alertController = UIAlertController(
+            title: NSLocalizedString("reconnection", comment: ""),
+            message: NSLocalizedString("reconnect_alert_text", comment: ""),
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("reconnect", comment: ""),
+            style: .default,
+            handler: { [weak self, weak alertController] _ in
+                self?.store.dispatch(WalletActions.reconnect)
+                alertController?.dismiss(animated: true)
+            }
+        ))
+        
+        alertController.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        ))
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     private func observePullAction(for offset: CGFloat) {
@@ -236,20 +253,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             return
         }
         
-        let reconnetionAction = CWAlertAction(title: NSLocalizedString("reconnect", comment: "")) { [weak self] action in
-            self?.store.dispatch(WalletActions.reconnect)
-            action.alertView?.dismiss(animated: true)
-        }
-        let cancelAction = CWAlertAction(
-            title: NSLocalizedString("cancel", comment: ""),
-            style: .cancel,
-            handler: { [weak self] in
-                self?.refreshControl.endRefreshing()
-                $0.alertView?.dismiss(animated: true)
-            }
-        )
-        
-        showInfo(title: NSLocalizedString("reconnection", comment: ""), message: NSLocalizedString("reconnect_alert_text", comment: ""), actions: [reconnetionAction, cancelAction])
+        store.dispatch(TransactionsActions.forceUpdateTransactions)
     }
     
     private func updateInitialHeight(_ blockchainState: BlockchainState) {

@@ -167,7 +167,7 @@ final class AddressView: BaseFlexView {
             string: placeholder,
             attributes: [
                 NSAttributedString.Key.foregroundColor: UIColor.wildDarkBlue,
-                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: CGFloat(16))!
+                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: CGFloat(15))!
             ]
         )
 

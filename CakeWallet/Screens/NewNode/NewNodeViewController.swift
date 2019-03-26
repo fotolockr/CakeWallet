@@ -54,7 +54,6 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
                 login: self.contentView.loginTextField.text ?? "",
                 password: self.contentView.passwordTextField.text ?? "")
             
-            
             do {
                 try self.nodesList.add(node: nodeDescription)
                 alert.dismiss(animated: true) { [weak self] in

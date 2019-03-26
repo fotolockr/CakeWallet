@@ -6,7 +6,6 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     let addressView: AddressView
     let takeFromAddressBookButton: Button
     let paymentIdTextField: TextField
-//    let pastPaymentIDButton: PasteButton
     let paymentIdContainer: UIView
     let cryptoAmountTextField: TextField
     let fiatAmountTextField: TextField
@@ -16,7 +15,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     let estimatedFeeValueLabel: UILabel
     let estimatedFeeContriner: UIView
     let estimatedDescriptionLabel: UILabel
-    let sendButton: UIButton
+    let sendButton: PrimaryLoadingButton
     let walletContainer: UIView
     let walletNameLabel: UILabel
     let cryptoAmountValueLabel: UILabel
@@ -38,7 +37,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         estimatedFeeValueLabel = UILabel(fontSize: 14)
         estimatedFeeContriner = UIView()
         estimatedDescriptionLabel = UILabel.withLightText(fontSize: 12)
-        sendButton = PrimaryButton(title: NSLocalizedString("send", comment: ""))
+        sendButton = PrimaryLoadingButton()
         walletContainer = CardView()
         walletNameLabel = UILabel()
         cryptoAmountValueLabel = UILabel()
@@ -86,6 +85,8 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         
         sendAllButton.setTitleColor(UIColor.wildDarkBlue, for: .normal)
         sendAllButton.titleLabel?.font = applyFont(ofSize: 11)
+        
+        sendButton.setTitle(NSLocalizedString("send", comment: ""), for: .normal)
     }
     
     override func configureConstraints() {
@@ -98,11 +99,6 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
             flex.addItem(walletNameLabel).height(20)
             flex.addItem(cryptoAmonutContainer)
         }
-        
-//        paymentIdContainer.flex.direction(.row).backgroundColor(.clear).define { flex in
-//            flex.addItem(paymentIdTextField).grow(1).marginRight(10)
-//            flex.addItem(pastPaymentIDButton).height(40).width(40)
-//        }
         
         currenciesContainer.flex
             .justifyContent(.spaceBetween)
@@ -119,7 +115,6 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         
         cardView.flex.alignItems(.center).padding(30, 20, 30, 20).define { flex in
             flex.addItem(addressView).width(100%)
-            // TODO: optional placeholder
             flex.addItem(paymentIdTextField).width(100%).marginTop(30)
             
             flex.addItem(currenciesContainer).marginTop(25).width(100%)

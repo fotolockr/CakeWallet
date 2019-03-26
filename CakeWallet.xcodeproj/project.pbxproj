@@ -189,7 +189,6 @@
 		64EBA5E720F3A54B00997824 /* SubaddressesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBA5E620F3A54B00997824 /* SubaddressesState.swift */; };
 		64EBA5E920F3A6D500997824 /* SubaddressesActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBA5E820F3A6D500997824 /* SubaddressesActions.swift */; };
 		64EBA5EB20F3A77E00997824 /* SubaddressesHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBA5EA20F3A77E00997824 /* SubaddressesHandlers.swift */; };
-		64EBA5ED20F3BCA000997824 /* ShortReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EBA5EC20F3BCA000997824 /* ShortReceiveViewController.swift */; };
 		64F02F5020E8D0F700527F08 /* registerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F02F4F20E8D0F700527F08 /* registerHandler.swift */; };
 		64F7F3FD214452B1006BD195 /* MoneroPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F7F3FC214452B1006BD195 /* MoneroPendingTransaction.swift */; };
 		64F7F3FF21445389006BD195 /* MoneroTransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F7F3FE21445389006BD195 /* MoneroTransactionHistory.swift */; };
@@ -643,7 +642,6 @@
 		64EBA5E620F3A54B00997824 /* SubaddressesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubaddressesState.swift; sourceTree = "<group>"; };
 		64EBA5E820F3A6D500997824 /* SubaddressesActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubaddressesActions.swift; sourceTree = "<group>"; };
 		64EBA5EA20F3A77E00997824 /* SubaddressesHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubaddressesHandlers.swift; sourceTree = "<group>"; };
-		64EBA5EC20F3BCA000997824 /* ShortReceiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortReceiveViewController.swift; sourceTree = "<group>"; };
 		64F02F4F20E8D0F700527F08 /* registerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerHandler.swift; sourceTree = "<group>"; };
 		64F7F3F921444EED006BD195 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64F7F3FC214452B1006BD195 /* MoneroPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneroPendingTransaction.swift; sourceTree = "<group>"; };
@@ -1437,7 +1435,6 @@
 			children = (
 				6A53C4CA20A86893001999B6 /* ReceiveViewController.swift */,
 				6AAF1EA520B6047C000E4E02 /* ReceiveView.swift */,
-				64EBA5EC20F3BCA000997824 /* ShortReceiveViewController.swift */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -2436,7 +2433,6 @@
 				6A24468A20BADA6E00C87C81 /* UserDefaults+extensions.swift in Sources */,
 				64C28A5A21021FC100327509 /* ExchangeState.swift in Sources */,
 				6A6B0C0920BEFC6C004B5DFF /* WalletsView.swift in Sources */,
-				64EBA5ED20F3BCA000997824 /* ShortReceiveViewController.swift in Sources */,
 				6A72CB0F20CA848500CFABC9 /* SettingsView.swift in Sources */,
 				6A212DA320DAA3B500CD8594 /* TransactionDetailsCell.swift in Sources */,
 				64AA49B321456EB6002CE1FE /* PinCodeViewController.swift in Sources */,

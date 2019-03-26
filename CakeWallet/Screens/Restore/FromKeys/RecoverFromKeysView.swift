@@ -52,7 +52,7 @@ final class RecoverFromKeysView: BaseFlexView {
             .justifyContent(.center)
             .alignItems(.center)
             .define { flex in
-                flex.addItem(doneButton).height(56).width(90%)
+                flex.addItem(doneButton).height(56).width(100%)
         }
         
         rootFlexContainer.flex

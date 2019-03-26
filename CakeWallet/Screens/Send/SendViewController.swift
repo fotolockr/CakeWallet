@@ -216,8 +216,6 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
         contentView.cryptoAmountTitleLabel.text = type.currency.formatted()
             + " "
             + NSLocalizedString("available_balance", comment: "")
-//        contentView.cryptoAmountTextField.placeholder = type.currency.formatted()
-//        contentView.cryptoAmountTextField.title = type.currency.formatted()
         contentView.cryptoAmountTitleLabel.flex.markDirty()
         contentView.walletContainer.flex.markDirty()
         contentView.rootFlexContainer.flex.layout()
@@ -301,17 +299,27 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
     }
     
     private func onTransactionCreating() {
-        let sendAction = CWAlertAction(title: NSLocalizedString("send", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.createTransaction()
-            }
-        }
-        
-        showInfo(
+        let alertController = UIAlertController(
             title: NSLocalizedString("creating_transaction", comment: ""),
             message: NSLocalizedString("confirm_sending", comment: ""),
-            actions: [sendAction, CWAlertAction.cancelAction]) { alert in
-        }
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("send", comment: ""),
+            style: .default,
+            handler: { [weak self, weak alertController] _ in
+                self?.createTransaction()
+                alertController?.dismiss(animated: true)
+            }
+        ))
+        alertController.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        ))
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     private func onTransactionCreated(_ pendingTransaction: PendingTransaction) {
@@ -325,39 +333,44 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
             + NSLocalizedString("fee", comment: "")
             + ": "
             + MoneroAmountParser.formatValue(description.fee.value)
-        let commitAction = CWAlertAction(title: NSLocalizedString("Ok", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.commit(pendingTransaction: pendingTransaction)
-            }
-        }
-        let cacelAction = CWAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.store.dispatch(
-                    TransactionsState.Action.changedSendingStage(.none)
-                )
-            }
-        }
         
-        showInfo(title: NSLocalizedString("confirm_sending", comment: ""), message: message, actions: [commitAction, cacelAction])
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { [weak self] action in
+            self?.store.dispatch(
+                TransactionsState.Action.changedSendingStage(.none)
+            )
+        })
+        
+        let commitAction = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: { [weak self] _ in
+            self?.commit(pendingTransaction: pendingTransaction)
+        })
+        
+        
+        showInfoAlert(
+            title: NSLocalizedString("confirm_sending", comment: ""),
+            message: message,
+            actions: [commitAction, cancelAction]
+        )
     }
     
     private func commit(pendingTransaction: PendingTransaction) {
-        showSpinner(withTitle: NSLocalizedString("creating_transaction", comment: "")) { [weak self] alert in
-            self?.store.dispatch(
-                WalletActions.commit(
-                    transaction: pendingTransaction,
-                    handler: { result in
-                        alert.dismiss(animated: true) {
-                            switch result {
-                            case .success(_):
-                                self?.onTransactionCommited()
-                            case let .failed(error):
-                                self?.showError(error: error)
-                            }
+        contentView.sendButton.showLoading()
+        
+        store.dispatch(
+            WalletActions.commit(
+                transaction: pendingTransaction,
+                handler: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.contentView.sendButton.hideLoading()
+                        
+                        switch result {
+                        case .success(_):
+                            self?.onTransactionCommited()
+                        case let .failed(error):
+                            self?.showErrorAlert(error: error)
                         }
-                })
-            )
-        }
+                    }
+            })
+        )
     }
     
     private func onTransactionCommited() {
@@ -377,31 +390,34 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
         
         authController.handler = { [weak self] in
             authController.dismiss(animated: true) {
-                self?.showSpinner(withTitle: NSLocalizedString("creating_transaction", comment: ""), callback: { alert in
-                    let amount = self?.contentView.cryptoAmountTextField.textField.text  == SendViewController.allSymbol
-                        ? nil
-                        : MoneroAmount(from: self!.contentView.cryptoAmountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? "0.0")
-                    let address = self?.contentView.addressView.textView.text ?? ""
-                    guard let priority = self?.priority else { return }
-                    self?.store.dispatch(
-                        WalletActions.send(
-                            amount: amount,
-                            toAddres: address,
-                            paymentID: paymentID,
-                            priority: priority,
-                            handler: { result in
-                                alert.dismiss(animated: true) {
-                                    switch result {
-                                    case let .success(pendingTransaction):
-                                        self?.onTransactionCreated(pendingTransaction)
-                                    case let .failed(error):
-                                        self?.showError(error: error)
-                                    }
+                self?.contentView.sendButton.showLoading()
+                
+                let amount = self?.contentView.cryptoAmountTextField.textField.text == SendViewController.allSymbol
+                    ? nil
+                    : MoneroAmount(from: self!.contentView.cryptoAmountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? "0.0")
+                let address = self?.contentView.addressView.textView.originText ?? ""
+                guard let priority = self?.priority else { return }
+                
+                self?.store.dispatch(
+                    WalletActions.send(
+                        amount: amount,
+                        toAddres: address,
+                        paymentID: paymentID,
+                        priority: priority,
+                        handler: { [weak self] res in
+                            DispatchQueue.main.async {
+                                self?.contentView.sendButton.hideLoading()
+                                
+                                switch res {
+                                case let .success(pendingTransaction):
+                                    self?.onTransactionCreated(pendingTransaction)
+                                case let .failed(error):
+                                    self?.showErrorAlert(error: error)
                                 }
+                            }
                         }
-                        )
                     )
-                })
+                )
             }
         }
         

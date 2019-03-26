@@ -779,7 +779,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             })
             .bind(to: depositRefundAddress)
             .disposed(by: disposeBag)
-
+        
         contentView.depositCardView.amountTextField.textField.rx
             .text
             .orEmpty
@@ -979,7 +979,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             }
         }
     }
-
+    
     private func onReceiveCryptoChange(_ crypto: CryptoCurrency) {
         contentView.receiveCardView.pickerButtonView.pickedCurrency.text = crypto.formatted()
         
@@ -1023,7 +1023,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             outputAmount = EthereumAmount(from: String(result))
         }
         
-//        return amountForDisplayFormatted(from: outputAmount.formatted())
+        //        return amountForDisplayFormatted(from: outputAmount.formatted())
         return outputAmount.formatted()
     }
     
@@ -1086,9 +1086,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     private func clear() {
         contentView.depositCardView.amountTextField.textField.text = ""
         contentView.depositCardView.addressContainer.textView.text = ""
-
+        
         contentView.receiveCardView.amountTextField.textField.text = ""
-        contentView.receiveCardView.addressContainer.textView.text = ""        
+        contentView.receiveCardView.addressContainer.textView.text = ""
         
         updateReceiveResult(with: makeAmount(from: 0, for: receiveCrypto.value))
         store.dispatch(ExchangeState.Action.changedTrade(nil))
@@ -1107,12 +1107,12 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             : receiveAddress.value
         
         guard !refundAddress.isEmpty else {
-            showInfo(message: NSLocalizedString("refund_address_is_empty", comment: ""))
+            showOKInfoAlert(message: NSLocalizedString("refund_address_is_empty", comment: ""))
             return
         }
         
         guard !outputAddress.isEmpty else {
-            showInfo(message: NSLocalizedString("receive_address_is_empty", comment: "")) // fixme
+            showOKInfoAlert(message: NSLocalizedString("receive_address_is_empty", comment: ""))
             return
         }
         
@@ -1121,7 +1121,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             weight: 10000,
             crypto: receiveCrypto.value)
         let amount = isXMRTO ? receiveAmount : depositAmount
-
+        
         showSpinner(withTitle: NSLocalizedString("create_exchange", comment: "")) { alert in
             if isXMRTO {
                 self.exchangeActionCreators.createTradeXMRTO(amount: amount, address: outputAddress) { result in
