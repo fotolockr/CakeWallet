@@ -1,21 +1,6 @@
 import UIKit
 
 extension UIViewController {
-    func showSuccessfulyInfo(title: String? = nil, message: String? = nil, withDuration duration: TimeInterval = 0, actions: [CWAlertAction] = [CWAlertAction.okAction], handler: ((CWAlertViewController) -> Void)? = nil) {
-        let alert = CWAlertViewController(title: title, message: message, status: .success)
-        alert.addActions(actions)
-        
-        if duration != 0 {
-            Timer.scheduledTimer(withTimeInterval: duration, repeats: false, block: { _ in
-                alert.dismiss(animated: true)
-            })
-        }
-        
-        presentWithBlur(alert, animated: true) {
-            handler?(alert)
-        }
-    }
-    
     func showDurationInfoAlert(title: String, message: String, duration: TimeInterval) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -108,6 +93,26 @@ extension UIViewController {
         }))
         
         store.dispatch(ApplicationState.Action.changedError(nil))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func showSpinnerAlert(withTitle title: String, callback: @escaping (UIAlertController) -> Void) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30)) as UIActivityIndicatorView
+        
+        activityIndicator.activityIndicatorViewStyle = .gray
+        activityIndicator.startAnimating()
+        
+        let contentViewController = UIViewController()
+        contentViewController.preferredContentSize = CGSize(width: 40, height: 40)
+        contentViewController.view.addSubview(activityIndicator)
+        activityIndicator.center = contentViewController.view.center
+        contentViewController.view.layer.borderWidth = 1
+    
+        alertController.setValue(contentViewController, forKey: "contentViewController")
+        activityIndicator.startAnimating()
         
         present(alertController, animated: true, completion: nil)
     }

@@ -10,11 +10,11 @@ extension UITextField: Pastable {
     }
 }
 
-extension FloatingLabelTextView: Pastable {
-    func paste(text: String) {
-//        changeText(text)
-    }
-}
+//extension FloatingLabelTextView: Pastable {
+//    func paste(text: String) {
+////        changeText(text)
+//    }
+//}
 
 final class PasteButton: SecondaryButton {
     weak var pastable: Pastable?

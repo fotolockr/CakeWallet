@@ -307,13 +307,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         ) { [weak self] isOn, item in
             //                self?.accountSettings.isPasswordRemembered = isOn
         }
-//        let toggleNightModeCellItem = SettingsSwitchCellItem(
-//            title: NSLocalizedString("toggle_night_mode", comment: ""),
-//            isOn: Theme.current == .night
-//        ) { [weak self] isOn in
-//            self?.toggleNightMode(isOn: isOn)
-//            //                self?.accountSettings.isPasswordRemembered = isOn
-//        }
         let daemonSettingsCellItem = SettingsCellItem(
             title: NSLocalizedString("node_settings", comment: ""),
             action: { [weak self] in
@@ -418,68 +411,73 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         let changeMasterPassword = SettingsCellItem(
             title: "Change backup password",
             action: { [weak self] in
-                let changeAction = CWAlertAction(title: "Change", handler: { alert in
-                    alert.alertView?.dismiss(animated: true) {
-                        let authVC = AuthenticationViewController(store: self!.store, authentication: AuthenticationImpl())
-                        authVC.handler = { [weak self, weak authVC] in
-                            authVC?.dismiss(animated: true) {
-                                let changePassword: (String, (() -> Void)?) -> Void = { password, handler in
-                                    let keychainStorage = KeychainStorageImpl.standart
-                                    do {
-                                        try keychainStorage.set(value: password, forKey: .masterPassword)
-                                        handler?()
-                                        autoBackup(force: true) { error in
-                                            if let error = error {
-                                                self?.dismissAlert({
-                                                    self?.showError(error: error)
-                                                })
-                                            }
+                let changeAction = UIAlertAction(title: "Change", style: .default, handler: { alert in
+                    let authVC = AuthenticationViewController(store: self!.store, authentication: AuthenticationImpl())
+                    authVC.handler = { [weak self, weak authVC] in
+                        authVC?.dismiss(animated: true) {
+                            let changePassword: (String, (() -> Void)?) -> Void = { password, handler in
+                                let keychainStorage = KeychainStorageImpl.standart
+                                do {
+                                    try keychainStorage.set(value: password, forKey: .masterPassword)
+                                    handler?()
+                                    autoBackup(force: true) { error in
+                                        if let error = error {
+                                            self?.dismissAlert({
+                                                self?.showErrorAlert(error: error)
+                                            })
                                         }
-                                    } catch {
-                                        self?.showError(error: error)
                                     }
+                                } catch {
+                                    self?.showErrorAlert(error: error)
                                 }
-                                let alert = UIAlertController(title: "Change/Set master password", message: "Enter new password", preferredStyle: .alert)
-                                
-                                alert.addTextField { textField in
-                                    textField.isSecureTextEntry = true
-                                }
-                                
-                                alert.addAction(UIAlertAction(title: "Generate new", style: .default, handler: { _ in
-                                    let password = UUID().uuidString
-                                    changePassword(password) {
-                                        let copyAction = CWAlertAction(title: "Copy", handler: { [weak self] action in
-                                            action.alertView?.dismiss(animated: true) {
-                                                UIPasteboard.general.string = self?.masterPassword
-                                            }
-                                        })
-                                        
-                                        self?.showInfo(title: "Backup password", message: "Backup password has changed successfuly!\nYour new backup password: \(password)", actions: [.okAction, copyAction])
-                                    }
-                                }))
-                                
-                                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] _ in
-                                    guard let password = alert?.textFields?.first?.text else {
-                                        return
+                            }
+                            let alert = UIAlertController(title: "Change/Set master password", message: "Enter new password", preferredStyle: .alert)
+                            
+                            alert.addTextField { textField in
+                                textField.isSecureTextEntry = true
+                            }
+                            
+                            alert.addAction(UIAlertAction(title: "Generate new", style: .default, handler: { _ in
+                                let password = UUID().uuidString
+                                changePassword(password) {
+                                    let copyAction = UIAlertAction(title: "Copy", style: .default) { [weak self] _ in
+                                        UIPasteboard.general.string = self?.masterPassword
                                     }
                                     
-                                    changePassword(password) {
-                                        self?.showInfo(title: "Backup password", message: "Backup password has changed successfuly", actions: [.okAction])
-                                    }
-                                }))
+                                    let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                                    
+                                    self?.showInfoAlert(
+                                        title: "Backup password",
+                                        message: "Backup password has changed successfuly!\nYour new backup password: \(password)",
+                                        actions: [okAction, copyAction]
+                                    )
+                                }
+                            }))
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] _ in
+                                guard let password = alert?.textFields?.first?.text else {
+                                    return
+                                }
                                 
-                                self?.present(alert, animated: true)
-                            }
+                                changePassword(password) {
+                                    self?.showOKInfoAlert(title: "Backup password", message: "Backup password has changed successfuly")
+                                }
+                            }))
+                            
+                            self?.present(alert, animated: true)
                         }
-                        
-                        let authNavVC = UINavigationController(rootViewController: authVC)
-                        self?.present(authNavVC, animated: true)
                     }
+                    
+                    let authNavVC = UINavigationController(rootViewController: authVC)
+                    self?.present(authNavVC, animated: true)
                 })
-                self?.showInfo(
+                
+                let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+                
+                self?.showInfoAlert(
                     title: "Backup password",
                     message: "If you change the Backup password for backups, the previous MANUAL backups will not work with the new password. Auto backups will continue to work with the new password.",
-                    actions: [.cancelAction, changeAction])
+                    actions: [cancelAction, changeAction])
         })
     
         sections[.wallets] = [
@@ -591,16 +589,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //        guard let section = SettingsSections(rawValue: section) else {
-        //            return 0
-        //        }
-        
-        //        if section != .donation {
-        //            return 50
-        //        } else {
-        //            return 0
-        //        }
-        
         return 60
     }
     
@@ -661,45 +649,27 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
     
     private func askToShowBackupPasswordAlert(onCancelHandler: (() -> Void)? = nil, onSavedHandler: @escaping () -> Void) {
-        let savedAction = CWAlertAction(title: "Yes") { alert in
-            alert.alertView?.dismiss(animated: true) {
-                onSavedHandler()
-            }
+        let savedAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            onSavedHandler()
         }
-        let showBackupPassowrd = CWAlertAction(title: "Show password") { [weak self] alert in
-            alert.alertView?.dismiss(animated: true) {
-                self?.showBackupPassword()
-                onCancelHandler?()
-            }
+        let showBackupPassowrd = UIAlertAction(title: "Show password", style: .default) { [weak self] _ in
+            self?.showBackupPassword()
+            onCancelHandler?()
         }
-        let cancel = CWAlertAction(
-            title: NSLocalizedString("cancel", comment: ""),
-            style: .cancel,
-            handler: {
-                $0.alertView?.dismiss(animated: true) {
-                    onCancelHandler?()
-                }
-        })
-
-        savedAction.titleLabel.textColor = .vividBlue
-        showBackupPassowrd.titleLabel.textColor = .vividBlue
-        showInfo(title: "Backup", message: "Did you save your backup password?", actions: [savedAction, showBackupPassowrd, cancel])
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+        showInfoAlert(title: "Backup", message: "Did you save your backup password?", actions: [savedAction, showBackupPassowrd, cancelAction])
     }
     
     private func showBackupPassword() {
-        let copyAction = CWAlertAction(title: "Copy", handler: { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                UIPasteboard.general.string = self?.masterPassword
-            }
-        })
+        let copyAction = UIAlertAction(title: "Copy", style: .default) { [weak self] _ in
+            UIPasteboard.general.string = self?.masterPassword
+        }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
         
         let authVC = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
         authVC.handler = { [weak self] in
             authVC.dismiss(animated: true) {
-                self?.showInfo(
-                    title: "Backup password",
-                    message: self!.masterPassword,
-                    actions: [.cancelAction, copyAction])
+                self?.showInfoAlert(title: "Backup password", message: self!.masterPassword, actions: [copyAction, cancelAction])
             }
         }
         
@@ -716,7 +686,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
     
     private func showICloudIsNotEnabledAlert() {
-        showInfo(message: "Please enable iCloud in the iPhone settings", actions: [.okAction])
+        showOKInfoAlert(message: "Please enable iCloud in the iPhone settings")
     }
     
     
@@ -726,6 +696,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             return
         }
         
-        showError(error: error)
+        showErrorAlert(error: error)
     }
 }

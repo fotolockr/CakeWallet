@@ -104,11 +104,12 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     }
     
     func askToChangeCurrentNode(to node: NodeDescription) {
-        let changeAction = CWAlertAction(title: NSLocalizedString("change", comment: "")) { [weak self] alert in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+        let changeAction = UIAlertAction(title: NSLocalizedString("change", comment: ""), style: .default) { [weak self] _ in
             self?.changeCurrentNode(to: node)
-            alert.alertView?.dismiss(animated: true)
         }
-        showInfo(title: String(format: NSLocalizedString("change_current_node_message", comment: ""), node.uri), actions: [changeAction, CWAlertAction.cancelAction])
+        
+        showInfoAlert(title: String(format: NSLocalizedString("change_current_node_message", comment: ""), node.uri), actions: [changeAction, cancelAction])
     }
     
     func changeCurrentNode(to node: NodeDescription) {

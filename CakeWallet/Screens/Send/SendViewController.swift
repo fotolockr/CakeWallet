@@ -344,7 +344,6 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
             self?.commit(pendingTransaction: pendingTransaction)
         })
         
-        
         showInfoAlert(
             title: NSLocalizedString("confirm_sending", comment: ""),
             message: message,
