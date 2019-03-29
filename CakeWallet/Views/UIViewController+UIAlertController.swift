@@ -99,22 +99,24 @@ extension UIViewController {
     
     func showSpinnerAlert(withTitle title: String, callback: @escaping (UIAlertController) -> Void) {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        
-        let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30)) as UIActivityIndicatorView
-        
+        let indicatorSize = CGSize(width: 40, height: 40)
+        let activityIndicator = UIActivityIndicatorView(frame: CGRect(origin: .zero, size: indicatorSize))
+        activityIndicator.hidesWhenStopped = false
         activityIndicator.activityIndicatorViewStyle = .gray
-        activityIndicator.startAnimating()
         
         let contentViewController = UIViewController()
-        contentViewController.preferredContentSize = CGSize(width: 40, height: 40)
+        contentViewController.preferredContentSize = indicatorSize
         contentViewController.view.addSubview(activityIndicator)
-        activityIndicator.center = contentViewController.view.center
-        contentViewController.view.layer.borderWidth = 1
-    
+        contentViewController.view.bringSubview(toFront: activityIndicator)
+        
         alertController.setValue(contentViewController, forKey: "contentViewController")
         activityIndicator.startAnimating()
         
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true) { [weak alertController] in
+            if let alertController = alertController {
+                callback(alertController)
+            }
+        }
     }
     
     func showSpinner(withTitle title: String? = nil, message: String? = nil, callback: @escaping (CWAlertViewController) -> Void) {
