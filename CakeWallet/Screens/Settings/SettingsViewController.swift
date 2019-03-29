@@ -320,40 +320,39 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         let createBackupCellItem = SettingsCellItem(
             title: "Save backup file to other location",
             action: { [weak self] in
-                self?.askToShowBackupPasswordAlert() {
-                    self?.showSpinner(withTitle: "Creating backup") { [weak self] alert in
-                        do {
-                            guard
-                                let password = self?.masterPassword,
-                                let backupService = self?.backupService else {
-                                return
-                            }
-                            
-                            
-                            let url = try backupService.exportToTmpFile(withPassword: password)
-                            
-                            alert.dismiss(animated: true) {
-                                let activityViewController = UIActivityViewController(
-                                    activityItems: [url],
-                                    applicationActivities: nil)
-                                activityViewController.excludedActivityTypes = [
-                                    UIActivityType.message, UIActivityType.mail,
-                                    UIActivityType.print, UIActivityType.airDrop]
-                                self?.present(activityViewController, animated: true)
-                            }
-                        } catch {
-                            alert.dismiss(animated: true) {
-                                self?.onBackupSave(error: error)
-                            }
+            self?.askToShowBackupPasswordAlert() {
+                self?.showSpinnerAlert(withTitle: "Creating backup") { [weak self] alert in
+                    do {
+                        guard
+                            let password = self?.masterPassword,
+                            let backupService = self?.backupService else {
+                            return
+                        }
+                        
+                        let url = try backupService.exportToTmpFile(withPassword: password)
+                        
+                        alert.dismiss(animated: true) {
+                            let activityViewController = UIActivityViewController(
+                                activityItems: [url],
+                                applicationActivities: nil)
+                            activityViewController.excludedActivityTypes = [
+                                UIActivityType.message, UIActivityType.mail,
+                                UIActivityType.print, UIActivityType.airDrop]
+                            self?.present(activityViewController, animated: true)
+                        }
+                    } catch {
+                        alert.dismiss(animated: true) {
+                            self?.onBackupSave(error: error)
                         }
                     }
                 }
+            }
         })
         let backupNowCellItem = SettingsCellItem(
             title: "Backup now to iCloud",
             action: { [weak self] in
                 self?.askToShowBackupPasswordAlert() {
-                    self?.showSpinner(withTitle: "Creating backup") { [weak self] alert in
+                    self?.showSpinnerAlert(withTitle: "Creating backup") { [weak self] alert in
                         autoBackup(force: true, handler: { error in
                             alert.dismiss(animated: true) {
                                 guard let error = error else {

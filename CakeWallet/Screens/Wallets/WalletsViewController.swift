@@ -233,8 +233,6 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
         authController.onDismissHandler = onDismissHandler
         authController.handler = { [weak authController, weak self] in
             authController?.dismiss(animated: true) {
-//                self?.showSpinnerAlert(withTitle: title)
-                
                 self?.showSpinnerAlert(withTitle: title) { alert in
                     self?.store.dispatch(WalletActions.load(
                         withName: wallet.name,
