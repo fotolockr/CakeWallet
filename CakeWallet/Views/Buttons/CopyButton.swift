@@ -15,6 +15,6 @@ final class CopyButton: SecondaryButton {
             let text = textHandler?(),
             !text.isEmpty else { return }
         UIPasteboard.general.string = text
-        alertPresenter?.showInfo(title: NSLocalizedString("copied", comment: ""), withDuration: 1, actions: [])
+        alertPresenter?.showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
     }
 }

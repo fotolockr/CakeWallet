@@ -68,7 +68,7 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     
     @objc
     private func copyAction() {
-        showInfo(title: NSLocalizedString("copied", comment: ""), withDuration: 1, actions: [CWAlertAction.okAction])
+        showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,30 +93,31 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
             dismissAction()
             doneHandler?(contact.address)
         } else {
-            var actions = [
-                .cancelAction,
-                CWAlertAction(title: "Copy", handler: { action in
-                    UIPasteboard.general.string = contact.address
-                    action.alertView?.dismiss(animated: true)
-                })
-            ]
+            let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+            let copyAction = UIAlertAction(title: "Copy", style: .default) { _ in
+                UIPasteboard.general.string = contact.address
+            }
+            
+            var actions = [cancelAction, copyAction]
             
             // fixme: hardcoded value .monero,
             // it must be depend on current wallet type or will be removed when send screen will support exchange
             if contact.type == .monero {
-                actions.append(CWAlertAction(title: "Send", handler: { action in
-                    action.alertView?.dismiss(animated: true) {
-                        let sendVC = SendViewController(store: self.store, address: contact.address)
-                        let sendNavigation = UINavigationController(rootViewController: sendVC)
-                        self.present(sendNavigation, animated: true)
-                    }
-                }))
+                let sendAction = UIAlertAction(title: "Send", style: .default) { [weak self] _ in
+                    guard let store = self?.store else { return }
+                    
+                    let sendVC = SendViewController(store: store, address: contact.address)
+                    let sendNavigation = UINavigationController(rootViewController: sendVC)
+                    self?.present(sendNavigation, animated: true)
+                }
+                
+                actions.append(sendAction)
             }
             
-            showInfo(
+            showInfoAlert(
                 title: contact.name,
                 message: contact.address,
-                actions: actions
+                actions: [cancelAction, copyAction]
             )
         }
     }
@@ -146,7 +147,7 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
                 self?.contacts = self?.addressBook.all() ?? []
                 self?.contentView.table.reloadData()
             } catch {
-                self?.showError(error: error)
+                self?.showErrorAlert(error: error)
             }
         }
         

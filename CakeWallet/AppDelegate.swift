@@ -203,24 +203,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     private func setAppearance() {
-//        UITabBar.appearance().backgroundColor = .white
         UITabBar.appearance().layer.borderWidth = 0.0
         UITabBar.appearance().clipsToBounds = true
         UITabBar.appearance().tintColor = .vividBlue
         UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
         
-//        let backImage = UIImage(named: "arrow_back")?.resized(to: CGSize(width: 30, height: 15))
-        
         UINavigationBar.appearance().tintColor = .black
-//        UINavigationItem
-//        UINavigationBar.appearance()
-        
-//        UINavigationBar.appearance().backIndicatorImage = backImage
-//        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
-//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
-//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .highlighted)
-
-//        UINavigationBar.appearance().backItem?.title = ""
         UINavigationBar.appearance().backgroundColor = .clear
         
         UINavigationBar.appearance().isTranslucent = true
@@ -237,7 +225,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let filename = url.lastPathComponent
-        let restore = CWAlertAction(title: "Restore") { action in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+        let restore = UIAlertAction(title: "Restore", style: .default) { action in
             let alert = UIAlertController(title: "Restore from backup", message: "Enter password", preferredStyle: .alert)
             
             alert.addTextField { textField in
@@ -249,7 +238,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 
-                UIApplication.topViewController()?.showSpinner(withTitle: "Restoring from backup", callback: { [weak self] spinner in
+                UIApplication.topViewController()?.showSpinnerAlert(withTitle: "Restoring from backup") { [weak self] spinner in
                     do {
                         let backup = BackupServiceImpl()
                         try backup.import(from: url, withPassword: password)
@@ -267,7 +256,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     case let .changedError(_error) = action,
                                     let error = _error {
                                     spinner.dismiss(animated: true) {
-                                        UIApplication.topViewController()?.showError(error: error)
+                                        UIApplication.topViewController()?.showErrorAlert(error: error)
                                     }
                                     return
                                 }
@@ -284,20 +273,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         })
                     } catch {
                         spinner.dismiss(animated: true) {
-                            UIApplication.topViewController()?.showError(error: error)
+                            UIApplication.topViewController()?.showErrorAlert(error: error)
                         }
                     }
-                })
+                }
             }))
             
-            action.alertView?.dismiss(animated: true) {
+            alert.dismiss(animated: true) {
                 UIApplication.topViewController()?.present(alert, animated: true)
             }
         }
-        UIApplication.topViewController()?.showInfo(
+        UIApplication.topViewController()?.showInfoAlert(
             title: "Restore from backup",
             message: "Are you sure that want to restore the app from backup - \(filename)",
-            actions: [.cancelAction, restore])
+            actions: [cancelAction, restore])
         return true
     }
 }

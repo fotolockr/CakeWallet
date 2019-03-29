@@ -379,7 +379,7 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
             }
         }
         
-        showInfo(title: NSLocalizedString("transaction_created", comment: ""), actions: [okAction])
+        showOKInfoAlert(title: NSLocalizedString("transaction_created", comment: ""))
     }
     
     private func createTransaction(_ handler: (() -> Void)? = nil) {

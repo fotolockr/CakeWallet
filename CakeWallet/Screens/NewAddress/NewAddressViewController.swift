@@ -71,7 +71,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
                 try addressBoook.addOrUpdate(contact: contact)
                 navigationController?.popViewController(animated: true)
             } catch {
-                showInfo(title: "Error has occurred, please try again", actions: [CWAlertAction.okAction])
+                showOKInfoAlert(title: "Error has occurred, please try again")
             }
         }
     }

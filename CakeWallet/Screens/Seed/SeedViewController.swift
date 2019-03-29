@@ -92,7 +92,7 @@ final class SeedViewController: BaseViewController<SeedView>, StoreSubscriber {
     
     @objc
     private func copyAction() {
-        showInfo(title: NSLocalizedString("copied", comment: ""), withDuration: 1, actions: [])
+        showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
         UIPasteboard.general.string = seed
     }
     

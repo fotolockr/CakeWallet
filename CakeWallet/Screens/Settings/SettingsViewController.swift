@@ -356,7 +356,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                         autoBackup(force: true, handler: { error in
                             alert.dismiss(animated: true) {
                                 guard let error = error else {
-                                    self?.showInfo(title: "Backup uploaded", message: "Backup is uploaded to your iCloud", actions: [.okAction])
+                                    self?.showOKInfoAlert(title: "Backup uploaded", message: "Backup is uploaded to your iCloud")
                                     return
                                 }
                                 

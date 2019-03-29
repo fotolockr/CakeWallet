@@ -51,7 +51,7 @@ final class RecoverFromSeedViewCntroller: BaseViewController<RecoverFromSeedView
                             self?.done()
                         case let .failed(error):
                             self?.contentView.doneButton.hideLoading()
-                            self?.showError(error: error, actions: [CWAlertAction.cancelAction])
+                            self?.showErrorAlert(error: error)
                         }
                     }
                 )

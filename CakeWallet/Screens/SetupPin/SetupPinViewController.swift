@@ -77,7 +77,7 @@ final class SetupPinViewController: BaseViewController<BaseFlexView> {
                 
                 this.showInfoAlert(title: NSLocalizedString("pin_setup_success", comment: ""), actions: [okAction])
             } else {
-                this.showError(title: NSLocalizedString("incorrect_pin", comment: ""))
+                this.showErrorAlert(error: NSError(domain: "com.fotolockr.cakewallet.randomerror", code: 0, userInfo: [NSLocalizedDescriptionKey : NSLocalizedString("incorrect_pin", comment: "")]) )
                 this.pinCodeViewController.contentView.titleLabel.text = NSLocalizedString("create_pin", comment: "")
                 this.rememberedPin = []
                 this.pinCodeViewController.cleanPin()

@@ -1122,7 +1122,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             crypto: receiveCrypto.value)
         let amount = isXMRTO ? receiveAmount : depositAmount
         
-        showSpinner(withTitle: NSLocalizedString("create_exchange", comment: "")) { alert in
+        showSpinnerAlert(withTitle: NSLocalizedString("create_exchange", comment: "")) { alert in
             if isXMRTO {
                 self.exchangeActionCreators.createTradeXMRTO(amount: amount, address: outputAddress) { result in
                     alert.dismiss(animated: true) { [weak self] in
@@ -1144,7 +1144,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
                             self?.present(alert, animated: true)
                         case let .failed(error):
                             this.store.dispatch(ApplicationState.Action.changedError(error))
-                            this.showError(error: error)
+                            this.showErrorAlert(error: error)
                         }
                     }
                 }
@@ -1168,7 +1168,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
                         self?.present(alert, animated: true)
                     case let .failed(error):
                         self?.store.dispatch(ApplicationState.Action.changedError(error))
-                        self?.showError(error: error)
+                        self?.showErrorAlert(error: error)
                     }
                 }
             }

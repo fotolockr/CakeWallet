@@ -9,11 +9,7 @@ final class TermsViewController: BaseViewController<TermsView> {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showInfo(
-            title: NSLocalizedString("terms", comment: ""),
-            message: NSLocalizedString("terms_accepting_message", comment: ""),
-            actions: [CWAlertAction.okAction]
-        )
+        showOKInfoAlert(title: NSLocalizedString("terms", comment: ""), message: NSLocalizedString("terms_accepting_message", comment: ""))
     }
     
     private func loadAndDisplayDocument() {

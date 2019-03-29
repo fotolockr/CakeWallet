@@ -24,6 +24,6 @@ final class MiniCopyButton: SecondaryButton {
             let text = textField?.text,
             !text.isEmpty else { return }
         UIPasteboard.general.string = text
-        alertPresenter?.showInfo(title: NSLocalizedString("copied", comment: ""), withDuration: 1, actions: [])
+        alertPresenter?.showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), duration: 1)
     }
 }

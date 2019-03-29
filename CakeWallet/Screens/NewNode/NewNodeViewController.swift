@@ -46,7 +46,7 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
                 return
         }
 
-        showSpinner(withTitle: NSLocalizedString("saving", comment: ""), callback: { alert in
+        showSpinnerAlert(withTitle: NSLocalizedString("saving", comment: "")) { alert in
             let uri = "\(address):\(port)"
             
             let nodeDescription = MoneroNodeDescription(
@@ -62,13 +62,13 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
                             self?.navigationController?.popViewController(animated: true)
                         }
                     })
-                    self?.showInfo(title: NSLocalizedString("saved", comment: ""), actions: [okAction])
+                    self?.showOKInfoAlert(title: NSLocalizedString("saved", comment: ""))
                 }
             } catch {
                 alert.dismiss(animated: true) { [weak self] in
-                    self?.showError(error: error)
+                    self?.showErrorAlert(error: error)
                 }
             }
-        })
+        }
     }
 }

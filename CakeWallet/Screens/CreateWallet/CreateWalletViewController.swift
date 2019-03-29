@@ -61,7 +61,7 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
                         case let .success(seed):
                             self?.showSeed(seed)
                         case let .failed(error):
-                            self?.showError(error: error)
+                            self?.showErrorAlert(error: error)
                         }
                     }
                 }

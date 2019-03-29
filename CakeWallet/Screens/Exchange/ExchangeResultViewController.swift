@@ -160,23 +160,6 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
             + amunt.currency.formatted()
         contentView.amountLabel.boldSubstring(NSLocalizedString("amount", comment: ""))
     }
-
-    
-//    func updateMinAmount(with minAmunt: Amount) {
-//        contentView.minAmountLabel.text = NSLocalizedString("min", comment: "")
-//        + ": "
-//        + minAmunt.formatted()
-//        + " "
-//        + minAmunt.currency.formatted()
-//    }
-//
-//    func updateMaxAmount(with maxAmount: Amount) {
-//        contentView.maxAmountLabel.text = NSLocalizedString("max", comment: "")
-//            + ": "
-//            + maxAmount.formatted()
-//            + " "
-//            + maxAmount.currency.formatted()
-//    }
     
     func updateAddress(with address: String) {
         contentView.addressLabel.text = address
@@ -259,8 +242,6 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         
         updateID(with: trade.id)
         updateAmount(with: amount)
-//        updateMinAmount(with: trade.min)
-//        updateMaxAmount(with: trade.max)
         updateAddress(with: trade.inputAddress)
         updateQR(address: trade.inputAddress, paymentID: trade.paymentId, amount: trade.value)
         updateTrade(trade: trade)
@@ -334,25 +315,24 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
     }
     
     private func showTimeoutAlert() {
-        let okAction = CWAlertAction(title:  NSLocalizedString("Ok", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.navigationController?.popViewController(animated: true)
-            }
+        let okAction = UIAlertAction(title:  NSLocalizedString("Ok", comment: ""), style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
         }
-        showInfo(title: "Timeout", message: "Trade timed out", actions: [okAction])
+        
+        showInfoAlert(title: "Timeout", message: "Trade timed out", actions: [okAction])
     }
     
     private func onTransactionCreating() {
-        let sendAction = CWAlertAction(title: NSLocalizedString("send", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.createTransaction()
-            }
+        let sendAction = UIAlertAction(title: NSLocalizedString("send", comment: ""), style: .default) { [weak self] _ in
+            self?.createTransaction()
         }
         
-        showInfo(
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+        
+        showInfoAlert(
             title: NSLocalizedString("creating_transaction", comment: ""),
             message: NSLocalizedString("confirm_sending", comment: ""),
-            actions: [sendAction, CWAlertAction.cancelAction]
+            actions: [cancelAction, sendAction]
         )
     }
     
@@ -364,21 +344,17 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
             + "\n" + NSLocalizedString("fee", comment: "")
             + ": " + MoneroAmountParser.formatValue(description.fee.value)
         
-        let commitAction = CWAlertAction(title: NSLocalizedString("Ok", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.commit(pendingTransaction: pendingTransaction)
-            }
+        
+        let commitAction = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default) { [weak self] _ in
+            self?.commit(pendingTransaction: pendingTransaction)
         }
         
-        let cancelAction = CWAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.store.dispatch(
-                    TransactionsState.Action.changedSendingStage(.none)
-                )
-            }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { [weak self] _ in
+            guard let store = self?.store else { return }
+            store.dispatch(TransactionsState.Action.changedSendingStage(.none))
         }
         
-        showInfo(title: NSLocalizedString("confirm_sending", comment: ""), message: message, actions: [commitAction, cancelAction])
+        showInfoAlert(title: NSLocalizedString("confirm_sending", comment: ""), message: message, actions: [cancelAction, commitAction])
     }
     
     private func commit(pendingTransaction: PendingTransaction) {
@@ -392,7 +368,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
             transactionID = ""
         }
         
-        showSpinner(withTitle: NSLocalizedString("creating_transaction", comment: "")) { [weak self, transactionID] alert in
+        showSpinnerAlert(withTitle: NSLocalizedString("creating_transaction", comment: "")) { [weak self, transactionID] alert in
             self?.store.dispatch(
                 WalletActions.commit(
                     transaction: pendingTransaction,
@@ -408,7 +384,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
                                         transactionID: transactionID)
                                 }
                             case let .failed(error):
-                                self?.showError(error: error)
+                                self?.showErrorAlert(error: error)
                                 break
                             }
                         }
@@ -418,14 +394,12 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
     }
     
     private func onTransactionCommited() {
-        let okAction = CWAlertAction(title: NSLocalizedString("Ok", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.contentView.confirmButton.isHidden = true
-                self?.sent = true
-            }
+        let okAction = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default) { [weak self] _ in
+            self?.contentView.confirmButton.isHidden = true
+            self?.sent = true
         }
         
-        showInfo(title: NSLocalizedString("transaction_created", comment: ""), actions: [okAction])
+        showInfoAlert(title: NSLocalizedString("transaction_created", comment: ""), actions: [okAction])
     }
     
     private func createTransaction(_ handler: (() -> Void)? = nil) {
@@ -433,7 +407,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         let navController = UINavigationController(rootViewController: authController)
         authController.handler = { [weak self] in
             authController.dismiss(animated: true) {
-                self?.showSpinner(withTitle: NSLocalizedString("creating_transaction", comment: ""), callback: { alert in
+                self?.showSpinnerAlert(withTitle: NSLocalizedString("creating_transaction", comment: ""), callback: { alert in
                     guard
                         let priority = self?.store.state.settingsState.transactionPriority,
                         let address = self?.store.state.exchangeState.trade?.inputAddress
@@ -461,7 +435,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
                                     case let .success(pendingTransaction):
                                         self?.onTransactionCreated(pendingTransaction)
                                     case let .failed(error):
-                                        self?.showError(error: error)
+                                        self?.showErrorAlert(error: error)
                                         break
                                     }
                                 }

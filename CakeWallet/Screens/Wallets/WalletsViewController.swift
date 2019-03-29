@@ -232,6 +232,8 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
         let navController = UINavigationController(rootViewController: authController)
         authController.onDismissHandler = onDismissHandler
         authController.handler = { [weak authController, weak self] in
+            let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+            
             authController?.dismiss(animated: true) {
                 self?.showSpinnerAlert(withTitle: title) { alert in
                     self?.store.dispatch(WalletActions.load(
@@ -240,7 +242,7 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
                         handler: {
                             alert.dismiss(animated: true) {
                                 if  let error = self?.store.state.error {
-                                    self?.showInfo(title: nil, message: error.localizedDescription, actions: [CWAlertAction.cancelAction])
+                                    self?.showInfoAlert(title: nil, message: error.localizedDescription, actions: [cancelAction])
                                     return
                                 }
 
@@ -274,7 +276,7 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
                 
             } catch {
                 print(error)
-                self?.showError(error: error)
+                self?.showErrorAlert(error: error)
             }
         }
         
@@ -352,16 +354,16 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
     }
     
     private func askToRemove(wallet: WalletIndex) {
-        let removeAction = CWAlertAction(title: NSLocalizedString("remove", comment: "")) { alert in
-            alert.alertView?.dismiss(animated: true) {
-                self.remove(wallet: wallet)
-            }
+        let removeAction = UIAlertAction(title: NSLocalizedString("remove", comment: ""), style: .default) { _ in
+            self.remove(wallet: wallet)
         }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
         
-        showInfo(
+        showInfoAlert(
             title: NSLocalizedString("remove", comment: "").capitalized,
             message: String(format: NSLocalizedString("ask_to_remove_message", comment: ""), wallet.name),
-            actions: [removeAction, CWAlertAction.cancelAction])
+            actions: [removeAction, cancelAction]
+        )
     }
     
     private func remove(wallet: WalletIndex) {
@@ -373,21 +375,21 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
                 let title = NSLocalizedString("removing_wallet", comment: "")
                     + " - "
                     + wallet.name
-                self?.showSpinner(withTitle: title, callback: { alert in
+                self?.showSpinnerAlert(withTitle: title) { alert in
                     do {
                         let gateway = MoneroWalletGateway()
                         try gateway.remove(withName: wallet.name)
                         alert.dismiss(animated: true)
                     } catch {
                         alert.dismiss(animated: true) {
-                            self?.showError(error: error)
+                            self?.showErrorAlert(error: error)
                         }
                     }
                     
                     self?.store.dispatch(
                         WalletsActions.fetchWallets
                     )
-                })
+                }
             }
         }
         
