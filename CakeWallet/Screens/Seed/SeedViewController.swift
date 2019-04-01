@@ -14,11 +14,9 @@ final class SeedViewController: BaseViewController<SeedView>, StoreSubscriber {
             contentView.titleLabel.text = walletName
         }
     }
-//    private var walletActions: WalletGatewayActions?
     
     init(store: Store<ApplicationState>?, doneFlag: Bool = false) {
         self.store = store
-//        self.walletActions = walletActions
         self.date = Date()
         self.seed = ""
         self.doneFlag = doneFlag
@@ -38,9 +36,7 @@ final class SeedViewController: BaseViewController<SeedView>, StoreSubscriber {
         title = NSLocalizedString("seed", comment: "")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, yyyy"
-//        if let date = date {
-//            contentView.dateLabel.text = dateFormatter.string(from: date)
-//        }
+
         contentView.titleLabel.text = walletName
         contentView.seedLabel.text = seed
         contentView.desciptionLabel.text = NSLocalizedString("seed_disclaimer", comment: "")
