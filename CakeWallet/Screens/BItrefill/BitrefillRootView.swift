@@ -1,6 +1,7 @@
 import UIKit
 import FlexLayout
 
+
 final class BitrefillBaseView: BaseFlexView {
     let table: UITableView
     

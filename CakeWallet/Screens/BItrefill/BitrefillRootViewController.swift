@@ -2,10 +2,10 @@ import UIKit
 import FlexLayout
 
 
-final class BitrefillCategoryTableCell: FlexCell {
+final class BitrefillTableCell: FlexCell {
     let contentHolder = UIView()
     let title = UILabel()
-    var icon = UIImage()
+    let imgView = UIImageView(image: nil)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -13,30 +13,32 @@ final class BitrefillCategoryTableCell: FlexCell {
     
     func configure(title: String, icon: UIImage) {
         self.title.text = title
-        self.icon = icon
+        
         self.title.flex.markDirty()
         contentView.flex.layout()
+        
+        imgView.image = icon
     }
     
     override func configureView() {
         super.configureView()
         
-        title.font = applyFont(ofSize: 16)
+        title.font = applyFont(ofSize: 17)
         selectionStyle = .none
     }
     
     override func configureConstraints() {
         contentHolder.flex
             .direction(.row)
-            .justifyContent(.spaceBetween)
+            .justifyContent(.start)
             .alignItems(.center)
             .width(100%)
-            .height(60)
-            .paddingHorizontal(10)
+            .height(62)
+            .paddingHorizontal(25)
             .backgroundColor(.white)
             .define{ flex in
-                flex.addItem(UIImageView(image: icon)).width(30).height(30)
-                flex.addItem(title)
+                flex.addItem(imgView).width(35).height(35)
+                flex.addItem(title).marginLeft(30)
         }
         
         contentView.flex
@@ -50,7 +52,7 @@ final class BitrefillCategoryTableCell: FlexCell {
 }
 
 
-struct BitrefillCategory {
+struct BitrefillTableItem {
     let title: String
     let icon: UIImage
     
@@ -60,30 +62,29 @@ struct BitrefillCategory {
     }
 }
 
-extension BitrefillCategory: CellItem {
-    func setup(cell: BitrefillCategoryTableCell) {
+extension BitrefillTableItem: CellItem {
+    func setup(cell: BitrefillTableCell) {
         cell.configure(title: title, icon: icon)
     }
 }
 
 
 final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, UITableViewDelegate, UITableViewDataSource {
+    weak var bitrefillFlow: BitrefillFlow?
     var items = [
-        BitrefillCategory(title: "Prepaid phones", icon: UIImage(named: "bitrefill_mobile_icon")!),
-//        BitrefillCategory(title: "Data bundles", iconName: "bitrefill_mobile_icon"),
-//        BitrefillCategory(title: "Phone refill vouchers / PINs", iconName: "bitrefill_mobile_icon"),
-//        BitrefillCategory(title: "Ecommerce", iconName: "bitrefill_mobile_icon"),
-//        BitrefillCategory(title: "Games", iconName: "bitrefill_mobile_icon"),
-//        BitrefillCategory(title: "Travel", iconName: "bitrefill_mobile_icon"),
-//        BitrefillCategory(title: "VoIP", iconName: "bitrefill_mobile_icon"),
-//        BitrefillCategory(title: "Food", iconName: "bitrefill_mobile_icon"),
-//        BitrefillCategory(title: "Other products", iconName: "bitrefill_mobile_icon"),
-//        BitrefillCategory(title: "Digital Television (DTH)", iconName: "bitrefill_mobile_icon")
+        BitrefillTableItem(title: "Prepaid phones", icon: UIImage(named: "bitrefill_mobile_icon")!),
+        BitrefillTableItem(title: "Data bundles", icon: UIImage(named: "bitrefill_data_icon")!),
+        BitrefillTableItem(title: "Phone refill vouchers / PINs", icon: UIImage(named: "bitrefill_mobile_icon")!),
+        BitrefillTableItem(title: "Ecommerce", icon: UIImage(named: "bitrefill_ecommerce_icon")!),
+        BitrefillTableItem(title: "Games", icon: UIImage(named: "bitrefill_games_icon")!),
+        BitrefillTableItem(title: "Travel", icon: UIImage(named: "bitrefill_travel_icon")!),
+        BitrefillTableItem(title: "VoIP", icon: UIImage(named: "bitrefill_voip_icon")!),
+        BitrefillTableItem(title: "Food", icon: UIImage(named: "bitrefill_food_icon")!)
     ]
     
-    override init() {
+    init(bitrefillFlow: BitrefillFlow?) {
+        self.bitrefillFlow = bitrefillFlow
         super.init()
-        
         tabBarItem = UITabBarItem(
             title: "Bitrefill",
             image: UIImage(named: "bitrefill_icon")?.resized(to: CGSize(width: 24, height: 24)).withRenderingMode(.alwaysOriginal),
@@ -94,11 +95,11 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     override func configureBinds() {
         super.configureBinds()
         
-        title = "Bitrefill"
+        title = "Category"
         
         contentView.table.delegate = self
         contentView.table.dataSource = self
-        contentView.table.register(items: [BitrefillCategory.self])
+        contentView.table.register(items: [BitrefillTableItem.self])
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,5 +113,9 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        bitrefillFlow?.change(route: .productList)
     }
 }
