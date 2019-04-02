@@ -96,6 +96,7 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
         super.configureBinds()
         
         title = "Category"
+        tabBarItem.title = "Bitrefill" // Fixme: Hardcoded and duplicated value.
         
         contentView.table.delegate = self
         contentView.table.dataSource = self
