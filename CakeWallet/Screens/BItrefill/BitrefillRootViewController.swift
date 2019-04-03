@@ -1,5 +1,7 @@
 import UIKit
 import FlexLayout
+import SwiftyJSON
+import Alamofire
 
 
 final class BitrefillTableCell: FlexCell {
@@ -90,6 +92,29 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
             image: UIImage(named: "bitrefill_icon")?.resized(to: CGSize(width: 24, height: 24)).withRenderingMode(.alwaysOriginal),
             selectedImage: UIImage(named: "bitrefill_selected_icon")?.resized(to: CGSize(width: 24, height: 24)).withRenderingMode(.alwaysOriginal)
         )
+    }
+    
+    override func viewDidLoad() {
+        let url = URLComponents(string: "https://www.bitrefill.com/api/widget/country/GH")!
+        
+        Alamofire.request(url, method: .get).responseData(completionHandler: { response in
+            guard let data = response.data else {
+                return
+            }
+            
+            let json = JSON(data)
+            
+//            guard let results = json["data"].array else {
+//                return
+//            }
+            
+            print(json)
+            print("------------")
+            print("-------------------")
+            print("-------------------")
+            print("-------------------")
+            print("-------------------")
+        })
     }
     
     override func configureBinds() {
