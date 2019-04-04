@@ -321,6 +321,9 @@
 		D1886AEB2222DDFF00A46E9E /* RestoreRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1886AEA2222DDFF00A46E9E /* RestoreRootView.swift */; };
 		D1886AED2222DE0E00A46E9E /* RestoreRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1886AEC2222DE0E00A46E9E /* RestoreRootVC.swift */; };
 		D194985C2236BCC60075565B /* ExchangeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D194985B2236BCC60075565B /* ExchangeCardView.swift */; };
+		D1B7EA9B2255FDF30064A0DC /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B7EA9A2255FDF30064A0DC /* JSON.swift */; };
+		D1B7EA9E225610790064A0DC /* BitrefillCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B7EA9D225610790064A0DC /* BitrefillCategory.swift */; };
+		D1B7EAA1225611980064A0DC /* BitrefillProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B7EAA0225611980064A0DC /* BitrefillProduct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -796,6 +799,9 @@
 		D1886AEA2222DDFF00A46E9E /* RestoreRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreRootView.swift; sourceTree = "<group>"; };
 		D1886AEC2222DE0E00A46E9E /* RestoreRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreRootVC.swift; sourceTree = "<group>"; };
 		D194985B2236BCC60075565B /* ExchangeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeCardView.swift; sourceTree = "<group>"; };
+		D1B7EA9A2255FDF30064A0DC /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		D1B7EA9D225610790064A0DC /* BitrefillCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillCategory.swift; sourceTree = "<group>"; };
+		D1B7EAA0225611980064A0DC /* BitrefillProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillProduct.swift; sourceTree = "<group>"; };
 		DF8D71357842AFE3FDCA691E /* Pods-CakeWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		DFAE49FFDFBAD955397A6FF1 /* Pods-CakeWalletLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWalletLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWalletLib/Pods-CakeWalletLib.debug.xcconfig"; sourceTree = "<group>"; };
 		F3BA9289B966EEF23CDA77D9 /* Pods_CakeWalletLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CakeWalletLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1378,6 +1384,7 @@
 				D15BDBF422205129006320E0 /* Font.swift */,
 				A5178DE6222EBCAF00EC4829 /* AdaptiveLayout.swift */,
 				0C5C8AB8223FD28100BC6E34 /* amountForDisplayFormatted.swift */,
+				D1B7EA9A2255FDF30064A0DC /* JSON.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1577,6 +1584,8 @@
 		A57072B1224E45C500FF7F59 /* BItrefill */ = {
 			isa = PBXGroup;
 			children = (
+				D1B7EA9F2256117E0064A0DC /* BitrefillProduct */,
+				D1B7EA9C225610650064A0DC /* BitrefillCategory */,
 				D108C98B22536E5E00B1BD23 /* BitrefillOrder */,
 				D105AA372253571C0043F0E3 /* BitrefillProductList */,
 				A57072B6224E4F4A00FF7F59 /* BitrefillRootViewController.swift */,
@@ -1769,6 +1778,22 @@
 				D194985B2236BCC60075565B /* ExchangeCardView.swift */,
 			);
 			path = ExchangeCardView;
+			sourceTree = "<group>";
+		};
+		D1B7EA9C225610650064A0DC /* BitrefillCategory */ = {
+			isa = PBXGroup;
+			children = (
+				D1B7EA9D225610790064A0DC /* BitrefillCategory.swift */,
+			);
+			path = BitrefillCategory;
+			sourceTree = "<group>";
+		};
+		D1B7EA9F2256117E0064A0DC /* BitrefillProduct */ = {
+			isa = PBXGroup;
+			children = (
+				D1B7EAA0225611980064A0DC /* BitrefillProduct.swift */,
+			);
+			path = BitrefillProduct;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2144,7 +2169,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
@@ -2189,7 +2214,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2335,6 +2360,7 @@
 				6413ACCF20E9454F004922AD /* BalanceState.swift in Sources */,
 				A591C677224112DF0051A4FE /* RecoverCardView.swift in Sources */,
 				64EBA5EB20F3A77E00997824 /* SubaddressesHandlers.swift in Sources */,
+				D1B7EAA1225611980064A0DC /* BitrefillProduct.swift in Sources */,
 				6A5A922620CFC635009B4C9A /* OnWalletChangeEffect.swift in Sources */,
 				6A36FD2420BAE43900B3502E /* NewWalletView.swift in Sources */,
 				64BEB644210CDBF200B63D67 /* ChangeLanguageView.swift in Sources */,
@@ -2405,6 +2431,7 @@
 				64C28A602104E7C000327509 /* AddressView.swift in Sources */,
 				6A6B0C0B20BEFC8D004B5DFF /* WalletsViewController.swift in Sources */,
 				643062D720ED35A500853394 /* BalanceHandlers.swift in Sources */,
+				D1B7EA9B2255FDF30064A0DC /* JSON.swift in Sources */,
 				A5178DFA2231365D00EC4829 /* LoadingButton.swift in Sources */,
 				64F8AB2E20EA449B00C59254 /* UIImage+resized.swift in Sources */,
 				64FBC8412124758D00EFC474 /* NewNodeView.swift in Sources */,
@@ -2464,6 +2491,7 @@
 				6A5EDC0720D5A24C00D24840 /* RescanView.swift in Sources */,
 				64F8AB3820EA995700C59254 /* String+slice.swift in Sources */,
 				64F8AB2420EA210A00C59254 /* WalletHandlers.swift in Sources */,
+				D1B7EA9E225610790064A0DC /* BitrefillCategory.swift in Sources */,
 				6AAF1EA620B6047C000E4E02 /* ReceiveView.swift in Sources */,
 				6AAF1E9E20B60345000E4E02 /* CardView.swift in Sources */,
 				640A2AAA2176209E0047E60C /* Queue.swift in Sources */,

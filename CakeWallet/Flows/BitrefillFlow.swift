@@ -3,8 +3,6 @@ import UIKit
 final class BitrefillFlow {
     enum Route {
         case root
-        case productList
-//        case order
     }
     
     var rootController: UIViewController {
@@ -40,10 +38,6 @@ final class BitrefillFlow {
         switch route {
         case .root:
             return BitrefillBaseViewController(bitrefillFlow: self)
-        case .productList:
-            return BitrefillProductListViewController(bitrefillFlow: self)
-//        case .order:
-//            return BitrefillOrderViewController()
         }
     }
 }

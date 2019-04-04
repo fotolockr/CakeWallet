@@ -1,10 +1,10 @@
 import UIKit
 
 final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView> {
-    init(product: BitrefillTableItem) {
+    init(product: BitrefillProduct) {
         super.init()
-        contentView.productName.text = product.title
-        contentView.productImage.image = product.icon
+        contentView.productName.text = product.name
+//        contentView.productImage.image = product.icon
     }
     
     override func configureBinds() {

@@ -143,7 +143,7 @@ public:
         member = new MoneroWalletAdapterMember();
         member->wallet = wallet;
         member->listener = listener;
-        Monero::WalletManagerFactory::setLogLevel(1);
+        Monero::WalletManagerFactory::setLogLevel(-1);
     }
     
     return self;

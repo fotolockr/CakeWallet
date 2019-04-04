@@ -1,9 +1,11 @@
-//
-//  JSON.swift
-//  CakeWallet
-//
-//  Created by Sergey Lypko on 4/4/19.
-//  Copyright © 2019 Mykola Misiura. All rights reserved.
-//
+import SwiftyJSON
 
-import Foundation
+public protocol JSONRepresentable {
+    func makeJSON() throws -> JSON
+}
+
+public protocol JSONInitializable {
+    init(json: JSON) throws
+}
+
+public protocol JSONConvertible: JSONRepresentable, JSONInitializable {}

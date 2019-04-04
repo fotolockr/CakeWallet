@@ -4,89 +4,16 @@ import SwiftyJSON
 import Alamofire
 
 
-final class BitrefillTableCell: FlexCell {
-    let contentHolder = UIView()
-    let title = UILabel()
-    let imgView = UIImageView(image: nil)
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
-    func configure(title: String, icon: UIImage) {
-        self.title.text = title
-        
-        self.title.flex.markDirty()
-        contentView.flex.layout()
-        
-        imgView.image = icon
-    }
-    
-    override func configureView() {
-        super.configureView()
-        
-        title.font = applyFont(ofSize: 17)
-        selectionStyle = .none
-    }
-    
-    override func configureConstraints() {
-        contentHolder.flex
-            .direction(.row)
-            .justifyContent(.start)
-            .alignItems(.center)
-            .width(100%)
-            .height(62)
-            .paddingHorizontal(25)
-            .backgroundColor(.white)
-            .define{ flex in
-                flex.addItem(imgView).width(35).height(35)
-                flex.addItem(title).marginLeft(30)
-        }
-        
-        contentView.flex
-            .width(100%)
-            .height(80)
-            .backgroundColor(Theme.current.container.background)
-            .define{ flex in
-                flex.addItem(contentHolder)
-        }
-    }
-}
-
-
-struct BitrefillTableItem {
-    let title: String
-    let icon: UIImage
-    
-    init(title: String, icon: UIImage) {
-        self.title = title
-        self.icon = icon
-    }
-}
-
-extension BitrefillTableItem: CellItem {
-    func setup(cell: BitrefillTableCell) {
-        cell.configure(title: title, icon: icon)
-    }
-}
-
-
 final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, UITableViewDelegate, UITableViewDataSource {
     weak var bitrefillFlow: BitrefillFlow?
-    var items = [
-        BitrefillTableItem(title: "Prepaid phones", icon: UIImage(named: "bitrefill_mobile_icon")!),
-        BitrefillTableItem(title: "Data bundles", icon: UIImage(named: "bitrefill_data_icon")!),
-        BitrefillTableItem(title: "Phone refill vouchers / PINs", icon: UIImage(named: "bitrefill_mobile_icon")!),
-        BitrefillTableItem(title: "Ecommerce", icon: UIImage(named: "bitrefill_ecommerce_icon")!),
-        BitrefillTableItem(title: "Games", icon: UIImage(named: "bitrefill_games_icon")!),
-        BitrefillTableItem(title: "Travel", icon: UIImage(named: "bitrefill_travel_icon")!),
-        BitrefillTableItem(title: "VoIP", icon: UIImage(named: "bitrefill_voip_icon")!),
-        BitrefillTableItem(title: "Food", icon: UIImage(named: "bitrefill_food_icon")!)
-    ]
+    var bitrefillProducts = [BitrefillProduct]()
+    var bitrefillCategories = [BitrefillCategory]()
     
     init(bitrefillFlow: BitrefillFlow?) {
         self.bitrefillFlow = bitrefillFlow
+        
         super.init()
+        
         tabBarItem = UITabBarItem(
             title: "Bitrefill",
             image: UIImage(named: "bitrefill_icon")?.resized(to: CGSize(width: 24, height: 24)).withRenderingMode(.alwaysOriginal),
@@ -95,25 +22,36 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     }
     
     override func viewDidLoad() {
-        let url = URLComponents(string: "https://www.bitrefill.com/api/widget/country/GH")!
+        fetchBitrefillData()
+    }
+    
+    private func fetchBitrefillData(forCountry country: String = "US") {
+        let url = URLComponents(string: "https://www.bitrefill.com/api/widget/country/\(country)")!
         
-        Alamofire.request(url, method: .get).responseData(completionHandler: { response in
-            guard let data = response.data else {
-                return
+        Alamofire.request(url, method: .get).responseData(completionHandler: { [weak self] response in
+            guard let data = response.data else { return }
+            let operatorsList = JSON(data)["operators"]
+            var countrySpecificCategories = Set<BitrefillCategoryType>()
+            
+            for (_, subJson):(String, JSON) in operatorsList {
+                if let categoryType = BitrefillCategoryType(rawValue: subJson["type"].stringValue) {
+                    countrySpecificCategories.insert(categoryType)
+                }
+                
+                do {
+                    let product = try BitrefillProduct(json: subJson)
+                    self?.bitrefillProducts.append(product)
+                } catch {
+                    print("Couldn't fetch bitrefill products")
+                }
             }
             
-            let json = JSON(data)
+            self?.bitrefillCategories = countrySpecificCategories.map({(categoryType: BitrefillCategoryType) -> BitrefillCategory in
+                return BitrefillCategory(name: categoryType.categoryName, type: categoryType, icon: categoryType.categoryIcon)
+            })
             
-//            guard let results = json["data"].array else {
-//                return
-//            }
-            
-            print(json)
-            print("------------")
-            print("-------------------")
-            print("-------------------")
-            print("-------------------")
-            print("-------------------")
+            self?.contentView.table.reloadData()
+            self?.contentView.loaderHolder.isHidden = true
         })
     }
     
@@ -125,15 +63,15 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
         
         contentView.table.delegate = self
         contentView.table.dataSource = self
-        contentView.table.register(items: [BitrefillTableItem.self])
+        contentView.table.register(items: [BitrefillCategory.self])
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return bitrefillCategories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = items[indexPath.row]
+        let item = bitrefillCategories[indexPath.row]
         return tableView.dequeueReusableCell(withItem: item, for: indexPath)
     }
     
@@ -142,6 +80,14 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        bitrefillFlow?.change(route: .productList)
+        let selectedCategoryType = bitrefillCategories[indexPath.row].type
+        let products = self.bitrefillProducts
+        let categoryProducts = products.filter { $0.type == selectedCategoryType.rawValue }
+        
+        let ProductListVC = BitrefillProductListViewController(bitrefillFlow: bitrefillFlow, products: categoryProducts)
+        
+        if categoryProducts.count > 0 {
+            bitrefillFlow?.change(viewController: ProductListVC)
+        }
     }
 }
