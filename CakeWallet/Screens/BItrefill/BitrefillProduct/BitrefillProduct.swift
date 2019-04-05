@@ -4,27 +4,6 @@ import SwiftyJSON
 import Alamofire
 import SwiftSVG
 
-extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: UIViewContentMode = .scaleAspectFit) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else { return }
-            DispatchQueue.main.async() {
-                self.image = image
-            }
-        }.resume()
-    }
-    func downloaded(from link: String, contentMode mode: UIViewContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
-    }
-}
-
 
 final class BitrefillProductTableCell: FlexCell {
     private static let imageSize = CGSize(width: 35, height: 35)
@@ -126,7 +105,8 @@ struct BitrefillProduct: Codable, JSONInitializable {
         return String(
             format: "https://www.bitrefill.com/content/cn/b_rgb:%@,c_pad,d_operator.png,h_35,w_35/%@",
             backgroud,
-            name)
+            name
+        )
     }
     
     let type: String

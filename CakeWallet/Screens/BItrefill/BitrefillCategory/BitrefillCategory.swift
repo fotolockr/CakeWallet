@@ -3,16 +3,16 @@ import FlexLayout
 
 
 public enum BitrefillCategoryType: String {
-    case refill, games, data, other, travel, lightning, voip, ecommerce, food, pin
+    case refill, games, data, other, travel, lightning, voip, ecommerce, food, pin, dth
     
     var categoryName: String {
         switch self {
         case .refill:
-            return "Refill"
+            return "Prepaid phones"
         case .games:
             return "Games"
         case .data:
-            return "Data"
+            return "Data bundles"
         case .other:
             return "Other"
         case .travel:
@@ -27,6 +27,8 @@ public enum BitrefillCategoryType: String {
             return "Food"
         case .pin:
             return "Phone refill vouchers / PINs"
+        case .dth:
+            return "Digital Television (DTH)"
         }
     }
     
@@ -52,6 +54,35 @@ public enum BitrefillCategoryType: String {
             return UIImage(named: "bitrefill_food_icon")!
         case .pin:
             return UIImage(named: "bitrefill_mobile_icon")!
+        case .dth:
+            return UIImage(named: "bitrefill_data_icon")!
+        }
+    }
+    
+    var categoryOrder: Int {
+        switch self {
+        case .refill:
+            return 1
+        case .data:
+            return 2
+        case .pin:
+            return 3
+        case .ecommerce:
+            return 4
+        case .games:
+            return 5
+        case .travel:
+            return 6
+        case .voip:
+            return 7
+        case .food:
+            return 8
+        case .lightning:
+            return 9
+        case .other:
+            return 10
+        case .dth:
+            return 11
         }
     }
 }

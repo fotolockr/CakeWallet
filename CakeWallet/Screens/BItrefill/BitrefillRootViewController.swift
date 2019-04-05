@@ -46,9 +46,11 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
                 }
             }
             
-            self?.bitrefillCategories = countrySpecificCategories.map({(categoryType: BitrefillCategoryType) -> BitrefillCategory in
+            let categories = countrySpecificCategories.map({(categoryType: BitrefillCategoryType) -> BitrefillCategory in
                 return BitrefillCategory(name: categoryType.categoryName, type: categoryType, icon: categoryType.categoryIcon)
             })
+            
+            self?.bitrefillCategories = categories.sorted { $0.type.categoryOrder < $1.type.categoryOrder }
             
             self?.contentView.table.reloadData()
             self?.contentView.loaderHolder.isHidden = true
@@ -83,8 +85,9 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
         let selectedCategoryType = bitrefillCategories[indexPath.row].type
         let products = self.bitrefillProducts
         let categoryProducts = products.filter { $0.type == selectedCategoryType.rawValue }
+        let sortedCategoryProducts = categoryProducts.sorted{ $0.name < $1.name }
         
-        let ProductListVC = BitrefillProductListViewController(bitrefillFlow: bitrefillFlow, products: categoryProducts)
+        let ProductListVC = BitrefillProductListViewController(bitrefillFlow: bitrefillFlow, products: sortedCategoryProducts)
         
         if categoryProducts.count > 0 {
             bitrefillFlow?.change(viewController: ProductListVC)
