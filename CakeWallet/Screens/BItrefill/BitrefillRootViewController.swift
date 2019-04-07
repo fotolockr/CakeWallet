@@ -22,8 +22,18 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     }
     
     override func viewDidLoad() {
+        var countryWasChosen = false
+        
+        if !countryWasChosen {
+            bitrefillFlow?.change(route: .selectCountry)
+            return
+        }
+        
+
         fetchBitrefillData()
     }
+    
+
     
     private func fetchBitrefillData(forCountry country: String = "US") {
         let url = URLComponents(string: "https://www.bitrefill.com/api/widget/country/\(country)")!

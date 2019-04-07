@@ -38,7 +38,7 @@ final class BitrefillProductListViewController: BaseViewController<BitrefillProd
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let orderVC = BitrefillOrderViewController(product: products[indexPath.row])
         
-        bitrefillFlow?.change(viewController: orderVC)
+//        bitrefillFlow?.change(viewController: orderVC)
     }
 }
 

@@ -318,6 +318,8 @@
 		D15BDBEC22200A9B006320E0 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D15BDBDA22200A62006320E0 /* Lato-Semibold.ttf */; };
 		D15BDBF522205129006320E0 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15BDBF422205129006320E0 /* Font.swift */; };
 		D1631DEC223931E10045ACAF /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1631DEB223931E10045ACAF /* TextField.swift */; };
+		D16A6C892258EB67002CF18D /* SelectCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16A6C882258EB67002CF18D /* SelectCountryView.swift */; };
+		D16A6C8B2258EB94002CF18D /* SelectCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16A6C8A2258EB94002CF18D /* SelectCountryViewController.swift */; };
 		D1886AEB2222DDFF00A46E9E /* RestoreRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1886AEA2222DDFF00A46E9E /* RestoreRootView.swift */; };
 		D1886AED2222DE0E00A46E9E /* RestoreRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1886AEC2222DE0E00A46E9E /* RestoreRootVC.swift */; };
 		D194985C2236BCC60075565B /* ExchangeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D194985B2236BCC60075565B /* ExchangeCardView.swift */; };
@@ -796,6 +798,8 @@
 		D15BDBDA22200A62006320E0 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
 		D15BDBF422205129006320E0 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D1631DEB223931E10045ACAF /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		D16A6C882258EB67002CF18D /* SelectCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountryView.swift; sourceTree = "<group>"; };
+		D16A6C8A2258EB94002CF18D /* SelectCountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountryViewController.swift; sourceTree = "<group>"; };
 		D1886AEA2222DDFF00A46E9E /* RestoreRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreRootView.swift; sourceTree = "<group>"; };
 		D1886AEC2222DE0E00A46E9E /* RestoreRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreRootVC.swift; sourceTree = "<group>"; };
 		D194985B2236BCC60075565B /* ExchangeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeCardView.swift; sourceTree = "<group>"; };
@@ -1584,6 +1588,7 @@
 		A57072B1224E45C500FF7F59 /* BItrefill */ = {
 			isa = PBXGroup;
 			children = (
+				D16A6C872258EB4C002CF18D /* SelectCountry */,
 				D1B7EA9F2256117E0064A0DC /* BitrefillProduct */,
 				D1B7EA9C225610650064A0DC /* BitrefillCategory */,
 				D108C98B22536E5E00B1BD23 /* BitrefillOrder */,
@@ -1761,6 +1766,15 @@
 				A57072B2224E490C00FF7F59 /* Switch.swift */,
 			);
 			path = TextField;
+			sourceTree = "<group>";
+		};
+		D16A6C872258EB4C002CF18D /* SelectCountry */ = {
+			isa = PBXGroup;
+			children = (
+				D16A6C882258EB67002CF18D /* SelectCountryView.swift */,
+				D16A6C8A2258EB94002CF18D /* SelectCountryViewController.swift */,
+			);
+			path = SelectCountry;
 			sourceTree = "<group>";
 		};
 		D1886AE92222DDE900A46E9E /* RestoreRoot */ = {
@@ -2447,6 +2461,7 @@
 				6AAF1EB620B61619000E4E02 /* CreateWalletViewController.swift in Sources */,
 				0CE9690F2204A31B006D6100 /* autoBackup.swift in Sources */,
 				64F8AB3A20EAA2A100C59254 /* TransactionsActions.swift in Sources */,
+				D16A6C892258EB67002CF18D /* SelectCountryView.swift in Sources */,
 				645195D6213181A500F2FE8F /* ReceiveFlow.swift in Sources */,
 				6A5EDC0920D5A25200D24840 /* RescanViewController.swift in Sources */,
 				6A212D9F20DAA2D700CD8594 /* ShowKeysView.swift in Sources */,
@@ -2511,6 +2526,7 @@
 				6A212D9C20DA9DCC00CD8594 /* UpdateEstimatedFeeEffect.swift in Sources */,
 				640A2AA821761DF40047E60C /* Mymonero.swift in Sources */,
 				A5280C3622047ADB00B1AE58 /* TransparentButton.swift in Sources */,
+				D16A6C8B2258EB94002CF18D /* SelectCountryViewController.swift in Sources */,
 				64BEB646210CDBFC00B63D67 /* ChangeLanguageViewController.swift in Sources */,
 				643062D520EC2FAB00853394 /* OnCurrentNodeChangeEffect.swift in Sources */,
 				A5680F4E21FF07B0005956DA /* RecoverFromSeedView.swift in Sources */,
