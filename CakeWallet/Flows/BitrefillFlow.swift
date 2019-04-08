@@ -3,7 +3,7 @@ import UIKit
 final class BitrefillFlow {
     enum Route {
         case selectCountry
-//        case root
+        case root
     }
     
     var rootController: UIViewController {
@@ -15,7 +15,7 @@ final class BitrefillFlow {
     private let navigationController: UINavigationController
     
     convenience init() {
-        let bitrefillViewController = BitrefillBaseViewController(bitrefillFlow: nil)
+        let bitrefillViewController = BitrefillBaseViewController(bitrefillFlow: nil, categories: [], products: [])
         let navigationController = UINavigationController(rootViewController: bitrefillViewController)
         self.init(navigationController: navigationController)
         bitrefillViewController.bitrefillFlow = self
@@ -28,8 +28,13 @@ final class BitrefillFlow {
     func change(route: Route? = nil, viewController: UIViewController? = nil) {
         if let withRoute = route {
             switch withRoute {
+            case .root:
+                navigationController.pushViewController(
+                    BitrefillBaseViewController(bitrefillFlow: self, categories: [], products: []),
+                    animated: true
+                )
             case .selectCountry:
-                let navController = UINavigationController(rootViewController: BitrefillSelectCountryViewController())
+                let navController = UINavigationController(rootViewController: BitrefillSelectCountryViewController(bitrefillFlow: self))
                 presentPopup(navController)
             }
         }

@@ -9,8 +9,12 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     var bitrefillProducts = [BitrefillProduct]()
     var bitrefillCategories = [BitrefillCategory]()
     
-    init(bitrefillFlow: BitrefillFlow?) {
+    var countryWasChosen = false
+    
+    init(bitrefillFlow: BitrefillFlow?, categories: [BitrefillCategory], products: [BitrefillProduct]) {
         self.bitrefillFlow = bitrefillFlow
+        self.bitrefillProducts = products
+        self.bitrefillCategories = categories
         
         super.init()
         
@@ -22,20 +26,15 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     }
     
     override func viewDidLoad() {
-        var countryWasChosen = false
-        
         if !countryWasChosen {
             bitrefillFlow?.change(route: .selectCountry)
             return
         }
         
-
         fetchBitrefillData()
     }
     
-
-    
-    private func fetchBitrefillData(forCountry country: String = "US") {
+    func fetchBitrefillData(forCountry country: String = "US") {
         let url = URLComponents(string: "https://www.bitrefill.com/api/widget/country/\(country)")!
         
         Alamofire.request(url, method: .get).responseData(completionHandler: { [weak self] response in

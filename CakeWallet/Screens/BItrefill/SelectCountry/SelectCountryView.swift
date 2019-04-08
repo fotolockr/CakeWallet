@@ -2,45 +2,48 @@ import UIKit
 import FlexLayout
 
 
-final class BitrefillSelectCountryView: BaseFlexView {
+final class BitrefillSelectCountryView: BaseScrollFlexViewWithBottomSection {
     let welcomeLabel = UILabel(text: "Welcome to Bitrefill in Cake Wallet")
     let descriptionLabel = UILabel(text: "Plese select your country to start using Bitrefill service")
     
     let pickerView = UIPickerView()
-    let textFieldHolder = UIView()
-    let textFieldView = TextField(placeholder: "Select country", fontSize: 18, isTransparent: false)
+    let countryTextFieldHolder = UIView()
+    let countryTextField = TextField(placeholder: "Select country", fontSize: 20, isTransparent: false)
+    
+    let doneButton = PrimaryLoadingButton()
     
     required init() {
-        
- 
         super.init()
     }
     
     override func configureView() {
         super.configureView()
         
-        welcomeLabel.font = applyFont(ofSize: 22, weight: .bold)
+        welcomeLabel.font = applyFont(ofSize: 26, weight: .bold)
         welcomeLabel.numberOfLines = 2
         welcomeLabel.textAlignment = .center
         
-        descriptionLabel.font = applyFont(ofSize: 16)
+        descriptionLabel.font = applyFont(ofSize: 17)
+        descriptionLabel.textColor = UIColor.wildDarkBlue
         descriptionLabel.numberOfLines = 2
         descriptionLabel.textAlignment = .center
         
-        textFieldView.textField.inputView = pickerView
-        textFieldView.borderView.isHidden = true
+        countryTextField.textField.text = "US"
+        countryTextField.textField.inputView = pickerView
+        countryTextField.borderView.isHidden = true
+        
+        doneButton.setTitle("Continue", for: .normal)
     }
     
     override func configureConstraints() {
-        textFieldHolder.layer.cornerRadius = 10
-//        textFieldHolder.layer.borderWidth = 1
+        countryTextFieldHolder.layer.cornerRadius = 10
         
-        textFieldHolder.flex
+        countryTextFieldHolder.flex
             .alignItems(.center)
-            .width(100%).height(65).paddingTop(15).marginTop(50)
+            .width(100%).height(55).paddingTop(15).marginTop(15)
             .backgroundColor(.white)
             .define{ flex in
-                flex.addItem(textFieldView).width(90%)
+                flex.addItem(countryTextField).width(90%)
         }
         
         rootFlexContainer.flex
@@ -48,10 +51,15 @@ final class BitrefillSelectCountryView: BaseFlexView {
             .width(100%).height(100%).padding(30)
             .backgroundColor(.clear)
             .define { flex in
-                flex.addItem(welcomeLabel).marginBottom(10)
+                flex.addItem(welcomeLabel).marginBottom(50)
                 flex.addItem(descriptionLabel)
-                flex.addItem(textFieldHolder).width(100%)
-//                flex.addItem(picker.textFieldView).width(100).height(40).marginTop(25)
+                flex.addItem(countryTextFieldHolder).width(100%)
+        }
+        
+        bottomSectionView.flex
+            .alignItems(.center)
+            .define { flex in
+                flex.addItem(doneButton).width(85%).height(56)
         }
     }
 }
