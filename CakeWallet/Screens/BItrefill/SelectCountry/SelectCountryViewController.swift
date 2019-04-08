@@ -1,21 +1,16 @@
 import UIKit
 
-final class BitrefillSelectCountryViewController: BlurredBaseViewController<BitrefillSelectCountryView> {
+final class BitrefillSelectCountryViewController: BlurredBaseViewController<BitrefillSelectCountryView>, UIPickerViewDelegate, UIPickerViewDataSource {
+    var pickerOptions = ["Ukraine", "United states", "United kingdom", "Poland", "Germany", "Spain", "Portugal"]
+    
     override init() {
         super.init()
     }
     
     override func configureBinds() {
-        title = NSLocalizedString("send", comment: "")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 12, height: 12)))
-        doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
-        doneButton.addTarget(self, action: #selector(dismissAction), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: doneButton)
+        super.configureBinds()
+        contentView.pickerView.delegate = self
+        contentView.pickerView.dataSource = self
     }
     
     @objc
@@ -23,5 +18,21 @@ final class BitrefillSelectCountryViewController: BlurredBaseViewController<Bitr
         dismiss(animated: true) { [weak self] in
             self?.onDismissHandler?()
         }
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerOptions.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerOptions[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        contentView.textFieldView.textField.text = pickerOptions[row]
     }
 }
