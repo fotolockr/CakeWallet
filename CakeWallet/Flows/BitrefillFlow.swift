@@ -1,8 +1,9 @@
 import UIKit
 
-final class BitrefillFlow {
+final class BitrefillFlow: Flow {
     enum Route {
         case selectCountry
+        case productsList([BitrefillProduct])
         case root
     }
     
@@ -11,7 +12,6 @@ final class BitrefillFlow {
     }
     
     var doneHandler: (() -> Void)?
-    
     private let navigationController: UINavigationController
     
     convenience init() {
@@ -25,22 +25,23 @@ final class BitrefillFlow {
         self.navigationController = navigationController
     }
     
-    func change(route: Route? = nil, viewController: UIViewController? = nil) {
-        if let withRoute = route {
-            switch withRoute {
-            case .root:
-                navigationController.pushViewController(
-                    BitrefillBaseViewController(bitrefillFlow: self, categories: [], products: []),
-                    animated: true
-                )
-            case .selectCountry:
-                let navController = UINavigationController(rootViewController: BitrefillSelectCountryViewController(bitrefillFlow: self))
-                presentPopup(navController)
-            }
-        }
-        
-        if let withVC = viewController {
-            navigationController.pushViewController(withVC, animated: true)
+    func change(route: BitrefillFlow.Route) {
+        switch route {
+        case .root:
+            navigationController.pushViewController(
+                BitrefillBaseViewController(bitrefillFlow: self, categories: [], products: []),
+                animated: true
+            )
+        case .selectCountry:
+            let bitrefillSelectCountryViewController = BitrefillSelectCountryViewController(bitrefillFlow: self)
+            bitrefillSelectCountryViewController.delegate = navigationController.viewControllers.first as? BitrefillSelectCountryDelegate
+            let navController = UINavigationController(rootViewController: bitrefillSelectCountryViewController)
+            presentPopup(navController)
+        case let .productsList(list):
+            navigationController.pushViewController(
+                BitrefillProductListViewController(bitrefillFlow: self, products: list),
+                animated: true
+            )
         }
     }
     

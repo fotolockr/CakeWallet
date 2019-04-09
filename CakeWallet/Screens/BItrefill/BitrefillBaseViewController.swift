@@ -5,7 +5,12 @@ import Alamofire
 
 
 final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, UITableViewDelegate, UITableViewDataSource {
+//    func onCountry(selected country: String) {
+//        print("Hello world")
+//    }
+    
     weak var bitrefillFlow: BitrefillFlow?
+//    var selectCountryController: BitrefillSelectCountryViewController?
     var bitrefillProducts = [BitrefillProduct]()
     var bitrefillCategories = [BitrefillCategory]()
     
@@ -96,10 +101,14 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
         let categoryProducts = products.filter { $0.type == selectedCategoryType.rawValue }
         let sortedCategoryProducts = categoryProducts.sorted{ $0.name < $1.name }
         
-        let ProductListVC = BitrefillProductListViewController(bitrefillFlow: bitrefillFlow, products: sortedCategoryProducts)
-        
-        if categoryProducts.count > 0 {
-            bitrefillFlow?.change(viewController: ProductListVC)
+        if sortedCategoryProducts.count > 0 {
+            bitrefillFlow?.change(route: .productsList(categoryProducts))
         }
+    }
+}
+
+extension BitrefillBaseViewController: BitrefillSelectCountryDelegate {
+    func onCountry(selected country: String) {
+        print("COUNTRY FROM IS", country)
     }
 }
