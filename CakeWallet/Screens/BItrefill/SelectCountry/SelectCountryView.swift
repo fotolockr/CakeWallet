@@ -28,7 +28,7 @@ final class BitrefillSelectCountryView: BaseScrollFlexViewWithBottomSection {
         descriptionLabel.numberOfLines = 2
         descriptionLabel.textAlignment = .center
         
-        countryTextField.textField.text = "US"
+        countryTextField.textField.text = BitrefillCountry.us.fullCountryName()
         countryTextField.textField.inputView = pickerView
         countryTextField.borderView.isHidden = true
         

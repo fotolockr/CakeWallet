@@ -2,16 +2,107 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 
-protocol BitrefillSelectCountryDelegate: class {
-    func onCountry(selected country: String)
+
+enum BitrefillCountry: String {
+    case af, ax, al, dz, ad, ao, ai, aq, ar, am, aw, au, at, az, bs, bh, bd, bb, by, be, br, bg, ca, cn, dk,
+    eu, fr, de, mx, ru, us
+    
+    static var all: [BitrefillCountry] {
+        return [
+            .af, .ax, .al, .dz, .ad, .ao, .ai, .aq, .ar, .am, .aw, .au, .at, .az, .bs, .bh, .bd, .bb, .by, .be, .br, .bg, .ca, .cn, .dk,
+            .eu, .fr, .de, ru, .us
+        ]
+    }
+    
+    func fullCountryName() -> String {
+        switch self {
+        case .af: return "Afghanistan"
+        case .ax: return "Aland Islands"
+        case .al: return "Albania"
+        case .dz: return "Algeria"
+        case .ad: return "Andorra"
+        case .ao: return "Angola"
+        case .ai: return "Anguilla"
+        case .aq: return "Antarctica"
+        case .ar: return "Argentina"
+        case .am: return "Armenia"
+        case .aw: return "Aruba"
+        case .au: return "Australia"
+        case .at: return "Austria"
+        case .az: return "Azerbaijan"
+        case .bs: return "Bahams"
+        case .bh: return "Bahrain"
+        case .bd: return "Bangladesh"
+        case .bb: return "Barbados"
+        case .by: return "Belarus"
+        case .be: return "Belgium"
+        case .br: return "Brazil"
+        case .bg: return "Bulgaria"
+        case .ca: return "Canada"
+        case .cn: return "China"
+        case .dk: return "Denmark"
+        case .eu: return "EU"
+        case .fr: return "France"
+        case .de: return "Germany"
+        case .mx: return "Mexico"
+        case .ru: return "Russia"
+        case .us: return "USA"
+        }
+    }
 }
 
-final class BitrefillSelectCountryViewController: BlurredBaseViewController<BitrefillSelectCountryView>, UIPickerViewDelegate, UIPickerViewDataSource {
-    var pickerOptions = ["Ukraine", "United states", "United kingdom", "Poland", "Germany", "Spain", "Portugal"]
+
+protocol BitrefillFetchCountryData: class {
+    func bitrefillFetchCountryData(forCountry: BitrefillCountry, handler: @escaping ([BitrefillCategory], [BitrefillProduct]) -> Void) -> Void
+}
+
+extension BitrefillFetchCountryData {
+    func bitrefillFetchCountryData(forCountry: BitrefillCountry, handler: @escaping ([BitrefillCategory], [BitrefillProduct]) -> Void) -> Void {
+        let url = URLComponents(string: "https://www.bitrefill.com/api/widget/country/\(forCountry.rawValue.uppercased())")!
+        var sortedCategories = [BitrefillCategory]()
+        var products = [BitrefillProduct]()
+        
+        Alamofire.request(url, method: .get).responseData(completionHandler: { response in
+            guard let data = response.data else { return }
+            let operatorsList = JSON(data)["operators"]
+            var countrySpecificCategories = Set<BitrefillCategoryType>()
+            
+            for (_, subJson):(String, JSON) in operatorsList {
+                if let categoryType = BitrefillCategoryType(rawValue: subJson["type"].stringValue) {
+                    countrySpecificCategories.insert(categoryType)
+                }
+                
+                do {
+                    let product = try BitrefillProduct(json: subJson)
+                    products.append(product)
+                } catch {
+                    print("Couldn't fetch bitrefill products")
+                }
+            }
+            
+            let categories = countrySpecificCategories.map({(categoryType: BitrefillCategoryType) -> BitrefillCategory in
+                return BitrefillCategory(name: categoryType.categoryName, type: categoryType, icon: categoryType.categoryIcon)
+            })
+            
+            sortedCategories = categories.sorted { $0.type.categoryOrder < $1.type.categoryOrder }
+            
+            handler(sortedCategories, products)
+        })
+    }
+}
+
+
+protocol BitrefillSelectCountryDelegate: class {
+    func dataFromCountrySelect(categories: [BitrefillCategory], products: [BitrefillProduct])
+}
+
+
+final class BitrefillSelectCountryViewController: BlurredBaseViewController<BitrefillSelectCountryView>, UIPickerViewDelegate, UIPickerViewDataSource, BitrefillFetchCountryData {
+
     weak var bitrefillFlow: BitrefillFlow?
     weak var delegate: BitrefillSelectCountryDelegate?
+    var selectedCountry: BitrefillCountry = .us
 
-    
     init(bitrefillFlow: BitrefillFlow?) {
         self.bitrefillFlow = bitrefillFlow
         
@@ -27,51 +118,18 @@ final class BitrefillSelectCountryViewController: BlurredBaseViewController<Bitr
     
     @objc
     func omSubmit() {
-//        contentView.doneButton.showLoading()
+        contentView.doneButton.showLoading()
         
-        delegate?.onCountry(selected: "Awesome country")
-        
-//        let url = URLComponents(string: "https://www.bitrefill.com/api/widget/country/US")!
-//        var products = [BitrefillProduct]()
-//
-//        Alamofire.request(url, method: .get).responseData(completionHandler: { [weak self] response in
-//            guard let data = response.data else { return }
-//            let operatorsList = JSON(data)["operators"]
-//            var countrySpecificCategories = Set<BitrefillCategoryType>()
-//
-//            for (_, subJson):(String, JSON) in operatorsList {
-//                if let categoryType = BitrefillCategoryType(rawValue: subJson["type"].stringValue) {
-//                    countrySpecificCategories.insert(categoryType)
-//                }
-//
-//                do {
-//                    let product = try BitrefillProduct(json: subJson)
-//                    products.append(product)
-//                } catch {
-//                    print("Couldn't fetch bitrefill products")
-//                }
-//            }
-//
-//            let categories = countrySpecificCategories.map({(categoryType: BitrefillCategoryType) -> BitrefillCategory in
-//                return BitrefillCategory(name: categoryType.categoryName, type: categoryType, icon: categoryType.categoryIcon)
-//            })
-//
-//            let sortedCategories = categories.sorted { $0.type.categoryOrder < $1.type.categoryOrder }
-//
-////            self?.contentView.doneButton.hideLoading()
-//
-//            self?.delegate?.onCountry(selected: "Awesome country")
-//
-//
-////            self?.dismissAction()
-//        })
-    }
-    
-    @objc
-    private func dismissAction() {
-        dismiss(animated: true) { [weak self] in
-            self?.onDismissHandler?()
-        }
+        bitrefillFetchCountryData(forCountry: selectedCountry, handler: { [weak self] categories, products in
+            self?.delegate?.dataFromCountrySelect(categories: categories, products: products)
+            self?.contentView.doneButton.hideLoading()
+            
+            UserDefaults.standard.set(self?.selectedCountry.rawValue, forKey: Configurations.DefaultsKeys.bitrefillSelectedCountry)
+            
+            self?.dismiss(animated: true) { () -> Void in
+                self?.onDismissHandler?()
+            }
+        })
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -79,14 +137,16 @@ final class BitrefillSelectCountryViewController: BlurredBaseViewController<Bitr
     }
     
     func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerOptions.count
+        return BitrefillCountry.all.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerOptions[row]
+        return BitrefillCountry.all[row].fullCountryName()
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        contentView.countryTextField.textField.text = pickerOptions[row]
+        selectedCountry = BitrefillCountry.all[row]
+        contentView.countryTextField.textField.text = BitrefillCountry.all[row].fullCountryName()
     }
 }
+

@@ -4,17 +4,10 @@ import SwiftyJSON
 import Alamofire
 
 
-final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, UITableViewDelegate, UITableViewDataSource {
-//    func onCountry(selected country: String) {
-//        print("Hello world")
-//    }
-    
+final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, BitrefillFetchCountryData, UITableViewDelegate, UITableViewDataSource {
     weak var bitrefillFlow: BitrefillFlow?
-//    var selectCountryController: BitrefillSelectCountryViewController?
-    var bitrefillProducts = [BitrefillProduct]()
     var bitrefillCategories = [BitrefillCategory]()
-    
-    var countryWasChosen = false
+    var bitrefillProducts = [BitrefillProduct]()
     
     init(bitrefillFlow: BitrefillFlow?, categories: [BitrefillCategory], products: [BitrefillProduct]) {
         self.bitrefillFlow = bitrefillFlow
@@ -31,44 +24,20 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     }
     
     override func viewDidLoad() {
-        if !countryWasChosen {
+        guard let selectedCountry = UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.bitrefillSelectedCountry) else {
             bitrefillFlow?.change(route: .selectCountry)
             return
         }
         
-        fetchBitrefillData()
-    }
-    
-    func fetchBitrefillData(forCountry country: String = "US") {
-        let url = URLComponents(string: "https://www.bitrefill.com/api/widget/country/\(country)")!
-        
-        Alamofire.request(url, method: .get).responseData(completionHandler: { [weak self] response in
-            guard let data = response.data else { return }
-            let operatorsList = JSON(data)["operators"]
-            var countrySpecificCategories = Set<BitrefillCategoryType>()
-            
-            for (_, subJson):(String, JSON) in operatorsList {
-                if let categoryType = BitrefillCategoryType(rawValue: subJson["type"].stringValue) {
-                    countrySpecificCategories.insert(categoryType)
-                }
+        if let country = BitrefillCountry(rawValue: selectedCountry) {
+            bitrefillFetchCountryData(forCountry: country, handler: { [weak self] categories, products in
+                self?.bitrefillCategories = categories
+                self?.bitrefillProducts = products
                 
-                do {
-                    let product = try BitrefillProduct(json: subJson)
-                    self?.bitrefillProducts.append(product)
-                } catch {
-                    print("Couldn't fetch bitrefill products")
-                }
-            }
-            
-            let categories = countrySpecificCategories.map({(categoryType: BitrefillCategoryType) -> BitrefillCategory in
-                return BitrefillCategory(name: categoryType.categoryName, type: categoryType, icon: categoryType.categoryIcon)
+                self?.contentView.table.reloadData()
+                self?.contentView.loaderHolder.isHidden = true
             })
-            
-            self?.bitrefillCategories = categories.sorted { $0.type.categoryOrder < $1.type.categoryOrder }
-            
-            self?.contentView.table.reloadData()
-            self?.contentView.loaderHolder.isHidden = true
-        })
+        }
     }
     
     override func configureBinds() {
@@ -108,7 +77,11 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
 }
 
 extension BitrefillBaseViewController: BitrefillSelectCountryDelegate {
-    func onCountry(selected country: String) {
-        print("COUNTRY FROM IS", country)
+    func dataFromCountrySelect(categories: [BitrefillCategory], products: [BitrefillProduct]) {
+        bitrefillCategories = categories
+        bitrefillProducts = products
+        
+        contentView.loaderHolder.isHidden = true
+        contentView.table.reloadData()
     }
 }
