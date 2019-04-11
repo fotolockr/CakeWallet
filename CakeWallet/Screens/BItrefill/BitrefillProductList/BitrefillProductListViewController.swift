@@ -1,7 +1,6 @@
 import UIKit
 
 
-
 final class BitrefillProductListViewController: BaseViewController<BitrefillProductListView>, UITableViewDelegate, UITableViewDataSource {
     weak var bitrefillFlow: BitrefillFlow?
     var products = [BitrefillProduct]()
@@ -36,9 +35,15 @@ final class BitrefillProductListViewController: BaseViewController<BitrefillProd
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let orderVC = BitrefillOrderViewController(product: products[indexPath.row])
+        let selectedProduct = products[indexPath.row]
+        let order = BitrefillOrder(
+            operatorSlug: selectedProduct.slug,
+            isRanged: selectedProduct.isRanged,
+            recipientType: selectedProduct.recipientType,
+            currency: selectedProduct.currency
+        )
         
-//        bitrefillFlow?.change(viewController: orderVC)
+        bitrefillFlow?.change(route: .order(order))
     }
 }
 

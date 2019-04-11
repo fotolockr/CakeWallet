@@ -1,10 +1,12 @@
 import UIKit
 
+
 final class BitrefillFlow: Flow {
     enum Route {
+        case root
         case selectCountry
         case productsList([BitrefillProduct])
-        case root
+        case order(BitrefillOrder)
     }
     
     var rootController: UIViewController {
@@ -40,6 +42,11 @@ final class BitrefillFlow: Flow {
         case let .productsList(list):
             navigationController.pushViewController(
                 BitrefillProductListViewController(bitrefillFlow: self, products: list),
+                animated: true
+            )
+        case let .order(order):
+            navigationController.pushViewController(
+                BitrefillOrderViewController(order: order),
                 animated: true
             )
         }

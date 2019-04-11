@@ -5,7 +5,7 @@ public protocol JSONRepresentable {
 }
 
 public protocol JSONInitializable {
-    init(json: JSON) throws
+    init(json: JSON)
 }
 
 public protocol JSONConvertible: JSONRepresentable, JSONInitializable {}

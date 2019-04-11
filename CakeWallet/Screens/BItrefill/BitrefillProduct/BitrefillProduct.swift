@@ -111,13 +111,19 @@ struct BitrefillProduct: Codable, JSONInitializable {
     
     let type: String
     let slug: String
+    let isRanged: Bool
     let name: String
     let logoImageURL: String
+    let recipientType: String
+    let currency: String
     
-    init(json: JSON) throws {
+    init(json: JSON) {
         type = json["type"].stringValue
         slug = json["slug"].stringValue
+        isRanged = json["isRanged"].boolValue
+        recipientType = json["recipientType"].stringValue
         name = json["name"].stringValue
+        currency = json["currency"].stringValue
         let logoBackground = String(json["logoBackground"].stringValue.dropFirst())
         logoImageURL = BitrefillProduct.urlForLogo(
             withName: json["logoBaseImage"].stringValue,

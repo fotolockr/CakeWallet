@@ -71,7 +71,7 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
         let sortedCategoryProducts = categoryProducts.sorted{ $0.name < $1.name }
         
         if sortedCategoryProducts.count > 0 {
-            bitrefillFlow?.change(route: .productsList(categoryProducts))
+            bitrefillFlow?.change(route: .productsList(sortedCategoryProducts))
         }
     }
 }

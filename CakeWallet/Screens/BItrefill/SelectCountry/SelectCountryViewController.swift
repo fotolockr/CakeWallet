@@ -72,12 +72,8 @@ extension BitrefillFetchCountryData {
                     countrySpecificCategories.insert(categoryType)
                 }
                 
-                do {
-                    let product = try BitrefillProduct(json: subJson)
-                    products.append(product)
-                } catch {
-                    print("Couldn't fetch bitrefill products")
-                }
+                let product = BitrefillProduct(json: subJson)
+                products.append(product)
             }
             
             let categories = countrySpecificCategories.map({(categoryType: BitrefillCategoryType) -> BitrefillCategory in

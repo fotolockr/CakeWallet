@@ -18,7 +18,7 @@ final class BitrefillSelectCountryView: BaseScrollFlexViewWithBottomSection {
     
     override func configureView() {
         super.configureView()
-        
+    
         welcomeLabel.font = applyFont(ofSize: 26, weight: .bold)
         welcomeLabel.numberOfLines = 2
         welcomeLabel.textAlignment = .center
