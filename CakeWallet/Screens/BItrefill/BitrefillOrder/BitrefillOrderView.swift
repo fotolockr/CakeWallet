@@ -7,6 +7,7 @@ final class BitrefillOrderView: BaseFlexView {
     let productHolder: UIView
     
     let cardView: CardView
+    let phoneNumerTextField: TextField
     let amountTextField: TextField
     let limitsHolder: UIView
     let minLimitLabel: UILabel
@@ -15,7 +16,7 @@ final class BitrefillOrderView: BaseFlexView {
     let paymentMethodTextField: TextField
     let payButton: PrimaryButton
     
-//    let amountPickerView = UIPickerView()
+    let amountPickerView = UIPickerView()
     let paymentMethodPickerView = UIPickerView()
     
     required init() {
@@ -25,12 +26,13 @@ final class BitrefillOrderView: BaseFlexView {
         
         cardView = CardView()
         amountTextField = TextField(placeholder: "Amount", isTransparent: false)
+        phoneNumerTextField = TextField(placeholder: "Phone number", isTransparent: false)
         limitsHolder = UIView()
         minLimitLabel = UILabel(text: "Min: 000")
         maxLimitLabel = UILabel(text: "Max: 000")
         emailTextField = TextField(placeholder: "Email address", isTransparent: false)
         paymentMethodTextField = TextField(placeholder: "Payment method", isTransparent: false)
-        payButton = PrimaryButton(title: "Pay", font: applyFont(weight: .semibold))
+        payButton = PrimaryButton(title: "Submit", font: applyFont(weight: .semibold))
         
         super.init()
     }
@@ -38,13 +40,14 @@ final class BitrefillOrderView: BaseFlexView {
     override func configureView() {
         super.configureView()
         
-//        amountPickerView.tag = 50
+        amountPickerView.tag = 50
         paymentMethodPickerView.tag = 60
         paymentMethodTextField.textField.inputView = paymentMethodPickerView
         paymentMethodTextField.textField.text = BitrefillPaymentMethod.monero.optionFullName()
         
         amountTextField.textField.keyboardType = .decimalPad
         emailTextField.textField.keyboardType = .emailAddress
+        phoneNumerTextField.textField.keyboardType = .phonePad
         
         minLimitLabel.font = applyFont(ofSize: 13)
         minLimitLabel.textColor = UIColor.wildDarkBlue
@@ -55,12 +58,14 @@ final class BitrefillOrderView: BaseFlexView {
     override func configureConstraints() {
         productHolder.flex
             .direction(.row)
-            .justifyContent(.spaceBetween)
+//            .justifyContent(.spaceBetween)
+            .justifyContent(.center)
             .alignItems(.center)
             .width(100%)
+            .paddingHorizontal(25)
             .define{ flex in
-                flex.addItem(productImage).width(75).height(75)
-                flex.addItem(productName).width(100%).marginLeft(25)
+//                flex.addItem(productImage).width(60).height(60)
+                flex.addItem(productName).width(100%)// .marginLeft(25)
         }
         
         limitsHolder.flex
@@ -74,19 +79,20 @@ final class BitrefillOrderView: BaseFlexView {
         
         cardView.flex
             .width(90%)
-            .padding(35, 25, 35, 25)
+            .padding(30, 25, 30, 25)
             .define{ flex in
-                flex.addItem(productHolder).marginBottom(35)
+                flex.addItem(productHolder).marginBottom(30)
+                flex.addItem(phoneNumerTextField).marginBottom(30)
                 flex.addItem(amountTextField).width(100%).marginBottom(5)
-                flex.addItem(limitsHolder).width(50%).marginBottom(35)
-                flex.addItem(emailTextField).width(100%).marginBottom(35)
+                flex.addItem(limitsHolder).width(50%).marginBottom(30)
+                flex.addItem(emailTextField).width(100%).marginBottom(30)
                 flex.addItem(paymentMethodTextField).width(100%)
         }
         
         rootFlexContainer.flex
             .justifyContent(.spaceBetween)
             .alignItems(.center)
-            .padding(20, 0, 30, 0)
+            .padding(25, 0, 45, 0)
             .define{ flex in
                 flex.addItem(cardView)
                 flex.addItem(payButton).width(90%).height(56)

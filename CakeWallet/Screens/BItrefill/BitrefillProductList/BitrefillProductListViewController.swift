@@ -37,6 +37,7 @@ final class BitrefillProductListViewController: BaseViewController<BitrefillProd
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedProduct = products[indexPath.row]
         let order = BitrefillOrder(
+            name: selectedProduct.name,
             operatorSlug: selectedProduct.slug,
             isRanged: selectedProduct.isRanged,
             recipientType: selectedProduct.recipientType,
