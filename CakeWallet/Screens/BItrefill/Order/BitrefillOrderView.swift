@@ -14,7 +14,7 @@ final class BitrefillOrderView: BaseFlexView {
     let maxLimitLabel: UILabel
     let emailTextField: TextField
     let paymentMethodTextField: TextField
-    let payButton: PrimaryLoadingButton
+    let submitButton: PrimaryLoadingButton
     
     let amountPickerView = UIPickerView()
     let paymentMethodPickerView = UIPickerView()
@@ -32,14 +32,14 @@ final class BitrefillOrderView: BaseFlexView {
         maxLimitLabel = UILabel(text: "Max: 000")
         emailTextField = TextField(placeholder: "Email address", fontSize: 17, isTransparent: false)
         paymentMethodTextField = TextField(placeholder: "Payment method", fontSize: 17, isTransparent: false)
-        payButton = PrimaryLoadingButton()
+        submitButton = PrimaryLoadingButton()
         
         super.init()
     }
     
     override func configureView() {
         super.configureView()
-        payButton.setTitle("Submit", for: .normal)
+        submitButton.setTitle("Submit", for: .normal)
         
         amountPickerView.tag = 50
         paymentMethodPickerView.tag = 60
@@ -48,6 +48,7 @@ final class BitrefillOrderView: BaseFlexView {
         
         amountTextField.textField.keyboardType = .decimalPad
         emailTextField.textField.keyboardType = .emailAddress
+        emailTextField.textField.autocapitalizationType = .none
         phoneNumerTextField.textField.keyboardType = .phonePad
         
         minLimitLabel.font = applyFont(ofSize: 11)
@@ -96,7 +97,7 @@ final class BitrefillOrderView: BaseFlexView {
             .padding(25, 0, 25, 0)
             .define{ flex in
                 flex.addItem(cardView)
-                flex.addItem(payButton).width(90%).height(56)
+                flex.addItem(submitButton).width(90%).height(56)
         }
     }
 }

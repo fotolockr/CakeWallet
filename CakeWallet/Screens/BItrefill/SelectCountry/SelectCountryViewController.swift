@@ -5,12 +5,12 @@ import Alamofire
 
 enum BitrefillCountry: String {
     case af, ax, al, dz, ad, ao, ai, aq, ar, am, aw, au, at, az, bs, bh, bd, bb, by, be, br, bg, ca, cn, dk,
-    eu, fr, de, mx, ru, us
+    eu, fr, de, mx, ua, ru, us
     
     static var all: [BitrefillCountry] {
         return [
             .af, .ax, .al, .dz, .ad, .ao, .ai, .aq, .ar, .am, .aw, .au, .at, .az, .bs, .bh, .bd, .bb, .by, .be, .br, .bg, .ca, .cn, .dk,
-            .eu, .fr, .de, ru, .us
+            .eu, .fr, .de, .ua, ru, .us
         ]
     }
     
@@ -45,6 +45,7 @@ enum BitrefillCountry: String {
         case .fr: return "France"
         case .de: return "Germany"
         case .mx: return "Mexico"
+        case .ua: return "Ukraine"
         case .ru: return "Russia"
         case .us: return "USA"
         }

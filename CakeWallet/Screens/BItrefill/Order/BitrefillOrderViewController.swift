@@ -32,8 +32,15 @@ struct FinalBitrefillOrder: JSONRepresentable {
     let valuePackage: String
     let email: String
     let paymentMethod: String
-    let phoneNumber: String?
-    let refundAddress: String?
+    var phoneNumber: String
+//    var refundAddress: String?
+    
+//    init(operatorSlug: String, valuePackage: String, email: String, paymentMethod: String) {
+//        self.operatorSlug = operatorSlug
+//        self.valuePackage = valuePackage
+//        self.email = email
+//        self.paymentMethod = paymentMethod
+//    }
     
     func makeJSON() throws -> JSON {
         return JSON([
@@ -42,7 +49,7 @@ struct FinalBitrefillOrder: JSONRepresentable {
             "email": email,
             "paymentMethod": paymentMethod,
             "number": phoneNumber,
-            "refund_address": refundAddress
+//            "refund_address": refundAddress
         ])
     }
 }
@@ -120,7 +127,7 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
         contentView.paymentMethodPickerView.dataSource = self
         
         contentView.amountTextField.textField.text = order.valuePackage
-        contentView.payButton.addTarget(self, action: #selector(onPayAction), for: .touchUpInside)
+        contentView.submitButton.addTarget(self, action: #selector(onPayAction), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -185,44 +192,69 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
     
     @objc
     func onPayAction() {
-        // TODO: validate email address
-        // TODO: check & validate phone number if recipientType == "phone_number"
-        
-        let order = FinalBitrefillOrder(
-            operatorSlug: "vodafone-ukraine",
-            valuePackage: "10",
-            email: "awesome@gmail.com",
-            paymentMethod: "bitcoin",
-            phoneNumber: "380957932132",
-            refundAddress: "1fdsfjakiwlewkld3845kd8"
-        )
-        
-        do {
-            let orderJSON = try order.makeJSON()
-            let user = "cDNiFIIuUnIMVgdF"
-            let password = "wpobccrxZaJlKQzB"
-            let credentialData = "\(user):\(password)".data(using: String.Encoding.utf8)!
-            let base64Credentials = credentialData.base64EncodedString()
-            let url = URLComponents(string: "https://api.bitrefill.com/v1/order")!
+        if let email = contentView.emailTextField.textField.text,
+            let phoneNumber = contentView.phoneNumerTextField.textField.text,
+            let amountRange = contentView.amountTextField.textField.text {
             
-            var request = URLRequest(url: url.url!)
-            request.addValue("Basic \(base64Credentials)", forHTTPHeaderField: "Authorization")
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = try orderJSON.rawData()
-            
-            Alamofire.request(request).responseJSON { response in
-                guard
-                    let data = response.data,
-                    let json = try? JSON(data: data) else {
-                        return
-                }
-                
-                print("Response data: ", json)
-                print("----------")
+            if order.recipientType == "phone_number" && phoneNumber.count == 0 {
+                showOKInfoAlert(title: "Phone number is empty")
+                return
             }
-        } catch {
-            print(error)
+            
+            if email.count == 0 {
+                showOKInfoAlert(title: "Email is empty")
+                return
+            }
+            
+            do {
+                let finalOrderData = FinalBitrefillOrder(
+                    operatorSlug: order.operatorSlug,
+                    valuePackage: order.isRanged ? amountRange : selectedOrderPackage ?? "",
+                    email: email,
+                    // TODO: hardcoded payment method
+                    paymentMethod: "bitcoin",
+                    phoneNumber: phoneNumber
+                )
+                
+                let orderJSON = try finalOrderData.makeJSON()
+                let user = "cDNiFIIuUnIMVgdF"
+                let password = "wpobccrxZaJlKQzB"
+                let credentialData = "\(user):\(password)".data(using: String.Encoding.utf8)!
+                let base64Credentials = credentialData.base64EncodedString()
+                let url = URLComponents(string: "https://api.bitrefill.com/v1/order")!
+                
+                var request = URLRequest(url: url.url!)
+                request.addValue("Basic \(base64Credentials)", forHTTPHeaderField: "Authorization")
+                request.httpMethod = "POST"
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.httpBody = try orderJSON.rawData()
+                
+                contentView.submitButton.showLoading()
+                
+                Alamofire.request(request).responseJSON { [weak self] response in
+                    self?.contentView.submitButton.hideLoading()
+                    
+                    guard
+                        let data = response.data,
+                        let json = try? JSON(data: data) else {
+                            return
+                    }
+                    
+                    guard response.response?.statusCode == 200 else {
+                        if response.response?.statusCode == 400 {
+                            self?.showOKInfoAlert(title: json["message"].stringValue)
+                        }
+                        
+                        return
+                    }
+                    
+                    
+                    print("SUCCESS: ", json)
+ 
+                }
+            } catch {
+                showErrorAlert(error: error)
+            }
         }
     }
     
