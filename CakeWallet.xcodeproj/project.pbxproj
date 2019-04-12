@@ -1544,6 +1544,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A513E27422608F3B008F2DE5 /* OrderInfo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OrderInfo;
+			sourceTree = "<group>";
+		};
 		A5178DF0222FEA6400EC4829 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -1588,11 +1595,12 @@
 		A57072B1224E45C500FF7F59 /* BItrefill */ = {
 			isa = PBXGroup;
 			children = (
+				A513E27422608F3B008F2DE5 /* OrderInfo */,
 				D16A6C872258EB4C002CF18D /* SelectCountry */,
-				D1B7EA9F2256117E0064A0DC /* BitrefillProduct */,
-				D1B7EA9C225610650064A0DC /* BitrefillCategory */,
-				D108C98B22536E5E00B1BD23 /* BitrefillOrder */,
-				D105AA372253571C0043F0E3 /* BitrefillProductList */,
+				D1B7EA9F2256117E0064A0DC /* Product */,
+				D1B7EA9C225610650064A0DC /* Category */,
+				D108C98B22536E5E00B1BD23 /* Order */,
+				D105AA372253571C0043F0E3 /* ProductList */,
 				A57072B6224E4F4A00FF7F59 /* BitrefillBaseViewController.swift */,
 				A57072B8224E4F6200FF7F59 /* BitrefillBaseView.swift */,
 			);
@@ -1704,22 +1712,22 @@
 			path = CakeWalletTests;
 			sourceTree = "<group>";
 		};
-		D105AA372253571C0043F0E3 /* BitrefillProductList */ = {
+		D105AA372253571C0043F0E3 /* ProductList */ = {
 			isa = PBXGroup;
 			children = (
 				D105AA38225357310043F0E3 /* BitrefillProductListView.swift */,
 				D105AA3A2253573D0043F0E3 /* BitrefillProductListViewController.swift */,
 			);
-			path = BitrefillProductList;
+			path = ProductList;
 			sourceTree = "<group>";
 		};
-		D108C98B22536E5E00B1BD23 /* BitrefillOrder */ = {
+		D108C98B22536E5E00B1BD23 /* Order */ = {
 			isa = PBXGroup;
 			children = (
 				D108C98C22536E7600B1BD23 /* BitrefillOrderView.swift */,
 				D108C98E22536E8100B1BD23 /* BitrefillOrderViewController.swift */,
 			);
-			path = BitrefillOrder;
+			path = Order;
 			sourceTree = "<group>";
 		};
 		D14B7D3722371838005B11A3 /* Buttons */ = {
@@ -1794,20 +1802,20 @@
 			path = ExchangeCardView;
 			sourceTree = "<group>";
 		};
-		D1B7EA9C225610650064A0DC /* BitrefillCategory */ = {
+		D1B7EA9C225610650064A0DC /* Category */ = {
 			isa = PBXGroup;
 			children = (
 				D1B7EA9D225610790064A0DC /* BitrefillCategory.swift */,
 			);
-			path = BitrefillCategory;
+			path = Category;
 			sourceTree = "<group>";
 		};
-		D1B7EA9F2256117E0064A0DC /* BitrefillProduct */ = {
+		D1B7EA9F2256117E0064A0DC /* Product */ = {
 			isa = PBXGroup;
 			children = (
 				D1B7EAA0225611980064A0DC /* BitrefillProduct.swift */,
 			);
-			path = BitrefillProduct;
+			path = Product;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

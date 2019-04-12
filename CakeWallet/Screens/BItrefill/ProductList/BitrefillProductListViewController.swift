@@ -13,7 +13,6 @@ final class BitrefillProductListViewController: BaseViewController<BitrefillProd
     
     override func configureBinds() {
         super.configureBinds()
-        
         title = "Product"
         
         contentView.table.delegate = self
@@ -34,6 +33,7 @@ final class BitrefillProductListViewController: BaseViewController<BitrefillProd
         return 80
     }
     
+    // TODO: don't create order yet
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedProduct = products[indexPath.row]
         let order = BitrefillOrder(

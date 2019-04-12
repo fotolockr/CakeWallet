@@ -27,6 +27,27 @@ struct BitrefillOrder {
 }
 
 
+struct FinalBitrefillOrder: JSONRepresentable {
+    let operatorSlug: String
+    let valuePackage: String
+    let email: String
+    let paymentMethod: String
+    let phoneNumber: String?
+    let refundAddress: String?
+    
+    func makeJSON() throws -> JSON {
+        return JSON([
+            "operatorSlug": operatorSlug,
+            "valuePackage": valuePackage,
+            "email": email,
+            "paymentMethod": paymentMethod,
+            "number": phoneNumber,
+            "refund_address": refundAddress
+        ])
+    }
+}
+
+
 struct BitrefillOrderPackage: JSONInitializable {
     let value: String
     let eurPrice: Float
@@ -62,7 +83,7 @@ enum BitrefillPaymentMethod {
     
     func optionFullName() -> String {
         switch self {
-        case .monero: return "Monero (xmr -> btc)"
+        case .monero: return "Monero (XMR -> BTC)"
         case .lightning: return "Lightning"
         case .lightningLtc: return "Lightning LTC"
         case .bitcoin: return "Bitcoin"
@@ -78,7 +99,6 @@ enum BitrefillPaymentMethod {
 final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>, UIPickerViewDelegate, UIPickerViewDataSource {
     var order: BitrefillOrder
     var selectedPaymentMethod: BitrefillPaymentMethod
-    
     var orderPackages: [BitrefillOrderPackage]?
     var selectedOrderPackage: String?
     
@@ -91,16 +111,14 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
     
     override func configureBinds() {
         super.configureBinds()
+        title = "Order"
         
         contentView.productName.text = order.name
-        
         contentView.amountPickerView.delegate = self
         contentView.amountPickerView.dataSource = self
-        
         contentView.paymentMethodPickerView.delegate = self
         contentView.paymentMethodPickerView.dataSource = self
-    
-        title = "Order"
+        
         contentView.amountTextField.textField.text = order.valuePackage
         contentView.payButton.addTarget(self, action: #selector(onPayAction), for: .touchUpInside)
     }
@@ -121,8 +139,15 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
         fetchProductDetails(for: order.operatorSlug)
     }
     
+    // TODO: slipt with separate functions (move to -> ?)
     func fetchProductDetails(for productSlug: String) {
         let url = "https://www.bitrefill.com/api/widget/product/\(productSlug)"
+        
+        // TODO: failure handler
+//        if let error = response.error {
+//            handler(.failed(error))
+//            return
+//        }
         
         Alamofire.request(url, method: .get).responseData(completionHandler: { [weak self] response in
             guard let data = response.data else { return }
@@ -160,7 +185,45 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
     
     @objc
     func onPayAction() {
-        print(order)
+        // TODO: validate email address
+        // TODO: check & validate phone number if recipientType == "phone_number"
+        
+        let order = FinalBitrefillOrder(
+            operatorSlug: "vodafone-ukraine",
+            valuePackage: "10",
+            email: "awesome@gmail.com",
+            paymentMethod: "bitcoin",
+            phoneNumber: "380957932132",
+            refundAddress: "1fdsfjakiwlewkld3845kd8"
+        )
+        
+        do {
+            let orderJSON = try order.makeJSON()
+            let user = "cDNiFIIuUnIMVgdF"
+            let password = "wpobccrxZaJlKQzB"
+            let credentialData = "\(user):\(password)".data(using: String.Encoding.utf8)!
+            let base64Credentials = credentialData.base64EncodedString()
+            let url = URLComponents(string: "https://api.bitrefill.com/v1/order")!
+            
+            var request = URLRequest(url: url.url!)
+            request.addValue("Basic \(base64Credentials)", forHTTPHeaderField: "Authorization")
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try orderJSON.rawData()
+            
+            Alamofire.request(request).responseJSON { response in
+                guard
+                    let data = response.data,
+                    let json = try? JSON(data: data) else {
+                        return
+                }
+                
+                print("Response data: ", json)
+                print("----------")
+            }
+        } catch {
+            print(error)
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -169,8 +232,6 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
     
     func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 50 {
-//            return 10
-            
             if let packages = orderPackages {
                 return packages.count
             }

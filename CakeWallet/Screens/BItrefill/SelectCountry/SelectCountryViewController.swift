@@ -63,6 +63,11 @@ extension BitrefillFetchCountryData {
         var products = [BitrefillProduct]()
         
         Alamofire.request(url, method: .get).responseData(completionHandler: { response in
+            // TODO: failure handler
+            //        if let error = response.error {
+            //            handler(.failed(error))
+            //            return
+            //        }
             guard let data = response.data else { return }
             let operatorsList = JSON(data)["operators"]
             var countrySpecificCategories = Set<BitrefillCategoryType>()
