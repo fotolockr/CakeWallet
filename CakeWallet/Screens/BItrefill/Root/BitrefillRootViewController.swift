@@ -1,10 +1,8 @@
 import UIKit
 import FlexLayout
-import SwiftyJSON
-import Alamofire
 
 
-final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, BitrefillFetchCountryData, UITableViewDelegate, UITableViewDataSource {
+final class BitrefillRootViewController: BaseViewController<BitrefillRootView>, BitrefillFetchCountryData, UITableViewDelegate, UITableViewDataSource {
     weak var bitrefillFlow: BitrefillFlow?
     var bitrefillCategories = [BitrefillCategory]()
     var bitrefillProducts = [BitrefillProduct]()
@@ -30,7 +28,7 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
         }
         
         if let country = BitrefillCountry(rawValue: selectedCountry) {
-            bitrefillFetchCountryData(forCountry: country, handler: { [weak self] categories, products in
+            bitrefillFetchCountryData(viewController: self, forCountry: country, handler: { [weak self] categories, products in
                 self?.bitrefillCategories = categories
                 self?.bitrefillProducts = products
                 
@@ -44,7 +42,7 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
         super.configureBinds()
         
         title = "Category"
-        tabBarItem.title = "Bitrefill" // Fixme: Hardcoded and duplicated value.
+        tabBarItem.title = "Bitrefill"
         
         contentView.table.delegate = self
         contentView.table.dataSource = self
@@ -76,7 +74,7 @@ final class BitrefillBaseViewController: BaseViewController<BitrefillBaseView>, 
     }
 }
 
-extension BitrefillBaseViewController: BitrefillSelectCountryDelegate {
+extension BitrefillRootViewController: BitrefillSelectCountryDelegate {
     func dataFromCountrySelect(categories: [BitrefillCategory], products: [BitrefillProduct]) {
         bitrefillCategories = categories
         bitrefillProducts = products

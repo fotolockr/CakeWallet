@@ -35,13 +35,6 @@ struct FinalBitrefillOrder: JSONRepresentable {
     var phoneNumber: String
 //    var refundAddress: String?
     
-//    init(operatorSlug: String, valuePackage: String, email: String, paymentMethod: String) {
-//        self.operatorSlug = operatorSlug
-//        self.valuePackage = valuePackage
-//        self.email = email
-//        self.paymentMethod = paymentMethod
-//    }
-    
     func makeJSON() throws -> JSON {
         return JSON([
             "operatorSlug": operatorSlug,
@@ -49,8 +42,26 @@ struct FinalBitrefillOrder: JSONRepresentable {
             "email": email,
             "paymentMethod": paymentMethod,
             "number": phoneNumber,
+            // TODO: refund address
 //            "refund_address": refundAddress
         ])
+    }
+}
+
+
+// TODO: rename
+struct BitrefillOrderInfo: JSONInitializable {
+    let summary: String
+    let address: String
+    let satoshiPrice: Int
+    let expirationTime: Int64
+    
+    init(json: JSON) {
+        summary = json["summary"].stringValue
+        address = json["payment"]["address"].stringValue
+        // TODO: fixed bound with bitcoin
+        satoshiPrice = json["payment"]["satoshiPrice"].intValue
+        expirationTime = json["expirationTime"].int64Value
     }
 }
 
@@ -104,12 +115,14 @@ enum BitrefillPaymentMethod {
 
 
 final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>, UIPickerViewDelegate, UIPickerViewDataSource {
+    weak var bitrefillFlow: BitrefillFlow?
     var order: BitrefillOrder
     var selectedPaymentMethod: BitrefillPaymentMethod
     var orderPackages: [BitrefillOrderPackage]?
     var selectedOrderPackage: String?
     
-    init(order: BitrefillOrder) {
+    init(bitrefillFlow: BitrefillFlow?, order: BitrefillOrder) {
+        self.bitrefillFlow = bitrefillFlow
         self.order = order
         selectedPaymentMethod = .monero
         
@@ -196,13 +209,18 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
             let phoneNumber = contentView.phoneNumerTextField.textField.text,
             let amountRange = contentView.amountTextField.textField.text {
             
+            if order.isRanged && amountRange.count == 0 {
+                showOKInfoAlert(title: "Amount value is empty")
+                return
+            }
+            
             if order.recipientType == "phone_number" && phoneNumber.count == 0 {
                 showOKInfoAlert(title: "Phone number is empty")
                 return
             }
             
             if email.count == 0 {
-                showOKInfoAlert(title: "Email is empty")
+                showOKInfoAlert(title: "Email address is empty")
                 return
             }
             
@@ -248,9 +266,8 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
                         return
                     }
                     
-                    
-                    print("SUCCESS: ", json)
- 
+                    let orderInfo = BitrefillOrderInfo(json: json)
+                    self?.bitrefillFlow?.change(route: .orderInfo(orderInfo))
                 }
             } catch {
                 showErrorAlert(error: error)

@@ -2,7 +2,7 @@ import UIKit
 import FlexLayout
 
 
-final class BitrefillBaseView: BaseFlexView {
+final class BitrefillRootView: BaseFlexView {
     let table: UITableView
     let loaderHolder: UIView
     

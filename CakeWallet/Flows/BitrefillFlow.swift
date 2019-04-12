@@ -7,6 +7,7 @@ final class BitrefillFlow: Flow {
         case selectCountry
         case productsList([BitrefillProduct])
         case order(BitrefillOrder)
+        case orderInfo(BitrefillOrderInfo)
     }
     
     var rootController: UIViewController {
@@ -17,7 +18,7 @@ final class BitrefillFlow: Flow {
     private let navigationController: UINavigationController
     
     convenience init() {
-        let bitrefillViewController = BitrefillBaseViewController(bitrefillFlow: nil, categories: [], products: [])
+        let bitrefillViewController = BitrefillRootViewController(bitrefillFlow: nil, categories: [], products: [])
         let navigationController = UINavigationController(rootViewController: bitrefillViewController)
         self.init(navigationController: navigationController)
         bitrefillViewController.bitrefillFlow = self
@@ -31,7 +32,7 @@ final class BitrefillFlow: Flow {
         switch route {
         case .root:
             navigationController.pushViewController(
-                BitrefillBaseViewController(bitrefillFlow: self, categories: [], products: []),
+                BitrefillRootViewController(bitrefillFlow: self, categories: [], products: []),
                 animated: true
             )
         case .selectCountry:
@@ -39,14 +40,22 @@ final class BitrefillFlow: Flow {
             bitrefillSelectCountryViewController.delegate = navigationController.viewControllers.first as? BitrefillSelectCountryDelegate
             let navController = UINavigationController(rootViewController: bitrefillSelectCountryViewController)
             presentPopup(navController)
+            
         case let .productsList(list):
             navigationController.pushViewController(
                 BitrefillProductListViewController(bitrefillFlow: self, products: list),
                 animated: true
             )
+            
         case let .order(order):
             navigationController.pushViewController(
-                BitrefillOrderViewController(order: order),
+                BitrefillOrderViewController(bitrefillFlow: self, order: order),
+                animated: true
+            )
+            
+        case let .orderInfo(orderInfo):
+            navigationController.pushViewController(
+                BitrefillOrderInfoViewController(orderInfo: orderInfo),
                 animated: true
             )
         }

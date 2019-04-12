@@ -1,7 +1,7 @@
 import UIKit
 import FlexLayout
 
-final class BitrefillOrderView: BaseFlexView {
+final class BitrefillOrderView: BaseScrollFlexViewWithBottomSection {
     var productName: UILabel
     var productImage: UIImageView
     let productHolder: UIView
@@ -92,12 +92,17 @@ final class BitrefillOrderView: BaseFlexView {
         }
         
         rootFlexContainer.flex
-            .justifyContent(.spaceBetween)
             .alignItems(.center)
             .padding(25, 0, 25, 0)
             .define{ flex in
                 flex.addItem(cardView)
-                flex.addItem(submitButton).width(90%).height(56)
+        }
+        
+        bottomSectionView.flex
+            .padding(0, 20, 0, 20)
+            .alignItems(.center)
+            .define { flex in
+                flex.addItem(submitButton).width(100%).height(56)
         }
     }
 }
