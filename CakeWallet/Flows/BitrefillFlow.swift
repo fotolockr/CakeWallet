@@ -56,7 +56,7 @@ final class BitrefillFlow: Flow {
             
         case let .order(orderDetails):
             navigationController.pushViewController(
-                BitrefillOrderViewController(orderDetails: orderDetails),
+                BitrefillOrderViewController(bitrefillFlow: self, orderDetails: orderDetails),
                 animated: true
             )
         }

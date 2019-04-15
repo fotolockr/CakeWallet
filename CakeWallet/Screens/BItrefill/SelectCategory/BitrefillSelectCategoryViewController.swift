@@ -41,6 +41,8 @@ final class BitrefillSelectCategoryViewController: BaseViewController<BitrefillS
     override func configureBinds() {
         super.configureBinds()
         
+        self.navigationItem.setHidesBackButton(true, animated:true)
+        
         title = "Category"
         tabBarItem.title = "Bitrefill"
         

@@ -37,14 +37,6 @@ final class BitrefillProductListViewController: BaseViewController<BitrefillProd
     // TODO: don't create order yet
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedProduct = products[indexPath.row]
-//        let order = BitrefillOrder(
-//            name: selectedProduct.name,
-//            operatorSlug: selectedProduct.slug,
-//            isRanged: selectedProduct.isRanged,
-//            recipientType: selectedProduct.recipientType,
-//            currency: selectedProduct.currency
-//        )
-        
         bitrefillFlow?.change(route: .productDetails(selectedProduct))
     }
 }
