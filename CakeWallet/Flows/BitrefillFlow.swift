@@ -3,11 +3,11 @@ import UIKit
 
 final class BitrefillFlow: Flow {
     enum Route {
-        case root
         case selectCountry
+        case selectCategory
         case productsList([BitrefillProduct])
-        case order(BitrefillOrder)
-        case orderInfo(BitrefillOrderInfo)
+        case productDetails(BitrefillProduct)
+        case order(BitrefillOrderDetails)
     }
     
     var rootController: UIViewController {
@@ -18,10 +18,11 @@ final class BitrefillFlow: Flow {
     private let navigationController: UINavigationController
     
     convenience init() {
-        let bitrefillViewController = BitrefillRootViewController(bitrefillFlow: nil, categories: [], products: [])
-        let navigationController = UINavigationController(rootViewController: bitrefillViewController)
+        let selectCategoryViewController = BitrefillSelectCategoryViewController(bitrefillFlow: nil, categories: [], products: [])
+        let navigationController = UINavigationController(rootViewController: selectCategoryViewController)
+        
         self.init(navigationController: navigationController)
-        bitrefillViewController.bitrefillFlow = self
+        selectCategoryViewController.bitrefillFlow = self
     }
     
     init(navigationController: UINavigationController) {
@@ -30,9 +31,9 @@ final class BitrefillFlow: Flow {
     
     func change(route: BitrefillFlow.Route) {
         switch route {
-        case .root:
+        case .selectCategory:
             navigationController.pushViewController(
-                BitrefillRootViewController(bitrefillFlow: self, categories: [], products: []),
+                BitrefillSelectCategoryViewController(bitrefillFlow: self, categories: [], products: []),
                 animated: true
             )
         case .selectCountry:
@@ -47,15 +48,15 @@ final class BitrefillFlow: Flow {
                 animated: true
             )
             
-        case let .order(order):
+        case let .productDetails(productDetails):
             navigationController.pushViewController(
-                BitrefillOrderViewController(bitrefillFlow: self, order: order),
+                BitrefillProductDetailsViewController(bitrefillFlow: self, productDetails: productDetails),
                 animated: true
             )
             
-        case let .orderInfo(orderInfo):
+        case let .order(orderDetails):
             navigationController.pushViewController(
-                BitrefillOrderInfoViewController(orderInfo: orderInfo),
+                BitrefillOrderViewController(orderDetails: orderDetails),
                 animated: true
             )
         }

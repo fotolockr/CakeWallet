@@ -2,7 +2,7 @@ import UIKit
 import FlexLayout
 
 
-final class BitrefillOrderInfoView: BaseScrollFlexView {
+final class BitrefillOrderView: BaseScrollFlexView {
     let cardView: CardView
     let mainTitleLabel: UILabel
     let secondaryTitleLabel: UILabel

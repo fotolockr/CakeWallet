@@ -2,7 +2,7 @@ import UIKit
 import FlexLayout
 
 
-final class BitrefillRootViewController: BaseViewController<BitrefillRootView>, BitrefillFetchCountryData, UITableViewDelegate, UITableViewDataSource {
+final class BitrefillSelectCategoryViewController: BaseViewController<BitrefillSelectCategoryView>, BitrefillFetchCountryData, UITableViewDelegate, UITableViewDataSource {
     weak var bitrefillFlow: BitrefillFlow?
     var bitrefillCategories = [BitrefillCategory]()
     var bitrefillProducts = [BitrefillProduct]()
@@ -74,7 +74,7 @@ final class BitrefillRootViewController: BaseViewController<BitrefillRootView>, 
     }
 }
 
-extension BitrefillRootViewController: BitrefillSelectCountryDelegate {
+extension BitrefillSelectCategoryViewController: BitrefillSelectCountryDelegate {
     func dataFromCountrySelect(categories: [BitrefillCategory], products: [BitrefillProduct]) {
         bitrefillCategories = categories
         bitrefillProducts = products

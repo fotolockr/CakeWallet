@@ -8,12 +8,13 @@ final class BitrefillProductListViewController: BaseViewController<BitrefillProd
     init(bitrefillFlow: BitrefillFlow?, products: [BitrefillProduct]) {
         self.bitrefillFlow = bitrefillFlow
         self.products = products
+        
         super.init()
     }
     
     override func configureBinds() {
         super.configureBinds()
-        title = "Product"
+        title = "Products"
         
         contentView.table.delegate = self
         contentView.table.dataSource = self
@@ -36,15 +37,15 @@ final class BitrefillProductListViewController: BaseViewController<BitrefillProd
     // TODO: don't create order yet
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedProduct = products[indexPath.row]
-        let order = BitrefillOrder(
-            name: selectedProduct.name,
-            operatorSlug: selectedProduct.slug,
-            isRanged: selectedProduct.isRanged,
-            recipientType: selectedProduct.recipientType,
-            currency: selectedProduct.currency
-        )
+//        let order = BitrefillOrder(
+//            name: selectedProduct.name,
+//            operatorSlug: selectedProduct.slug,
+//            isRanged: selectedProduct.isRanged,
+//            recipientType: selectedProduct.recipientType,
+//            currency: selectedProduct.currency
+//        )
         
-        bitrefillFlow?.change(route: .order(order))
+        bitrefillFlow?.change(route: .productDetails(selectedProduct))
     }
 }
 

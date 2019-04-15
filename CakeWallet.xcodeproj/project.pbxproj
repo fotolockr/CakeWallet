@@ -291,8 +291,8 @@
 		A5680F6021FF3C2F005956DA /* RestoreStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5F21FF3C2F005956DA /* RestoreStateModel.swift */; };
 		A57072B3224E490C00FF7F59 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57072B2224E490C00FF7F59 /* Switch.swift */; };
 		A57072B5224E4B6D00FF7F59 /* BitrefillFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57072B4224E4B6D00FF7F59 /* BitrefillFlow.swift */; };
-		A57072B7224E4F4A00FF7F59 /* BitrefillRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57072B6224E4F4A00FF7F59 /* BitrefillRootViewController.swift */; };
-		A57072B9224E4F6200FF7F59 /* BitrefillRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57072B8224E4F6200FF7F59 /* BitrefillRootView.swift */; };
+		A57072B7224E4F4A00FF7F59 /* BitrefillSelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57072B6224E4F4A00FF7F59 /* BitrefillSelectCategoryViewController.swift */; };
+		A57072B9224E4F6200FF7F59 /* BitrefillSelectCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57072B8224E4F6200FF7F59 /* BitrefillSelectCategoryView.swift */; };
 		A577D40A21EDEFDB00FA1655 /* AddressBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A577D40921EDEFDB00FA1655 /* AddressBookView.swift */; };
 		A577D40C21EDF01100FA1655 /* AddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A577D40B21EDF01100FA1655 /* AddressBookViewController.swift */; };
 		A587BFF62214410000AFDFCB /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A587BFF52214410000AFDFCB /* Contact.swift */; };
@@ -309,8 +309,8 @@
 		CF597971B2D04B48B3BA7407 /* Pods_CakeWalletLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3BA9289B966EEF23CDA77D9 /* Pods_CakeWalletLib.framework */; };
 		D105AA39225357310043F0E3 /* BitrefillProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D105AA38225357310043F0E3 /* BitrefillProductListView.swift */; };
 		D105AA3B2253573D0043F0E3 /* BitrefillProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D105AA3A2253573D0043F0E3 /* BitrefillProductListViewController.swift */; };
-		D108C98D22536E7600B1BD23 /* BitrefillOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108C98C22536E7600B1BD23 /* BitrefillOrderView.swift */; };
-		D108C98F22536E8100B1BD23 /* BitrefillOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108C98E22536E8100B1BD23 /* BitrefillOrderViewController.swift */; };
+		D108C98D22536E7600B1BD23 /* BitrefillProductDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108C98C22536E7600B1BD23 /* BitrefillProductDetailsView.swift */; };
+		D108C98F22536E8100B1BD23 /* BitrefillProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D108C98E22536E8100B1BD23 /* BitrefillProductDetailsViewController.swift */; };
 		D11519A12225520D009B6706 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11519A02225520D009B6706 /* CheckBox.swift */; };
 		D11519A32225894C009B6706 /* WelcomeFlowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11519A22225894C009B6706 /* WelcomeFlowCardView.swift */; };
 		D13E9D5A2263976C0028B084 /* BitrefillCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13E9D592263976C0028B084 /* BitrefillCountry.swift */; };
@@ -319,8 +319,8 @@
 		D15BDBE922200A9B006320E0 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D15BDBD722200A62006320E0 /* Lato-Regular.ttf */; };
 		D15BDBEC22200A9B006320E0 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D15BDBDA22200A62006320E0 /* Lato-Semibold.ttf */; };
 		D15BDBF522205129006320E0 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15BDBF422205129006320E0 /* Font.swift */; };
-		D15FA1F22260CC9B004431EC /* OrderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FA1F12260CC9B004431EC /* OrderInfoView.swift */; };
-		D15FA1F42260CCAB004431EC /* OrderInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FA1F32260CCAB004431EC /* OrderInfoViewController.swift */; };
+		D15FA1F22260CC9B004431EC /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FA1F12260CC9B004431EC /* OrderView.swift */; };
+		D15FA1F42260CCAB004431EC /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FA1F32260CCAB004431EC /* OrderViewController.swift */; };
 		D1631DEC223931E10045ACAF /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1631DEB223931E10045ACAF /* TextField.swift */; };
 		D16A6C892258EB67002CF18D /* SelectCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16A6C882258EB67002CF18D /* SelectCountryView.swift */; };
 		D16A6C8B2258EB94002CF18D /* SelectCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16A6C8A2258EB94002CF18D /* SelectCountryViewController.swift */; };
@@ -772,8 +772,8 @@
 		A5680F5F21FF3C2F005956DA /* RestoreStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreStateModel.swift; sourceTree = "<group>"; };
 		A57072B2224E490C00FF7F59 /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		A57072B4224E4B6D00FF7F59 /* BitrefillFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillFlow.swift; sourceTree = "<group>"; };
-		A57072B6224E4F4A00FF7F59 /* BitrefillRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillRootViewController.swift; sourceTree = "<group>"; };
-		A57072B8224E4F6200FF7F59 /* BitrefillRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillRootView.swift; sourceTree = "<group>"; };
+		A57072B6224E4F4A00FF7F59 /* BitrefillSelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillSelectCategoryViewController.swift; sourceTree = "<group>"; };
+		A57072B8224E4F6200FF7F59 /* BitrefillSelectCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillSelectCategoryView.swift; sourceTree = "<group>"; };
 		A577D40921EDEFDB00FA1655 /* AddressBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookView.swift; sourceTree = "<group>"; };
 		A577D40B21EDF01100FA1655 /* AddressBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookViewController.swift; sourceTree = "<group>"; };
 		A587BFF52214410000AFDFCB /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
@@ -793,8 +793,8 @@
 		CA1D6555209A3EBC00A1FDDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D105AA38225357310043F0E3 /* BitrefillProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillProductListView.swift; sourceTree = "<group>"; };
 		D105AA3A2253573D0043F0E3 /* BitrefillProductListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillProductListViewController.swift; sourceTree = "<group>"; };
-		D108C98C22536E7600B1BD23 /* BitrefillOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillOrderView.swift; sourceTree = "<group>"; };
-		D108C98E22536E8100B1BD23 /* BitrefillOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillOrderViewController.swift; sourceTree = "<group>"; };
+		D108C98C22536E7600B1BD23 /* BitrefillProductDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillProductDetailsView.swift; sourceTree = "<group>"; };
+		D108C98E22536E8100B1BD23 /* BitrefillProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillProductDetailsViewController.swift; sourceTree = "<group>"; };
 		D11519A02225520D009B6706 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		D11519A22225894C009B6706 /* WelcomeFlowCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeFlowCardView.swift; sourceTree = "<group>"; };
 		D13E9D592263976C0028B084 /* BitrefillCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillCountry.swift; sourceTree = "<group>"; };
@@ -803,8 +803,8 @@
 		D15BDBD722200A62006320E0 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		D15BDBDA22200A62006320E0 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
 		D15BDBF422205129006320E0 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		D15FA1F12260CC9B004431EC /* OrderInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrderInfoView.swift; path = CakeWallet/Screens/BItrefill/SelectCountry/OrderInfoView.swift; sourceTree = SOURCE_ROOT; };
-		D15FA1F32260CCAB004431EC /* OrderInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrderInfoViewController.swift; path = CakeWallet/Screens/BItrefill/SelectCountry/OrderInfoViewController.swift; sourceTree = SOURCE_ROOT; };
+		D15FA1F12260CC9B004431EC /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrderView.swift; path = CakeWallet/Screens/BItrefill/SelectCountry/OrderView.swift; sourceTree = SOURCE_ROOT; };
+		D15FA1F32260CCAB004431EC /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrderViewController.swift; path = CakeWallet/Screens/BItrefill/SelectCountry/OrderViewController.swift; sourceTree = SOURCE_ROOT; };
 		D1631DEB223931E10045ACAF /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		D16A6C882258EB67002CF18D /* SelectCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountryView.swift; sourceTree = "<group>"; };
 		D16A6C8A2258EB94002CF18D /* SelectCountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountryViewController.swift; sourceTree = "<group>"; };
@@ -1552,13 +1552,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A513E27422608F3B008F2DE5 /* OrderInfo */ = {
+		A513E27422608F3B008F2DE5 /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				D15FA1F12260CC9B004431EC /* OrderInfoView.swift */,
-				D15FA1F32260CCAB004431EC /* OrderInfoViewController.swift */,
+				D15FA1F12260CC9B004431EC /* OrderView.swift */,
+				D15FA1F32260CCAB004431EC /* OrderViewController.swift */,
 			);
-			path = OrderInfo;
+			path = Order;
 			sourceTree = "<group>";
 		};
 		A5178DF0222FEA6400EC4829 /* Splash */ = {
@@ -1605,14 +1605,11 @@
 		A57072B1224E45C500FF7F59 /* BItrefill */ = {
 			isa = PBXGroup;
 			children = (
-				D13E9D5D22639F8F0028B084 /* Root */,
-				A513E27422608F3B008F2DE5 /* OrderInfo */,
+				D13E9D5D22639F8F0028B084 /* SelectCategory */,
+				A513E27422608F3B008F2DE5 /* Order */,
 				D16A6C872258EB4C002CF18D /* SelectCountry */,
-				D108C98B22536E5E00B1BD23 /* Order */,
+				D108C98B22536E5E00B1BD23 /* ProductDetails */,
 				D105AA372253571C0043F0E3 /* ProductList */,
-				D1B7EA9D225610790064A0DC /* BitrefillCategory.swift */,
-				D1B7EAA0225611980064A0DC /* BitrefillProduct.swift */,
-				D13E9D592263976C0028B084 /* BitrefillCountry.swift */,
 				D13E9D5B22639DA00028B084 /* BitrefillFetchCountryData.swift */,
 			);
 			path = BItrefill;
@@ -1728,26 +1725,28 @@
 			children = (
 				D105AA38225357310043F0E3 /* BitrefillProductListView.swift */,
 				D105AA3A2253573D0043F0E3 /* BitrefillProductListViewController.swift */,
+				D1B7EAA0225611980064A0DC /* BitrefillProduct.swift */,
 			);
 			path = ProductList;
 			sourceTree = "<group>";
 		};
-		D108C98B22536E5E00B1BD23 /* Order */ = {
+		D108C98B22536E5E00B1BD23 /* ProductDetails */ = {
 			isa = PBXGroup;
 			children = (
-				D108C98C22536E7600B1BD23 /* BitrefillOrderView.swift */,
-				D108C98E22536E8100B1BD23 /* BitrefillOrderViewController.swift */,
+				D108C98C22536E7600B1BD23 /* BitrefillProductDetailsView.swift */,
+				D108C98E22536E8100B1BD23 /* BitrefillProductDetailsViewController.swift */,
 			);
-			path = Order;
+			path = ProductDetails;
 			sourceTree = "<group>";
 		};
-		D13E9D5D22639F8F0028B084 /* Root */ = {
+		D13E9D5D22639F8F0028B084 /* SelectCategory */ = {
 			isa = PBXGroup;
 			children = (
-				A57072B8224E4F6200FF7F59 /* BitrefillRootView.swift */,
-				A57072B6224E4F4A00FF7F59 /* BitrefillRootViewController.swift */,
+				A57072B8224E4F6200FF7F59 /* BitrefillSelectCategoryView.swift */,
+				A57072B6224E4F4A00FF7F59 /* BitrefillSelectCategoryViewController.swift */,
+				D1B7EA9D225610790064A0DC /* BitrefillCategory.swift */,
 			);
-			path = Root;
+			path = SelectCategory;
 			sourceTree = "<group>";
 		};
 		D14B7D3722371838005B11A3 /* Buttons */ = {
@@ -1799,6 +1798,7 @@
 		D16A6C872258EB4C002CF18D /* SelectCountry */ = {
 			isa = PBXGroup;
 			children = (
+				D13E9D592263976C0028B084 /* BitrefillCountry.swift */,
 				D16A6C882258EB67002CF18D /* SelectCountryView.swift */,
 				D16A6C8A2258EB94002CF18D /* SelectCountryViewController.swift */,
 			);
@@ -2409,7 +2409,7 @@
 				6A39EC9B20D19039002E9217 /* TransactionDetailsViewController.swift in Sources */,
 				64F8AB4020EAA70E00C59254 /* TransactionsHandlers.swift in Sources */,
 				6AAF1E8D20B5CDA6000E4E02 /* DashboardViewController.swift in Sources */,
-				A57072B7224E4F4A00FF7F59 /* BitrefillRootViewController.swift in Sources */,
+				A57072B7224E4F4A00FF7F59 /* BitrefillSelectCategoryViewController.swift in Sources */,
 				A58B26C3223BA7E300AD0B97 /* CurrencyPickerViewController.swift in Sources */,
 				6AAF1EAB20B604D1000E4E02 /* SendView.swift in Sources */,
 				6413ACDB20E94793004922AD /* store.swift in Sources */,
@@ -2455,11 +2455,11 @@
 				6A4DB74020C9A32F00647F21 /* Bundle+displayName.swift in Sources */,
 				64F8AB4420EAB76D00C59254 /* UpdateTransactionsListEffect.swift in Sources */,
 				0C5EFB8622022ECF0069AF7F /* RestoreFromCloudVC.swift in Sources */,
-				A57072B9224E4F6200FF7F59 /* BitrefillRootView.swift in Sources */,
+				A57072B9224E4F6200FF7F59 /* BitrefillSelectCategoryView.swift in Sources */,
 				64C28A602104E7C000327509 /* AddressView.swift in Sources */,
-				D15FA1F42260CCAB004431EC /* OrderInfoViewController.swift in Sources */,
+				D15FA1F42260CCAB004431EC /* OrderViewController.swift in Sources */,
 				6A6B0C0B20BEFC8D004B5DFF /* WalletsViewController.swift in Sources */,
-				D15FA1F22260CC9B004431EC /* OrderInfoView.swift in Sources */,
+				D15FA1F22260CC9B004431EC /* OrderView.swift in Sources */,
 				643062D720ED35A500853394 /* BalanceHandlers.swift in Sources */,
 				D1B7EA9B2255FDF30064A0DC /* JSON.swift in Sources */,
 				A5178DFA2231365D00EC4829 /* LoadingButton.swift in Sources */,
@@ -2488,7 +2488,7 @@
 				6AFC5C7D20C2CDCE007DFB53 /* WalletFlow.swift in Sources */,
 				6AAF1E9A20B60308000E4E02 /* BaseView.swift in Sources */,
 				6A72CB2120CC5D7D00CFABC9 /* NodesViewController.swift in Sources */,
-				D108C98D22536E7600B1BD23 /* BitrefillOrderView.swift in Sources */,
+				D108C98D22536E7600B1BD23 /* BitrefillProductDetailsView.swift in Sources */,
 				D105AA39225357310043F0E3 /* BitrefillProductListView.swift in Sources */,
 				6AAF1E8F20B5EF81000E4E02 /* UIColor+extensions.swift in Sources */,
 				A577D40A21EDEFDB00FA1655 /* AddressBookView.swift in Sources */,
@@ -2510,7 +2510,7 @@
 				64F8AB2C20EA447400C59254 /* WalletsNavigationTitle.swift in Sources */,
 				A58B26C1223BA78100AD0B97 /* CurrencyPickerView.swift in Sources */,
 				A5680F5421FF21D6005956DA /* RecoverFromKeysView.swift in Sources */,
-				D108C98F22536E8100B1BD23 /* BitrefillOrderViewController.swift in Sources */,
+				D108C98F22536E8100B1BD23 /* BitrefillProductDetailsViewController.swift in Sources */,
 				0C489519224A874E001AB7FE /* BlurredBaseViewController.swift in Sources */,
 				D11519A32225894C009B6706 /* WelcomeFlowCardView.swift in Sources */,
 				6A24468A20BADA6E00C87C81 /* UserDefaults+extensions.swift in Sources */,

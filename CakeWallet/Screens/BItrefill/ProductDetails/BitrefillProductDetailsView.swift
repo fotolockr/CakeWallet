@@ -1,7 +1,7 @@
 import UIKit
 import FlexLayout
 
-final class BitrefillOrderView: BaseScrollFlexViewWithBottomSection {
+final class BitrefillProductDetailsView: BaseScrollFlexViewWithBottomSection {
     var productName: UILabel
     var productImage: UIImageView
     let productHolder: UIView
@@ -44,7 +44,7 @@ final class BitrefillOrderView: BaseScrollFlexViewWithBottomSection {
         amountPickerView.tag = 50
         paymentMethodPickerView.tag = 60
         paymentMethodTextField.textField.inputView = paymentMethodPickerView
-        paymentMethodTextField.textField.text = BitrefillPaymentMethod.monero.optionFullName()
+//        paymentMethodTextField.textField.text = BitrefillPaymentMethod.monero.optionFullName()
         
         amountTextField.textField.keyboardType = .decimalPad
         emailTextField.textField.keyboardType = .emailAddress
