@@ -28,23 +28,36 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
         }
     }
     
-    enum ProductPaymentMethod {
-        case monero, lightning, lightningLtc, bitcoin, ethereum, litecoin, dash, dogecoin
+    enum ProductPaymentMethod: String {
+        case monero, /*lightning, lightningLtc,*/ bitcoin, ethereum, litecoin, dash, dogecoin
         
         static var all: [ProductPaymentMethod] {
-            return [.monero, .lightning, .lightningLtc, .bitcoin, .ethereum, .litecoin, .dash, .dogecoin]
+            return [.monero, /*.lightning, .lightningLtc,*/ .bitcoin, .ethereum, .litecoin, .dash, .dogecoin]
         }
         
-        func optionFullName() -> String {
+        func getCurrencyTitle () -> String {
             switch self {
             case .monero: return "Monero (XMR -> BTC)"
-            case .lightning: return "Lightning"
-            case .lightningLtc: return "Lightning LTC"
-            case .bitcoin: return "Bitcoin"
-            case .ethereum: return "Ethereum"
-            case .litecoin: return "Litecoin"
-            case .dash: return "Dash"
+            case .bitcoin: return "Bitcoin (BTC)"
+            //            case .lightning: return "Lightning (BTC)"
+            //            case .lightningLtc: return "Lightning (LTC)"
+            case .litecoin: return "Litecoin (LTC)"
+            case .ethereum: return "Ethereum (ETH)"
             case .dogecoin: return "Dogecoin"
+            case .dash: return "Dash"
+            }
+        }
+        
+        func getCurrencyAbbreviation () -> String {
+            switch self {
+            case .monero: return "XMR -> BTC"
+            case .bitcoin: return "BTC"
+            //            case .lightning: return "Lightning (BTC)"
+            //            case .lightningLtc: return "Lightning (LTC)"
+            case .litecoin: return "LTC"
+            case .ethereum: return "ETH"
+            case .dogecoin: return "DOGE"
+            case .dash: return "DASH"
             }
         }
     }
@@ -187,19 +200,26 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
                 return
             }
             
+            // TODO: temp plug for monero
+            if selectedPaymentMethod == .monero {
+                selectedPaymentMethod = .bitcoin
+            }
+            
             do {
                 let order = Order(
                     operatorSlug: productDetails.slug,
                     valuePackage: productDetails.isRanged ? amountRange : selectedOrderPackage ?? "",
                     email: email,
-                    // TODO: hardcoded payment method
-                    paymentMethod: "bitcoin",
+                    paymentMethod: selectedPaymentMethod.rawValue,
                     phoneNumber: phoneNumber
                 )
 
                 let orderJSON = try order.makeJSON()
+                
+                // sensitive  data?
                 let user = "cDNiFIIuUnIMVgdF"
                 let password = "wpobccrxZaJlKQzB"
+                
                 let credentialData = "\(user):\(password)".data(using: String.Encoding.utf8)!
                 let base64Credentials = credentialData.base64EncodedString()
                 let url = URLComponents(string: "https://api.bitrefill.com/v1/order")!
@@ -228,8 +248,11 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
 
                         return
                     }
-
-                    let orderDetails = BitrefillOrderDetails(json: json)
+                    
+                    let altcoinCode = json["payment"]["altcoinCode"].stringValue
+                    var orderDetails = BitrefillOrderDetails(json: json)
+                    orderDetails.withAltcoinCode = !altcoinCode.isEmpty
+                    
                     self?.bitrefillFlow?.change(route: .order(orderDetails))
                 }
             } catch {
@@ -262,7 +285,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
         }
         
         if pickerView.tag == 60 {
-            return ProductPaymentMethod.all[row].optionFullName()
+            return ProductPaymentMethod.all[row].getCurrencyTitle()
         }
         
         return ""
@@ -275,7 +298,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
         }
         
         if pickerView.tag == 60 {
-            contentView.paymentMethodTextField.textField.text = ProductPaymentMethod.all[row].optionFullName()
+            contentView.paymentMethodTextField.textField.text = ProductPaymentMethod.all[row].getCurrencyTitle()
             selectedPaymentMethod = ProductPaymentMethod.all[row]
         }
     }

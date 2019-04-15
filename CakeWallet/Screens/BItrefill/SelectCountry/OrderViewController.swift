@@ -7,16 +7,20 @@ struct BitrefillOrderDetails: JSONInitializable {
     let summary: String
     let address: String
     let satoshiPrice: Int
+    let altcoinCode: String?
+    let altcoinPrice: String?
     let expirationTime: Int64
+    var withAltcoinCode: Bool?
     
     init(json: JSON) {
         summary = json["summary"].stringValue
         address = json["payment"]["address"].stringValue
-        satoshiPrice = json["payment"]["satoshiPrice"].intValue // TODO: fixed binding with bitcoin
+        satoshiPrice = json["payment"]["satoshiPrice"].intValue
+        altcoinCode = json["payment"]["altcoinCode"].stringValue
+        altcoinPrice = json["payment"]["altcoinPrice"].stringValue
         expirationTime = json["expirationTime"].int64Value
     }
 }
-
 
 final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView> {
     let orderDetails: BitrefillOrderDetails
@@ -30,10 +34,9 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
     
     override func configureBinds() {
         super.configureBinds()
-        title = "Order info"
+        title = "Order details"
         
-        // TODO: hardcoded currency
-        contentView.priceLabel.text = "Amount: \(BitcoinAmount(value: orderDetails.satoshiPrice).formatted()) BTC"
+        contentView.priceLabel.text = defineAmountLabel()
         contentView.addressLabel.text = "To address: \(orderDetails.address)"
         
         contentView.summaryLabel.text = orderDetails.summary
@@ -61,5 +64,18 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
         return String(format: "%02i:%02i", minutes, seconds)
+    }
+    
+    private func defineAmountLabel () -> String {
+        if let withAltcoinPrice = orderDetails.withAltcoinCode,
+           let altcoinPrice = orderDetails.altcoinPrice,
+           let altcoinCode = orderDetails.altcoinCode{
+            
+            if withAltcoinPrice {
+                return "Amount: \(altcoinPrice) \(altcoinCode)"
+            }
+        }
+        
+        return "Amount: \(BitcoinAmount(value: orderDetails.satoshiPrice).formatted()) BTC"
     }
 }
