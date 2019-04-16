@@ -3,13 +3,9 @@ import SwiftyJSON
 import Alamofire
 
 
-
-
-
 protocol BitrefillSelectCountryDelegate: class {
     func dataFromCountrySelect(categories: [BitrefillCategory], products: [BitrefillProduct])
 }
-
 
 final class BitrefillSelectCountryViewController: BlurredBaseViewController<BitrefillSelectCountryView>, UIPickerViewDelegate, UIPickerViewDataSource, BitrefillFetchCountryData {
 

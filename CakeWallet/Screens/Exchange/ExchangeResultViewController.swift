@@ -35,7 +35,6 @@ extension TimeInterval: Formatted {
 }
 
 extension UILabel {
-    
     func boldRange(_ range: Range<String.Index>) {
         if let text = self.attributedText {
             let attr = NSMutableAttributedString(attributedString: text)
@@ -421,7 +420,6 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
                     } else {
                         return
                     }
-                    
                     
                     self?.store.dispatch(
                         WalletActions.send(

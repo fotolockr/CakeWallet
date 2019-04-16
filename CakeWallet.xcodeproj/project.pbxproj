@@ -274,8 +274,10 @@
 		6AE7241120DD5C5C003D6559 /* NodesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7241020DD5C5C003D6559 /* NodesList.swift */; };
 		6AF4786820C18CBE0072796B /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF4786720C18CBE0072796B /* AuthenticationViewController.swift */; };
 		6AFC5C7D20C2CDCE007DFB53 /* WalletFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */; };
-		A513E27A2265D2B1008F2DE5 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513E2782265D2B1008F2DE5 /* OrderViewController.swift */; };
-		A513E27B2265D2B1008F2DE5 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513E2792265D2B1008F2DE5 /* OrderView.swift */; };
+		A513E27A2265D2B1008F2DE5 /* BitrefillOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513E2782265D2B1008F2DE5 /* BitrefillOrderViewController.swift */; };
+		A513E27B2265D2B1008F2DE5 /* BitrefillOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513E2792265D2B1008F2DE5 /* BitrefillOrderView.swift */; };
+		A513E28222676A2A008F2DE5 /* BitrefillMoneroOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513E28122676A2A008F2DE5 /* BitrefillMoneroOrderView.swift */; };
+		A513E28422676A35008F2DE5 /* BitrefillMoneroOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513E28322676A35008F2DE5 /* BitrefillMoneroOrderViewController.swift */; };
 		A5178DE7222EBCAF00EC4829 /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5178DE6222EBCAF00EC4829 /* AdaptiveLayout.swift */; };
 		A5178DF2222FEAA200EC4829 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5178DF1222FEAA200EC4829 /* SplashView.swift */; };
 		A5178DF4222FEAAE00EC4829 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5178DF3222FEAAE00EC4829 /* SplashViewController.swift */; };
@@ -755,8 +757,10 @@
 		6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletFlow.swift; sourceTree = "<group>"; };
 		6D019C5E8387F4D77238C508 /* Pods-CakeWalletLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CakeWalletLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-CakeWalletLib/Pods-CakeWalletLib.release.xcconfig"; sourceTree = "<group>"; };
 		784D7BF72CC17977C433AE9E /* Pods_CWMonero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CWMonero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A513E2782265D2B1008F2DE5 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
-		A513E2792265D2B1008F2DE5 /* OrderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
+		A513E2782265D2B1008F2DE5 /* BitrefillOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitrefillOrderViewController.swift; sourceTree = "<group>"; };
+		A513E2792265D2B1008F2DE5 /* BitrefillOrderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitrefillOrderView.swift; sourceTree = "<group>"; };
+		A513E28122676A2A008F2DE5 /* BitrefillMoneroOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillMoneroOrderView.swift; sourceTree = "<group>"; };
+		A513E28322676A35008F2DE5 /* BitrefillMoneroOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitrefillMoneroOrderViewController.swift; sourceTree = "<group>"; };
 		A5178DE6222EBCAF00EC4829 /* AdaptiveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayout.swift; sourceTree = "<group>"; };
 		A5178DF1222FEAA200EC4829 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		A5178DF3222FEAAE00EC4829 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -1555,8 +1559,10 @@
 		A513E2772265D2B1008F2DE5 /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				A513E2782265D2B1008F2DE5 /* OrderViewController.swift */,
-				A513E2792265D2B1008F2DE5 /* OrderView.swift */,
+				A513E2782265D2B1008F2DE5 /* BitrefillOrderViewController.swift */,
+				A513E2792265D2B1008F2DE5 /* BitrefillOrderView.swift */,
+				A513E28122676A2A008F2DE5 /* BitrefillMoneroOrderView.swift */,
+				A513E28322676A35008F2DE5 /* BitrefillMoneroOrderViewController.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -2195,7 +2201,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
@@ -2240,7 +2246,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2444,7 +2450,7 @@
 				0C5EFB8C22022F6A0069AF7F /* BackupService.swift in Sources */,
 				6AAF1E9C20B6031C000E4E02 /* BaseFlexView.swift in Sources */,
 				6AAF1E9520B6023F000E4E02 /* UIColor+colors.swift in Sources */,
-				A513E27A2265D2B1008F2DE5 /* OrderViewController.swift in Sources */,
+				A513E27A2265D2B1008F2DE5 /* BitrefillOrderViewController.swift in Sources */,
 				640A2AA221761C870047E60C /* CWAlertView.swift in Sources */,
 				D11519A12225520D009B6706 /* CheckBox.swift in Sources */,
 				6AAF1E9320B6022C000E4E02 /* ColorSchemes.swift in Sources */,
@@ -2504,6 +2510,7 @@
 				6AAF1EA120B603AB000E4E02 /* ProgressBar.swift in Sources */,
 				64AA49AA21456DF6002CE1FE /* BaseViewController.swift in Sources */,
 				A57072B5224E4B6D00FF7F59 /* BitrefillFlow.swift in Sources */,
+				A513E28222676A2A008F2DE5 /* BitrefillMoneroOrderView.swift in Sources */,
 				64FBC83F2124727B00EFC474 /* NewNodeViewController.swift in Sources */,
 				D1886AED2222DE0E00A46E9E /* RestoreRootVC.swift in Sources */,
 				64F8AB2C20EA447400C59254 /* WalletsNavigationTitle.swift in Sources */,
@@ -2512,6 +2519,7 @@
 				D108C98F22536E8100B1BD23 /* BitrefillProductDetailsViewController.swift in Sources */,
 				0C489519224A874E001AB7FE /* BlurredBaseViewController.swift in Sources */,
 				D11519A32225894C009B6706 /* WelcomeFlowCardView.swift in Sources */,
+				A513E28422676A35008F2DE5 /* BitrefillMoneroOrderViewController.swift in Sources */,
 				6A24468A20BADA6E00C87C81 /* UserDefaults+extensions.swift in Sources */,
 				64C28A5A21021FC100327509 /* ExchangeState.swift in Sources */,
 				6A6B0C0920BEFC6C004B5DFF /* WalletsView.swift in Sources */,
@@ -2551,7 +2559,7 @@
 				D194985C2236BCC60075565B /* ExchangeCardView.swift in Sources */,
 				A5178DF2222FEAA200EC4829 /* SplashView.swift in Sources */,
 				6A24467920B99FF600C87C81 /* SetupPinViewController.swift in Sources */,
-				A513E27B2265D2B1008F2DE5 /* OrderView.swift in Sources */,
+				A513E27B2265D2B1008F2DE5 /* BitrefillOrderView.swift in Sources */,
 				0C5EFB9022022F9E0069AF7F /* BackupServiceImpl.swift in Sources */,
 				6A72CB1F20CC5D6800CFABC9 /* NodesView.swift in Sources */,
 			);

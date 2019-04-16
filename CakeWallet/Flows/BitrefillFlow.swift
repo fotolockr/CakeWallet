@@ -1,4 +1,5 @@
 import UIKit
+import CakeWalletLib
 
 
 final class BitrefillFlow: Flow {
@@ -7,7 +8,8 @@ final class BitrefillFlow: Flow {
         case selectCategory
         case productsList([BitrefillProduct])
         case productDetails(BitrefillProduct)
-        case order(BitrefillOrderDetails)
+        case standartOrder(BitrefillOrderDetails)
+        case moneroOrder(ExchangeTrade)
     }
     
     var rootController: UIViewController {
@@ -18,7 +20,11 @@ final class BitrefillFlow: Flow {
     private let navigationController: UINavigationController
     
     convenience init() {
-        let selectCategoryViewController = BitrefillSelectCategoryViewController(bitrefillFlow: nil, categories: [], products: [])
+        let selectCategoryViewController = BitrefillSelectCategoryViewController(
+            bitrefillFlow: nil,
+            categories: [],
+            products: []
+        )
         let navigationController = UINavigationController(rootViewController: selectCategoryViewController)
         
         self.init(navigationController: navigationController)
@@ -36,6 +42,7 @@ final class BitrefillFlow: Flow {
                 BitrefillSelectCategoryViewController(bitrefillFlow: self, categories: [], products: []),
                 animated: true
             )
+            
         case .selectCountry:
             let bitrefillSelectCountryViewController = BitrefillSelectCountryViewController(bitrefillFlow: self)
             bitrefillSelectCountryViewController.delegate = navigationController.viewControllers.first as? BitrefillSelectCountryDelegate
@@ -50,13 +57,19 @@ final class BitrefillFlow: Flow {
             
         case let .productDetails(productDetails):
             navigationController.pushViewController(
-                BitrefillProductDetailsViewController(bitrefillFlow: self, productDetails: productDetails),
+                BitrefillProductDetailsViewController(bitrefillFlow: self, productDetails: productDetails, XMRExchange: ExchangeActionCreators.shared),
                 animated: true
             )
             
-        case let .order(orderDetails):
+        case let .standartOrder(orderDetails):
             navigationController.pushViewController(
                 BitrefillOrderViewController(bitrefillFlow: self, orderDetails: orderDetails),
+                animated: true
+            )
+            
+        case let .moneroOrder(trade):
+            navigationController.pushViewController(
+                BitrefillMoneroOrderViewController(store: store, trade: trade),
                 animated: true
             )
         }

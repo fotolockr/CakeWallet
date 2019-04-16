@@ -82,16 +82,19 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
     
     weak var bitrefillFlow: BitrefillFlow?
     var productDetails: BitrefillProduct
+    let XMRExchange: ExchangeActionCreators
     
     var productPaymentRange: ProductPaymentRange?
     var selectedPaymentMethod: ProductPaymentMethod
     
     var productPackages: [ProductPackage]?
     var selectedOrderPackage: String?
+    private var viaXMR: Bool = false
     
-    init(bitrefillFlow: BitrefillFlow?, productDetails: BitrefillProduct) {
+    init(bitrefillFlow: BitrefillFlow?, productDetails: BitrefillProduct, XMRExchange: ExchangeActionCreators) {
         self.bitrefillFlow = bitrefillFlow
         self.productDetails = productDetails
+        self.XMRExchange = XMRExchange
         
         selectedPaymentMethod = .monero
         
@@ -108,7 +111,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
         contentView.paymentMethodPickerView.delegate = self
         contentView.paymentMethodPickerView.dataSource = self
         
-        contentView.submitButton.addTarget(self, action: #selector(onPayAction), for: .touchUpInside)
+        contentView.submitButton.addTarget(self, action: #selector(onSubmitAction), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -180,7 +183,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
     }
     
     @objc
-    func onPayAction() {
+    func onSubmitAction() {
         if let email = contentView.emailTextField.textField.text,
             let phoneNumber = contentView.phoneNumerTextField.textField.text,
             let amountRange = contentView.amountTextField.textField.text {
@@ -199,12 +202,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
                 showOKInfoAlert(title: "Email address is empty")
                 return
             }
-            
-            // TODO: temp plug for monero
-            if selectedPaymentMethod == .monero {
-                selectedPaymentMethod = .bitcoin
-            }
-            
+     
             do {
                 let order = Order(
                     operatorSlug: productDetails.slug,
@@ -231,32 +229,67 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
                 request.httpBody = try orderJSON.rawData()
 
                 contentView.submitButton.showLoading()
-
+                
                 Alamofire.request(request).responseJSON { [weak self] response in
-                    self?.contentView.submitButton.hideLoading()
-
-                    guard
-                        let data = response.data,
-                        let json = try? JSON(data: data) else {
-                            return
-                    }
-
-                    guard response.response?.statusCode == 200 else {
-                        if response.response?.statusCode == 400 {
-                            self?.showOKInfoAlert(title: json["message"].stringValue)
+                    if let this = self {
+                        guard
+                            let data = response.data,
+                            let json = try? JSON(data: data) else {
+                                return
                         }
-
-                        return
+                        
+                        guard response.response?.statusCode == 200 else {
+                            if response.response?.statusCode == 400 {
+                                this.showOKInfoAlert(title: json["message"].stringValue)
+                                this.contentView.submitButton.hideLoading()
+                            }
+                            
+                            return
+                        }
+                        
+                        let altcoinCode = json["payment"]["altcoinCode"].stringValue
+                        var orderDetails = BitrefillOrderDetails(json: json)
+                        orderDetails.withAltcoinCode = !altcoinCode.isEmpty
+                        
+                        if this.viaXMR {
+                            this.fetchXMRTrade(
+                                forAddress: orderDetails.address,
+                                andAmount: BitcoinAmount(value: orderDetails.satoshiPrice)
+                            )
+                            
+                            return
+                        }
+                        
+                        this.contentView.submitButton.hideLoading()
+                        this.bitrefillFlow?.change(route: .standartOrder(orderDetails))
                     }
-                    
-                    let altcoinCode = json["payment"]["altcoinCode"].stringValue
-                    var orderDetails = BitrefillOrderDetails(json: json)
-                    orderDetails.withAltcoinCode = !altcoinCode.isEmpty
-                    
-                    self?.bitrefillFlow?.change(route: .order(orderDetails))
                 }
             } catch {
                 showErrorAlert(error: error)
+                contentView.submitButton.hideLoading()
+            }
+        }
+    }
+    
+    private func fetchXMRTrade (forAddress address: String, andAmount amount: BitcoinAmount) {
+        XMRExchange.createTradeXMRTO(amount: amount, address: address) { [weak self] res in
+            switch res {
+            case let .success(uuid):
+                exchangeQueue.asyncAfter(deadline: .now() + 2.0, execute: {
+                    self?.XMRExchange.getTradeForXMRTO(with: uuid, handler: { tradeResult in
+                        self?.contentView.submitButton.hideLoading()
+                        
+                        switch tradeResult {
+                        case let .success(trade):
+                            self?.bitrefillFlow?.change(route: .moneroOrder(trade))
+                        case let .failed(error):
+                            self?.showErrorAlert(error: error)
+                        }
+                    })
+                })
+            case let .failed(error):
+                self?.showErrorAlert(error: error)
+                self?.contentView.submitButton.hideLoading()
             }
         }
     }
@@ -300,6 +333,8 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
         if pickerView.tag == 60 {
             contentView.paymentMethodTextField.textField.text = ProductPaymentMethod.all[row].getCurrencyTitle()
             selectedPaymentMethod = ProductPaymentMethod.all[row]
+            
+            viaXMR = selectedPaymentMethod == .monero
         }
     }
 }
