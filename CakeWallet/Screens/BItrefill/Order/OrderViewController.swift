@@ -66,14 +66,6 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
                             let delivered = json["delivered"].boolValue
                             let expired = json["expired"].boolValue
                             
-                            //                    print("paymentReceived", paymentReceived)
-                            //                    print("sent", sent)
-                            //                    print("delivered", delivered)
-                            //                    print("================================")
-                            //                    print("*                              *")
-                            
-                            
-                            
                             if paymentReceived {
                                 self?.paymentReceived = true
                                 self?.contentView.timerLabel.text = "Payment received ✅"
@@ -85,7 +77,7 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
                             
                             if delivered {
                                 self?.paymentDeliveredOrExpired = true
-                                
+                                // TODO: use actions from common alerts
                                 let alertController = UIAlertController(title: "Payment has been successfully delivered", message: nil, preferredStyle: .alert)
                                 
                                 alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
@@ -130,13 +122,14 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
         checkOrderStatus.fire()
         
         contentView.priceLabel.text = defineAmountLabel()
-        contentView.addressLabel.text = "To address: \(orderDetails.address)"
+        contentView.addressLabel.text = orderDetails.address
         contentView.summaryLabel.text = orderDetails.summary
         
         // TODO: qrCode with amount?
         let qrCode = QRCode(orderDetails.address)
-        
         contentView.qrImage.image = qrCode?.image
+        
+        contentView.copyButton.addTarget(self, action: #selector(onCopyAction), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
@@ -153,6 +146,11 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
                 contentView.timerLabel.text = "Expiring in \(timeString(time: seconds))"
             }
         }
+    }
+    
+    @objc
+    func onCopyAction() {
+        UIPasteboard.general.string = orderDetails.address
     }
     
     func timeString(time: Int) -> String {

@@ -17,6 +17,8 @@ final class BitrefillOrderView: BaseScrollFlexView {
     
     let qrCodeHolder: UIView
     let qrImage: UIImageView
+    let copyButton: UIButton
+    let copyButtonHolder: UIView
     
     required init() {
         cardView = CardView()
@@ -29,7 +31,14 @@ final class BitrefillOrderView: BaseScrollFlexView {
         timerLabel = UILabel(text: "Expiring in")
         
         qrCodeHolder = UIView()
+        copyButtonHolder = UIView()
         qrImage = UIImageView()
+        
+        copyButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 60))
+        copyButton.backgroundColor = UIColor.wildDarkBlue
+        copyButton.titleLabel?.font = applyFont(ofSize: 16)
+        copyButton.layer.cornerRadius = 5
+        copyButton.setTitle("Copy address", for: .normal)
         
         super.init()
     }
@@ -45,31 +54,40 @@ final class BitrefillOrderView: BaseScrollFlexView {
         summaryLabel.font = applyFont(ofSize: 18, weight: .bold)
         priceLabel.font = applyFont(ofSize: 16)
         addressLabel.font = applyFont(ofSize: 16)
+        addressLabel.numberOfLines = 0
+        addressLabel.textAlignment = .center
         timerLabel.font = applyFont(ofSize: 16)
         timerLabel.textColor = UIColor.wildDarkBlue
     }
     
     override func configureConstraints() {
+        copyButtonHolder.flex
+            .alignItems(.center)
+            .define { flex in
+                flex.addItem(copyButton).width(55%)
+        }
+        
         qrCodeHolder.flex
             .width(100%)
             .alignItems(.center)
             .define{ flex in
-                flex.addItem(qrImage).size(CGSize(width: 150, height: 150)).marginTop(40)
+                flex.addItem(qrImage).size(CGSize(width: 150, height: 150))
         }
         
         cardView.flex
             .width(90%)
-            .padding(30, 25, 35, 25)
+            .padding(30, 35, 35, 35)
             .define{ flex in
                 flex.addItem(mainTitleLabel).marginBottom(8)
                 flex.addItem(secondaryTitleLabel).marginBottom(32)
                 
                 flex.addItem(summaryLabel).marginBottom(10)
                 flex.addItem(priceLabel).width(100%).marginBottom(10)
-                flex.addItem(addressLabel).width(100%).marginBottom(10)
                 flex.addItem(timerLabel).width(100%)
                 
-                flex.addItem(qrCodeHolder)
+                flex.addItem(addressLabel).width(100%).marginTop(30)
+                flex.addItem(copyButtonHolder).marginTop(15).width(100%)
+                flex.addItem(qrCodeHolder).marginTop(15)
         }
         
         rootFlexContainer.flex
