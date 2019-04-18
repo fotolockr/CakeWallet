@@ -89,7 +89,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
     
     var productPackages: [ProductPackage]?
     var selectedOrderPackage: String?
-    private var viaXMR: Bool = false
+    private var viaXMR: Bool = true
     
     init(bitrefillFlow: BitrefillFlow?, productDetails: BitrefillProduct, XMRExchange: ExchangeActionCreators) {
         self.bitrefillFlow = bitrefillFlow
@@ -126,6 +126,8 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        contentView.paymentMethodTextField.textField.text = ProductPaymentMethod.monero.getCurrencyTitle()
         
         fetchProductDetails(for: productDetails.slug)
     }

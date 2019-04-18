@@ -127,7 +127,7 @@ public:
     addr.m_spend_public_key = *reinterpret_cast<const crypto::public_key*>([spendKeyData bytes]);
     addr.m_view_public_key = *reinterpret_cast<const crypto::public_key*>([viewKeyData bytes]);
     std::string _address = cryptonote::get_account_address_as_str(cryptonote::MAINNET, false, addr);
-
+    
     return  [NSString stringWithUTF8String: _address.c_str()];
 }
 
@@ -136,14 +136,14 @@ public:
     self = [super init];
     if (self) {
         Monero::Utils::onStartup();
-        Monero::WalletImpl *wallet = new Monero::WalletImpl();
+        Monero::WalletImpl *wallet = new Monero::WalletImpl(Monero::NetworkType::MAINNET, 1);
         MonerWalletListener *listener = new MonerWalletListener();
         listener->wallet = self;
         wallet->setListener(listener);
         member = new MoneroWalletAdapterMember();
         member->wallet = wallet;
         member->listener = listener;
-        Monero::WalletManagerFactory::setLogLevel(-1);
+        Monero::WalletManagerFactory::setLogLevel(1);
     }
     
     return self;

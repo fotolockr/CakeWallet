@@ -83,7 +83,8 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
     
     @objc
     func onCopyAction() {
-        UIPasteboard.general.string = orderDetails.address
+        UIPasteboard.general.string = contentView.addressLabel.text
+        showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
     }
     
     func timeString(time: Int) -> String {
@@ -113,13 +114,24 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
             }
             
             guard response.response?.statusCode == 200 else { return }
-            
+                    
             let paymentReceived = json["paymentReceived"].boolValue
             let sent = json["sent"].boolValue
             let delivered = json["delivered"].boolValue
-            let expired = json["expired"].boolValue
+            let expectedPin = json["pinInfo"]["pin"].string
             
             if let this = self {
+ 
+                let alertConfirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                    let selectCategoryViewController = BitrefillSelectCategoryViewController(
+                        bitrefillFlow: this.bitrefillFlow,
+                        categories: [],
+                        products: []
+                    )
+                    this.navigationController?.pushViewController(selectCategoryViewController, animated: true)
+                })
+                
+                
                 if paymentReceived {
                     this.paymentReceived = true
                     this.contentView.timerLabel.text = "Payment received ✅"
@@ -131,32 +143,47 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
                 
                 if delivered {
                     this.checkOrderStatus.invalidate()
+                    this.contentView.mainTitleLabel.text = "Success!"
+                    this.contentView.mainTitleLabel.textColor = UIColor.turquoiseBlue
+                    this.contentView.secondaryTitleLabel.text = "Order details have been sent to your email"
                     
-                    // TODO: use actions from common alerts
-                    let alertController = UIAlertController(
-                        title: "Bitrefill",
-                        message: "Your payment for \(this.orderDetails.summary) has been successfully delivered",
-                        preferredStyle: .alert
-                    )
+                    this.contentView.addressLabel.text = "1234567"
+                    this.contentView.copyButton.setTitle("Copy voucher code", for: .normal)
+                    this.contentView.qrCodeHolder.flex.height(0)
+                    this.contentView.qrImage.flex.height(0)
+                    this.contentView.flex.layout()
+                    this.contentView.qrImage.isHidden = true
                     
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                        let selectCategoryViewController = BitrefillSelectCategoryViewController(bitrefillFlow: this.bitrefillFlow, categories: [], products: [])
-                        this.navigationController?.pushViewController(selectCategoryViewController, animated: true)
-                    }))
-                    
-                    this.present(alertController, animated: true, completion: nil)
+//                    if let pin = expectedPin {
+//                        this.contentView.addressLabel.text = pin
+//                        this.contentView.copyButton.setTitle("Copy voucher code", for: .normal)
+//                        this.contentView.qrCodeHolder.flex.height(0)
+//                        this.contentView.qrImage.isHidden = true
+//                        this.contentView.qrImage.flex.height(0)
+//                        this.contentView.flex.layout()
+//
+//                        this.showOKInfoAlert(
+//                            title: "Bitrefill",
+//                            message: "Your payment for \(this.orderDetails.summary) has been successfully delivered. On this page and also in your email you will find voucher code"
+//                        )
+//
+//                        return
+//                    }
+//
+//                    this.showInfoAlert(
+//                        title: "Bitrefill",
+//                        message: "Your payment for \(this.orderDetails.summary) has been successfully delivered",
+//                        actions: [alertConfirmAction]
+//                    )
                 }
                 
-                // TODO: use actions from common alerts
-                if expired {
-                    let alertController = UIAlertController(title: "Payment has been expired", message: nil, preferredStyle: .alert)
-                    
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                        let selectCategoryViewController = BitrefillSelectCategoryViewController(bitrefillFlow: self?.bitrefillFlow, categories: [], products: [])
-                        this.navigationController?.pushViewController(selectCategoryViewController, animated: true)
-                    }))
-                    
-                    this.present(alertController, animated: true, completion: nil)
+                if this.seconds == 0 {
+                    this.checkOrderStatus.invalidate()
+                    this.showInfoAlert(
+                        title: "Bitrefill",
+                        message: "Payment has been expired",
+                        actions: [alertConfirmAction]
+                    )
                 }
             }
         })

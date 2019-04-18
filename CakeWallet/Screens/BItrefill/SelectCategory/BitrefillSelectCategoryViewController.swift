@@ -27,6 +27,10 @@ final class BitrefillSelectCategoryViewController: BaseViewController<BitrefillS
             return
         }
         
+        let btn = UIBarButtonItem(title: "Country", style: .plain, target: self, action: #selector(changeCountry))
+        btn.setTitleTextAttributes([NSAttributedStringKey.font: applyFont(ofSize: 16)], for: .normal)
+        navigationItem.rightBarButtonItem = btn
+        
         if let country = BitrefillCountry(rawValue: selectedCountry) {
             bitrefillFetchCountryData(viewController: self, forCountry: country, handler: { [weak self] categories, products in
                 self?.bitrefillCategories = categories
@@ -36,6 +40,11 @@ final class BitrefillSelectCategoryViewController: BaseViewController<BitrefillS
                 self?.contentView.loaderHolder.isHidden = true
             })
         }
+    }
+    
+    @objc
+    func changeCountry() {
+        bitrefillFlow?.change(route: .selectCountry)
     }
     
     override func configureBinds() {

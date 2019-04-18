@@ -33,7 +33,7 @@ final class BitrefillOrderView: BaseScrollFlexView {
         qrCodeHolder = UIView()
         copyButtonHolder = UIView()
         qrImage = UIImageView()
-        
+    
         copyButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 60))
         copyButton.backgroundColor = UIColor.wildDarkBlue
         copyButton.titleLabel?.font = applyFont(ofSize: 16)

@@ -11,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var signUpFlow: SignUpFlow?
     var walletFlow: WalletFlow?
     var restoreWalletFlow: RestoreWalletFlow?
-
+    
     var rememberedViewController: UIViewController?
     private var blurEffectView: UIVisualEffectView?
     
