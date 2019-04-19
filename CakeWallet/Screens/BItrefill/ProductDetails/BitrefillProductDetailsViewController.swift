@@ -37,7 +37,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
         
         func getCurrencyTitle () -> String {
             switch self {
-            case .monero: return "Monero (XMR -> BTC)"
+            case .monero: return "Monero (XMR)"
             case .bitcoin: return "Bitcoin (BTC)"
             //            case .lightning: return "Lightning (BTC)"
             //            case .lightningLtc: return "Lightning (LTC)"
@@ -50,7 +50,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
         
         func getCurrencyAbbreviation () -> String {
             switch self {
-            case .monero: return "XMR -> BTC"
+            case .monero: return "XMR"
             case .bitcoin: return "BTC"
             //            case .lightning: return "Lightning (BTC)"
             //            case .lightningLtc: return "Lightning (LTC)"
@@ -256,7 +256,8 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
                         if this.viaXMR {
                             this.fetchXMRTrade(
                                 forAddress: orderDetails.address,
-                                andAmount: BitcoinAmount(value: orderDetails.satoshiPrice)
+                                andAmount: BitcoinAmount(value: orderDetails.satoshiPrice),
+                                orderDetails: orderDetails
                             )
                             
                             return
@@ -273,7 +274,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
         }
     }
     
-    private func fetchXMRTrade (forAddress address: String, andAmount amount: BitcoinAmount) {
+    private func fetchXMRTrade (forAddress address: String, andAmount amount: BitcoinAmount, orderDetails: BitrefillOrderDetails) {
         XMRExchange.createTradeXMRTO(amount: amount, address: address) { [weak self] res in
             switch res {
             case let .success(uuid):
@@ -283,7 +284,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
                         
                         switch tradeResult {
                         case let .success(trade):
-                            self?.bitrefillFlow?.change(route: .moneroOrder(trade))
+                            self?.bitrefillFlow?.change(route: .moneroOrder(trade, orderDetails))
                         case let .failed(error):
                             self?.showErrorAlert(error: error)
                         }

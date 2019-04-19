@@ -22,6 +22,6 @@ final class PrimaryButton: Button {
         super.layoutSubviews()
         
         layer.applySketchShadow(color: UIColor(hex: 0xdfd0ff), alpha: 0.34, x: 0, y: 11, blur: 20, spread: -6)
-        self.applyGradient(colours: [UIColor(red: 161, green: 96, blue: 222), UIColor(red: 90, green: 71, blue: 255)])
+        self.applyGradient(colours: [UIColor(red: 126, green: 92, blue: 250), UIColor(red: 126, green: 92, blue: 250)])
     }
 }

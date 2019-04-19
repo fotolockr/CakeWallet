@@ -9,7 +9,7 @@ final class BitrefillFlow: Flow {
         case productsList([BitrefillProduct])
         case productDetails(BitrefillProduct)
         case standartOrder(BitrefillOrderDetails)
-        case moneroOrder(ExchangeTrade)
+        case moneroOrder(ExchangeTrade, BitrefillOrderDetails)
     }
     
     var rootController: UIViewController {
@@ -67,9 +67,9 @@ final class BitrefillFlow: Flow {
                 animated: true
             )
             
-        case let .moneroOrder(trade):
+        case let .moneroOrder(trade, orderDetails):
             navigationController.pushViewController(
-                BitrefillMoneroOrderViewController(store: store, trade: trade),
+                BitrefillMoneroOrderViewController(store: store, trade: trade, orderDetails: orderDetails),
                 animated: true
             )
         }

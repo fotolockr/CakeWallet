@@ -1,10 +1,12 @@
 enum BitrefillCountry: String {
-    case af, ax, al, dz, ad, ao, ai, aq, ar, am, aw, au, at, az, bs, bh, bd, bb, by, be, br, bg, ca, cn, dk,
+    case af, ax, al, dz, ad, ao, ai, aq, ar, am, aw, au, at, az, bs, bh, bd, bb, by, be, br, bg, cm, ca, cn, co, dk,
+    
     eu, fr, de, mx, ua, ru, us
     
     static var all: [BitrefillCountry] {
         return [
-            .af, .ax, .al, .dz, .ad, .ao, .ai, .aq, .ar, .am, .aw, .au, .at, .az, .bs, .bh, .bd, .bb, .by, .be, .br, .bg, .ca, .cn, .dk,
+            .af, .ax, .al, .dz, .ad, .ao, .ai, .aq, .ar, .am, .aw, .au, .at, .az, .bs, .bh, .bd, .bb, .by, .be, .br, .bg, cm, .ca, .cn, co, .dk,
+            
             .eu, .fr, .de, .ua, ru, .us
         ]
     }
@@ -33,8 +35,12 @@ enum BitrefillCountry: String {
         case .be: return "Belgium"
         case .br: return "Brazil"
         case .bg: return "Bulgaria"
+        case .cm: return "Cameroon"
         case .ca: return "Canada"
         case .cn: return "China"
+        case .co: return "Colombia"
+            
+        
         case .dk: return "Denmark"
         case .eu: return "EU"
         case .fr: return "France"

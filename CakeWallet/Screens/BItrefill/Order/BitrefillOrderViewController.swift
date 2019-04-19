@@ -39,7 +39,7 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
         return BitcoinAmount(value: orderDetails.satoshiPrice)
     }
     private lazy var checkOrderStatus: Timer = {
-        return Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] _ in self?.fetchOrderDetails() }
+        return Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in self?.fetchOrderDetails() }
     }()
     
     init(bitrefillFlow: BitrefillFlow?, orderDetails: BitrefillOrderDetails) {
@@ -57,7 +57,6 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
         contentView.addressLabel.text = orderDetails.address
         contentView.summaryLabel.text = orderDetails.summary
         
-        // TODO: qrCode with amount?
         let qrCode = QRCode(orderDetails.address)
         contentView.qrImage.image = qrCode?.image
         
@@ -67,7 +66,6 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
     override func viewDidLoad() {
         super.viewDidLoad()
   
-        // TODO: rename timer as labelTimer or smth
         contentView.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
@@ -121,7 +119,6 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
             let expectedPin = json["pinInfo"]["pin"].string
             
             if let this = self {
- 
                 let alertConfirmAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
                     let selectCategoryViewController = BitrefillSelectCategoryViewController(
                         bitrefillFlow: this.bitrefillFlow,
@@ -134,47 +131,41 @@ final class BitrefillOrderViewController: BaseViewController<BitrefillOrderView>
                 
                 if paymentReceived {
                     this.paymentReceived = true
-                    this.contentView.timerLabel.text = "Payment received ✅"
+                    this.contentView.timerLabel.text = "Received ✅"
                 }
                 
                 if sent {
-                    this.contentView.timerLabel.text = "Payment received and sent ✅ ✅"
+                    this.contentView.timerLabel.text = "Received and sent ✅ ✅"
                 }
                 
                 if delivered {
                     this.checkOrderStatus.invalidate()
                     this.contentView.mainTitleLabel.text = "Success!"
-                    this.contentView.mainTitleLabel.textColor = UIColor.turquoiseBlue
+                    this.contentView.mainTitleLabel.textColor = UIColor(red: 27, green: 183, blue: 30)
                     this.contentView.secondaryTitleLabel.text = "Order details have been sent to your email"
                     
-                    this.contentView.addressLabel.text = "1234567"
-                    this.contentView.copyButton.setTitle("Copy voucher code", for: .normal)
-                    this.contentView.qrCodeHolder.flex.height(0)
-                    this.contentView.qrImage.flex.height(0)
-                    this.contentView.flex.layout()
-                    this.contentView.qrImage.isHidden = true
-                    
-//                    if let pin = expectedPin {
-//                        this.contentView.addressLabel.text = pin
-//                        this.contentView.copyButton.setTitle("Copy voucher code", for: .normal)
-//                        this.contentView.qrCodeHolder.flex.height(0)
-//                        this.contentView.qrImage.isHidden = true
-//                        this.contentView.qrImage.flex.height(0)
-//                        this.contentView.flex.layout()
-//
-//                        this.showOKInfoAlert(
-//                            title: "Bitrefill",
-//                            message: "Your payment for \(this.orderDetails.summary) has been successfully delivered. On this page and also in your email you will find voucher code"
-//                        )
-//
-//                        return
-//                    }
-//
-//                    this.showInfoAlert(
-//                        title: "Bitrefill",
-//                        message: "Your payment for \(this.orderDetails.summary) has been successfully delivered",
-//                        actions: [alertConfirmAction]
-//                    )
+                    if let pin = expectedPin {
+                        this.contentView.addressLabel.text = pin
+                        this.contentView.copyButton.setTitle("Copy voucher code", for: .normal)
+                        
+                        self?.contentView.qrCodeHolder.flex.height(0).width(0).markDirty()
+                        self?.contentView.qrImage.flex.height(0).width(0).markDirty()
+                        self?.contentView.rootFlexContainer.flex.layout()
+                        self?.contentView.qrImage.isHidden = true
+
+                        this.showOKInfoAlert(
+                            title: "Bitrefill",
+                            message: "Your payment for \(this.orderDetails.summary) has been successfully delivered. You can find voucher code on the screen and in your email."
+                        )
+
+                        return
+                    }
+
+                    this.showInfoAlert(
+                        title: "Bitrefill",
+                        message: "Your payment for \(this.orderDetails.summary) has been successfully delivered",
+                        actions: [alertConfirmAction]
+                    )
                 }
                 
                 if this.seconds == 0 {

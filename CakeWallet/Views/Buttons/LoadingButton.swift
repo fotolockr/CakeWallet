@@ -52,14 +52,12 @@ class LoadingButton: UIButton {
 
 final class PrimaryLoadingButton: LoadingButton {
     override func configureView() {
-        super.configureView()
-        self.applyGradient(colours: [UIColor.yellow, UIColor.blue])
-        
+        super.configureView()        
         layer.applySketchShadow(color: UIColor(hex: 0xdfd0ff), alpha: 0.34, x: 0, y: 5, blur: 10, spread: -10)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.applyGradient(colours: [UIColor(red: 161, green: 96, blue: 222), UIColor(red: 90, green: 71, blue: 255)])
+        self.applyGradient(colours: [UIColor(red: 126, green: 92, blue: 250), UIColor(red: 126, green: 92, blue: 250)])
     }
 }

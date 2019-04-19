@@ -20,6 +20,8 @@ final class BitrefillOrderView: BaseScrollFlexView {
     let copyButton: UIButton
     let copyButtonHolder: UIView
     
+    let activityIndicator: UIActivityIndicatorView
+    
     required init() {
         cardView = CardView()
         mainTitleLabel = UILabel(text: "Payment")
@@ -35,10 +37,7 @@ final class BitrefillOrderView: BaseScrollFlexView {
         qrImage = UIImageView()
     
         copyButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 60))
-        copyButton.backgroundColor = UIColor.wildDarkBlue
-        copyButton.titleLabel?.font = applyFont(ofSize: 16)
-        copyButton.layer.cornerRadius = 5
-        copyButton.setTitle("Copy address", for: .normal)
+        activityIndicator = UIActivityIndicatorView()
         
         super.init()
     }
@@ -47,7 +46,7 @@ final class BitrefillOrderView: BaseScrollFlexView {
         super.configureView()
         
         mainTitleLabel.font = applyFont(ofSize: 26, weight: .bold)
-        secondaryTitleLabel.font = applyFont(ofSize: 17, weight: .semibold)
+        secondaryTitleLabel.font = applyFont(ofSize: 16)
         secondaryTitleLabel.textColor = UIColor.wildDarkBlue
         secondaryTitleLabel.numberOfLines = 2
         
@@ -58,9 +57,26 @@ final class BitrefillOrderView: BaseScrollFlexView {
         addressLabel.textAlignment = .center
         timerLabel.font = applyFont(ofSize: 16)
         timerLabel.textColor = UIColor.wildDarkBlue
+        
+        copyButton.backgroundColor = UIColor.wildDarkBlue
+        copyButton.titleLabel?.font = applyFont(ofSize: 16)
+        copyButton.layer.cornerRadius = 5
+        copyButton.setTitle("Copy address", for: .normal)
+        
+        activityIndicator.startAnimating()
     }
     
     override func configureConstraints() {
+        let container: UIView = UIView()
+        container.frame = CGRect(x: 0, y: 0, width: 80, height: 80) // Set X and Y whatever you want
+        container.backgroundColor = .clear
+        
+        activityIndicator.center = container.center
+        activityIndicator.startAnimating()
+        container.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
+        
         copyButtonHolder.flex
             .alignItems(.center)
             .define { flex in
@@ -76,7 +92,7 @@ final class BitrefillOrderView: BaseScrollFlexView {
         
         cardView.flex
             .width(90%)
-            .padding(30, 35, 35, 35)
+            .padding(30, 25, 35, 25)
             .define{ flex in
                 flex.addItem(mainTitleLabel).marginBottom(8)
                 flex.addItem(secondaryTitleLabel).marginBottom(32)
@@ -84,6 +100,8 @@ final class BitrefillOrderView: BaseScrollFlexView {
                 flex.addItem(summaryLabel).marginBottom(10)
                 flex.addItem(priceLabel).width(100%).marginBottom(10)
                 flex.addItem(timerLabel).width(100%)
+                
+//                flex.addItem(container)
                 
                 flex.addItem(addressLabel).width(100%).marginTop(30)
                 flex.addItem(copyButtonHolder).marginTop(15).width(100%)

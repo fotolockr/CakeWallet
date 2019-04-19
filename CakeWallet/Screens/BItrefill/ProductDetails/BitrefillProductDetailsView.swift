@@ -81,7 +81,7 @@ final class BitrefillProductDetailsView: BaseScrollFlexViewWithBottomSection {
         
         cardView.flex
             .width(90%)
-            .padding(30, 25, 35, 25)
+            .padding(30, 25, 40, 25)
             .define{ flex in
                 flex.addItem(productHolder).marginBottom(50)
                 flex.addItem(phoneNumerTextField).marginBottom(25)
