@@ -20,6 +20,7 @@ target 'CakeWallet' do
     pod 'VisualEffectView'
     pod 'RxSwift',    '~> 4.0'
     pod 'RxCocoa',    '~> 4.0'
+    pod 'RxBiBinding'
 end
 
 target 'CWMonero' do

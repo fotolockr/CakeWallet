@@ -104,7 +104,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
         return type
     }
     
-    func update(uri: QRUri) {
+    func updated(_ addressView: AddressView, withURI uri: QRUri) {
         contentView.addressView.textView.text = uri.address
     }
 }

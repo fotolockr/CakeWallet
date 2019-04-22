@@ -7,7 +7,7 @@ import CakeWalletLib
 
 protocol QRUriUpdateResponsible: class {
     func getCrypto(for adressView: AddressView) -> CryptoCurrency
-    func update(uri: QRUri)
+    func updated(_ adressView: AddressView, withURI uri: QRUri)
 }
 
 //fixme
@@ -132,7 +132,7 @@ final class AddressView: BaseFlexView {
                 }
                 
                 this.updateAddress(from: uri)
-                this.updateResponsible?.update(uri: uri)
+                this.updateResponsible?.updated(this, withURI: uri)
             }
             
             this.QRReaderVC.stopScanning()

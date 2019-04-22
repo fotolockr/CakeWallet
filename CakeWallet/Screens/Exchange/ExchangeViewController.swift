@@ -8,6 +8,7 @@ import Alamofire
 import CWMonero
 import RxSwift
 import RxCocoa
+import RxBiBinding
 
 // fixme!!!
 
@@ -695,17 +696,17 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         }
     }
     
-    private let receiveAmountString: Variable<String>
-    private let depositAmountString: Variable<String>
-    private let receiveAddress: Variable<String>
-    private let depositRefundAddress: Variable<String>
-    private let depositMinAmount: Variable<String>
-    private let depositMaxAmount: Variable<String>
-    private let receiveMinAmount: Variable<String>
-    private let receiveMaxAmount: Variable<String>
+    private let receiveAmountString: BehaviorRelay<String>
+    private let depositAmountString: BehaviorRelay<String>
+    private let receiveAddress: BehaviorRelay<String>
+    private let depositRefundAddress: BehaviorRelay<String>
+    private let depositMinAmount: BehaviorRelay<String>
+    private let depositMaxAmount: BehaviorRelay<String>
+    private let receiveMinAmount: BehaviorRelay<String>
+    private let receiveMaxAmount: BehaviorRelay<String>
     
-    private let depositCrypto: Variable<CryptoCurrency>
-    private let receiveCrypto: Variable<CryptoCurrency>
+    private let depositCrypto: BehaviorRelay<CryptoCurrency>
+    private let receiveCrypto: BehaviorRelay<CryptoCurrency>
     
     private var didSetCurrentAddressForDeposit: Bool
     private var didSetCurrentAddressForReceive: Bool
@@ -715,19 +716,19 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     init(store: Store<ApplicationState>, exchangeFlow: ExchangeFlow?) {
         cryptos = CryptoCurrency.all
         exchangeActionCreators = ExchangeActionCreators.shared
-        depositCrypto = Variable<CryptoCurrency>(.monero)
-        receiveCrypto = Variable<CryptoCurrency>(.bitcoin)
+        depositCrypto = BehaviorRelay<CryptoCurrency>(value: .monero)
+        receiveCrypto = BehaviorRelay<CryptoCurrency>(value: .bitcoin)
         didSetCurrentAddressForDeposit = false
         didSetCurrentAddressForReceive = false
         disposeBag = DisposeBag()
-        receiveAmountString = Variable<String>("")
-        depositAmountString = Variable<String>("")
-        receiveAddress = Variable<String>("")
-        depositRefundAddress = Variable<String>("")
-        depositMinAmount = Variable<String>("0.0")
-        depositMaxAmount = Variable<String>("0.0")
-        receiveMinAmount = Variable<String>("0.0")
-        receiveMaxAmount = Variable<String>("0.0")
+        receiveAmountString = BehaviorRelay<String>(value: "")
+        depositAmountString = BehaviorRelay<String>(value: "")
+        receiveAddress = BehaviorRelay<String>(value: "")
+        depositRefundAddress = BehaviorRelay<String>(value: "")
+        depositMinAmount = BehaviorRelay<String>(value: "0.0")
+        depositMaxAmount = BehaviorRelay<String>(value: "0.0")
+        receiveMinAmount = BehaviorRelay<String>(value: "0.0")
+        receiveMaxAmount = BehaviorRelay<String>(value: "0.0")
         self.exchangeFlow = exchangeFlow
         self.store = store
         super.init()
@@ -769,36 +770,20 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         let receiveOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onReceivePickerButtonTap))
         contentView.receiveCardView.pickerButtonView.addGestureRecognizer(receiveOnTapGesture)
         contentView.depositCardView.addressContainer.presenter = self
+        contentView.depositCardView.addressContainer.updateResponsible = self
         contentView.receiveCardView.addressContainer.presenter = self
+        contentView.receiveCardView.addressContainer.updateResponsible = self
         
-        contentView.receiveCardView.addressContainer.textView.rx
-            .text
-            .orEmpty
-            .map({ _ in
-                return self.contentView.receiveCardView.addressContainer.textView.originText ?? ""
-            })
-            .bind(to: receiveAddress)
+        (contentView.receiveCardView.addressContainer.textView.rx.text.orEmpty <-> receiveAddress)
             .disposed(by: disposeBag)
         
-        contentView.depositCardView.addressContainer.textView.rx
-            .text
-            .orEmpty
-            .map({ _ in
-                return self.contentView.depositCardView.addressContainer.textView.originText ?? ""
-            })
-            .bind(to: depositRefundAddress)
+        (contentView.depositCardView.addressContainer.textView.rx.text.orEmpty <-> depositRefundAddress)
             .disposed(by: disposeBag)
         
-        contentView.depositCardView.amountTextField.textField.rx
-            .text
-            .orEmpty
-            .bind(to: depositAmountString)
+        (contentView.depositCardView.amountTextField.textField.rx.text.orEmpty <-> depositAmountString)
             .disposed(by: disposeBag)
         
-        contentView.receiveCardView.amountTextField.textField.rx
-            .text
-            .orEmpty
-            .bind(to: receiveAmountString)
+        (contentView.receiveCardView.amountTextField.textField.rx.text.orEmpty <-> receiveAmountString)
             .disposed(by: disposeBag)
         
         depositAmountString.asObservable()
@@ -918,9 +903,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     func onPicked(item: CryptoCurrency, pickerType: ExchangeCardType) {
         switch pickerType {
         case .deposit:
-            depositCrypto.value = item
+            depositCrypto.accept(item)
         case .receive:
-            receiveCrypto.value = item
+            receiveCrypto.accept(item)
         case .unknown:
             return
         }
@@ -960,8 +945,8 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
                     case let .success(limits):
                         let min = makeAmount(from: String(limits.min), for: receiveCrypto.value)
                         let max = makeAmount(from: String(limits.max), for: receiveCrypto.value)
-                        self?.depositMaxAmount.value = max.formatted()
-                        self?.depositMinAmount.value = min.formatted()
+                        self?.depositMaxAmount.accept(max.formatted())
+                        self?.depositMinAmount.accept(min.formatted())
                     case let.failed(error):
                         print(error)
                     }
@@ -980,8 +965,8 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
                 case let .success(limits):
                     let min = makeAmount(from: limits.min, for: depositCrypto.value)
                     let max = makeAmount(from: limits.max, for: depositCrypto.value)
-                    self?.receiveMinAmount.value = min.formatted()
-                    self?.receiveMaxAmount.value = max.formatted()
+                    self?.receiveMinAmount.accept(min.formatted())
+                    self?.receiveMaxAmount.accept(max.formatted())
                 case let.failed(error):
                     print(error)
                 }
@@ -1190,10 +1175,16 @@ extension ExchangeViewController: QRUriUpdateResponsible {
         return addressView.tag == 2000 ? depositCrypto.value : receiveCrypto.value
     }
     
-    func update(uri: QRUri) {
-        // do nothing...
+    func updated(_ addressView: AddressView, withURI uri: QRUri) {
+        guard let amount = uri.amount?.formatted() else {
+            return
+        }
+        
+        let amountReply = addressView.tag == 2000 ? depositAmountString : receiveAmountString
+        amountReply.accept(amount)
     }
 }
+
 
 class ExchangeContentAlertView: BaseFlexView {
     let messageLabel: UILabel

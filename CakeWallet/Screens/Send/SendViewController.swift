@@ -6,6 +6,7 @@ import QRCodeReader
 
 protocol QRUri {
     var uri: String { get }
+    var amount: Amount? { get }
     var address: String { get }
 }
 
@@ -35,7 +36,15 @@ struct BitcoinQRResult: QRUri {
     let uri: String
     
     var address: String {
-        return self.uri.replacingOccurrences(of: "bitcoin:", with: "")
+        return self.uri.slice(from: "bitcoin", to: "?") ?? self.uri
+    }
+    
+    var amount: Amount? {
+        guard let amount = self.uri.slice(from: "amount=", to: "&") else {
+            return nil
+        }
+        
+        return BitcoinAmount(from: amount)
     }
     
     init(uri: String) {
@@ -48,6 +57,10 @@ struct DefaultCryptoQRResult: QRUri {
     
     var address: String {
         return self.uri.replacingOccurrences(of: "\(targetDescription):", with: "")
+    }
+    
+    var amount: Amount? {
+        return nil
     }
     
     private let target: CryptoCurrency
@@ -162,7 +175,7 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
     
     // MARK: QRUriUpdateResponsible
     
-    func update(uri: QRUri) {
+    func updated(_ addressView: AddressView, withURI uri: QRUri) {
         guard let uri = uri as? MoneroQRResult else {
             return
         }
