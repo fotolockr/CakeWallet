@@ -170,7 +170,7 @@ final class ExchangeActionCreators {
     
     func fetchRates() -> Store<ApplicationState>.AsyncActionProducer {
         return { state, store, handler in
-            DispatchQueue.global(qos: .utility).async {
+            exchangeQueue.async {
                 let url =  URLComponents(string: "\(morphTokenUri)/rates")!
                 var request = URLRequest(url: url.url!)
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -226,7 +226,7 @@ final class ExchangeActionCreators {
     
     func updateCurrentTradeState() -> Store<ApplicationState>.AsyncActionProducer {
         return { state, store, handler in
-            DispatchQueue.global(qos: .utility).async {
+            exchangeQueue.async {
                 guard let trade = state.exchangeState.trade else {
                     return
                 }
@@ -266,7 +266,7 @@ final class ExchangeActionCreators {
     }
     
     func fetchPriceForXMRTO(handler: @escaping (Double) -> Void) {
-        DispatchQueue.global(qos: .utility).async {
+        exchangeQueue.async {
             let url =  URLComponents(string: String(format: "%@/order_parameter_query/", xmrtoUri))!
             var request = URLRequest(url: url.url!)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -383,82 +383,91 @@ final class ExchangeActionCreators {
         })
     }
     
-    func getOrderStatusForXMRTO(uuid: String) -> Store<ApplicationState>.AsyncActionProducer {
-        return { state, store, handler in
-            let url =  URLComponents(string: String(format: "%@/order_status_query/", xmrtoUri))!
-            var request = URLRequest(url: url.url!)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue(cakeUserAgent, forHTTPHeaderField: "User-Agent")
-            let bodyJSON: JSON = [
-                "uuid": uuid
-            ]
-            
-            do {
-                request.httpBody = try bodyJSON.rawData(options: .prettyPrinted)
-            } catch {
-                handler(ApplicationState.Action.changedError(error))
+    func getTradeForXMRTO(with uuid: String, handler: @escaping (CakeWalletLib.Result<ExchangeTrade>) -> Void) {
+        let url =  URLComponents(string: String(format: "%@/order_status_query/", xmrtoUri))!
+        var request = URLRequest(url: url.url!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(cakeUserAgent, forHTTPHeaderField: "User-Agent")
+        let bodyJSON: JSON = [
+            "uuid": uuid
+        ]
+        
+        do {
+            request.httpBody = try bodyJSON.rawData(options: .prettyPrinted)
+        } catch {
+            handler(.failed(error))
+            return
+        }
+        
+        Alamofire.request(request).responseData(completionHandler: { response in
+            if let error = response.error {
+                handler(.failed(error))
                 return
             }
             
-            Alamofire.request(request).responseData(completionHandler: { response in
-                if let error = response.error {
+            guard response.response?.statusCode == 200 else {
+                return
+            }
+            
+            guard
+                let data = response.data,
+                let json = try? JSON(data: data) else {
+                    return
+            }
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            
+            let address = json["xmr_receiving_integrated_address"].stringValue
+            let paymentId = json["xmr_required_payment_id_short"].stringValue
+            let totalAmount = json["xmr_amount_total"].stringValue
+            let amount = MoneroAmount(from: totalAmount)
+            let stateString = json["state"].stringValue
+            let state = ExchangeTradeState(fromXMRTO: stateString) ?? .notFound
+            var expiredAt: Date? // = Date(timeIntervalSince1970: expiredAtTimestamp)
+            
+            if let _expiredAt = dateFormatter.date(from: json["expires_at"].stringValue) {
+                expiredAt = _expiredAt
+            }
+            
+            let trade = ExchangeTrade(
+                id: uuid,
+                inputCurrency: .monero,
+                outputCurrency: .bitcoin,
+                inputAddress: address,
+                min: MoneroAmount(value: 0),
+                max: MoneroAmount(value: 0),
+                value: amount,
+                status: state,
+                paymentId: paymentId,
+                provider: .xmrto,
+                outputTxID: state == .btcSent
+                    ? json["btc_transaction_id"].stringValue
+                    : nil,
+                expiredAt: expiredAt
+            )
+            
+            handler(.success(trade))
+        })
+    }
+    
+    func getOrderStatusForXMRTO(uuid: String) -> Store<ApplicationState>.AsyncActionProducer {
+        return { state, store, handler in
+            self.getTradeForXMRTO(with: uuid, handler: { res in
+                switch res {
+                case let .success(trade):
+                    handler(ExchangeState.Action.changedTrade(trade))
+                case let .failed(error):
                     handler(ApplicationState.Action.changedError(error))
-                    return
                 }
-                
-                guard response.response?.statusCode == 200 else {
-                    return
-                }
-                
-                guard
-                    let data = response.data,
-                    let json = try? JSON(data: data) else {
-                        return
-                }
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                
-                
-                
-                let address = json["xmr_receiving_integrated_address"].stringValue
-                let paymentId = json["xmr_required_payment_id_short"].stringValue
-                let totalAmount = json["xmr_amount_total"].stringValue
-                let amount = MoneroAmount(from: totalAmount)
-                let stateString = json["state"].stringValue
-                let state = ExchangeTradeState(fromXMRTO: stateString) ?? .notFound
-                var expiredAt: Date? // = Date(timeIntervalSince1970: expiredAtTimestamp)
-                
-                if let _expiredAt = dateFormatter.date(from: json["expires_at"].stringValue) {
-                    expiredAt = _expiredAt
-                }
-                
-                let trade = ExchangeTrade(
-                    id: uuid,
-                    inputCurrency: .monero,
-                    outputCurrency: .bitcoin,
-                    inputAddress: address,
-                    min: MoneroAmount(value: 0),
-                    max: MoneroAmount(value: 0),
-                    value: amount,
-                    status: state,
-                    paymentId: paymentId,
-                    provider: .xmrto,
-                    outputTxID: state == .btcSent
-                        ? json["btc_transaction_id"].stringValue
-                        : nil,
-                    expiredAt: expiredAt
-                )
-                
-                handler(ExchangeState.Action.changedTrade(trade))
             })
         }
     }
     
     func createTrade(from input: CryptoCurrency, refund: String, outputs: [ExchangeOutput], handler: @escaping (CakeWalletLib.Result<ExchangeTrade>) -> Void) {
         //        return { state, store, handler in
-        DispatchQueue.global(qos: .utility).async {
+        exchangeQueue.async {
             let url =  URLComponents(string: "\(morphTokenUri)/morph")!
             var request = URLRequest(url: url.url!)
             request.httpMethod = "POST"
@@ -558,7 +567,7 @@ extension Array {
 typealias Limits = (min: UInt64, max: UInt64)
 
 private func fetchLimits(for inputAsset: CryptoCurrency, and outputAsset: CryptoCurrency, outputWeight: Int = 10000, handler: @escaping (CakeWalletLib.Result<Limits>) -> Void) {
-    DispatchQueue.global(qos: .utility).async {
+    exchangeQueue.async {
         let url =  URLComponents(string: "\(morphTokenUri)/limits")!
         var request = URLRequest(url: url.url!)
         request.httpMethod = "POST"
@@ -606,7 +615,7 @@ private func fetchLimits(for inputAsset: CryptoCurrency, and outputAsset: Crypto
 }
 
 private func fetchXMRTOLimits(handler: @escaping (CakeWalletLib.Result<(min: Double, max: Double)>) -> Void) {
-    DispatchQueue.global(qos: .utility).async {
+    exchangeQueue.async {
         let url =  URLComponents(string: "\(xmrtoUri)/order_parameter_query")!
         var request = URLRequest(url: url.url!)
         request.httpMethod = "GET"

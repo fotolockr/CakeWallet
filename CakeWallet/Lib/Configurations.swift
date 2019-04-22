@@ -6,7 +6,7 @@ final class Configurations {
     enum DefaultsKeys: Stringify {
         case nodeUri, nodeLogin, nodePassword, termsOfUseAccepted, currentWalletName,
         currentWalletType, biometricAuthenticationOn, passwordIsRemembered, transactionPriority,
-        currency, defaultNodeChanged, autoSwitchNode, pinLength, currentTheme, termsOfUseXMRto, termsOfUseMorph, walletsDirectoryPathMigrated, masterPassword, lastBackupDate, isAutoBackupEnabled
+        currency, defaultNodeChanged, autoSwitchNode, pinLength, currentTheme, termsOfUseXMRto, termsOfUseMorph, walletsDirectoryPathMigrated, masterPassword, lastBackupDate, isAutoBackupEnabled, bitrefillSelectedCountry
         
         func string() -> String {
             switch self {
@@ -50,6 +50,8 @@ final class Configurations {
                 return "last_backup_date"
             case .isAutoBackupEnabled:
                 return "is_auto_backup_enabled"
+            case .bitrefillSelectedCountry:
+                return "bitrefill_selected_country"
             }
         }
     }

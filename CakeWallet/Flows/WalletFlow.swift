@@ -37,6 +37,10 @@ final class WalletFlow: NSObject, Flow, UITabBarControllerDelegate {
         return ExchangeFlow()
     }()
     
+    private lazy var bitrefillFlow: BitrefillFlow = {
+        return BitrefillFlow()
+    }()
+    
     convenience override init() {
         let tabbarController = CustomTabBarController()
         self.init(rootController: tabbarController)
@@ -59,35 +63,9 @@ final class WalletFlow: NSObject, Flow, UITabBarControllerDelegate {
     private func configureRootTabBar() {
         _root.viewControllers = [
             dashboardFlow.rootController,
-//            UINavigationController(rootViewController: ReceivePageViewController(
-//                transitionStyle: .scroll,
-//                navigationOrientation: .horizontal,
-//                options: nil
-//                )
-//            ),
-//            UINavigationController(rootViewController: SendViewController(store: store)),
             exchangeFlow.rootController,
+            bitrefillFlow.rootController,
             settingsFlow.rootController
-//            UINavigationController(rootViewController: SettingsViewController(store: store))
         ]
     }
-    
-//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        guard
-//            let nav = viewController as? UINavigationController,
-//            let viewController = nav.viewControllers.first as? DashboardController else { return }
-//
-//        if let nav = viewController.presentedViewController as? UINavigationController {
-//            nav.viewControllers.first?.dismiss(animated: true)
-//        } else {
-//            viewController.presentedViewController?.dismiss(animated: true)
-//            viewController.view.subviews.forEach { view in
-//                    if view.tag == blurViewTag {
-//                        view.removeFromSuperview()
-//                    }
-//            }
-//        }
-//        viewController.navigationItem.titleView?.isHidden = false
-//        viewController.navigationItem.rightBarButtonItem = viewController.syncButton
-//    }
 }
