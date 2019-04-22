@@ -111,7 +111,35 @@ final class AddressView: BaseFlexView {
             $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
         }
         
-        return QRCodeReaderViewController(builder: builder)
+        let QRCodeReaderVC = QRCodeReaderViewController(builder: builder)
+        QRCodeReaderVC.completionBlock = { [weak self] result in
+            guard let this = self else {
+                return
+            }
+            
+            if
+                let value = result?.value,
+                let crypto = this.updateResponsible?.getCrypto(for: this) {
+                let uri: QRUri
+                
+                switch crypto {
+                case .bitcoin:
+                    uri = BitcoinQRResult(uri: value)
+                case .monero:
+                    uri = MoneroQRResult(uri: value)
+                default:
+                    uri = DefaultCryptoQRResult(uri: value, for: crypto)
+                }
+                
+                this.updateAddress(from: uri)
+                this.updateResponsible?.update(uri: uri)
+            }
+            
+            this.QRReaderVC.stopScanning()
+            this.QRReaderVC.dismiss(animated: true)
+        }
+        
+        return QRCodeReaderVC
     }()
     
     required init(placeholder: String = "", hideAddressBookButton: Bool = false) {
@@ -141,12 +169,12 @@ final class AddressView: BaseFlexView {
     override func configureView() {
         super.configureView()
         
-        qrScanButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        qrScanButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         qrScanButton.backgroundColor = .clear
         qrScanButton.layer.cornerRadius = 5
         qrScanButton.backgroundColor = UIColor.whiteSmoke
         
-        addressBookButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        addressBookButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         addressBookButton.backgroundColor = .clear
         addressBookButton.layer.cornerRadius = 5
         addressBookButton.backgroundColor = UIColor.whiteSmoke
@@ -203,33 +231,6 @@ final class AddressView: BaseFlexView {
     
     @objc
     private func scanQr() {
-        QRReaderVC.completionBlock = { [weak self] result in
-            guard let this = self else {
-                return
-            }
-
-            if
-                let value = result?.value,
-                let crypto = this.updateResponsible?.getCrypto(for: this) {
-                let uri: QRUri
-
-                switch crypto {
-                case .bitcoin:
-                    uri = BitcoinQRResult(uri: value)
-                case .monero:
-                    uri = MoneroQRResult(uri: value)
-                default:
-                    uri = DefaultCryptoQRResult(uri: value, for: crypto)
-                }
-
-                this.updateAddress(from: uri)
-                this.updateResponsible?.update(uri: uri)
-            }
-
-            this.QRReaderVC.stopScanning()
-            this.QRReaderVC.dismiss(animated: true)
-        }
-
         QRReaderVC.modalPresentationStyle = .overFullScreen
         presenter?.parent?.present(QRReaderVC, animated: true)
     }

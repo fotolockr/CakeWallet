@@ -2,6 +2,7 @@ import UIKit
 import CakeWalletLib
 import CakeWalletCore
 import CWMonero
+import QRCodeReader
 
 protocol QRUri {
     var uri: String { get }
@@ -74,7 +75,7 @@ struct DefaultCryptoQRResult: QRUri {
 }
 
 
-final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscriber, QRUriUpdateResponsible {
+final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscriber, QRUriUpdateResponsible, QRCodeReaderViewControllerDelegate {
     private static let allSymbol = NSLocalizedString("all", comment: "")
     
     let store: Store<ApplicationState>
@@ -86,6 +87,16 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
     private var price: Double {
         return store.state.balanceState.price
     }
+    private lazy var paymentIdQRReaderVC: QRCodeReaderViewController = {
+        let builder = QRCodeReaderViewControllerBuilder {
+            $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+        }
+        
+        let qrCodeReaderVC = QRCodeReaderViewController(builder: builder)
+        qrCodeReaderVC.modalPresentationStyle = .overCurrentContext
+        qrCodeReaderVC.delegate = self
+        return qrCodeReaderVC
+    }()
     
     init(store: Store<ApplicationState>, address: String?) {
         self.store = store
@@ -102,6 +113,7 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
         contentView.estimatedFeeTitleLabel.text = NSLocalizedString("estimated_fee", comment: "") + ":"
         contentView.addressView.presenter = self
         contentView.addressView.updateResponsible = self
+        contentView.scanQrForPaymentId.addTarget(self, action: #selector(scanPaymnetIdQr), for: .touchUpInside)
         updateEstimatedFee(for: store.state.settingsState.transactionPriority)
     }
     
@@ -168,6 +180,26 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
         return .monero
     }
     
+    // MARK: QRCodeReaderViewControllerDelegate
+    
+    func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+        let uri = MoneroQRResult(uri: result.value)
+        let paymentId = uri.paymentId ?? result.value
+        updatePaymentId(paymentId)
+        paymentIdQRReaderVC.stopScanning()
+        paymentIdQRReaderVC.dismiss(animated: true)
+    }
+    
+    func readerDidCancel(_ reader: QRCodeReaderViewController) {
+        reader.stopScanning()
+        reader.dismiss(animated: true)
+    }
+    
+    @objc
+    private func scanPaymnetIdQr() {
+        parent?.present(paymentIdQRReaderVC, animated: true)
+    }
+    
     @objc
     private func takeFromAddressBook() {
         let addressBookVC = AddressBookViewController(addressBook: AddressBook.shared, store: self.store, isReadOnly: true)
@@ -183,6 +215,10 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
         dismiss(animated: true) { [weak self] in
             self?.onDismissHandler?()
         }
+    }
+    
+    private func updatePaymentId(_ paymentId: String) {
+        contentView.paymentIdTextField.textField.text = paymentId
     }
     
     private func updateWallet(name: String) {
@@ -373,13 +409,9 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
     }
     
     private func onTransactionCommited() {
-        let okAction = CWAlertAction(title: NSLocalizedString("Ok", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.resetForm()
-            }
+        showOKInfoAlert(title: NSLocalizedString("transaction_created", comment: "")) { [weak self] in
+            self?.resetForm()
         }
-        
-        showOKInfoAlert(title: NSLocalizedString("transaction_created", comment: ""))
     }
     
     private func createTransaction(_ handler: (() -> Void)? = nil) {

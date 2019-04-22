@@ -22,6 +22,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     let cryptoAmountTitleLabel: UILabel
     let sendAllButton: TransparentButton
     let cryptoAmonutContainer: UIView
+    let scanQrForPaymentId: UIButton
     
     required init() {
         cardView = CardView()
@@ -44,6 +45,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         cryptoAmountTitleLabel = UILabel()
         sendAllButton = TransparentButton(title: NSLocalizedString("all", comment: ""))
         cryptoAmonutContainer = UIView()
+        scanQrForPaymentId = UIButton()
         super.init()
     }
     
@@ -87,6 +89,11 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         sendAllButton.titleLabel?.font = applyFont(ofSize: 11)
         
         sendButton.setTitle(NSLocalizedString("send", comment: ""), for: .normal)
+        scanQrForPaymentId.setImage(UIImage(named: "qr_code_icon"), for: .normal)
+        scanQrForPaymentId.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        scanQrForPaymentId.backgroundColor = .clear
+        scanQrForPaymentId.layer.cornerRadius = 5
+        scanQrForPaymentId.backgroundColor = UIColor.whiteSmoke
     }
     
     override func configureConstraints() {
@@ -113,9 +120,14 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
             flex.addItem(estimatedFeeValueLabel)
         }
         
+        paymentIdContainer.flex.backgroundColor(.blue).define { flex in
+            flex.addItem(paymentIdTextField).width(100%)
+            flex.addItem(scanQrForPaymentId).width(35).height(35).position(.absolute).right(0).top(-10)
+        }
+        
         cardView.flex.alignItems(.center).padding(30, 20, 30, 20).define { flex in
             flex.addItem(addressView).width(100%)
-            flex.addItem(paymentIdTextField).width(100%).marginTop(30)
+            flex.addItem(paymentIdContainer).width(100%).marginTop(30)
             
             flex.addItem(currenciesContainer).marginTop(25).width(100%)
             

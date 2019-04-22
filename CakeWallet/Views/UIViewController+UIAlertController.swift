@@ -11,11 +11,11 @@ extension UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func showOKInfoAlert(title: String? = nil, message: String? = nil) {
+    func showOKInfoAlert(title: String? = nil, message: String? = nil, completion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
     
         alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
+            completion?()
         }))
         
         self.present(alertController, animated: true, completion: nil)
