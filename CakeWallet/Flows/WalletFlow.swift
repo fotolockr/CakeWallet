@@ -10,11 +10,25 @@ final class CustomTabBarController: UITabBarController {
         super.viewWillDisappear(animated)
         selectedViewController?.viewWillDisappear(animated)
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tabBar.clipsToBounds = true
+    
+        tabBar.backgroundColor = UIColor.white
+        tabBar.layer.backgroundColor = UIColor.white.cgColor
+        tabBar.barTintColor = UIColor.white
+        
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        tabBar.layer.shadowRadius = 5
+        tabBar.layer.shadowColor = UIColor.gray.cgColor
+        tabBar.layer.shadowOpacity = 0.2
+        tabBar.layer.masksToBounds = false
+    }
 }
 
 final class WalletFlow: NSObject, Flow, UITabBarControllerDelegate {
-    
-    
     enum Route {
         case start
     }

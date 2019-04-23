@@ -22,6 +22,24 @@ enum DashboardActionType {
             return UIImage(named: "receive_button_icon")!
         }
     }
+    
+    var borderColor: UIColor {
+        switch self {
+        case .send:
+            return UIColor(red: 209, green: 189, blue: 245)
+        case .receive:
+            return UIColor(red: 152, green: 228, blue: 227)
+        }
+    }
+    
+    var backgroundColor: UIColor {
+        switch self {
+        case .send:
+            return UIColor(red: 244, green: 239, blue: 253)
+        case .receive:
+            return UIColor(red: 235, green: 248, blue: 250)
+        }
+    }
 }
 
 final class DashboardActionButton: BaseFlexView {
@@ -52,6 +70,8 @@ final class DashboardActionButton: BaseFlexView {
         label.font = applyFont(ofSize: 17, weight: .semibold)
         
         wrapper.layer.cornerRadius = 12
+        wrapper.layer.borderWidth = 1
+        wrapper.layer.borderColor = type.borderColor.cgColor
         wrapper.applyCardSketchShadow()
         
         buttonImageView.image = type.image
@@ -63,7 +83,7 @@ final class DashboardActionButton: BaseFlexView {
         wrapper.flex
             .justifyContent(.center)
             .alignItems(.center)
-            .backgroundColor(.white)
+            .backgroundColor(type.backgroundColor)
             .define{ flex in
                 flex.addItem(buttonImageView).position(.absolute).top(17).left(15)
                 flex.addItem(label).marginLeft(12)
@@ -71,7 +91,7 @@ final class DashboardActionButton: BaseFlexView {
         
         rootFlexContainer.flex
             .height(60)
-            .backgroundColor(UIColor(white: 1, alpha: 0.0))
+            .backgroundColor(.white)
             .define { flex in
                 flex.addItem(wrapper).width(100%).height(100%)
         }
@@ -94,8 +114,6 @@ final class ShortStatusBarView: BaseView {
         super.init()
     }
     
-
-    
     override func configureConstraints() {
         amountContainer.flex.define { flex in
             flex.addItem(cryptoAmountLabel).grow(1).width(100%)
@@ -111,7 +129,8 @@ final class ShortStatusBarView: BaseView {
 }
 
 final class DashboardView: BaseFlexView {
-    let cardView, transactionsCardView: CardView
+    let transactionsCardView: CardView
+    let cardView: UIView
     let fiatAmountLabel, cryptoAmountLabel, statusLabel, cryptoTitleLabel, transactionTitleLabel: UILabel
     let progressBar: ProgressBar
     let statusView, buttonsRow: UIView
@@ -123,11 +142,11 @@ final class DashboardView: BaseFlexView {
     private var isShowSyncingIconHidden: Bool
     
     required init() {
-        cardView = CardView()
+        cardView = UIView()
         progressBar = ProgressBar()
         statusLabel = UILabel.withLightText(fontSize: 10)
-        cryptoAmountLabel = UILabel(fontSize: 33)
-        fiatAmountLabel = UILabel.withLightText(fontSize: 16)
+        cryptoAmountLabel = UILabel()
+        fiatAmountLabel = UILabel.withLightText(fontSize: 17)
         cryptoTitleLabel = UILabel(fontSize: 16)
         receiveButton = DashboardActionButton(type: .receive)
         sendButton = DashboardActionButton(type: .send)
@@ -147,21 +166,20 @@ final class DashboardView: BaseFlexView {
         super.configureView()
         
         statusLabel.textAlignment = .center
-        cryptoAmountLabel.font = applyFont(ofSize: 33)
+        cryptoAmountLabel.font = applyFont(ofSize: 40)
         cryptoAmountLabel.textAlignment = .center
         fiatAmountLabel.textAlignment = .center
+        fiatAmountLabel.font = applyFont(ofSize: 17)
         
-        cryptoTitleLabel.font = applyFont(ofSize: 16)
+        cryptoTitleLabel.font = applyFont(ofSize: 16, weight: .semibold)
         cryptoTitleLabel.textColor = UIColor.purpley
         cryptoTitleLabel.textAlignment = .center
         
         transactionsTableView.separatorStyle = .none
-        tableHeaderView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: 360))
+        tableHeaderView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: 310))
         transactionsTableView.tableHeaderView = tableHeaderView
         transactionsTableView.tableFooterView = UIView()
-        transactionsTableView.backgroundColor = .clear
         transactionsTableView.layoutMargins = .zero
-        transactionsTableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -18)
         transactionsTableView.separatorInset = .zero
         transactionTitleLabel.text = NSLocalizedString("transactions", comment: "")
         transactionTitleLabel.textAlignment = .center
@@ -170,11 +188,13 @@ final class DashboardView: BaseFlexView {
         tableHeaderView.rootFlexContainer.flex.backgroundColor(.clear)
         transactionsTableView.layer.masksToBounds = false
         rootFlexContainer.layer.masksToBounds = true
+        backgroundColor = UIColor.white
     }
     
     override func configureConstraints() {
         let cardViewCoreDataWrapper = UIView()
         let cardViewStatusBarUIWrapper = UIView()
+        let buttonsRowPadding = adaptiveLayout.getSize(forLarge: 50, forBig: 45, defaultSize: 45)
         
         statusView.flex
             .direction(.row)
@@ -190,8 +210,8 @@ final class DashboardView: BaseFlexView {
             .paddingTop(20)
             .width(100%)
             .define{ flex in
-                flex.addItem(cryptoTitleLabel)
-                flex.addItem(cryptoAmountLabel).marginBottom(5).width(100%)
+                flex.addItem(cryptoTitleLabel).marginBottom(8).width(100%)
+                flex.addItem(cryptoAmountLabel).marginBottom(10).width(100%)
                 flex.addItem(fiatAmountLabel).width(100%)
         }
         
@@ -203,20 +223,19 @@ final class DashboardView: BaseFlexView {
         }
         
         cardView.flex
-            .alignItems(.center)
-            .padding(20)
-            .marginTop(15)
-            .justifyContent(.spaceBetween)
-            .alignItems(.center)
+            .alignItems(.center).justifyContent(.spaceBetween).alignItems(.center)
+            .width(100%).padding(20).marginTop(15)
+            .backgroundColor(.white)
             .define { flex in
-                flex.addItem(cardViewCoreDataWrapper).marginBottom(35)
+                flex.addItem(cardViewCoreDataWrapper).marginBottom(29)
                 flex.addItem(cardViewStatusBarUIWrapper).width(100%)
         }
         
         buttonsRow.flex
             .direction(.row)
             .justifyContent(.spaceBetween)
-            .marginTop(15)
+            .marginTop(15).paddingHorizontal(buttonsRowPadding)
+            .backgroundColor(.clear)
             .define { flex in
                 flex.addItem(sendButton).width(48%)
                 flex.addItem(receiveButton).width(48%)
@@ -229,19 +248,23 @@ final class DashboardView: BaseFlexView {
         }
         
         rootFlexContainer.flex
+            .backgroundColor(.white)
             .define { flex in
-                flex.addItem(transactionsTableView).margin(UIEdgeInsets(top: 20, left: 15, bottom: 30, right: 20))
-                flex.addItem(shortStatusBarView).position(.absolute).width(100%)
+                flex.addItem(transactionsTableView).margin(UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
+//                flex.addItem(shortStatusBarView).position(.absolute).width(100%)
         }
+        
+//        tableHeaderView.layer.borderWidth = 1
         
         tableHeaderView.rootFlexContainer.flex
             .alignItems(.center)
-            .padding(20)
+//            .padding(20)
+//            .backgroundColor(.white)
             .margin(-35)
             .define { flex in
                 flex.addItem(cardView).width(92%)
-                flex.addItem(buttonsRow).marginTop(15).width(92%)
-                flex.addItem(transactionTitleLabel).marginTop(30)
+                 flex.addItem(buttonsRow).marginTop(15).width(92%)
+                // flex.addItem(transactionTitleLabel).marginTop(30)
         }
     }
     
