@@ -41,7 +41,7 @@ final class RestoreFromCloudVC: BaseViewController<RestoreFromCloudView>, UIDocu
     }
     
     private func importFile(from url: URL, withPassword password: String) {
-        showSpinner(withTitle: "Restoring from backup") { [weak self] alert in
+        showSpinnerAlert(withTitle: "Restoring from backup") { [weak self] alert in
             do {
                 try self?.backup.import(from: url, withPassword: password)
                 let handler = LoadCurrentWalletHandler()
@@ -58,7 +58,7 @@ final class RestoreFromCloudVC: BaseViewController<RestoreFromCloudView>, UIDocu
                             case let .changedError(_error) = action,
                             let error = _error {
                             alert.dismiss(animated: true) {
-                                self?.showError(error: error)
+                                self?.showErrorAlert(error: error)
                             }
                             return
                         }
@@ -72,7 +72,7 @@ final class RestoreFromCloudVC: BaseViewController<RestoreFromCloudView>, UIDocu
                 })
             } catch {
                 alert.dismiss(animated: true) {
-                    self?.showError(error: error)
+                    self?.showErrorAlert(error: error)
                 }
             }
         }

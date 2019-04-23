@@ -34,11 +34,11 @@ public struct UpdateTransactionHistoryHandler: AsyncHandler {
         workQueue.async {
             let transactions = store.state.transactionsState.transactions
             transactionHistory.refresh()
+            let refreshedTransactions = transactionHistory.transactions.filter { $0.accountIndex == store.state.walletState.accountIndex }
             
             if
-                transactions.count != transactionHistory.count || transactions.filter({ $0.isPending }).count > 0 {
-                let transactions = transactionHistory.transactions
-                    .sorted(by: { $0.date > $1.date })
+                transactions.count != refreshedTransactions.count || transactions.filter({ $0.isPending }).count > 0 {
+                let transactions = refreshedTransactions.sorted(by: { $0.date > $1.date })
                 handler(TransactionsState.Action.reset(transactions))
             }
         }

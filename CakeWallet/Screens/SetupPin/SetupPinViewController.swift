@@ -20,11 +20,13 @@ final class SetupPinViewController: BaseViewController<BaseFlexView> {
     weak var signUpFlow: SignUpFlow?
     var afterPinSetup: (() -> Void)?
     private var rememberedPin: PinCodeViewController.PinCode
+    let togglePingLengthBtn: UIBarButtonItem
     
     init(store: Store<ApplicationState>) {
         self.store = store
         self.pinCodeViewController = PinCodeViewController()
         rememberedPin = []
+        togglePingLengthBtn = UIBarButtonItem()
         super.init()
     }
     
@@ -36,8 +38,20 @@ final class SetupPinViewController: BaseViewController<BaseFlexView> {
     }
     
     override func configureBinds() {
+        togglePingLengthBtn.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 16)!,
+            NSAttributedStringKey.foregroundColor: Theme.current.lightText], for: .normal)
+        togglePingLengthBtn.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 16)!,
+            NSAttributedStringKey.foregroundColor: Theme.current.lightText], for: .highlighted)
+        
         title = NSLocalizedString("setup_pin", comment: "")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("use_6_pin", comment: ""), style: .plain, target: self, action: #selector(useSixDigitsPin))
+        togglePingLengthBtn.title = NSLocalizedString("use_6_pin", comment: "")
+        togglePingLengthBtn.style = .plain
+        togglePingLengthBtn.target = self
+        togglePingLengthBtn.action = #selector(useSixDigitsPin)
+        
+        navigationItem.rightBarButtonItem = togglePingLengthBtn
         pinCodeViewController.contentView.titleLabel.text = NSLocalizedString("create_pin", comment: "")
         
         pinCodeViewController.handler = { [weak self] pin in
@@ -51,18 +65,19 @@ final class SetupPinViewController: BaseViewController<BaseFlexView> {
                 this.pinCodeViewController.cleanPin()
             } else if this.rememberedPin == pin {
                 let pinLength = this.pinCodeViewController.pinLength
-                let okAction = CWAlertAction(title: NSLocalizedString("ok", comment: ""), handler: { action in
-                    action.alertView?.dismiss(animated: true) {
-                        this.store.dispatch(
-                            SettingsActions.setPin(pin: pin.string(), length: pinLength)
-                        )
-                        this.pinCodeViewController.cleanPin()
-                        this.afterPinSetup?()
-                    }
+                
+                let okAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
+                    this.store.dispatch(
+                        SettingsActions.setPin(pin: pin.string(), length: pinLength)
+                    )
+                    
+                    this.pinCodeViewController.cleanPin()
+                    this.afterPinSetup?()
                 })
-                this.showSuccessfulyInfo(title: NSLocalizedString("pin_setup_success", comment: ""), actions: [okAction])
+                
+                this.showInfoAlert(title: NSLocalizedString("pin_setup_success", comment: ""), actions: [okAction])
             } else {
-                this.showError(title: NSLocalizedString("incorrect_pin", comment: ""))
+                this.showErrorAlert(error: NSError(domain: "com.fotolockr.cakewallet.randomerror", code: 0, userInfo: [NSLocalizedDescriptionKey : NSLocalizedString("incorrect_pin", comment: "")]) )
                 this.pinCodeViewController.contentView.titleLabel.text = NSLocalizedString("create_pin", comment: "")
                 this.rememberedPin = []
                 this.pinCodeViewController.cleanPin()
@@ -84,13 +99,16 @@ final class SetupPinViewController: BaseViewController<BaseFlexView> {
     @objc
     private func useFourDigitsPin() {
         pinCodeViewController.changePin(length: .fourDigits)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("use_6_pin", comment: ""), style: .plain, target: self, action: #selector(useSixDigitsPin))
+        togglePingLengthBtn.action = #selector(useSixDigitsPin)
+        togglePingLengthBtn.title = NSLocalizedString("use_6_pin", comment: "")
+        
     }
     
     @objc
     private func useSixDigitsPin() {
         pinCodeViewController.changePin(length: .sixDigits)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("use_4_pin", comment: ""), style: .plain, target: self, action: #selector(useFourDigitsPin))
+        togglePingLengthBtn.action = #selector(useFourDigitsPin)
+        togglePingLengthBtn.title = NSLocalizedString("use_4_pin", comment: "")
     }
     
     @objc

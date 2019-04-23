@@ -6,6 +6,7 @@ final class SignUpFlow: Flow {
     enum Route {
         case disclaimer
         case welcome
+        case restoreRoot
         case newWallet
         case setupPin(((SignUpFlow) -> Void)?)
         case createWallet
@@ -48,6 +49,8 @@ final class SignUpFlow: Flow {
             return WelcomeViewController(signUpFlow: self, restoreWalletFlow: restoreWalletFlow)
         case .newWallet:
             return NewWalletViewController(signUpFlow: self, restoreWalletFlow: restoreWalletFlow)
+        case .restoreRoot:
+            return RestoreRootVC(signUpFlow: self, restoreWalletFlow: restoreWalletFlow)
         case let .setupPin(handler):
             let setupPinController = SetupPinViewController(store: store)
             setupPinController.afterPinSetup = { handler?(self) }

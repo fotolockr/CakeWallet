@@ -2,11 +2,9 @@ import UIKit
 
 final class WelcomeViewController: BaseViewController<WelcomeView> {
     weak var signUpFlow: SignUpFlow?
-    weak var restoreWalletFlow: RestoreWalletFlow?
     
     init(signUpFlow: SignUpFlow, restoreWalletFlow: RestoreWalletFlow) {
         self.signUpFlow = signUpFlow
-        self.restoreWalletFlow = restoreWalletFlow
         super.init()
     }
     
@@ -21,24 +19,15 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
     }
     
     override func configureBinds() {
-        contentView.createWallet.addTarget(self, action: #selector(createWalletAction), for: .touchUpInside)
-        contentView.recoveryWallet.addTarget(self, action: #selector(recoverWalletAction), for: .touchUpInside)
-        contentView.restoreFromCloud.addTarget(self, action: #selector(restoreFromCloud), for: .touchUpInside)
+        contentView.createWalletButton.addTarget(self, action: #selector(createWalletAction), for: .touchUpInside)
+        contentView.restoreButton.addTarget(self, action: #selector(restore), for: .touchUpInside)
+        
         if let appName = Bundle.main.displayName {
-            
-            // FIXME: Unnamed constant
-            
-            contentView.welcomeLabel.text = String(format: NSLocalizedString("welcome", comment: ""), appName)
+            contentView.welcomeLabel.text = String(format: NSLocalizedString("welcome", comment: ""), appName).uppercased()
             contentView.welcomeSubtitleLabel.text = NSLocalizedString("first_wallet_text", comment: "")
         }
         
-        // FIXME: Unnamed constant
-        
-        contentView.restoreFromBackupLabel.text = "You can also restore the whole app from a backed-up file."
-
-        contentView.descriptionTextView.text = NSLocalizedString("starting_creation_selection", comment: "")
-        + "\n\n"
-        + NSLocalizedString("love_your_feedback", comment: "")
+        contentView.descriptionTextView.text = NSLocalizedString("please_make_selection", comment: "")
     }
     
     @objc
@@ -49,14 +38,7 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
     }
     
     @objc
-    private func recoverWalletAction() {
-        signUpFlow?.change(route: .setupPin({ [weak self] _  in
-            self?.restoreWalletFlow?.change(route: .root)
-        }))
-    }
-    
-    @objc
-    private func restoreFromCloud() {
-        signUpFlow?.change(route: .restoreFromCloud)
+    private func restore() {
+        signUpFlow?.change(route: .restoreRoot)
     }
 }

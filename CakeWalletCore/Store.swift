@@ -71,7 +71,7 @@ public final class Store<State: StateType>: StoreType {
         dispatch(action)
     }
     
-    public func dispatch(_ actionProducer: AsyncActionProducer, _ handler: @escaping () -> Void) {
+    public func dispatch(_ actionProducer: (State, Store, @escaping (AnyAction) -> Void) -> Void, _ handler: @escaping () -> Void) {
         actionProducer(state, self) { [weak self] action in
             self?.dispatch(action)
             handler()

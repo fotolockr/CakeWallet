@@ -6,7 +6,7 @@
 NSString *address;
 NSString *label;
 
-- (instancetype)initWithAddress:(NSString *)address andLabel:(NSString *)label
+- (instancetype)initWithAddress:(NSString *)address andLabel:(NSString *)label index: (uint32_t) index
 
 {
     self = [super init];
@@ -18,6 +18,7 @@ NSString *label;
         }
         
         self.label = label;
+        self.index = index;
     }
     
     return self;

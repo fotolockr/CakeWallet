@@ -11,7 +11,7 @@ final class RescanViewController: BaseViewController<RescanView> {
     private func rescanAction() {
         let height = contentView.restoreFromHeightView.restoreHeight
         
-        showSpinner(withTitle: NSLocalizedString("starting_rescan", comment: "")) { [weak self] alert in
+        showSpinnerAlert(withTitle: NSLocalizedString("starting_rescan", comment: "")) { [weak self] alert in
             store.dispatch(
                 WalletActions.rescan(fromHeight: height) {
                     alert.dismiss(animated: true) {

@@ -5,15 +5,13 @@ import IQKeyboardManagerSwift
 import ZIPFoundation
 import CryptoSwift
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     var signUpFlow: SignUpFlow?
     var walletFlow: WalletFlow?
     var restoreWalletFlow: RestoreWalletFlow?
-
+    
     var rememberedViewController: UIViewController?
     private var blurEffectView: UIVisualEffectView?
     
@@ -56,6 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         register(handler: UpdateSubaddressesHistroyHandler())
         register(handler: AddNewSubaddressesHandler())
         register(handler: ChangeBiometricAuthenticationHandler())
+        register(handler: ConnectToCurrentNodeHandler())
+        register(handler: UpdateSubaddressHandler())
+        register(handler: ChangeAccountIndexHandler())
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -78,51 +79,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("error \(error)")
             }
         }
+        
 
         if !store.state.walletState.name.isEmpty && pin != nil {
             let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
-            let handler = LoadCurrentWalletHandler()
-
-            authController.handler = { [weak authController] in
+            let splashController = SplashViewController(store: store)
+            let loadWalletHandler = LoadCurrentWalletHandler()
+            
+            window?.rootViewController = splashController
+            
+            splashController.handler = { [weak self] in
+                let splashQueue = DispatchQueue(label: "splash", qos: .default)
+                
+                splashQueue.async {
+                    loadWalletHandler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
+                        guard let action = action else {
+                            return
+                        }
+                        
+                        store._defaultDispatch(action)
+                        
+                        DispatchQueue.main.async {
+                            self?.window?.rootViewController = authController
+                        }
+                    })
+                }
+            }
+            
+            authController.handler = { [weak self] in
                 store.dispatch(SettingsState.Action.isAuthenticated)
+                store.dispatch(WalletActions.connectToCurrentNode)
                 DispatchQueue.main.async {
-                    authController?.showSpinner(withTitle: NSLocalizedString("loading_wallet", comment: "")) { alert in //fixme
-                        handler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
-                            DispatchQueue.main.async {
-                                guard let action = action else {
-                                    return
-                                }
-
-                                store._defaultDispatch(action)
-
-                                if
-                                    let action = action as? ApplicationState.Action,
-                                    case let .changedError(_error) = action,
-                                    let error = _error {
-                                    alert.dismiss(animated: true) {
-                                        authController?.showError(error: error)
-                                    }
-                                    return
-                                }
-
-                                if let action = action as? WalletState.Action, case .loaded(_) = action {
-                                    alert.dismiss(animated: true) { [weak self] in
-                                        self?.walletFlow = WalletFlow()
-                                        self?.walletFlow?.change(route: .start)
-
-                                        self?.window?.rootViewController = self?.walletFlow?.rootController
-
-                                        if !termsOfUseAccepted {
-                                            self?.window?.rootViewController?.present(DisclaimerViewController(), animated: false)
-                                        }
-                                    }
-                                }
-                            }
-                        })
+                    self?.walletFlow = WalletFlow()
+                    self?.walletFlow?.change(route: .start)
+                    
+                    self?.window?.rootViewController = self?.walletFlow?.rootController
+                    
+                    if !termsOfUseAccepted {
+                        self?.window?.rootViewController?.present(DisclaimerViewController(), animated: false)
                     }
                 }
             }
-            window?.rootViewController = authController
         } else {
             let navigationController = UINavigationController()
             restoreWalletFlow = RestoreWalletFlow(navigationController: navigationController)
@@ -205,25 +202,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    
+    
     private func setAppearance() {
-        UITabBar.appearance().backgroundColor = .white
         UITabBar.appearance().layer.borderWidth = 0.0
         UITabBar.appearance().clipsToBounds = true
         UITabBar.appearance().tintColor = .vividBlue
         UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
+        
+        UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().backgroundColor = .clear
+        
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
+        
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedStringKey.foregroundColor: UIColor.black,
             NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)
         ]
     }
     
+    
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let filename = url.lastPathComponent
-        let restore = CWAlertAction(title: "Restore") { action in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+        let restore = UIAlertAction(title: "Restore", style: .default) { action in
             let alert = UIAlertController(title: "Restore from backup", message: "Enter password", preferredStyle: .alert)
             
             alert.addTextField { textField in
@@ -235,7 +240,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 
-                UIApplication.topViewController()?.showSpinner(withTitle: "Restoring from backup", callback: { [weak self] spinner in
+                UIApplication.topViewController()?.showSpinnerAlert(withTitle: "Restoring from backup") { [weak self] spinner in
                     do {
                         let backup = BackupServiceImpl()
                         try backup.import(from: url, withPassword: password)
@@ -253,7 +258,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     case let .changedError(_error) = action,
                                     let error = _error {
                                     spinner.dismiss(animated: true) {
-                                        UIApplication.topViewController()?.showError(error: error)
+                                        UIApplication.topViewController()?.showErrorAlert(error: error)
                                     }
                                     return
                                 }
@@ -270,20 +275,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         })
                     } catch {
                         spinner.dismiss(animated: true) {
-                            UIApplication.topViewController()?.showError(error: error)
+                            UIApplication.topViewController()?.showErrorAlert(error: error)
                         }
                     }
-                })
+                }
             }))
             
-            action.alertView?.dismiss(animated: true) {
+            alert.dismiss(animated: true) {
                 UIApplication.topViewController()?.present(alert, animated: true)
             }
         }
-        UIApplication.topViewController()?.showInfo(
+        UIApplication.topViewController()?.showInfoAlert(
             title: "Restore from backup",
             message: "Are you sure that want to restore the app from backup - \(filename)",
-            actions: [.cancelAction, restore])
+            actions: [cancelAction, restore])
         return true
     }
 }

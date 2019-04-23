@@ -1,0 +1,38 @@
+Export Boost vars
+Export OpenSSL vars
+Cloning monero-gui from - https://github.com/fotolockr/monero-gui.git
+Cloning monero from - https://github.com/fotolockr/monero.git to - /Users/m/dev/cakewallet__14/CWMonero/External/monero-gui/monero
+Submodule path 'external/miniupnp': checked out '6b9b73a567e351b844f96c077f7b752ea92e298a'
+Submodule path 'external/rapidjson': checked out '129d19ba7f496df5e33658527a7158c79b99c21c'
+Submodule path 'external/unbound': checked out '7f23967954736dcaa366806b9eaba7e2bdfede11'
+Building IOS armv7
+~/dev/cakewallet__14/CWMonero/External/monero-gui/monero/build/release ~/dev/cakewallet__14/CWMonero/External/monero-gui
+-- Toolchain using default iOS SDK: /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk
+-- ios arch: armv7
+-- IOS CMAKE conf finished
+-- CMake version 3.13.4
+-- The C compiler identification is AppleClang 10.0.0.10001145
+-- The CXX compiler identification is AppleClang 10.0.0.10001145
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- The ASM compiler identification is AppleClang
+-- Found assembler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
+-- Building without build tag
+-- Found Git: /usr/bin/git (found version "2.17.2 (Apple Git-113)") 
+-- Checking submodules
+-- Could not find DEVELOPER_LOCAL_TOOLS in env (not required)
+-- BOOST_IGNORE_SYSTEM_PATHS defaults to OFF
+-- Could not find DEVELOPER_LIBUNBOUND_OLD in env (not required)
+-- Building for a 32-bit system
+-- Building internal libraries as static
+-- Could not find DATABASE in env (not required unless you want to change database type from default: lmdb)
+-- Using LMDB as default DB type
+-- Stack trace on exception disabled
+-- Found OpenSSL: /Users/m/dev/cakewallet__14/SharedExternal/libs/OpenSSL/lib/libcrypto.a (found version "1.0.2j")  
+-- Using OpenSSL include dir at /Users/m/dev/cakewallet__14/SharedExternal/libs/OpenSSL/include

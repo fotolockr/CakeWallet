@@ -9,9 +9,11 @@
 "enjoy_this_wallet" = "Please enjoy this wallet.";
 "love_your_feedback" = "We would love your feedback!";
 
+"terms_of_use_agree" = "I agree to Terms of Use";
+"accept" = "Accept";
 "create_new" = "Create new";
 "restore" = "Restore";
-"restore_from_seed_keys" = "Restore from seed/keys";
+"please_make_selection" = "Please make a selection below to either create a new wallet or restore a wallet";
 
 // Pin
 
@@ -24,8 +26,23 @@
 "pin_setup_success" = "Your PIN has been set up successfully!";
 "incorrect_pin" = "Incorrect PIN.";
 
+// Restore root
+
+"restore_from_seed_keys" = "Restore from seed/keys";
+"restore_from_seed_keys_long" = "Restore your wallet from your seed or keys";
+"restore_from_backup" = "Restore from a back-up file";
+"restore_from_backup_long" = "Restore the whole Cake Wallet app from your back-up file";
+
+// Restore cards
+
+"restore_seed_card_title" = "Restore from seed";
+"restore_seed_card_description" = "Restore your wallet from either the 25 word or 12 word seed";
+"restore_keys_card_title" = "Restore from keys";
+"restore_keys_card_description" = "Restore your wallet from your private keys";
+
 // Restore
 
+"recover" = "Recover";
 "restore_your_wallet" = "Restore Your Wallet";
 "restore_selection_text" = "There are two ways to restore your wallet. You can either enter your seed, which is a 25 word phrase, or you can enter your keys. Please select one below.";
 "from_seed" = "From seed";
@@ -42,7 +59,7 @@
 "continue_restore" = "Continue restore";
 "set_restore_height" = "Set restore height";
 
-"restore_height" = "Restore height";
+"restore_height" = "Restore from blockheight";
 "restore_from_date" = "Restore from date";
 "address" = "Address";
 "view_key_(private)" = "View key (private)";
@@ -65,7 +82,7 @@
 
 // Wallet
 
-"available_balance" = "Available Balance";
+"available_balance" = "Balance";
 "reconnection" = "Reconnection";
 "reconnect" = "Reconnect";
 "reconnect_alert_text" = "Are you sure to reconnect ?";
@@ -93,7 +110,7 @@
 
 // Send
 
-"all" = "All";
+"all" = "ALL";
 "optional" = "Optional";
 "estimated_fee" = "Estimated fee";
 "creating_transaction" = "Creating transaction";
@@ -223,7 +240,7 @@
 "terms_accepting_message" = "By using this app, you agree to the Terms of Agreement set forth below";
 "support" = "Support";
 "version" = "Version";
-"ok" = "Ok";
+"ok" = "OK";
 "change_language" = "Change language";
 "change_language_ask" = "Change application language to %@ ?";
 
@@ -231,3 +248,4 @@
 "order_created" = "Trade is created";
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
+"edit" = "Edit";

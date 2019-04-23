@@ -3,9 +3,14 @@ import CakeWalletLib
 import CakeWalletCore
 import FlexLayout
 
+
+
 extension TransactionDescription: CellItem {
     func setup(cell: TransactionUITableViewCell) {
-        cell.configure(direction: direction, date: date, isPending: isPending, cryptoAmount: totalAmount, fiatAmount: "")
+        let price = store.state.balanceState.price
+        let currency = store.state.settingsState.fiatCurrency
+        let fiatAmount = calculateFiatAmount(currency, price: price, balance: totalAmount)
+        cell.configure(direction: direction, date: date, isPending: isPending, cryptoAmount: totalAmount, fiatAmount: fiatAmount.formatted())
     }
 }
 
@@ -13,15 +18,11 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     let navigationTitleView = WalletsNavigationTitle()
     weak var dashboardFlow: DashboardFlow?
     private var showAbleBalance: Bool
-    private(set) var syncButton: UIBarButtonItem?
-    private(set) var addressBookButton: UIBarButtonItem?
+    private(set) var presentWalletsListButtonTitle: UIBarButtonItem?
+    private(set) var presentWalletsListButtonImage: UIBarButtonItem?
     private var transactions: [TransactionDescription] = []
     private var initialHeight: UInt64
-    private lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
-        return refreshControl
-    }()
+    private var refreshControl: UIRefreshControl
     let store: Store<ApplicationState>
     
     init(store: Store<ApplicationState>, dashboardFlow: DashboardFlow?) {
@@ -29,6 +30,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         self.dashboardFlow = dashboardFlow
         showAbleBalance = true
         initialHeight = 0
+        refreshControl = UIRefreshControl()
         super.init()
         tabBarItem = UITabBarItem(
             title: title,
@@ -38,46 +40,77 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     override func configureBinds() {
-        navigationItem.titleView = navigationTitleView
+        navigationItem.titleView = UIView()
         contentView.transactionsTableView.register(items: [TransactionDescription.self])
         contentView.transactionsTableView.delegate = self
         contentView.transactionsTableView.dataSource = self
         contentView.transactionsTableView.addSubview(refreshControl)
-        contentView.receiveButton.addTarget(self, action: #selector(presentReceive), for: .touchUpInside)
-        contentView.sendButton.addTarget(self, action: #selector(presentSend), for: .touchUpInside)
+        contentView.transactionsTableView.bringSubview(toFront: contentView.tableHeaderView)
+        
         contentView.shortStatusBarView.receiveButton.addTarget(self, action: #selector(presentReceive), for: .touchUpInside)
         contentView.shortStatusBarView.sendButton.addTarget(self, action: #selector(presentSend), for: .touchUpInside)
         contentView.shortStatusBarView.isHidden = true
+        
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        
         let onCryptoAmountTap = UITapGestureRecognizer(target: self, action: #selector(changeShownBalance))
         contentView.cryptoAmountLabel.isUserInteractionEnabled = true
         contentView.cryptoAmountLabel.addGestureRecognizer(onCryptoAmountTap)
-        updateCryptoIcon(for: store.state.walletState.walletType)
+        
+        let sendButtonTap = UITapGestureRecognizer(target: self, action: #selector(presentSend))
+        contentView.sendButton.isUserInteractionEnabled = true
+        contentView.sendButton.addGestureRecognizer(sendButtonTap)
+        
+        let receiveButtonTap = UITapGestureRecognizer(target: self, action: #selector(presentReceive))
+        contentView.receiveButton.isUserInteractionEnabled = true
+        contentView.receiveButton.addGestureRecognizer(receiveButtonTap)
         
         navigationTitleView.switchHandler = { [weak self] in
             self?.dashboardFlow?.change(route: .wallets)
         }
-        syncButton = UIBarButtonItem(
-            image: UIImage(named: "sync_icon")?
-                .withRenderingMode(.alwaysOriginal)
-                .resized(to: CGSize(width: 24, height: 24)),
+
+        insertNavigationItems()
+    }
+    
+    private func insertNavigationItems() {
+        presentWalletsListButtonTitle = UIBarButtonItem(
+            title: "Change",
             style: .plain,
             target: self,
-            action: #selector(reconnectAction)
+            action: #selector(presentWalletsList)
         )
-        addressBookButton = UIBarButtonItem(
-            image: UIImage(named: "address_book_icon")?
-                .resized(to: CGSize(width: 24, height: 24)),
+        
+        presentWalletsListButtonImage = UIBarButtonItem(
+            image: UIImage(named: "arrow_bottom_purple_icon")?
+                .resized(to: CGSize(width: 11, height: 9)).withRenderingMode(.alwaysOriginal),
             style: .plain,
             target: self,
-            action: #selector(toAddressBookAction)
+            action: #selector(presentWalletsList)
         )
         
-        syncButton?.tintColor = UIColor.vividBlue
-        addressBookButton?.tintColor = UIColor.vividBlue
+        presentWalletsListButtonTitle?.tintColor = UIColor.vividBlue
+        presentWalletsListButtonImage?.tintColor = UIColor.vividBlue
         
-        if let syncButton = syncButton,
-           let addressBookButton = addressBookButton{
-            navigationItem.rightBarButtonItems = [syncButton, addressBookButton]
+        let titleLabel = UIBarButtonItem(title: store.state.walletState.name, style: .plain, target: self, action: #selector(presentWalletActions))
+        titleLabel.setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 18.0)!], for: .normal)
+        titleLabel.setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 18.0)!], for: .highlighted)
+        navigationItem.leftBarButtonItem = titleLabel
+        
+        if let presentWalletsListButtonTitle = presentWalletsListButtonTitle,
+           let presentWalletsListButtonImage = presentWalletsListButtonImage {
+            
+            presentWalletsListButtonTitle.setTitleTextAttributes([
+                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 13.0)!,
+                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
+            ], for: .normal)
+            
+            presentWalletsListButtonTitle.setTitleTextAttributes([
+                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 13.0)!,
+                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
+            ], for: .highlighted)
+            
+            
+            navigationItem.rightBarButtonItems = [presentWalletsListButtonImage, presentWalletsListButtonTitle]
         }
     }
     
@@ -142,7 +175,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         return 70
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {        
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView.contentOffset.y > contentView.cardView.frame.height else {
             contentView.shortStatusBarView.isHidden = true
             updateCryptoBalance(store.state.balanceState.balance)
@@ -159,6 +192,23 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     @objc
+    private func presentWalletActions() {
+        let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel)
+        
+        let presentReconnectAction = UIAlertAction(title: NSLocalizedString("reconnect", comment: ""), style: .default) { [weak self] _ in
+            self?.reconnectAction()
+        }
+        
+        alertViewController.addAction(presentReconnectAction)
+        
+        alertViewController.addAction(cancelAction)
+        DispatchQueue.main.async {
+            self.present(alertViewController, animated: true)
+        }
+    }
+    
+    @objc
     private func changeShownBalance() {
         showAbleBalance = !showAbleBalance
         onStateChange(store.state)
@@ -171,7 +221,39 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         
         initialHeight = 0
         updateTitle(walletState.name)
-        updateCryptoIcon(for: walletState.walletType)
+    }
+    
+    private func reconnectAction() {
+        let alertController = UIAlertController(
+            title: NSLocalizedString("reconnection", comment: ""),
+            message: NSLocalizedString("reconnect_alert_text", comment: ""),
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("reconnect", comment: ""),
+            style: .default,
+            handler: { [weak self, weak alertController] _ in
+                self?.store.dispatch(WalletActions.reconnect)
+                alertController?.dismiss(animated: true)
+            }
+        ))
+        
+        alertController.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        ))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func observePullAction(for offset: CGFloat) {
+        guard offset < -40 else {
+            return
+        }
+        
+        store.dispatch(TransactionsActions.forceUpdateTransactions)
     }
     
     private func updateInitialHeight(_ blockchainState: BlockchainState) {
@@ -182,6 +264,11 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         if case let .syncing(height) = blockchainState.connectionStatus {
             initialHeight = height
         }
+    }
+    
+    @objc
+    private func presentWalletsList() {
+        dashboardFlow?.change(route: .wallets)
     }
     
     @objc
@@ -197,6 +284,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private func presentTransactionDetails(for tx: TransactionDescription) {
         let transactionDetailsViewController = TransactionDetailsViewController(transactionDescription: tx)
         let nav = UINavigationController(rootViewController: transactionDetailsViewController)
+        nav.modalPresentationStyle = .custom
         tabBarController?.presentWithBlur(nav, animated: true)
     }
  
@@ -304,17 +392,17 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
-        
+
         contentView.transactionTitleLabel.isHidden = transactions.count <= 0
-        
+
         guard self.transactions != transactions else {
             return
         }
-        
+
         self.transactions = transactions.sorted(by: {
             return $0.date > $1.date
         })
-        
+
         if self.transactions.count > 0 {
             if contentView.transactionTitleLabel.isHidden {
                 contentView.transactionTitleLabel.isHidden = false
@@ -331,29 +419,11 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     private func updateTitle(_ title: String) {
-        if navigationTitleView.title != title {
-            navigationTitleView.title = title
+        if navigationItem.leftBarButtonItem?.title != title {
+            navigationItem.leftBarButtonItem?.title = title
         }
     }
-    
-    private func updateCryptoIcon(for walletType: WalletType) {
-        switch walletType {
-        case .monero:
-            contentView.cryptoIconView.image = UIImage(named: "monero_logo")
-        default:
-            break
-        }
-    }
-    
-    @objc
-    private func reconnectAction() {
-        let reconnetionAction = CWAlertAction(title: NSLocalizedString("reconnect", comment: "")) { [weak self] action in
-            self?.store.dispatch(WalletActions.reconnect)
-            action.alertView?.dismiss(animated: true)
-        }
-        showInfo(title: NSLocalizedString("reconnection", comment: ""), message: NSLocalizedString("reconnect_alert_text", comment: ""), actions: [reconnetionAction, CWAlertAction.cancelAction])
-    }
-    
+
     @objc
     private func toAddressBookAction() {
         dashboardFlow?.change(route: .addressBook)
@@ -362,5 +432,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     @objc
     private func refresh(_ refreshControl: UIRefreshControl) {
         store.dispatch(TransactionsActions.forceUpdateTransactions)
+        refreshControl.endRefreshing()
     }
 }

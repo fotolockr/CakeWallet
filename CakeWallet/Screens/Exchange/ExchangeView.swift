@@ -2,6 +2,10 @@ import UIKit
 import FlexLayout
 import PinLayout
 
+enum ExchangeCardType: String {
+    case deposit, receive, unknown
+}
+
 final class ExchangePickerItemView: BaseView {
     static let rowHeight: CGFloat = 56
     static let rowWidth: CGFloat = 56
@@ -134,7 +138,6 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
         titleLabel.text = NSLocalizedString("deposit", comment: "")
         titleLabel.textAlignment = .center
         amountTextField.keyboardType = .decimalPad
-        addressContainer.textView.placeholder = NSLocalizedString("refund_address", comment: "")
         layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.16, x: 0, y: 16, blur: 46, spread: -5)
         backgroundColor = .white
         walletNameLabel.textAlignment = .center
@@ -246,56 +249,56 @@ final class ReceiveExchangeCardView: BaseFlexView, ExchangableCardView {
 }
 
 final class ExchangeView: BaseScrollFlexView {
-    let depositView: DepositExchangeCardView
-    let receiveView: ReceiveExchangeCardView
+    let depositCardView: ExchangeCardView
+    let receiveCardView: ExchangeCardView
+    
     let arrowDownImageView: UIImageView
     let clearButton: UIButton
-    let exchangeButton: UIButton
+    let exchangeButton: LoadingButton
     let buttonsRow: UIView
     let descriptionView: UIView
+    let dispclaimerLabel: UILabel
     let exchangeLogoImage: UIImageView
     let exchangeDescriptionLabel: UILabel
     
     required init() {
-        depositView = DepositExchangeCardView()
-        receiveView = ReceiveExchangeCardView()
+        depositCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Deposit", addressPlaceholder: "Refund address")
+        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Receive", addressPlaceholder: "Address")
         arrowDownImageView = UIImageView(image: UIImage(named: "arrow_down_dotted"))
         clearButton = SecondaryButton(title: NSLocalizedString("clear", comment: ""))
-        exchangeButton = PrimaryButton(title: NSLocalizedString("exchange", comment: ""))
+        exchangeButton = PrimaryLoadingButton()
         buttonsRow = UIView()
         exchangeDescriptionLabel = UILabel(fontSize: 14)
         descriptionView = UIView()
         exchangeLogoImage = UIImageView(image: UIImage(named: "morphtoken_logo"))
+        dispclaimerLabel = UILabel(fontSize: 12)
         super.init()
     }
     
     override func configureView() {
         super.configureView()
-        depositView.exchangePickerView.pickerView.tag = 2000
-        receiveView.exchangePickerView.pickerView.tag = 2001
-        depositView.addressContainer.tag = 2000
-        receiveView.addressContainer.tag = 2001
         exchangeDescriptionLabel.textColor = .wildDarkBlue
+        dispclaimerLabel.textColor = .lightGray
+        dispclaimerLabel.textAlignment = .center
+        exchangeButton.setTitle(NSLocalizedString("exchange", comment: ""), for: .normal)
     }
     
     override func configureConstraints() {
-        buttonsRow.flex.direction(.row).justifyContent(.spaceBetween).marginTop(20).define { rowFlex in
-            rowFlex.addItem(clearButton).height(56).width(45%)
-            rowFlex.addItem(exchangeButton).height(56).width(45%)
+        buttonsRow.flex.direction(.row).justifyContent(.spaceBetween).define { rowFlex in
+            rowFlex.addItem(exchangeButton).height(56).width(100%)
         }
         
         descriptionView.flex.direction(.row).justifyContent(.center).define { flex in
             flex.addItem(exchangeLogoImage).width(32).height(32)
-            flex.addItem(exchangeDescriptionLabel).marginLeft(10)
+            flex.addItem(exchangeDescriptionLabel).marginLeft(10).height(20)
         }
         
         rootFlexContainer.flex.padding(20, 15, 20, 20).define { flex in
-            let arrowDownTopOffset = -arrowDownImageView.frame.size.height / 2
-            flex.addItem(depositView)
-            flex.addItem(receiveView).marginTop(10)
-                .addItem(arrowDownImageView).position(.absolute).right(40).top(arrowDownTopOffset)
+            flex.addItem(depositCardView).marginBottom(25)
+            flex.addItem(receiveCardView).marginBottom(10)
+            flex.addItem(dispclaimerLabel).width(100%).height(20).marginBottom(25)
             flex.addItem(buttonsRow)
-            flex.addItem(descriptionView).width(100%).marginTop(10).alignItems(.center)
+            flex.addItem(descriptionView).width(100%).marginTop(15).alignItems(.center)
         }
     }
 }
@@ -305,14 +308,19 @@ final class ExchangeView: BaseScrollFlexView {
 extension BaseView: UITextViewDelegate {
     @objc
     func textViewDidChange(_ textView: UITextView) {
+        if let placeholderLabel = textView.viewWithTag(100) as? UILabel {
+            placeholderLabel.isHidden = textView.text.count > 0
+        }
+        
         let fixedWidth = textView.frame.size.width
-        let newSize = textView.sizeThatFits(
+        let newHeight = textView.sizeThatFits(
             CGSize(
                 width: fixedWidth,
                 height: CGFloat.greatestFiniteMagnitude
             )
-        )
+        ).height
         
+        let newSize = CGSize(width: fixedWidth, height: newHeight)
         textView.flex.size(newSize).markDirty()
         setNeedsLayout()
     }

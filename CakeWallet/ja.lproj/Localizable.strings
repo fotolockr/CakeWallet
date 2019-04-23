@@ -9,9 +9,12 @@
 "enjoy_this_wallet" = "ウォレットを活用してください！";
 "love_your_feedback" = "フィードバックをお待ちしています！";
 
+"terms_of_use_agree" = "利用規約に同意します";
 "create_new" = "新規作成";
+"accept" = "受け入れる";
 "restore" = "リストア";
 "restore_from_seed_keys" = "リストア";
+"please_make_selection" = "新しい財布を作成するか、財布を復元するには、下の選択をしてください";
 
 // Pin
 
@@ -24,8 +27,22 @@
 "pin_setup_success" = "ピンのセットアップが完了！";
 "incorrect_pin" = "不正なピンです";
 
-// Restore
+// Restore root
 
+"restore_from_seed_keys" = "シード/キーから復元";
+"restore_from_seed_keys_long" = "あなたの種または鍵からあなたの財布を復元する";
+"restore_from_backup" = "バックアップファイルから復元する";
+"restore_from_backup_long" = "バックアップファイルからCake Walletアプリ全体を復元する";
+
+// Restore cards
+
+"restore_seed_card_title" = "種から復元";
+"restore_seed_card_description" = "25ワードまたは12ワードのシードから財布を復元する";
+"restore_keys_card_title" = "キーから復元";
+"restore_keys_card_description" = "あなたの秘密鍵からあなたの財布を復元する";
+
+// Restore
+"recover" = "回復する";
 "restore_your_wallet" = "ウォレットをリストア";
 "restore_selection_text" = "あなたのウォレットを復元するには2つの方法があります。あなたは、25語のシードを入力するか、または鍵を入力することができます。選択してください。";
 "from_seed" = "シードから";
@@ -226,3 +243,4 @@
 "order_created" = "Trade is created";
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nsTrade ID: %@";
+"edit" = "編集する";

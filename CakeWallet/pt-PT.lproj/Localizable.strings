@@ -9,9 +9,11 @@
 "enjoy_this_wallet" = "Desfrute da sua carteira!";
 "love_your_feedback" = "Nós adoraríamos seu feedback!";
 
+"terms_of_use_agree" = "Eu concordo com os Termos de Uso";
+"accept" = "Aceitar";
 "create_new" = "Criar nova carteira";
 "restore" = "Restaurar carteira";
-"restore_from_seed_keys" = "Restaurar carteira";
+"please_make_selection" = "Por favor, faa uma sele‹o abaixo para criar uma nova carteira ou restaurar uma carteira";
 
 // Pin
 
@@ -22,8 +24,22 @@
 "pin_setup_success" = "O seu PIN foi configurado!";
 "incorrect_pin" = "PIN incorreto.";
 
-// Restore
+// Restore root
 
+"restore_from_seed_keys" = "Restaurar a partir de seed / chaves";
+"restore_from_seed_keys_long" = "Restaure sua carteira de sua seed ou chaves";
+"restore_from_backup" = "Restaurar a partir de um arquivo de backup";
+"restore_from_backup_long" = "Restaurar todo o aplicativo do Cake Wallet do seu arquivo de backup";
+
+// Restore cards
+
+"restore_seed_card_title" = "Restaurar da seed";
+"restore_seed_card_description" = "Restaure sua carteira das seed de 25 ou 12 palavras";
+"restore_keys_card_title" = "Restaurar das chaves";
+"restore_keys_card_description" = "Restaure sua carteira das suas chaves privadas";
+
+// Restore
+"recover" = "Recuperar";
 "restore_your_wallet" = "Restaurar Carteira";
 "restore_selection_text" = "Existem duas maneiras de restaurar uma carteira. Você pode inserir sua chave-semente que é um código de 25 palavras, ou você pode inserir suas chaves privadas. Por favor, selecione uma opção.";
 "from_seed" = "Utilizar a chave-semente";
@@ -233,3 +249,4 @@
 "order_created" = "Trade is created";
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
+"edit" = "editar";

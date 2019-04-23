@@ -154,16 +154,17 @@ final class ChangeLanguageViewController: BaseViewController<ChangeLanguageView>
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let language = languages[indexPath.row]
-        let changeAction = CWAlertAction(title: NSLocalizedString("change", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.changeLanguage(to: language)
-                tableView.deselectRow(at: indexPath, animated: true)
-            }
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+        let changeAction = UIAlertAction(title: NSLocalizedString("change", comment: ""), style: .default) { [weak self] action in
+            self?.changeLanguage(to: language)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-        showInfo(
-            title: NSLocalizedString("change_language", comment: ""),
+        
+        showInfoAlert(
+            title: NSLocalizedString("confirm_sending", comment: ""),
             message: String(format: NSLocalizedString("change_language_ask", comment: ""), language.formatted()),
-            actions: [changeAction, CWAlertAction.cancelAction]
+            actions: [changeAction, cancelAction]
         )
     }
     

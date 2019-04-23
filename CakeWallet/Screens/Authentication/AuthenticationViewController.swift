@@ -30,7 +30,7 @@ final class AuthenticationViewController: BaseViewController<BaseFlexView> {
                     case .success(_):
                         self?.handler?()
                     case let .failed(error):
-                        self?.showError(error: error)
+                        self?.showErrorAlert(error: error)
                     }
                 }
             }
@@ -60,7 +60,7 @@ final class AuthenticationViewController: BaseViewController<BaseFlexView> {
                             return
                         }
                         
-                        self?.showError(error: error) { _ in
+                        self?.showErrorAlert(error: error) {
                             self?.pinCodeViewController.cleanPin()
                         }
                     }

@@ -58,6 +58,11 @@ struct MoneroTransactionInfoMember {
 {
     return [NSString stringWithUTF8String: member->tx->paymentId().c_str()];
 }
+    
+- (uint32_t)subaddrAccount
+{
+    return member->tx->subaddrAccount();
+}
 
 - (NSTimeInterval) timestamp
 {

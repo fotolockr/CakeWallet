@@ -62,15 +62,15 @@ public final class MoneroWallet: Wallet {
     }
     
     public var balance: Amount {
-        return MoneroAmount(value: moneroAdapter.balance())
+        return MoneroAmount(value: moneroAdapter.balance(for: accountIndex))
     }
     
     public var unlockedBalance: Amount {
-        return MoneroAmount(value: moneroAdapter.unlockedBalance())
+        return MoneroAmount(value: moneroAdapter.unlockedBalance(for: accountIndex))
     }
     
     public var address: String {
-        return moneroAdapter.address()
+        return moneroAdapter.address(for: accountIndex)
     }
     
     public var seed: String {
@@ -102,7 +102,10 @@ public final class MoneroWallet: Wallet {
     public var onNewBlock: ((UInt64) -> Void)?
     public var onBalanceChange: ((Wallet) -> Void)?
     public var onConnectionStatusChange: ((ConnectionStatus) -> Void)?
+    public var onAddressChange: ((String) -> Void)?
+    public var onAccountIndexChange: ((UInt32) -> Void)?
     public private(set) var config: WalletConfig
+    private(set) var accountIndex: UInt32
     private var isBlocking: Bool
     
     private var moneroTransactionHistory: MoneroTransactionHistory?
@@ -116,15 +119,16 @@ public final class MoneroWallet: Wallet {
     private var moneroAdapter: MoneroWalletAdapter
     private var restoreHeight: UInt64
     
-    public convenience init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig, restoreHeight: UInt64) {
-        self.init(moneroAdapter: moneroAdapter, config: config)
+    public convenience init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig, restoreHeight: UInt64, accountIndex: UInt32 = 0) {
+        self.init(moneroAdapter: moneroAdapter, config: config, accountIndex: accountIndex)
         self.restoreHeight = restoreHeight
 //        self.moneroAdapter.setRefreshFromBlockHeight(restoreHeight)
     }
     
-    public init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig) {
+    public init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig, accountIndex: UInt32 = 0) {
         self.moneroAdapter = moneroAdapter
         self.isBlocking = false
+        self.accountIndex = accountIndex
         self.config = config
         restoreHeight = 0
         self.moneroAdapter.delegate = self
@@ -215,7 +219,8 @@ public final class MoneroWallet: Wallet {
                 toAddress: address,
                 withPaymentId: "",
                 amountStr: amount?.formatted(),
-                priority: priority.rawValue)
+                priority: priority.rawValue,
+                accountIndex: accountIndex)
             return MoneroPendingTransaction(moneroPendingTransactionAdapter: moneroPendingTransactionAdapter)
         } catch let error as NSError {
             if let transactionError = TransactionError(from: error, amount: amount, balance: self.balance) {
@@ -232,7 +237,8 @@ public final class MoneroWallet: Wallet {
                 toAddress: address,
                 withPaymentId: paymentID,
                 amountStr: amount?.formatted(),
-                priority: priority.rawValue)
+                priority: priority.rawValue,
+            accountIndex: accountIndex)
             return MoneroPendingTransaction(moneroPendingTransactionAdapter: moneroPendingTransactionAdapter)
         } catch let error as NSError {
             if let transactionError = TransactionError(from: error, amount: amount, balance: self.balance) {
@@ -286,6 +292,13 @@ public final class MoneroWallet: Wallet {
             isBlocking = false
             self.moneroAdapter.delegate = self
         }
+    }
+    
+    public func changeAccount(index: UInt32) {
+        accountIndex = index
+        onAccountIndexChange?(index)
+        onBalanceChange?(self)
+        onAddressChange?(address)
     }
 }
 

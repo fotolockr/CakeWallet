@@ -9,9 +9,12 @@
 "enjoy_this_wallet" = "请享受这个钱包.";
 "love_your_feedback" = "我们很乐意接受您的意见!";
 
+"terms_of_use_agree" = "我同意使用条款";
+"accept" = "接受";
 "create_new" = "创建新的";
 "restore" = "恢复";
 "restore_from_seed_keys" = "恢复";
+"please_make_selection" = "请在下方选择创建新钱包或恢复钱包";
 
 // Pin
 
@@ -24,8 +27,23 @@
 "pin_setup_success" = "您的PIN已成功设置!";
 "incorrect_pin" = " PIN错误.";
 
+// Restore root
+
+"restore_from_seed_keys" = "从种子/密钥恢复";
+"restore_from_seed_keys_long" = "从种子或钥匙中恢复您的钱包";
+"restore_from_backup" = "从备份文件还原";
+"restore_from_backup_long" = "从备份文件还原";
+
+// Restore cards
+
+"restore_seed_card_title" = "从种子恢复";
+"restore_seed_card_description" = "从25字或12字种子恢复您的钱包";
+"restore_keys_card_title" = "从密钥恢复";
+"restore_keys_card_description" = "从您的私钥恢复您的钱包";
+
 // Restore
 
+"recover" = "恢复";
 "restore_your_wallet" = "恢复您的钱包";
 "restore_selection_text" = "有两种方法可以恢复您的钱包。您可以输入种子密语，这是一个25字的短语，或者您可以输入您的密钥。请在下面选择一个.";
 "from_seed" = "选择种子密语";
@@ -225,3 +243,4 @@
 "order_created" = "Trade is created";
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
+"edit" = "编辑";

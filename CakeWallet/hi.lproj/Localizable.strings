@@ -9,9 +9,12 @@
 "enjoy_this_wallet" = "अपने इस बटुए का आनंद उठाएं";
 "love_your_feedback" = " हमें आपकी राय जान कर खुशी होगी";
 
+"terms_of_use_agree" = "मैं उपयोग की शर्तों से सहमत हूं";
+"accept" = "स्वीकार करना";
 "create_new" = "नया बनाएं";
 "restore" = "पुराना लोड करें";
 "restore_from_seed_keys" = "पुराना लोड करें";
+"please_make_selection" = "कृपया एक नया वॉलेट बनाने या एक वॉलेट को पुनर्स्थापित करने के लिए नीचे चयन करें";
 
 // Pin
 
@@ -24,8 +27,22 @@
 "pin_setup_success" = "आपका पिन सफलतापूर्वक बन गया है!";
 "incorrect_pin" = "गलत पिन";
 
-// Restore
+// Restore root
 
+"restore_from_seed_keys" = "बीज / कुंजियों से पुनर्स्थापित करें";
+"restore_from_seed_keys_long" = "अपने बटुए को अपने बीज या कुंजियों से पुनर्स्थापित करें";
+"restore_from_backup" = "बैक-अप फ़ाइल से पुनर्स्थापित करें";
+"restore_from_backup_long" = "अपनी बैक-अप फ़ाइल से पूरे केक वॉलेट ऐप को पुनर्स्थापित करें";
+
+// Restore cards
+
+"restore_seed_card_title" = "बीज से पुनर्स्थापित करें";
+"restore_seed_card_description" = "25 शब्द या 12 शब्द बीज में से अपने बटुए को पुनर्स्थापित करें";
+"restore_keys_card_title" = "कुंजी से पुनर्स्थापित करें";
+"restore_keys_card_description" = "अपने निजी कुंजी से अपने वॉलेट को पुनर्स्थापित करें";
+
+// Restore
+"recover" = "की वसूली";
 "restore_your_wallet" = "पुराना बटुआ लोड करें";
 "restore_selection_text" = " अपने पुराने बटुए को लोड करने के दो तरीके हैं। आप या तो अपने 25 शब्द के सीड वाक्यांश को दर्ज कर सकते हैं या आप अपनी निजी कुंजी दर्ज कर सकते हैं। कृपया नीचे इसमें से एक का चयन करें।";
 "from_seed" = "सीड द्वारा";
@@ -226,3 +243,4 @@
 "order_created" = "Trade is created";
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
+"edit" = "संपादित करें";

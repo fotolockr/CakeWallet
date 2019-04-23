@@ -78,6 +78,7 @@ public struct TransactionDescription {
     public let isPending: Bool
     public let height: UInt64
     public let paymentId: String
+    public let accountIndex: UInt32
     
     public init(
         id: String,
@@ -89,7 +90,8 @@ public struct TransactionDescription {
         status: TransactionStatus,
         isPending: Bool,
         height: UInt64,
-        paymentId: String) {
+        paymentId: String,
+        accountIndex: UInt32) {
         self.id = id
         self.date = date
         self.totalAmount = totalAmount
@@ -100,6 +102,7 @@ public struct TransactionDescription {
         self.isPending = isPending
         self.height = height
         self.paymentId = paymentId
+        self.accountIndex = accountIndex
     }
 }
 

@@ -6,7 +6,8 @@ import CWMonero
 final class ReceiveFlow: Flow {
     enum Route {
         case start
-        case subaddresses(onSelected: (Subaddress) -> Void)
+        case subaddresses
+        case editSubaddress(Subaddress)
     }
     
     var rootController: UIViewController {
@@ -29,10 +30,13 @@ final class ReceiveFlow: Flow {
         switch route {
         case .start:
             navigationViewController.popToRootViewController(animated: true)
-        case let .subaddresses(handler):
-            let subaddressesViewController = SubaddressesViewController(store: store)
-            subaddressesViewController.onSelectedHandler = handler
-            navigationViewController.pushViewController(subaddressesViewController, animated: true)
+        case .subaddresses:
+            let subaddressesVC = SubaddressesViewController(store: store)
+            subaddressesVC.flow = self
+            navigationViewController.pushViewController(subaddressesVC, animated: true)
+        case let .editSubaddress(sub):
+            let subaddressVC = SubaddressViewController(store: store, subaddress: sub)
+            navigationViewController.pushViewController(subaddressVC, animated: true)
         }
     }
 }

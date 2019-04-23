@@ -5,14 +5,22 @@ import CakeWalletCore
 final class CreateWalletViewController: BaseViewController<CreateWalletView> {
     weak var signUpFlow: SignUpFlow?
     let store: Store<ApplicationState>
+    
     private var name: String {
-        return contentView.nameTextField.text ?? ""
+        return contentView.nameTextField.textField.text ?? ""
     }
     
     init(signUpFlow: SignUpFlow, store: Store<ApplicationState>) {
         self.signUpFlow = signUpFlow
         self.store = store
         super.init()
+    }
+    
+    override func viewDidLoad() {
+//        let BarButtonItemAppearance = UIBarButtonItem.appearance()
+//        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+        navigationItem.backBarButtonItem?.title = ""
     }
     
     override func configureBinds() {
@@ -33,22 +41,31 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
         
         signUpFlow?.change(route: .seed(Date(), name, seed))
     }
-
+    
     @objc
     private func onContinueHandler() {
         let name = self.name
         let type = WalletType.monero
-        let title = NSLocalizedString("creating_wallet", comment: "")
-            + " "
-            + name
-        showSpinner(withTitle: title) { [weak self] alert in
-            self?.store.dispatch(
-                WalletActions.create(
-                    withName: name,
-                    andType: type,
-                    handler: { [weak self] seed in self?.showSeed(seed) }
-                )
+   
+        contentView.continueButton.showLoading()
+        
+        self.store.dispatch(
+            WalletActions.create(
+                withName: name,
+                andType: type,
+                handler: { [weak self] res in
+                    DispatchQueue.main.async {
+                        self?.contentView.continueButton.hideLoading()
+                        
+                        switch res {
+                        case let .success(seed):
+                            self?.showSeed(seed)
+                        case let .failed(error):
+                            self?.showErrorAlert(error: error)
+                        }
+                    }
+                }
             )
-        }
+        )
     }
 }

@@ -18,7 +18,7 @@ final class NewAddressView: BaseFlexView {
         cardView = CardView()
         contactNameTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Contact Name", comment: ""))
         
-        addressView = AddressView(withAddressBook: false)
+        addressView = AddressView(placeholder: "Value", hideAddressBookButton: true)
         
         saveButton = PrimaryButton(title: NSLocalizedString("save", comment: ""))
         resetButton = SecondaryButton(title: NSLocalizedString("reset", comment: ""))
@@ -31,16 +31,11 @@ final class NewAddressView: BaseFlexView {
         super.init()
     }
     
-    override func configureView() {
-        super.configureView()
-        addressView.textView.delegate = self
-    }
-    
     override func configureConstraints() {
         cardView.flex.padding(20).justifyContent(.spaceBetween).define { flex in
             flex.addItem(contactNameTextField).height(50)
             flex.addItem(pickerTextField).height(50).marginTop(10)
-            flex.addItem(addressView).marginTop(10)
+            flex.addItem(addressView).marginTop(15)
         }
         
         buttonsContainer.flex.direction(.row).justifyContent(.spaceBetween).define { flex in

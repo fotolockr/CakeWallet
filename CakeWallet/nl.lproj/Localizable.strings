@@ -5,19 +5,18 @@
 "OverallBalanceWithAmonut" = "Het te versturen bedrag van %@ is groter dan uw saldo van %@.";
 "OverallBalance" = "Het te versturen bedrag is groter dan uw saldo van %@.";
 
-
 "starting_creation_selection" = "Selecteer hieronder of u een nieuwe wallet aan wilt maken, of dat u een bestaande wallet wilt herstellen.";
 "enjoy_this_wallet" = "Veel plezier met deze wallet!";
 "love_your_feedback" = "Uw feedback is altijd welkom!";
 
-
+"terms_of_use_agree" = "Ik ga akkoord met de gebruiksvoorwaarden";
+"accept" = "Aanvaarden";
 "create_new" = "Aanmaken";
 "restore" = "Herstellen";
 "restore_from_seed_keys" = "Herstellen";
-
+"please_make_selection" = "Maak hieronder een selectie om een ​​nieuwe portefeuille te maken of een portefeuille te herstellen";
 
 // Pin
-
 
 "use_6_pin" = "Een 6-cijferige pincode gebruiken";
 "use_4_pin" = "Een 4-cijferige pincode gebruiken";
@@ -28,10 +27,23 @@
 "pin_setup_success" = "Uw pincode is met succes ingesteld!";
 "incorrect_pin" = "Incorrecte pincode";
 
+// Restore root
+
+"restore_from_seed_keys" = "Herstel van seed/sleutels";
+"restore_from_seed_keys_long" = "Herstel je portemonnee uit je seed of sleutels";
+"restore_from_backup" = "Herstellen van een back-upbestand";
+"restore_from_backup_long" = "Herstel de hele Cake Wallet-app vanuit uw back-upbestand";
+
+// Restore cards
+
+"restore_seed_card_title" = "Herstel van seed";
+"restore_seed_card_description" = "Herstel je portemonnee uit het 25-woorden- of het 12-woordige seed";
+"restore_keys_card_title" = "Herstellen van toetsen";
+"restore_keys_card_description" = "Herstel je portemonnee met je privésleutels";
 
 // Restore
 
-
+"recover" = "Herstellen";
 "restore_your_wallet" = "Uw wallet herstellen";
 "restore_selection_text" = "Er zijn twee mogelijkheden om uw wallet te herstellen. U kunt uw seed invoeren. Dit is een reeks van 25 woorden. Of u kunt uw privésleutels invoeren. Selecteer hieronder een optie.";
 "from_seed" = "Met de seed";
@@ -272,3 +284,4 @@
 "i_saved_sec_key" = "I have saved the trade ID";?
 
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
+"edit" = "Bewerk";

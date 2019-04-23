@@ -16,7 +16,8 @@ enum Theme: String {
     var container: ContainerColorScheme {
         switch self {
         case .def:
-            return ContainerColorScheme(background: .whiteSmoke)
+            return ContainerColorScheme(background: UIColor(red: 234, green: 240, blue: 248))
+//            return ContainerColorScheme(background: .whiteSmoke)
         case .night:
             return ContainerColorScheme(background: .wildDarkBlue)
         }
@@ -25,7 +26,7 @@ enum Theme: String {
     var primaryButton: ButtonColorScheme {
         switch self {
         case .def:
-            return ButtonColorScheme(background: .vividBlue, text: .white)
+            return ButtonColorScheme(background: .turquoiseBlue, text: .white)
         case .night:
             return ButtonColorScheme(background: .whiteSmoke, text: .vividBlue)
         }
@@ -41,7 +42,7 @@ enum Theme: String {
     }
     
     var pin: PinIndicatorScheme {
-        return PinIndicatorScheme(background: .white, value: .vividBlue)
+        return PinIndicatorScheme(background: .white, value: .turquoiseBlue)
     }
     
     var pinKey: PinKeyScheme {
@@ -75,6 +76,6 @@ enum Theme: String {
     }
     
     var progressBar: ProgressBarScheme {
-        return ProgressBarScheme(value: .greenMalachite, background: .whiteSmoke)
+        return ProgressBarScheme(value: .turquoiseBlue, background: .whiteSmoke)
     }
 }

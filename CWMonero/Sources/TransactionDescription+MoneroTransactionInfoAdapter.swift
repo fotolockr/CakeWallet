@@ -13,7 +13,8 @@ extension TransactionDescription {
             status: .ok,
             isPending: moneroTransactionInfo.blockHeight() <= 0,
             height: moneroTransactionInfo.blockHeight(),
-            paymentId: moneroTransactionInfo.paymentId()
+            paymentId: moneroTransactionInfo.paymentId(),
+            accountIndex: moneroTransactionInfo.subaddrAccount()
         )
     }
 }

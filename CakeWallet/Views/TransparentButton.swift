@@ -50,7 +50,7 @@ class TransparentButton: UIButton {
         layer.shadowOpacity = 0.3
         layer.shadowColor = UIColor.lightGray.cgColor
         contentHorizontalAlignment = .center
-        titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        titleLabel?.font = applyFont()
         titleLabel?.numberOfLines = 0
         titleLabel?.textAlignment = .center
     }

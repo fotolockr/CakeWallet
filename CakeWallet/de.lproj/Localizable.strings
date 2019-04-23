@@ -10,13 +10,14 @@
 "enjoy_this_wallet" = "Viel Spaß mit dieser Wallet!";
 "love_your_feedback" = "Wir würden uns über Ihr Feedback freuen!";
 
-
+"terms_of_use_agree" = "Ich stimme den Nutzungsbedingungen zu";
+"accept" = "Akzeptieren";
 "create_new" = "Erstellen";
 "restore" = "Wiederherstellen";
 "restore_from_seed_keys" = "Wiederherstellen";
+"please_make_selection" = "Bitte treffen Sie eine Auswahl, um entweder eine neue Brieftasche zu erstellen oder eine Brieftasche wiederherzustellen";
 
 // Pin
-
 
 "use_6_pin" = "Eine 6-stellige PIN verwenden";
 "use_4_pin" = "Eine 4-stellige PIN verwenden";
@@ -27,10 +28,22 @@
 "pin_setup_success" = "Ihre PIN wurde erfolgreich eingerichtet!";
 "incorrect_pin" = "Falsche PIN";
 
+// Restore root
+
+"restore_from_seed_keys" = "Wiederherstellen aus Seed / Keys";
+"restore_from_seed_keys_long" = "Stellen Sie Ihre Brieftasche aus Ihrem Seed oder Schlüssel wieder her";
+"restore_from_backup" = "Wiederherstellen aus einer Sicherungsdatei";
+"restore_from_backup_long" = "Stellen Sie die gesamte Cake Wallet-App aus Ihrer Sicherungsdatei wieder her";
+
+// Restore cards
+
+"restore_seed_card_title" = "Wiederherstellen aus Seed";
+"restore_seed_card_description" = "Stellen Sie Ihre Brieftasche entweder aus dem Seed mit 25 oder 12 Wörtern wieder her";
+"restore_keys_card_title" = "Wiederherstellen von Schlüsseln";
+"restore_keys_card_description" = "Stellen Sie Ihre Brieftasche mit Ihren privaten Schlüsseln wieder her";
 
 // Restore
-
-
+"recover" = "Genesen";
 "restore_your_wallet" = "Wallet wiederherstellen";
 "restore_selection_text" = "Es gibt zwei Möglichkeiten, um Ihre Wallet wiederherzustellen. Sie können entweder Ihre Seed eingeben, was eine 25-Wort-Phrase ist, oder Sie können Ihre privaten Schlüssel eingeben. Bitte wählen Sie eine Option aus";
 "from_seed" = "Mit der Seed";
@@ -268,3 +281,4 @@
 "order_created" = "Trade is created";
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
+"edit" = "bearbeiten";

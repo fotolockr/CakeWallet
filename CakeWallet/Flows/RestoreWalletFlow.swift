@@ -3,13 +3,8 @@ import UIKit
 final class RestoreWalletFlow: Flow {
     enum Route {
         case root
-        case fromSeedWalletName
-        case fromSeedSeed
-        case fromSeedHeight
-        
-        case fromKeysWalletName
-        case fromKeysKeys
-        case fromKeysHeight
+        case recoverFromSeed
+        case recoverFromKeys
     }
     
     var rootController: UIViewController {
@@ -35,18 +30,10 @@ final class RestoreWalletFlow: Flow {
         switch route {
         case .root:
             return RestoreVC(restoreWalletFlow: self)
-        case .fromSeedWalletName:
-            return FromSeedWalletNameVC(restoreWalletFlow: self, wizzardStore: fromSeedWizzardStore)
-        case .fromSeedSeed:
-            return FromSeedSeedVC(restoreWalletFlow: self, wizzardStore: fromSeedWizzardStore)
-        case .fromSeedHeight:
-            return FromSeedHeightVC(restoreWalletFlow: self, store: store, wizzardStore: fromSeedWizzardStore)
-        case .fromKeysWalletName:
-            return FromKeysWalletNameVC(restoreWalletFlow: self, wizzardStore: fromKeysWizzardStore)
-        case .fromKeysKeys:
-            return FromKeysKeysVC(restoreWalletFlow: self, wizzardStore: fromKeysWizzardStore)
-        case .fromKeysHeight:
-            return FromKeysHeightVC(restoreWalletFlow: self, wizzardStore: fromKeysWizzardStore, store: store)
+        case .recoverFromSeed:
+            return RecoverFromSeedViewCntroller(store: store, restoreWalletFlow: self)
+        case .recoverFromKeys:
+            return RecoverFromKeysViewController(store: store, restoreWalletFlow: self)
         }
     }
 }

@@ -1,7 +1,7 @@
 import UIKit
 import CakeWalletLib
 
-final class RestoreVC: BaseViewController<RecoverView> {
+final class RestoreVC: BaseViewController<RestoreView> {
     weak var restoreWalletFlow: RestoreWalletFlow?
     let type: WalletType
     
@@ -13,25 +13,18 @@ final class RestoreVC: BaseViewController<RecoverView> {
     
     override func configureBinds() {
         title = NSLocalizedString("restore", comment: "")
-        contentView.titleLabel.text = NSLocalizedString("restore_your_wallet", comment: "")
-        contentView.descriptionLabel.text = NSLocalizedString("restore_selection_text", comment: "")
-        contentView.fromKeysButton.addTarget(self, action: #selector(fromKeys), for: .touchUpInside)
-        contentView.fromSeedButton.addTarget(self, action: #selector(fromSeed), for: .touchUpInside)
-        switch type {
-        case .monero:
-            contentView.cryptoIconImageView.image = UIImage(named: "monero_logo")
-        case .bitcoin:
-            break
-        }
+        
+        contentView.restoreFromSeedCard.button.addTarget(self, action: #selector(fromSeed), for: .touchUpInside)
+        contentView.restoreFromKeysCard.button.addTarget(self, action: #selector(fromKeys), for: .touchUpInside)
     }
     
     @objc
     private func fromSeed() {
-        restoreWalletFlow?.change(route: .fromSeedWalletName)
+        restoreWalletFlow?.change(route: .recoverFromSeed)
     }
     
     @objc
     private func fromKeys() {
-        restoreWalletFlow?.change(route: .fromKeysWalletName)
+        restoreWalletFlow?.change(route: .recoverFromKeys)
     }
 }

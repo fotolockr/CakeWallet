@@ -30,7 +30,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
             }
             
             contentView.contactNameTextField.text = contact.name
-            contentView.addressView.textView.changeText(contact.address)
+            contentView.addressView.textView.text = contact.address
         }
     }
     
@@ -71,7 +71,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
                 try addressBoook.addOrUpdate(contact: contact)
                 navigationController?.popViewController(animated: true)
             } catch {
-                showInfo(title: "Error has occurred, please try again", actions: [CWAlertAction.okAction])
+                showOKInfoAlert(title: "Error has occurred, please try again")
             }
         }
     }
@@ -104,7 +104,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
         return type
     }
     
-    func update(uri: QRUri) {
-        contentView.addressView.textView.changeText(uri.address)
+    func updated(_ addressView: AddressView, withURI uri: QRUri) {
+        contentView.addressView.textView.text = uri.address
     }
 }

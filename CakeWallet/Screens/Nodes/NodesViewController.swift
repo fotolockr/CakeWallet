@@ -104,11 +104,12 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     }
     
     func askToChangeCurrentNode(to node: NodeDescription) {
-        let changeAction = CWAlertAction(title: NSLocalizedString("change", comment: "")) { [weak self] alert in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+        let changeAction = UIAlertAction(title: NSLocalizedString("change", comment: ""), style: .default) { [weak self] _ in
             self?.changeCurrentNode(to: node)
-            alert.alertView?.dismiss(animated: true)
         }
-        showInfo(title: String(format: NSLocalizedString("change_current_node_message", comment: ""), node.uri), actions: [changeAction, CWAlertAction.cancelAction])
+        
+        showInfoAlert(title: String(format: NSLocalizedString("change_current_node_message", comment: ""), node.uri), actions: [changeAction, cancelAction])
     }
     
     func changeCurrentNode(to node: NodeDescription) {
@@ -156,25 +157,27 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     //fixme
     @objc
     private func resetNodesList() {
-        let resetAction = CWAlertAction(title: NSLocalizedString("reset", comment: "")) { [weak self] action in
+        let resetAction = UIAlertAction(title: NSLocalizedString("reset", comment: ""), style: .default) { [weak self] _ in
             do {
                 try NodesList.shared.reset()
                 self?.updateNodes()
                 self?.changeCurrentNode(to: Configurations.defaultMoneroNode)
-                action.alertView?.dismiss(animated: true)
+                
             } catch {
-                action.alertView?.dismiss(animated: true) {
-                    
-                    //                    self?.showError(error)
-                }
+              
             }
         }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
         
-        showInfo(title: NSLocalizedString("node_reset_settings_title", comment: ""), message: NSLocalizedString("nodes_list_reset_to_default_message", comment: ""), actions: [resetAction, CWAlertAction.cancelAction])
+        showInfoAlert(
+            title: NSLocalizedString("node_reset_settings_title", comment: ""),
+            message: NSLocalizedString("nodes_list_reset_to_default_message", comment: ""),
+            actions: [resetAction, cancelAction]
+        )
     }
     //fixme
     private func removeNode(at indexPath: IndexPath) {
-        let removeAction = CWAlertAction(title: NSLocalizedString("remove", comment: "")) { [weak self] _ in
+        let removeAction = UIAlertAction(title: NSLocalizedString("remove", comment: ""), style: .default) { [weak self] _ in
             do {
                 try NodesList.shared.remove(at: indexPath.row)
                 self?.updateNodes()
@@ -182,10 +185,12 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
                 //                self?.showError(error)
             }
         }
-        showInfo(
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+        
+        showInfoAlert(
             title: NSLocalizedString("delete_node", comment: ""),
             message: NSLocalizedString("delete_node_message", comment: ""),
-            actions: [removeAction, CWAlertAction.cancelAction]
+            actions: [removeAction, cancelAction]
         )
     }
 }

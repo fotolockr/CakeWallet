@@ -16,7 +16,7 @@ final class ProgressBar: BaseFlexView {
     override func layoutSubviews() {
         super.layoutSubviews()
         rootFlexContainer.layer.masksToBounds = true
-        rootFlexContainer.layer.cornerRadius = frame.size.height / 2
+        rootFlexContainer.layer.cornerRadius = frame.size.height
     }
     
     override func configureConstraints() {

@@ -2,9 +2,11 @@ import UIKit
 import CakeWalletLib
 import CakeWalletCore
 import CWMonero
+import QRCodeReader
 
 protocol QRUri {
     var uri: String { get }
+    var amount: Amount? { get }
     var address: String { get }
 }
 
@@ -34,7 +36,15 @@ struct BitcoinQRResult: QRUri {
     let uri: String
     
     var address: String {
-        return self.uri.replacingOccurrences(of: "bitcoin:", with: "")
+        return self.uri.slice(from: "bitcoin", to: "?") ?? self.uri
+    }
+    
+    var amount: Amount? {
+        guard let amount = self.uri.slice(from: "amount=", to: "&") else {
+            return nil
+        }
+        
+        return BitcoinAmount(from: amount)
     }
     
     init(uri: String) {
@@ -47,6 +57,10 @@ struct DefaultCryptoQRResult: QRUri {
     
     var address: String {
         return self.uri.replacingOccurrences(of: "\(targetDescription):", with: "")
+    }
+    
+    var amount: Amount? {
+        return nil
     }
     
     private let target: CryptoCurrency
@@ -74,7 +88,7 @@ struct DefaultCryptoQRResult: QRUri {
 }
 
 
-final class SendViewController: BaseViewController<SendView>, StoreSubscriber, QRUriUpdateResponsible {
+final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscriber, QRUriUpdateResponsible, QRCodeReaderViewControllerDelegate {
     private static let allSymbol = NSLocalizedString("all", comment: "")
     
     let store: Store<ApplicationState>
@@ -86,6 +100,16 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     private var price: Double {
         return store.state.balanceState.price
     }
+    private lazy var paymentIdQRReaderVC: QRCodeReaderViewController = {
+        let builder = QRCodeReaderViewControllerBuilder {
+            $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+        }
+        
+        let qrCodeReaderVC = QRCodeReaderViewController(builder: builder)
+        qrCodeReaderVC.modalPresentationStyle = .overCurrentContext
+        qrCodeReaderVC.delegate = self
+        return qrCodeReaderVC
+    }()
     
     init(store: Store<ApplicationState>, address: String?) {
         self.store = store
@@ -97,11 +121,12 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         title = NSLocalizedString("send", comment: "")
         contentView.takeFromAddressBookButton.addTarget(self, action: #selector(takeFromAddressBook), for: .touchUpInside)
         contentView.sendAllButton.addTarget(self, action: #selector(setAllAmount), for: .touchUpInside)
-        contentView.cryptoAmountTextField.addTarget(self, action: #selector(onCryptoValueChange(_:)), for: .editingChanged)
-        contentView.fiatAmountTextField.addTarget(self, action: #selector(onFiatValueChange(_:)), for: .editingChanged)
+        contentView.cryptoAmountTextField.textField.addTarget(self, action: #selector(onCryptoValueChange(_:)), for: .editingChanged)
+        contentView.fiatAmountTextField.textField.addTarget(self, action: #selector(onFiatValueChange(_:)), for: .editingChanged)
         contentView.estimatedFeeTitleLabel.text = NSLocalizedString("estimated_fee", comment: "") + ":"
         contentView.addressView.presenter = self
         contentView.addressView.updateResponsible = self
+        contentView.scanQrForPaymentId.addTarget(self, action: #selector(scanPaymnetIdQr), for: .touchUpInside)
         updateEstimatedFee(for: store.state.settingsState.transactionPriority)
     }
     
@@ -127,7 +152,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         super.viewDidAppear(animated)
         
         if let address = self.address {
-            contentView.addressView.textView.changeText(address)
+            contentView.addressView.textView.text = address
         }
     }
     
@@ -146,26 +171,11 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         updateSendingStage(state.transactionsState.sendingStage)
         updateFiat(state.settingsState.fiatCurrency)
         updateEstimatedFee(state.transactionsState.estimatedFee)
-        
-//        if let error = state.error {
-//            store.dispatch(TransactionsState.Action.changedSendingStage(.none))
-//            store.dispatch(ApplicationState.Action.changedError(nil))
-//
-//            if presentedViewController != nil {
-//                dismissAlert() {
-//                    self.showError(title: error.localizedDescription)
-//                }
-//
-//                return
-//            }
-//
-//            showError(title: error.localizedDescription)
-//        }
     }
     
     // MARK: QRUriUpdateResponsible
     
-    func update(uri: QRUri) {
+    func updated(_ addressView: AddressView, withURI uri: QRUri) {
         guard let uri = uri as? MoneroQRResult else {
             return
         }
@@ -183,11 +193,31 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         return .monero
     }
     
+    // MARK: QRCodeReaderViewControllerDelegate
+    
+    func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+        let uri = MoneroQRResult(uri: result.value)
+        let paymentId = uri.paymentId ?? result.value
+        updatePaymentId(paymentId)
+        paymentIdQRReaderVC.stopScanning()
+        paymentIdQRReaderVC.dismiss(animated: true)
+    }
+    
+    func readerDidCancel(_ reader: QRCodeReaderViewController) {
+        reader.stopScanning()
+        reader.dismiss(animated: true)
+    }
+    
+    @objc
+    private func scanPaymnetIdQr() {
+        parent?.present(paymentIdQRReaderVC, animated: true)
+    }
+    
     @objc
     private func takeFromAddressBook() {
         let addressBookVC = AddressBookViewController(addressBook: AddressBook.shared, store: self.store, isReadOnly: true)
         addressBookVC.doneHandler = { [weak self] address in
-            self?.contentView.addressView.textView.changeText(address)
+            self?.contentView.addressView.textView.text = address
         }
         let sendNavigation = UINavigationController(rootViewController: addressBookVC)
         self.present(sendNavigation, animated: true)
@@ -198,6 +228,10 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         dismiss(animated: true) { [weak self] in
             self?.onDismissHandler?()
         }
+    }
+    
+    private func updatePaymentId(_ paymentId: String) {
+        contentView.paymentIdTextField.textField.text = paymentId
     }
     
     private func updateWallet(name: String) {
@@ -231,16 +265,14 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         contentView.cryptoAmountTitleLabel.text = type.currency.formatted()
             + " "
             + NSLocalizedString("available_balance", comment: "")
-        contentView.cryptoAmountTextField.placeholder = type.currency.formatted()
-        contentView.cryptoAmountTextField.title = type.currency.formatted()
         contentView.cryptoAmountTitleLabel.flex.markDirty()
         contentView.walletContainer.flex.markDirty()
         contentView.rootFlexContainer.flex.layout()
     }
     
     private func updateFiat(_ fiat: FiatCurrency) {
-        contentView.fiatAmountTextField.placeholder = fiat.formatted()
-        contentView.fiatAmountTextField.title = fiat.formatted()
+//        contentView.fiatAmountTextField.placeholder = fiat.formatted()
+//        contentView.fiatAmountTextField.title = fiat.formatted()
     }
     
     @objc
@@ -248,12 +280,12 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         guard
             let fiatValueStr = textField.text?.replacingOccurrences(of: ",", with: "."),
             let fiatValue = Double(fiatValueStr) else {
-                contentView.fiatAmountTextField.text = nil
+                contentView.fiatAmountTextField.textField.text = nil
                 return
         }
         
         let val = fiatValue * price
-        contentView.fiatAmountTextField.text = String(val)
+        contentView.fiatAmountTextField.textField.text  = String(val)
     }
     
     @objc
@@ -261,12 +293,12 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         guard
             let cryptoValueStr = textField.text?.replacingOccurrences(of: ",", with: "."),
             let cryptoValue = Double(cryptoValueStr) else {
-                contentView.cryptoAmountTextField.text = nil
+                contentView.cryptoAmountTextField.textField.text  = nil
                 return
         }
         
         let val = cryptoValue / price
-        contentView.cryptoAmountTextField.text = String(format: "%.12f", val)
+        contentView.cryptoAmountTextField.textField.text  = String(format: "%.12f", val)
     }
     
     private func updateSendingStage(_ stage: SendingStage) {
@@ -316,17 +348,27 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     }
     
     private func onTransactionCreating() {
-        let sendAction = CWAlertAction(title: NSLocalizedString("send", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                    self?.createTransaction()
-            }
-        }
-        
-        showInfo(
+        let alertController = UIAlertController(
             title: NSLocalizedString("creating_transaction", comment: ""),
             message: NSLocalizedString("confirm_sending", comment: ""),
-            actions: [sendAction, CWAlertAction.cancelAction]) { alert in
-        }
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("send", comment: ""),
+            style: .default,
+            handler: { [weak self, weak alertController] _ in
+                self?.createTransaction()
+                alertController?.dismiss(animated: true)
+            }
+        ))
+        alertController.addAction(UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        ))
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     private func onTransactionCreated(_ pendingTransaction: PendingTransaction) {
@@ -340,83 +382,86 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
             + NSLocalizedString("fee", comment: "")
             + ": "
             + MoneroAmountParser.formatValue(description.fee.value)
-        let commitAction = CWAlertAction(title: NSLocalizedString("Ok", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.commit(pendingTransaction: pendingTransaction)
-            }
-        }
-        let cacelAction = CWAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.store.dispatch(
-                    TransactionsState.Action.changedSendingStage(.none)
-                )
-            }
-        }
         
-        showInfo(title: NSLocalizedString("confirm_sending", comment: ""), message: message, actions: [commitAction, cacelAction])
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { [weak self] action in
+            self?.store.dispatch(
+                TransactionsState.Action.changedSendingStage(.none)
+            )
+        })
+        
+        let commitAction = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: { [weak self] _ in
+            self?.commit(pendingTransaction: pendingTransaction)
+        })
+        
+        showInfoAlert(
+            title: NSLocalizedString("confirm_sending", comment: ""),
+            message: message,
+            actions: [commitAction, cancelAction]
+        )
     }
     
     private func commit(pendingTransaction: PendingTransaction) {
-        showSpinner(withTitle: NSLocalizedString("creating_transaction", comment: "")) { [weak self] alert in
-            self?.store.dispatch(
-                WalletActions.commit(
-                    transaction: pendingTransaction,
-                    handler: { result in
-                        alert.dismiss(animated: true) {
-                            switch result {
-                            case .success(_):
-                                self?.onTransactionCommited()
-                            case let .failed(error):
-                                self?.showError(error: error)
-                            }
+        contentView.sendButton.showLoading()
+        
+        store.dispatch(
+            WalletActions.commit(
+                transaction: pendingTransaction,
+                handler: { [weak self] result in
+                    DispatchQueue.main.async {
+                        self?.contentView.sendButton.hideLoading()
+                        
+                        switch result {
+                        case .success(_):
+                            self?.onTransactionCommited()
+                        case let .failed(error):
+                            self?.showErrorAlert(error: error)
                         }
-                })
-            )
-        }
+                    }
+            })
+        )
     }
     
     private func onTransactionCommited() {
-        let okAction = CWAlertAction(title: NSLocalizedString("Ok", comment: "")) { [weak self] action in
-            action.alertView?.dismiss(animated: true) {
-                self?.resetForm()
-            }
+        showOKInfoAlert(title: NSLocalizedString("transaction_created", comment: "")) { [weak self] in
+            self?.resetForm()
         }
-        
-        showInfo(title: NSLocalizedString("transaction_created", comment: ""), actions: [okAction])
     }
     
     private func createTransaction(_ handler: (() -> Void)? = nil) {
         let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
         let navController = UINavigationController(rootViewController: authController)
-        let paymentID = contentView.paymentIdTextField.text ?? ""
+        let paymentID = contentView.paymentIdTextField.textField.text  ?? ""
         
         authController.handler = { [weak self] in
             authController.dismiss(animated: true) {
-                self?.showSpinner(withTitle: NSLocalizedString("creating_transaction", comment: ""), callback: { alert in
-                    let amount = self?.contentView.cryptoAmountTextField.text == SendViewController.allSymbol
-                        ? nil
-                        : MoneroAmount(from: self!.contentView.cryptoAmountTextField.text?.replacingOccurrences(of: ",", with: ".") ?? "0.0")
-                    let address = self?.contentView.addressView.textView.text ?? ""
-                    guard let priority = self?.priority else { return }
-                    self?.store.dispatch(
-                        WalletActions.send(
-                            amount: amount,
-                            toAddres: address,
-                            paymentID: paymentID,
-                            priority: priority,
-                            handler: { result in
-                                alert.dismiss(animated: true) {
-                                    switch result {
-                                    case let .success(pendingTransaction):
-                                        self?.onTransactionCreated(pendingTransaction)
-                                    case let .failed(error):
-                                        self?.showError(error: error)
-                                    }
+                self?.contentView.sendButton.showLoading()
+                
+                let amount = self?.contentView.cryptoAmountTextField.textField.text == SendViewController.allSymbol
+                    ? nil
+                    : MoneroAmount(from: self!.contentView.cryptoAmountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? "0.0")
+                let address = self?.contentView.addressView.textView.originText ?? ""
+                guard let priority = self?.priority else { return }
+                
+                self?.store.dispatch(
+                    WalletActions.send(
+                        amount: amount,
+                        toAddres: address,
+                        paymentID: paymentID,
+                        priority: priority,
+                        handler: { [weak self] res in
+                            DispatchQueue.main.async {
+                                self?.contentView.sendButton.hideLoading()
+                                
+                                switch res {
+                                case let .success(pendingTransaction):
+                                    self?.onTransactionCreated(pendingTransaction)
+                                case let .failed(error):
+                                    self?.showErrorAlert(error: error)
                                 }
+                            }
                         }
-                        )
                     )
-                })
+                )
             }
         }
         
@@ -424,8 +469,8 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     }
     
     private func resetForm() {
-        contentView.fiatAmountTextField.text = ""
-        contentView.cryptoAmountTextField.text = ""
+        contentView.fiatAmountTextField.textField.text  = ""
+        contentView.cryptoAmountTextField.textField.text  = ""
         contentView.addressView.textView.text = ""
         store.dispatch(TransactionsState.Action.changedSendingStage(.none))
     }
@@ -437,15 +482,15 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     
     @objc
     private func setAllAmount() {
-        contentView.cryptoAmountTextField.text = SendViewController.allSymbol
+        contentView.cryptoAmountTextField.textField.text  = SendViewController.allSymbol
     }
     
     private func updateAmount(_ amount: Amount) {
-        contentView.cryptoAmountTextField.text = amount.formatted()
+        contentView.cryptoAmountTextField.textField.text  = amount.formatted()
     }
     
     private func updatePaymentId(_ paymentId: String?) {
-        contentView.paymentIdTextField.text = paymentId
+        contentView.paymentIdTextField.textField.text  = paymentId
     }
     
     private func updateAddress(_ address: String) {

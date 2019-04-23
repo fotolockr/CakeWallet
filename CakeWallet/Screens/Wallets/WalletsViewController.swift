@@ -3,6 +3,54 @@ import CakeWalletLib
 import CakeWalletCore
 import CWMonero
 
+protocol WalletActionsPresentable {
+//    func presetWalletActionsMenu()
+//    func presentKeys(for wallet: WalletIndex)
+    func presentSeed(for wallet: WalletIndex, withConfig walletConfig: WalletConfig)
+}
+
+extension WalletActionsPresentable where Self: AnyBaseViewController {
+//    func presentSeed(for wallet: WalletIndex, withConfig: WalletConfig) {
+//        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
+//        let navController = UINavigationController(rootViewController: authController)
+//        authController.onDismissHandler = onDismissHandler
+//        authController.handler = { [weak authController, weak self] in
+//            do {
+//                authController?.dismiss(animated: true) {
+//                    let seedViewController = SeedViewController(walletName: wallet.name, date: walletConfig.date, seed: seed, doneFlag: true)
+//                    seedViewController.doneHandler = { [weak seedViewController] in
+//                        seedViewController?.dismiss(animated: true)
+//                    }
+//                    let navigationController = UINavigationController(rootViewController: seedViewController)
+//                    self?.navigationController?.viewControllers.first?.present(navigationController, animated: true)
+//                }
+//                
+//            } catch {
+//                self?.showError(error: error)
+//            }
+//        }
+//        
+//        present(navController, animated: true)
+//    }
+    
+    
+    func presentKeys() {
+//        let walletsFlow: WalletsFlow?
+        
+        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
+        let navController = UINavigationController(rootViewController: authController)
+        authController.onDismissHandler = onDismissHandler
+        
+        authController.handler = { [weak authController] in
+            authController?.dismiss(animated: true) {
+//                walletsFlow?.change(route: .showKeys)
+            }
+        }
+        
+        present(navController, animated: true)
+    }
+}
+
 struct WalletCellItem: CellItem {
     let wallet: WalletIndex
     let isCurrent: Bool
@@ -31,7 +79,7 @@ struct WalletCellItem: CellItem {
     }
 }
 
-final class WalletsViewController: BaseViewController<WalletsView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
+final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
     let navigationTitleView: WalletsNavigationTitle
     weak var walletsFlow: WalletsFlow?
     private lazy var signUpFlow: SignUpFlow? = { [weak self] in
@@ -184,18 +232,20 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         let navController = UINavigationController(rootViewController: authController)
         authController.onDismissHandler = onDismissHandler
         authController.handler = { [weak authController, weak self] in
+            let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+            
             authController?.dismiss(animated: true) {
-                self?.showSpinner(withTitle: title) { alert in
+                self?.showSpinnerAlert(withTitle: title) { alert in
                     self?.store.dispatch(WalletActions.load(
                         withName: wallet.name,
                         andType: wallet.type,
                         handler: {
                             alert.dismiss(animated: true) {
                                 if  let error = self?.store.state.error {
-                                    self?.showInfo(title: nil, message: error.localizedDescription, actions: [CWAlertAction.cancelAction])
+                                    self?.showInfoAlert(title: nil, message: error.localizedDescription, actions: [cancelAction])
                                     return
                                 }
-                                
+
                                 self?.dismiss(animated: true) {
                                     self?.onDismissHandler?()
                                 }
@@ -226,7 +276,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
                 
             } catch {
                 print(error)
-                self?.showError(error: error)
+                self?.showErrorAlert(error: error)
             }
         }
         
@@ -304,16 +354,16 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     }
     
     private func askToRemove(wallet: WalletIndex) {
-        let removeAction = CWAlertAction(title: NSLocalizedString("remove", comment: "")) { alert in
-            alert.alertView?.dismiss(animated: true) {
-                self.remove(wallet: wallet)
-            }
+        let removeAction = UIAlertAction(title: NSLocalizedString("remove", comment: ""), style: .default) { _ in
+            self.remove(wallet: wallet)
         }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
         
-        showInfo(
+        showInfoAlert(
             title: NSLocalizedString("remove", comment: "").capitalized,
             message: String(format: NSLocalizedString("ask_to_remove_message", comment: ""), wallet.name),
-            actions: [removeAction, CWAlertAction.cancelAction])
+            actions: [removeAction, cancelAction]
+        )
     }
     
     private func remove(wallet: WalletIndex) {
@@ -325,21 +375,21 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
                 let title = NSLocalizedString("removing_wallet", comment: "")
                     + " - "
                     + wallet.name
-                self?.showSpinner(withTitle: title, callback: { alert in
+                self?.showSpinnerAlert(withTitle: title) { alert in
                     do {
                         let gateway = MoneroWalletGateway()
                         try gateway.remove(withName: wallet.name)
                         alert.dismiss(animated: true)
                     } catch {
                         alert.dismiss(animated: true) {
-                            self?.showError(error: error)
+                            self?.showErrorAlert(error: error)
                         }
                     }
                     
                     self?.store.dispatch(
                         WalletsActions.fetchWallets
                     )
-                })
+                }
             }
         }
         
