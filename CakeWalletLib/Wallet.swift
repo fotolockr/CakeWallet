@@ -16,6 +16,7 @@ public protocol Wallet {
     var onNewBlock: ((UInt64) -> Void)? { get set }
     var onBalanceChange: ((Wallet) -> Void)? { get set }
     var onConnectionStatusChange: ((ConnectionStatus) -> Void)? { get set }
+    var onAddressChange: ((String) -> Void)? { get set }
     
     func send(amount: Amount?, to address: String, withPriority priority: TransactionPriority) throws -> PendingTransaction
     func blockchainHeight() throws -> UInt64 

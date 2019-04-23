@@ -6,7 +6,7 @@ import CakeWalletLib
 import CakeWalletCore
 import CWMonero
 
-final class ReceiveViewController: BlurredBaseViewController<ReceiveView> {
+final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, StoreSubscriber {
     var paymentId: String? {
         get {
             return contentView.paymentIdTextField.text
@@ -55,6 +55,7 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView> {
     }
     
     override func configureBinds() {
+        super.configureBinds()
         title = NSLocalizedString("receive", comment: "")
         contentView.switchOptionsButton.addTarget(self, action: #selector(switchOptionsButton), for: .touchUpInside)
         contentView.copyAddressButton.addTarget(self, action: #selector(copyAction), for: .touchUpInside)
@@ -78,6 +79,28 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView> {
             )
         ]
         changeAddress(store.state.walletState.address)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        store.subscribe(self, onlyOnChange: [\ApplicationState.walletState])
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        store.unsubscribe(self)
+    }
+    
+    // MARK: StoreSubscriber
+    
+    func onStateChange(_ state: ApplicationState) {
+        if address != state.walletState.address {
+            changeAddress(state.walletState.address)
+        }
+        
+        if let subaddress = state.walletState.subaddress {
+            setSubaddress(subaddress)
+        }
     }
     
     func setSubaddress(_ subaddress: Subaddress) {
@@ -203,12 +226,7 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView> {
     
     @objc
     private func presentSubaddresses() {
-        let subaddressesViewController = SubaddressesViewController(store: store)
-        subaddressesViewController.onSelectedHandler = { [weak self] subaddress in
-            self?.setSubaddress(subaddress)
-            self?.navigationController?.popViewController(animated: true)
-        }
-        navigationController?.pushViewController(subaddressesViewController, animated: true)
+        receiveFlow?.change(route: .subaddresses)
     }
 }
 

@@ -155,6 +155,17 @@ public struct FetchSeedHandler: Handler {
     }
 }
 
+public struct ChangeAccountIndexHandler: Handler {
+    public func handle(action: WalletActions, store: Store<ApplicationState>) -> AnyAction? {
+        guard
+            case let .changeAccountIndex(index) = action,
+            let wallet = currentWallet as? MoneroWallet else { return nil }
+        
+        wallet.changeAccount(index: index)
+        return WalletState.Action.changedAccountIndex(index)
+    }
+}
+
 public struct LoadWalletHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case let .load(name, type, completionHandler) = action else { return }

@@ -1,6 +1,9 @@
 import UIKit
 import CakeWalletCore
 import CWMonero
+import CakeWalletLib
+import RxCocoa
+import RxSwift
 
 final class SubaddressCell: FlexCell {
     func setup(label: String, address: String) {
@@ -15,17 +18,19 @@ extension Subaddress: CellItem {
 }
 
 final class SubaddressesViewController: BaseViewController<SubaddressesView>, UITableViewDataSource, UITableViewDelegate, StoreSubscriber {
-    let store: Store<ApplicationState>
-    var onSelectedHandler: ((Subaddress) -> Void)?
-    var subaddresses: [Subaddress] {
+    weak var flow: ReceiveFlow?
+    private  let store: Store<ApplicationState>
+    private  var subaddresses: [Subaddress] {
         didSet {
             contentView.table.reloadData()
         }
     }
+    private let disposeBag: DisposeBag
     
     init(store: Store<ApplicationState>) {
         self.store = store
         subaddresses = []
+        disposeBag = DisposeBag()
         super.init()
     }
     
@@ -65,7 +70,9 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = subaddresses[indexPath.row]
-        return tableView.dequeueReusableCell(withItem: item, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath)
+        addEditButton(for: cell, subaddress: item)
+        return cell
     }
     
     // MARK: UITableViewDelegate
@@ -80,8 +87,10 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         }
         
         let sub = subaddresses[indexPath.row]
-        onSelectedHandler?(sub)
+        store.dispatch(WalletActions.changeAccountIndex(sub.index))
+        store.dispatch(WalletState.Action.changedSubaddress(sub))
         tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
@@ -99,5 +108,22 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
                     }
             })
         )
+    }
+    
+    private func editSubaddress(_ subaddress: Subaddress) {
+        flow?.change(route: .editSubaddress(subaddress))
+    }
+    
+    private func addEditButton(for cell: UITableViewCell, subaddress: Subaddress) {
+        let editButton = UIButton()
+        editButton.setTitle(NSLocalizedString("edit", comment: ""), for: .normal)
+        editButton.setTitleColor(.blueBolt, for: .normal)
+        editButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+        editButton.titleLabel?.textAlignment = .right
+        editButton.sizeToFit()
+        editButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.editSubaddress(subaddress)
+        }).disposed(by: disposeBag)
+        cell.accessoryView = editButton
     }
 }

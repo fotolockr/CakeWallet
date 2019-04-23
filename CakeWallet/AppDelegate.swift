@@ -55,6 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         register(handler: AddNewSubaddressesHandler())
         register(handler: ChangeBiometricAuthenticationHandler())
         register(handler: ConnectToCurrentNodeHandler())
+        register(handler: UpdateSubaddressHandler())
+        register(handler: ChangeAccountIndexHandler())
         
         window = UIWindow(frame: UIScreen.main.bounds)
         

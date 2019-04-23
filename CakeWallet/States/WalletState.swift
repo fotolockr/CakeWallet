@@ -1,5 +1,6 @@
 import CakeWalletLib
 import CakeWalletCore
+import CWMonero
 
 public enum WalletStage {
     case none, isChanging, changed
@@ -11,13 +12,15 @@ public struct WalletState: StateType {
         case changedAddress(String)
         case changedSeed(String)
         case changedIsWatchOnly(Bool)
-        case reseted(String, String, String, Bool, WalletType, WalletKeys)
+        case reseted(String, String, String, Bool, WalletType, WalletKeys, Subaddress?)
         case created(Wallet)
         case inited(Wallet)
         case loaded(Wallet)
         case restored(Wallet)
         case fetchedWalletKeys(WalletKeys)
         case changedWalletStage(WalletStage)
+        case changedAccountIndex(UInt32)
+        case changedSubaddress(Subaddress?)
     }
     
     public let name: String
@@ -27,6 +30,8 @@ public struct WalletState: StateType {
     public let walletType: WalletType
     public let walletKeys: WalletKeys?
     public let stage: WalletStage
+    public let accountIndex: UInt32
+    public let subaddress: Subaddress?
     
     public init(
         name: String,
@@ -35,7 +40,9 @@ public struct WalletState: StateType {
         isWatchOnly: Bool,
         walletType: WalletType,
         walletKeys: WalletKeys? = nil,
-        stage: WalletStage = .none) {
+        stage: WalletStage = .none,
+        accountIndex: UInt32,
+        subaddress: Subaddress?) {
         self.name = name
         self.address = address
         self.seed = seed
@@ -43,32 +50,38 @@ public struct WalletState: StateType {
         self.walletType = walletType
         self.walletKeys = walletKeys
         self.stage = stage
+        self.accountIndex = accountIndex
+        self.subaddress = subaddress
     }
     
     public func reduce(_ action: Action) -> WalletState {
         switch action {
         case let .changedName(name):
-            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage)
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage, accountIndex: accountIndex, subaddress: subaddress)
         case let .changedAddress(address):
-            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage)
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage, accountIndex: accountIndex, subaddress: subaddress)
         case let .changedSeed(seed):
-            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage)
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage, accountIndex: accountIndex, subaddress: subaddress)
         case let .changedIsWatchOnly(isWatchOnly):
-            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage)
-        case let .reseted(name, address, seed, isWatchOnly, walletType, walletKeys):
-            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage)
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage, accountIndex: accountIndex , subaddress: subaddress)
+        case let .reseted(name, address, seed, isWatchOnly, walletType, walletKeys, subaddress):
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage, accountIndex: accountIndex, subaddress: subaddress)
         case let .created(wallet):
-            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed)
+            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed, accountIndex: accountIndex, subaddress: nil)
         case let .loaded(wallet):
-            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed)
+            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed, accountIndex: accountIndex, subaddress: nil)
         case let .restored(wallet):
-            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed)
+            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed, accountIndex: accountIndex, subaddress: nil)
         case let .fetchedWalletKeys(walletKeys):
-            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: .changed)
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: .changed, accountIndex: accountIndex, subaddress: subaddress)
         case let .changedWalletStage(stage):
-            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage)
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage, accountIndex: accountIndex, subaddress: subaddress)
         case let .inited(wallet):
-            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed)
+            return WalletState(name: wallet.name, address: wallet.address, seed: wallet.seed, isWatchOnly: wallet.isWatchOnly, walletType: type(of: wallet).walletType, walletKeys: wallet.keys, stage: .changed, accountIndex: accountIndex, subaddress: subaddress)
+        case let .changedAccountIndex(accountIndex):
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage, accountIndex: accountIndex, subaddress: subaddress)
+        case let .changedSubaddress(subaddress):
+            return WalletState(name: name, address: address, seed: seed, isWatchOnly: isWatchOnly, walletType: walletType, walletKeys: walletKeys, stage: stage, accountIndex: accountIndex, subaddress: subaddress)
         }
     }
     

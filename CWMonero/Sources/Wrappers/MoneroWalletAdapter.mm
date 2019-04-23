@@ -21,6 +21,31 @@ using namespace epee;
 using namespace cryptonote;
 using namespace std;
 
+//struct MoneroWalletCallback: tools::i_wallet2_callback {
+//    MoneroWalletAdapter *wallet;
+//    
+//    // Full wallet callbacks
+//    void on_new_block(uint64_t height, const cryptonote::block& block) {
+//        [wallet.delegate newBlock: height];
+//    }
+//    
+//    void on_money_received(uint64_t height, const crypto::hash &txid, const cryptonote::transaction& tx, uint64_t amount, const cryptonote::subaddress_index& subaddr_index) {
+//        [wallet.delegate moneyReceived: [NSString stringWithUTF8String: txid.c_str()] amount: amount];
+//    }
+//    
+//    void on_unconfirmed_money_received(uint64_t height, const crypto::hash &txid, const cryptonote::transaction& tx, uint64_t amount, const cryptonote::subaddress_index& subaddr_index) {
+//        [wallet.delegate unconfirmedMoneyReceived: [NSString stringWithUTF8String: txid.c_str()] amount: amount];
+//    }
+//    
+//    void on_money_spent(uint64_t height, const crypto::hash &txid, const cryptonote::transaction& in_tx, uint64_t amount, const cryptonote::transaction& spend_tx, const cryptonote::subaddress_index& subaddr_index) {
+//        [wallet.delegate moneySpent: [NSString stringWithUTF8String: txid.c_str()] amount: amount];
+//    }
+//    
+////    void on_skip_transaction(uint64_t height, const crypto::hash &txid, const cryptonote::transaction& tx) {
+////
+////    }
+//};
+
 struct MonerWalletListener: Monero::WalletListener {
     MoneroWalletAdapter *wallet;
     
@@ -235,9 +260,9 @@ public:
     return [NSString stringWithUTF8String: seed.c_str()];
 }
 
-- (NSString *)address
+- (NSString *)addressFor: (uint32_t) accountIndex
 {
-    string addr = member->wallet->address();
+    string addr = member->wallet->address(accountIndex);
     return [NSString stringWithUTF8String: addr.c_str()];
 }
 
@@ -336,7 +361,7 @@ public:
     member->wallet->startRefresh();
 }
 
-- (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority error: (NSError *__autoreleasing *) error
+- (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority accountIndex: (uint32_t) accountIndex error: (NSError *__autoreleasing *) error
 {
     
     string addressStdString = [address UTF8String];
@@ -349,9 +374,9 @@ public:
         uint64_t amount;
         string amountStdString = [amount_str UTF8String];
         cryptonote::parse_amount(amount, amountStdString);
-        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity);
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity, accountIndex);
     } else {
-        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, Monero::optional<uint64_t>(), mixin, _priopity);
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, Monero::optional<uint64_t>(), mixin, _priopity, accountIndex);
     }
     
     int status = tx->status();
@@ -420,14 +445,14 @@ public:
     member->wallet->init(utf8Host, 0, loginStdString, passwordStdString, false, false);
 }
 
-- (uint64_t)balance
+- (uint64_t)balanceFor: (uint32_t) account
 {
-    return member->wallet->balance();
+    return member->wallet->balance(account);
 }
 
-- (uint64_t)unlockedBalance
+- (uint64_t)unlockedBalanceFor: (uint32_t) account
 {
-    return member->wallet->unlockedBalance();
+    return member->wallet->unlockedBalance(account);
 }
 
 - (uint64_t)currentHeight
@@ -478,18 +503,6 @@ public:
     NSString *filename = [NSString stringWithUTF8String: member->wallet->filename().c_str()];
     NSArray *items = [filename componentsSeparatedByString: @"/"];
     return [items lastObject];
-}
-
-- (NSString *)printedBalance
-{
-    uint64_t balance = [self balance];
-    return [NSString stringWithUTF8String: cryptonote::print_money(balance).c_str()];
-}
-
-- (NSString *)printedUnlockedBalance
-{
-    uint64_t unlockedBalance = [self unlockedBalance];
-    return [NSString stringWithUTF8String: cryptonote::print_money(unlockedBalance).c_str()];
 }
 
 - (NSString *)integratedAddressFor: (NSString *) paymentId

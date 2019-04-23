@@ -1,6 +1,7 @@
 import Foundation
 import CakeWalletLib
 import CakeWalletCore
+import CWMonero
 
 // fixme
 private let moneroBlockSize = 1000
@@ -16,6 +17,10 @@ private func onWalletChange(_ wallet: Wallet) {
     
     currentWallet = wallet
     
+    currentWallet.onAddressChange = { address in
+        store.dispatch(WalletState.Action.changedAddress(address))
+    }
+    
     currentWallet.onNewBlock = { block in
         updateQueue.async {
             store.dispatch(
@@ -23,25 +28,33 @@ private func onWalletChange(_ wallet: Wallet) {
             )
         }
     }
-        currentWallet.onConnectionStatusChange = { conntectionStatus in
-            store.dispatch(
-                BlockchainState.Action.changedConnectionStatus(conntectionStatus)
-            )
-        }
+   
+    currentWallet.onConnectionStatusChange = { conntectionStatus in
+        store.dispatch(
+            BlockchainState.Action.changedConnectionStatus(conntectionStatus)
+        )
+    }
+    
+    currentWallet.onBalanceChange = { wallet in
+        store.dispatch(
+            BalanceState.Action.changedBalance(wallet.balance)
+        )
         
-        currentWallet.onBalanceChange = { wallet in
-            store.dispatch(
-                BalanceState.Action.changedBalance(wallet.balance)
-            )
-            
-            store.dispatch(
-                BalanceState.Action.changedUnlockedBalance(wallet.unlockedBalance)
-            )
-            
-            store.dispatch(
-                BalanceActions.updateFiatPrice
-            )
+        store.dispatch(
+            BalanceState.Action.changedUnlockedBalance(wallet.unlockedBalance)
+        )
+        
+        store.dispatch(
+            BalanceActions.updateFiatPrice
+        )
+    }
+    
+    if let moneroWallet = currentWallet as? MoneroWallet {
+        moneroWallet.onAccountIndexChange = { index in
+            store.dispatch(WalletState.Action.changedAccountIndex(index))
+            store.dispatch(TransactionsActions.updateTransactionHistory(currentWallet.transactions()))
         }
+    }
     
     store.dispatch(
         TransactionsActions.updateTransactionHistory(currentWallet.transactions())

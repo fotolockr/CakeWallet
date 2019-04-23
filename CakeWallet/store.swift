@@ -58,7 +58,9 @@ let store = Store<ApplicationState>(
             isWatchOnly: true,
             walletType: .monero,
             walletKeys: nil,
-            stage: .none
+            stage: .none,
+            accountIndex: 0, // FIXME: Hardcoded value
+            subaddress: nil
         ), walletsState: WalletsState(
             wallets: []
         ), settingsState: SettingsState(

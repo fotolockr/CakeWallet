@@ -243,3 +243,4 @@
 "order_created" = "Trade is created";
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
+"edit" = "editar";

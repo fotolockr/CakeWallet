@@ -47,3 +47,21 @@ public struct AddNewSubaddressesHandler: AsyncHandler {
         }
     }
 }
+
+public struct UpdateSubaddressHandler: AsyncHandler {
+    public func handle(action: SubaddressesActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
+        guard
+            case let .updateSubaddress(label, index) = action,
+            let moneroWallet = currentWallet as? MoneroWallet else { return handler(nil) }
+        guard !label.isEmpty else { return handler(nil) }
+        
+        DispatchQueue.main.async {
+            let subaddresses = moneroWallet.subaddresses()
+            subaddresses.setLabel(label, at: index)
+            subaddresses.refresh()
+            handler(
+                SubaddressesState.Action.added(subaddresses.all())
+            )
+        }
+    }
+}
