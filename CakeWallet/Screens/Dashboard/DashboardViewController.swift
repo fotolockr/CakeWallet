@@ -41,6 +41,9 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     
     override func configureBinds() {
         navigationItem.titleView = UIView()
+        navigationController?.navigationBar.backgroundColor = UIColor.white
+//        UIApplication.shared.statusBarStyle = .lightContent
+        
         contentView.transactionsTableView.register(items: [TransactionDescription.self])
         contentView.transactionsTableView.delegate = self
         contentView.transactionsTableView.dataSource = self
@@ -109,9 +112,14 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
                 NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
             ], for: .highlighted)
             
-            
             navigationItem.rightBarButtonItems = [presentWalletsListButtonImage, presentWalletsListButtonTitle]
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        store.dispatch(TransactionsActions.forceUpdateTransactions)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -144,23 +152,23 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let transactionItem = transactions[indexPath.row]
         let cell = tableView.dequeueReusableCell(withItem: transactionItem, for: indexPath)
-        var needToRound = false
-        
-        if indexPath.row == 0 {
-            cell.layer.masksToBounds = false
-            cell.roundCorners([.topLeft, .topRight], radius: 20)
-            needToRound = true
-        }
-        
-        if indexPath.row == transactions.count - 1 {
-            cell.layer.masksToBounds = false
-            cell.roundCorners([.bottomLeft, .bottomRight], radius: 20)
-            needToRound = true
-        }
-        
-        if !needToRound {
-            cell.layer.mask = nil
-        }
+//        var needToRound = false
+//        
+//        if indexPath.row == 0 {
+//            cell.layer.masksToBounds = false
+//            cell.roundCorners([.topLeft, .topRight], radius: 20)
+//            needToRound = true
+//        }
+//
+//        if indexPath.row == transactions.count - 1 {
+//            cell.layer.masksToBounds = false
+//            cell.roundCorners([.bottomLeft, .bottomRight], radius: 20)
+//            needToRound = true
+//        }
+//
+//        if !needToRound {
+//            cell.layer.mask = nil
+//        }
         
         return cell
     }
@@ -287,7 +295,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         nav.modalPresentationStyle = .custom
         tabBarController?.presentWithBlur(nav, animated: true)
     }
- 
+    
     private func updateSyncing(_ currentHeight: UInt64, blockchainHeight: UInt64) {
         if blockchainHeight < currentHeight || blockchainHeight == 0 {
             store.dispatch(BlockchainActions.fetchBlockchainHeight)

@@ -206,14 +206,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setAppearance() {
         UITabBar.appearance().layer.borderWidth = 0.0
+
+        UITabBar.appearance().backgroundColor = .white
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        UITabBar.appearance().layer.borderColor = UIColor.clear.cgColor
         UITabBar.appearance().clipsToBounds = true
-        UITabBar.appearance().tintColor = .vividBlue
-        UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
-        
+//        UITabBar.appearance().tintColor = .vividBlue
+//        UITabBar.appearance().unselectedItemTintColor = UIColor(hex: 0xC0D4E2)
+
         UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().backgroundColor = .clear
+
+//        UINavigationItem
+//        UINavigationBar.appearance()
         
-        UINavigationBar.appearance().isTranslucent = true
+//        UINavigationBar.appearance().backIndicatorImage = backImage
+//        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .highlighted)
+
+//        UINavigationBar.appearance().backItem?.title = ""
+//        UINavigationBar.appearance().backgroundColor = .clear
+        
+//        UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
         
@@ -222,7 +238,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)
         ]
     }
-    
     
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {

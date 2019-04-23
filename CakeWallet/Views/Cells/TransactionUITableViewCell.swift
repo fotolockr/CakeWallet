@@ -32,7 +32,7 @@ final class TransactionUITableViewCell: FlexCell {
     
     override func configureView() {
         super.configureView()
-        backgroundColor = .white
+        backgroundColor = UIColor(red: 249, green: 250, blue: 252)
     }
     
     override func configureConstraints() {
@@ -46,7 +46,7 @@ final class TransactionUITableViewCell: FlexCell {
             flex.addItem(fiatLabel)
         }
         
-        contentView.flex.marginLeft(10).padding(UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)).direction(.row).define { flex in
+        contentView.flex.marginLeft(10).padding(UIEdgeInsets(top: 25, left: 10, bottom: 25, right: 10)).direction(.row).define { flex in
             if let imageView = imageView {
                 flex.addItem(imageView)
             }
