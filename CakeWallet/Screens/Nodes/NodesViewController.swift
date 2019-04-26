@@ -38,6 +38,7 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
         let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addNewNode))
         let resetButton = UIBarButtonItem(title: NSLocalizedString("reset", comment: ""), style: .plain, target: self, action: #selector(resetNodesList))
         navigationItem.rightBarButtonItems = [addButton, resetButton]
+        
         contentView.table.delegate = self
         contentView.table.dataSource = self
         contentView.table.register(items: [NodeCellItem.self])
@@ -62,13 +63,10 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     
     func onStateChange(_ state: ApplicationState) {
         updateAutoSwitch(isOn: state.settingsState.isAutoSwitchNodeOn)
-//        if let node = state.settingsState.node {
-//            updateCurrent(node: node)
-//        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return NodeTableCell.height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,6 +90,7 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //fixme
+    
         guard !nodes[indexPath.row].node.compare(with: store.state.settingsState.node!) else {
             return []
         }
@@ -134,7 +133,6 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
         }
 
         dispatchGroup.notify(queue: .main) {
-            print("Updated")
             self.contentView.table.reloadData()
         }
     }
@@ -154,7 +152,7 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     private func addNewNode() {
         nodesFlow?.change(route: .new)
     }
-    //fixme
+    
     @objc
     private func resetNodesList() {
         let resetAction = UIAlertAction(title: NSLocalizedString("reset", comment: ""), style: .default) { [weak self] _ in
@@ -175,14 +173,14 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
             actions: [resetAction, cancelAction]
         )
     }
-    //fixme
+    
     private func removeNode(at indexPath: IndexPath) {
         let removeAction = UIAlertAction(title: NSLocalizedString("remove", comment: ""), style: .default) { [weak self] _ in
             do {
                 try NodesList.shared.remove(at: indexPath.row)
                 self?.updateNodes()
             } catch {
-                //                self?.showError(error)
+                self?.showErrorAlert(error: error)
             }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)

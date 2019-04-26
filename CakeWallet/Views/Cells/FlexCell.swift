@@ -1,7 +1,11 @@
 import UIKit
+import FlexLayout
 
 class FlexCell: UITableViewCell {
+    let separatorView: UIView
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        separatorView = UIView()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureView()
         configureConstraints()
@@ -17,11 +21,21 @@ class FlexCell: UITableViewCell {
         layout()
     }
     
+    override func configureView() {
+        super.configureView()
+        contentView.backgroundColor = .white
+        backgroundColor = .clear
+    }
+    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         contentView.pin.width(size.width)
         layout()
         let size = contentView.frame.size
         return size
+    }
+    
+    override func configureConstraints() {
+        contentView.flex.addItem(separatorView).position(.absolute).bottom(0).height(0.6).width(100%).backgroundColor(UIColor.separatorGrey)
     }
     
     func layout() {

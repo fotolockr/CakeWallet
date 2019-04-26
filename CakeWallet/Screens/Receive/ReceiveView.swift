@@ -47,12 +47,12 @@ final class ReceiveView: BaseScrollFlexView {
     
     override func configureView() {
         super.configureView()
-        copyAddressButton.backgroundColor = .vividBlue
+        copyAddressButton.backgroundColor = UIColor.turquoiseBlue
         addressLabel.textAlignment = .center
         addressLabel.numberOfLines = 0
         amountTextField.keyboardType = .decimalPad
         switchOptionsButton.setTitle(NSLocalizedString("more_options", comment: ""), for: .normal)
-        switchOptionsButton.setTitleColor(UIColor(hex: 0x00b9fc), for: .normal) // FIXME: Unnamed const
+        switchOptionsButton.setTitleColor(UIColor.turquoiseBlue, for: .normal) // FIXME: Unnamed const
         resetButton.tintColor = .white
         newPaymentId.tintColor = .white
     }

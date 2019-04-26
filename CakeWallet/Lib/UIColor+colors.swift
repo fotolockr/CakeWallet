@@ -29,6 +29,10 @@ extension UIColor {
         return UIColor(red: 224, green: 233, blue: 246)
     }
     
+    static var separatorGrey: UIColor {
+        return UIColor(red: 240, green: 241, blue: 244)
+    }
+    
     static var purpley: UIColor {
         return UIColor(red: 124, green: 83, blue: 240)
     }

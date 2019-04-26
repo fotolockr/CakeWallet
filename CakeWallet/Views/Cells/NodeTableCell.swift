@@ -1,37 +1,44 @@
 import UIKit
+import FlexLayout
 
 final class NodeTableCell: FlexCell {
+    static let height = 60 as CGFloat
+    
     let addressLabel: UILabel
     let indicatorView: UIView
+//    let separatorView: UIView
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         indicatorView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 10, height: 10)))
         addressLabel = UILabel(fontSize: 16)
+//        separatorView = UIView()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     override func configureView() {
         super.configureView()
-        contentView.layer.masksToBounds = false
-        contentView.layer.cornerRadius = 15
-        contentView.backgroundColor = .white
-        backgroundColor = .clear
+//        contentView.layer.masksToBounds = false
+//        contentView.layer.cornerRadius = 15
+//        contentView.backgroundColor = .white
+//        backgroundColor = .clear
         indicatorView.layer.masksToBounds = false
         indicatorView.layer.cornerRadius = 5
-        contentView.layer.applySketchShadow(color: .wildDarkBlue, alpha: 0.25, x: 10, y: 3, blur: 13, spread: 2)
+//        contentView.layer.applySketchShadow(color: .wildDarkBlue, alpha: 0.25, x: 10, y: 3, blur: 13, spread: 2)
     }
     
     override func configureConstraints() {
+        super.configureConstraints()
         contentView.flex
-            .margin(UIEdgeInsets(top: 7, left: 20, bottom: 0, right: 20))
-            .padding(0, 20, 0, 20)
-            .height(50)
+//            .margin(UIEdgeInsets(top: 7, left: 0, bottom: 0, right: 0))
+//            .padding(0, 20, 0, 20)
+            .height(NodeTableCell.height)
             .direction(.row)
             .justifyContent(.spaceBetween)
             .alignSelf(.center)
             .define { flex in
-                flex.addItem(addressLabel)
-                flex.addItem(indicatorView).height(10).width(10).alignSelf(.center)
+                flex.addItem(addressLabel).marginLeft(20)
+                flex.addItem(indicatorView).height(10).width(10).alignSelf(.center).marginRight(20)
+                
         }
     }
     
@@ -53,7 +60,7 @@ final class LangTableCcell: FlexCell {
     override func configureView() {
         super.configureView()
         contentView.layer.masksToBounds = false
-        contentView.layer.cornerRadius = 15
+//        contentView.layer.cornerRadius = 15
         contentView.backgroundColor = .white
         backgroundColor = .clear
         contentView.layer.applySketchShadow(color: .wildDarkBlue, alpha: 0.25, x: 10, y: 3, blur: 13, spread: 2)
@@ -67,7 +74,7 @@ final class LangTableCcell: FlexCell {
         }
         
         contentView.flex
-            .margin(UIEdgeInsets(top: 7, left: 20, bottom: 0, right: 20))
+            .margin(UIEdgeInsets(top: 7, left: 0, bottom: 0, right: 0))
             .padding(0, 20, 0, 20)
             .height(50)
             .direction(.row)

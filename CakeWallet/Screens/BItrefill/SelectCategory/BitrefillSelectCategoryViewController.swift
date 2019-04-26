@@ -22,6 +22,8 @@ final class BitrefillSelectCategoryViewController: BaseViewController<BitrefillS
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         guard let selectedCountry = UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.bitrefillSelectedCountry) else {
             bitrefillFlow?.change(route: .selectCountry)
             return
