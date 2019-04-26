@@ -26,7 +26,7 @@ enum Theme: String {
     var primaryButton: ButtonColorScheme {
         switch self {
         case .def:
-            return ButtonColorScheme(background: .turquoiseBlue, text: .white)
+            return ButtonColorScheme(background: UIColor(red: 126, green: 92, blue: 250), text: .white)
         case .night:
             return ButtonColorScheme(background: .whiteSmoke, text: .vividBlue)
         }

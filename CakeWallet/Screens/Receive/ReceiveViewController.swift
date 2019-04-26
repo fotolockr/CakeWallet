@@ -62,7 +62,6 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, Store
         contentView.resetButton.addTarget(self, action: #selector(resetOptions), for: .touchUpInside)
         contentView.amountTextField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
         contentView.newPaymentId.addTarget(self, action: #selector(generatePaymentId), for: .touchUpInside)
-        contentView.subAdressButton.addTarget(self, action: #selector(presentSubaddresses), for: .touchUpInside)
         contentView.copyIntegratedButton.alertPresenter = self
         contentView.copyPaymentIdButton.alertPresenter = self
         switchOptionsButton()
@@ -222,11 +221,6 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, Store
         let qrCode = QRCode(uri.formatted())
         contentView.addressLabel.text = address
         contentView.qrImage.image = qrCode?.image
-    }
-    
-    @objc
-    private func presentSubaddresses() {
-        receiveFlow?.change(route: .subaddresses)
     }
 }
 

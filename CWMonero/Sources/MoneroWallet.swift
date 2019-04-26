@@ -295,6 +295,10 @@ public final class MoneroWallet: Wallet {
     }
     
     public func changeAccount(index: UInt32) {
+        guard index != accountIndex else {
+            return
+        }
+        
         accountIndex = index
         onAccountIndexChange?(index)
         onBalanceChange?(self)

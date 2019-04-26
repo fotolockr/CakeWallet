@@ -52,7 +52,7 @@ public struct ForceUpdateTransactionsHandler: AsyncHandler {
         workQueue.async {
             let transactionHistory = currentWallet.transactions()
             transactionHistory.refresh()
-            let transactions = transactionHistory.transactions
+            let transactions = transactionHistory.transactions.filter { $0.accountIndex == store.state.walletState.accountIndex }
             handler(TransactionsState.Action.reset(transactions))
         }
     }

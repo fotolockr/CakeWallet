@@ -54,13 +54,20 @@ public struct UpdateSubaddressHandler: AsyncHandler {
             case let .updateSubaddress(label, index) = action,
             let moneroWallet = currentWallet as? MoneroWallet else { return handler(nil) }
         guard !label.isEmpty else { return handler(nil) }
+        let subaddresses = moneroWallet.subaddresses()
+        subaddresses.setLabel(label, at: index)
+        subaddresses.refresh()
+        let subaddressesList = subaddresses.all()
+        
+        
+        if store.state.walletState.subaddress?.index == index,
+            let subaddress = subaddressesList.filter({ $0.index == index }).first {
+            store.dispatch(WalletState.Action.changedSubaddress(subaddress))
+        }
         
         DispatchQueue.main.async {
-            let subaddresses = moneroWallet.subaddresses()
-            subaddresses.setLabel(label, at: index)
-            subaddresses.refresh()
             handler(
-                SubaddressesState.Action.added(subaddresses.all())
+                SubaddressesState.Action.added(subaddressesList)
             )
         }
     }

@@ -18,7 +18,7 @@ extension Subaddress: CellItem {
 }
 
 final class SubaddressesViewController: BaseViewController<SubaddressesView>, UITableViewDataSource, UITableViewDelegate, StoreSubscriber {
-    weak var flow: ReceiveFlow?
+    weak var flow: DashboardFlow?
     private  let store: Store<ApplicationState>
     private  var subaddresses: [Subaddress] {
         didSet {

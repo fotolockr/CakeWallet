@@ -1,4 +1,7 @@
 import UIKit
+import CakeWalletLib
+import CakeWalletCore
+import CWMonero
 
 final class DashboardFlow: Flow {
     enum Route {
@@ -7,6 +10,8 @@ final class DashboardFlow: Flow {
         case send
         case receive
         case addressBook
+        case subaddresses
+        case editSubaddress(Subaddress)
     }
     
     var rootController: UIViewController {
@@ -43,6 +48,13 @@ final class DashboardFlow: Flow {
         case .addressBook:
             let addressBook = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: false)
             navigationController.pushViewController(addressBook, animated: true)
+        case .subaddresses:
+            let subaddressesVC = SubaddressesViewController(store: store)
+            subaddressesVC.flow = self
+            navigationController.pushViewController(subaddressesVC, animated: true)
+        case let .editSubaddress(sub):
+            let subaddressVC = SubaddressViewController(store: store, subaddress: sub)
+            navigationController.pushViewController(subaddressVC, animated: true)
         }
 
     }

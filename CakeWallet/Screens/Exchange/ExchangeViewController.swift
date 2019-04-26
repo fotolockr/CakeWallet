@@ -850,6 +850,11 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         didSetCurrentAddressForDeposit = false
         didSetCurrentAddressForReceive = false
         setProviderTitle()
+        
+        if isXMRTO() {
+            contentView.depositCardView.minLabel.isHidden = true
+            contentView.depositCardView.maxLabel.isHidden = true
+        }
     }
     
     override func viewDidLoad() {
@@ -879,8 +884,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        onDepositCryptoChange(depositCrypto.value)
-        onReceiveCryptoChange(receiveCrypto.value)
+//        onDepositCryptoChange(depositCrypto.value, needUpdate: false)
+//        onReceiveCryptoChange(receiveCrypto.value, needUpdate: false)
+//        updateLimits()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -929,12 +935,12 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         
         let receiveAmount = calculateAmount(forInput: crypto, output: receiveCrypto.value, amount: depositAmountString.value, rates: store.state.exchangeState.rates)
         contentView.receiveCardView.amountTextField.textField.text = receiveAmount
-        updateLimits()
         setProviderTitle()
+        updateLimits()
     }
     
     private func updateLimits() {
-        if depositCrypto.value == .monero && receiveCrypto.value == .bitcoin {
+        if isXMRTO() {
             fetchXMRTOLimits() { [weak self] result in
                 DispatchQueue.main.async {
                     guard let receiveCrypto = self?.receiveCrypto else {
@@ -945,14 +951,37 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
                     case let .success(limits):
                         let min = makeAmount(from: String(limits.min), for: receiveCrypto.value)
                         let max = makeAmount(from: String(limits.max), for: receiveCrypto.value)
-                        self?.depositMaxAmount.accept(max.formatted())
-                        self?.depositMinAmount.accept(min.formatted())
+                        self?.receiveMinAmount.accept(min.formatted())
+                        self?.receiveMaxAmount.accept(max.formatted())
+                        self?.contentView.depositCardView.minLabel.isHidden = true
+                        self?.contentView.depositCardView.maxLabel.isHidden = true
                     case let.failed(error):
                         print(error)
                     }
                 }
             }
             return
+        }
+        
+        contentView.depositCardView.minLabel.isHidden = false
+        contentView.depositCardView.maxLabel.isHidden = false
+        
+        fetchLimits(for: receiveCrypto.value, and: depositCrypto.value) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let depositCrypto = self?.depositCrypto else {
+                    return
+                }
+                
+                switch result {
+                case let .success(limits):
+                    let min = makeAmount(from: limits.min, for: depositCrypto.value)
+                    let max = makeAmount(from: limits.max, for: depositCrypto.value)
+                    self?.receiveMinAmount.accept(min.formatted())
+                    self?.receiveMaxAmount.accept(max.formatted())
+                case let.failed(error):
+                    print(error)
+                }
+            }
         }
         
         fetchLimits(for: depositCrypto.value, and: receiveCrypto.value) { [weak self] result in
@@ -965,8 +994,8 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
                 case let .success(limits):
                     let min = makeAmount(from: limits.min, for: depositCrypto.value)
                     let max = makeAmount(from: limits.max, for: depositCrypto.value)
-                    self?.receiveMinAmount.accept(min.formatted())
-                    self?.receiveMaxAmount.accept(max.formatted())
+                    self?.depositMaxAmount.accept(max.formatted())
+                    self?.depositMinAmount.accept(min.formatted())
                 case let.failed(error):
                     print(error)
                 }
@@ -990,8 +1019,8 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             contentView.receiveCardView.addressContainer.textView.text = nil
         }
         
-        updateLimits()
         setProviderTitle()
+        updateLimits()
     }
     
     private func changedWallet(type: WalletType) {
@@ -1090,8 +1119,6 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     @objc
     private func exhcnage() {
-        let isXMRTO = depositCrypto.value == .monero && receiveCrypto.value == .bitcoin
-        
         let refundAddress = store.state.walletState.walletType.currency == depositCrypto.value
             ? store.state.walletState.address
             : depositRefundAddress.value
@@ -1114,10 +1141,10 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             address: outputAddress,
             weight: 10000,
             crypto: receiveCrypto.value)
-        let amount = isXMRTO ? receiveAmount : depositAmount
+        let amount = isXMRTO() ? receiveAmount : depositAmount
         
         showSpinnerAlert(withTitle: NSLocalizedString("create_exchange", comment: "")) { alert in
-            if isXMRTO {
+            if self.isXMRTO() {
                 self.exchangeActionCreators.createTradeXMRTO(amount: amount, address: outputAddress) { result in
                     alert.dismiss(animated: true) { [weak self] in
                         guard let this = self else {
@@ -1167,6 +1194,10 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
                 }
             }
         }
+    }
+    
+    private func isXMRTO() -> Bool {
+        return receiveCrypto.value == .bitcoin && depositCrypto.value == .monero
     }
 }
 

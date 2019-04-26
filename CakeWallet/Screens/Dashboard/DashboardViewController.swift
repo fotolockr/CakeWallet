@@ -3,24 +3,19 @@ import CakeWalletLib
 import CakeWalletCore
 import FlexLayout
 
-
-
-extension TransactionDescription: CellItem {
-    func setup(cell: TransactionUITableViewCell) {
-        let price = store.state.balanceState.price
-        let currency = store.state.settingsState.fiatCurrency
-        let fiatAmount = calculateFiatAmount(currency, price: price, balance: totalAmount)
-        cell.configure(direction: direction, date: date, isPending: isPending, cryptoAmount: totalAmount, fiatAmount: fiatAmount.formatted())
-    }
-}
-
 final class DashboardController: BaseViewController<DashboardView>, StoreSubscriber, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
-    let navigationTitleView = WalletsNavigationTitle()
+    let walletNameView = WalletNameView()
     weak var dashboardFlow: DashboardFlow?
     private var showAbleBalance: Bool
     private(set) var presentWalletsListButtonTitle: UIBarButtonItem?
     private(set) var presentWalletsListButtonImage: UIBarButtonItem?
     private var transactions: [TransactionDescription] = []
+    private var sortedTransactions:  [DateComponents : [TransactionDescription]] = [:] {
+        didSet {
+            transactionsKeys = sort(dateComponents: Array(sortedTransactions.keys))
+        }
+    }
+    private var transactionsKeys: [DateComponents] = []
     private var initialHeight: UInt64
     private var refreshControl: UIRefreshControl
     let store: Store<ApplicationState>
@@ -40,9 +35,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     override func configureBinds() {
-        navigationItem.titleView = UIView()
-        navigationController?.navigationBar.backgroundColor = UIColor.white
-//        UIApplication.shared.statusBarStyle = .lightContent
+        navigationController?.navigationBar.backgroundColor = .clear
         
         contentView.transactionsTableView.register(items: [TransactionDescription.self])
         contentView.transactionsTableView.delegate = self
@@ -68,8 +61,8 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         contentView.receiveButton.isUserInteractionEnabled = true
         contentView.receiveButton.addGestureRecognizer(receiveButtonTap)
         
-        navigationTitleView.switchHandler = { [weak self] in
-            self?.dashboardFlow?.change(route: .wallets)
+        walletNameView.onTap = { [weak self] in
+            self?.presentWalletActions()
         }
 
         insertNavigationItems()
@@ -91,13 +84,11 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             action: #selector(presentWalletsList)
         )
         
-        presentWalletsListButtonTitle?.tintColor = UIColor.vividBlue
-        presentWalletsListButtonImage?.tintColor = UIColor.vividBlue
-        
-        let titleLabel = UIBarButtonItem(title: store.state.walletState.name, style: .plain, target: self, action: #selector(presentWalletActions))
-        titleLabel.setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 18.0)!], for: .normal)
-        titleLabel.setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 18.0)!], for: .highlighted)
-        navigationItem.leftBarButtonItem = titleLabel
+        presentWalletsListButtonTitle?.tintColor = .vividBlue
+        presentWalletsListButtonImage?.tintColor = .vividBlue
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "more")?.resized(to: CGSize(width: 28, height: 28)), style: .plain, target: self, action: #selector(presentWalletActions))
+        navigationItem.titleView = walletNameView
         
         if let presentWalletsListButtonTitle = presentWalletsListButtonTitle,
            let presentWalletsListButtonImage = presentWalletsListButtonImage {
@@ -143,40 +134,62 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         onWalletChange(state.walletState, state.blockchainState)
         updateTransactions(state.transactionsState.transactions)
         updateInitialHeight(state.blockchainState)
+        
+        walletNameView.title = state.walletState.name
+        walletNameView.subtitle = state.walletState.subaddress?.label
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sortedTransactions.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transactions.count
+        let key = transactionsKeys[section]
+        return sortedTransactions[key]?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 45
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let key = transactionsKeys[section]
+        let dateFormatter = DateFormatter()
+        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: tableView.frame.size.width, height: 45)))
+        let date = NSCalendar.current.date(from: key)!
+        label.backgroundColor = UIColor(red: 249, green: 250, blue: 252)
+        label.textColor = UIColor(hex: 0x9BACC5)
+        label.font = UIFont(name: "Lato-SemiBold", size: 14.0)
+        label.textAlignment = .center
+        
+        if Calendar.current.isDateInToday(date) {
+            label.text = "Today"
+        } else if Calendar.current.isDateInYesterday(date) {
+            label.text = "Yesterday"
+        } else {
+            let now = Date()
+            let currentYear = Calendar.current.component(.year, from: now)
+            dateFormatter.dateFormat = key.year == currentYear ? "dd MMMM" : "dd MMMM yyyy"
+            label.text = dateFormatter.string(from: date)
+        }
+        
+        return label
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let transactionItem = transactions[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withItem: transactionItem, for: indexPath)
-//        var needToRound = false
-//        
-//        if indexPath.row == 0 {
-//            cell.layer.masksToBounds = false
-//            cell.roundCorners([.topLeft, .topRight], radius: 20)
-//            needToRound = true
-//        }
-//
-//        if indexPath.row == transactions.count - 1 {
-//            cell.layer.masksToBounds = false
-//            cell.roundCorners([.bottomLeft, .bottomRight], radius: 20)
-//            needToRound = true
-//        }
-//
-//        if !needToRound {
-//            cell.layer.mask = nil
-//        }
+        guard let transaction = getTransaction(by: indexPath) else {
+            return UITableViewCell()
+        }
         
-        return cell
+        return tableView.dequeueReusableCell(withItem: transaction, for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        let tx = transactions[indexPath.row]
-        presentTransactionDetails(for: tx)
+        
+        if let transaction = getTransaction(by: indexPath) {
+            presentTransactionDetails(for: transaction)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -190,7 +203,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             updateFiatBalance(store.state.balanceState.unlockedFiatBalance)
             return
         }
-        
+
         contentView.shortStatusBarView.isHidden = false
         updateCryptoBalance(store.state.balanceState.balance)
         updateFiatBalance(store.state.balanceState.unlockedFiatBalance)
@@ -208,8 +221,12 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.reconnectAction()
         }
         
-        alertViewController.addAction(presentReconnectAction)
+        let presentSubaddressesAction = UIAlertAction(title: NSLocalizedString("subaddresses", comment: ""), style: .default) { [weak self] _ in
+            self?.dashboardFlow?.change(route: .subaddresses)
+        }
         
+        alertViewController.addAction(presentReconnectAction)
+        alertViewController.addAction(presentSubaddressesAction)
         alertViewController.addAction(cancelAction)
         DispatchQueue.main.async {
             self.present(alertViewController, animated: true)
@@ -221,12 +238,13 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         showAbleBalance = !showAbleBalance
         onStateChange(store.state)
     }
+    
+    private func getTransaction(by indexPath: IndexPath) -> TransactionDescription? {
+        let key = transactionsKeys[indexPath.section]
+        return sortedTransactions[key]?[indexPath.row]
+    }
 
     private func onWalletChange(_ walletState: WalletState, _ blockchainState: BlockchainState) {
-        guard navigationTitleView.title != walletState.name else {
-            return
-        }
-        
         initialHeight = 0
         updateTitle(walletState.name)
     }
@@ -402,15 +420,18 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         }
 
         contentView.transactionTitleLabel.isHidden = transactions.count <= 0
+        
+        let sortedTransactions = Dictionary(grouping: transactions) {
+            return Calendar.current.dateComponents([.day, .year, .month], from: ($0.date))
+        }
 
         guard self.transactions != transactions else {
             return
         }
-
-        self.transactions = transactions.sorted(by: {
-            return $0.date > $1.date
-        })
-
+        
+        self.transactions = transactions
+        self.sortedTransactions = sortedTransactions
+        
         if self.transactions.count > 0 {
             if contentView.transactionTitleLabel.isHidden {
                 contentView.transactionTitleLabel.isHidden = false
@@ -418,12 +439,8 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         } else if !contentView.transactionTitleLabel.isHidden {
             contentView.transactionTitleLabel.isHidden = true
         }
-
-        UIView.transition(
-            with: contentView.transactionsTableView,
-            duration: 0.4,
-            options: .transitionCrossDissolve,
-            animations: { self.contentView.transactionsTableView.reloadData() })
+        
+        contentView.transactionsTableView.reloadData()
     }
     
     private func updateTitle(_ title: String) {

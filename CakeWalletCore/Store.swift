@@ -58,9 +58,7 @@ public final class Store<State: StateType>: StoreType {
     }
     
     public func dispatch(_ action: AnyAction) {
-        DispatchQueue.main.async {
-            self._defaultDispatch(action)
-        }
+        self._defaultDispatch(action)
     }
     
     public func dispatch(_ actionProducer: (State, Store<State>) -> AnyAction?) {

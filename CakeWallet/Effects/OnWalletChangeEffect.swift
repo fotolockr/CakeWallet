@@ -6,7 +6,7 @@ import CWMonero
 // fixme
 private let moneroBlockSize = 1000
 
-private func onWalletChange(_ wallet: Wallet) {
+private func onWalletChange(_ wallet: Wallet) {    
     if wallet.name != UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.currentWalletName) {
         UserDefaults.standard.set(wallet.name, forKey: Configurations.DefaultsKeys.currentWalletName)
     }

@@ -77,15 +77,8 @@ class TextView: BaseFlexView {
         super.init()
     }
     
-    override func didChangeValue(forKey key: String) {
-        print("HEY")
-    }
-    
     override func configureView() {
         super.configureView()
-        
-        print("CONFIGURE VIEW")
- 
         
         textField.placeholder = placeholder
         textField.font = applyFont(ofSize: fontSize, weight: .regular)

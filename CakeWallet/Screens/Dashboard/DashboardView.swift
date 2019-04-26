@@ -139,6 +139,9 @@ final class DashboardView: BaseFlexView {
     let transactionsTableView: UITableView
     let tableHeaderView: BaseFlexView
     let shortStatusBarView: ShortStatusBarView
+    let cardViewCoreDataWrapper: UIView
+    let cardViewStatusBarUIWrapper: UIView
+    let buttonsRowPadding: CGFloat
     private var isShowSyncingIconHidden: Bool
     
     required init() {
@@ -159,6 +162,9 @@ final class DashboardView: BaseFlexView {
         tableHeaderView = BaseFlexView()
         isShowSyncingIconHidden = false
         shortStatusBarView = ShortStatusBarView()
+        cardViewCoreDataWrapper = UIView()
+        cardViewStatusBarUIWrapper = UIView()
+        buttonsRowPadding = adaptiveLayout.getSize(forLarge: 50, forBig: 45, defaultSize: 45)
         super.init()
     }
     
@@ -188,14 +194,10 @@ final class DashboardView: BaseFlexView {
         tableHeaderView.rootFlexContainer.flex.backgroundColor(.clear)
         transactionsTableView.layer.masksToBounds = false
         rootFlexContainer.layer.masksToBounds = true
-        backgroundColor = UIColor.white
+        backgroundColor = .white
     }
     
     override func configureConstraints() {
-        let cardViewCoreDataWrapper = UIView()
-        let cardViewStatusBarUIWrapper = UIView()
-        let buttonsRowPadding = adaptiveLayout.getSize(forLarge: 50, forBig: 45, defaultSize: 45)
-        
         statusView.flex
             .direction(.row)
             .justifyContent(.center)
