@@ -133,6 +133,9 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
             self?.dismiss(animated: true)
         }
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         store.dispatch(WalletsActions.fetchWallets)
     }
     

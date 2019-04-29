@@ -6,7 +6,7 @@ import ZIPFoundation
 import CryptoSwift
 import CWMonero
 import SwiftyJSON
-
+    
 //fixme
 final class TextViewUITableViewCell: FlexCell {
     let textView: UITextView
@@ -172,6 +172,9 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             TransactionPriority.default,
             TransactionPriority.fast,
             TransactionPriority.fastest]
+        
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
         
         let fiatCurrencyCellItem = SettingsPickerCellItem<FiatCurrency>(
             title: NSLocalizedString("currency", comment: ""),

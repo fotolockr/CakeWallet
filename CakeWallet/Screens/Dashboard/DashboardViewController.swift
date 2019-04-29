@@ -94,12 +94,12 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
            let presentWalletsListButtonImage = presentWalletsListButtonImage {
             
             presentWalletsListButtonTitle.setTitleTextAttributes([
-                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 13.0)!,
+                NSAttributedStringKey.font: applyFont(ofSize: 13),
                 NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
             ], for: .normal)
             
             presentWalletsListButtonTitle.setTitleTextAttributes([
-                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 13.0)!,
+                NSAttributedStringKey.font: applyFont(ofSize: 13),
                 NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
             ], for: .highlighted)
             
@@ -159,7 +159,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         let date = NSCalendar.current.date(from: key)!
         label.backgroundColor = UIColor(red: 249, green: 250, blue: 252)
         label.textColor = UIColor(hex: 0x9BACC5)
-        label.font = UIFont(name: "Lato-SemiBold", size: 14.0)
+        label.font = applyFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
         
         if Calendar.current.isDateInToday(date) {
@@ -217,6 +217,10 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel)
         
+        let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("reconnect", comment: ""), style: .default) { [weak self] _ in
+            self?.dashboardFlow?.change(route: .addressBook)
+        }
+        
         let presentReconnectAction = UIAlertAction(title: NSLocalizedString("reconnect", comment: ""), style: .default) { [weak self] _ in
             self?.reconnectAction()
         }
@@ -225,6 +229,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.dashboardFlow?.change(route: .subaddresses)
         }
         
+        alertViewController.addAction(presentAddressBookAction)
         alertViewController.addAction(presentReconnectAction)
         alertViewController.addAction(presentSubaddressesAction)
         alertViewController.addAction(cancelAction)

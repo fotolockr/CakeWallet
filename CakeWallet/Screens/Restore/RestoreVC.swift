@@ -14,6 +14,9 @@ final class RestoreVC: BaseViewController<RestoreView> {
     override func configureBinds() {
         title = NSLocalizedString("restore", comment: "")
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         contentView.restoreFromSeedCard.button.addTarget(self, action: #selector(fromSeed), for: .touchUpInside)
         contentView.restoreFromKeysCard.button.addTarget(self, action: #selector(fromKeys), for: .touchUpInside)
     }

@@ -105,7 +105,6 @@
 
 // Wallets
 
-
 "show_seed" = "Seed anzeigen";
 "load_wallet" = "Wallet laden";
 "remove" = "Löschen";
@@ -115,9 +114,12 @@
 "loading_wallet" = "Wallet mit den Namen laden";
 "create_new_wallet" = "Neue Wallet erstellen";
 
+// Address book
+
+"address_book" = "Adressbuch";
+
 
 // Rescan
-
 
 "starting_rescan" = "Neu scannen...";
 

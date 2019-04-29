@@ -21,6 +21,7 @@ final class NodeCellItem: CellItem {
     }
 }
 
+
 final class NodesViewController: BaseViewController<NodesView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
     weak var nodesFlow: NodesFlow?
     let store: Store<ApplicationState>
@@ -35,9 +36,14 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
 
     override func configureBinds() {
         title = NSLocalizedString("nodes", comment: "")
-        let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addNewNode))
-        let resetButton = UIBarButtonItem(title: NSLocalizedString("reset", comment: ""), style: .plain, target: self, action: #selector(resetNodesList))
+        
+        let addButton = makeIconedNavigationButton(iconName: "add_icon_purple", target: self, action: #selector(addNewNode))
+        let resetButton = makeTitledNavigationButton(title: NSLocalizedString("reset", comment: ""), target: self, action: #selector(resetNodesList))
+        
         navigationItem.rightBarButtonItems = [addButton, resetButton]
+        
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
         
         contentView.table.delegate = self
         contentView.table.dataSource = self

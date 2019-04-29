@@ -93,6 +93,10 @@
 "sent" = "Sent";
 "pending" = "pending";
 
+// Address book
+
+"address_book" = "Address book";
+
 // Wallets
 
 "show_seed" = "Show seed";

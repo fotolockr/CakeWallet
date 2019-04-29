@@ -2,16 +2,15 @@ import UIKit
 import FlexLayout
 
 final class NodeTableCell: FlexCell {
-    static let height = 60 as CGFloat
+    static let height = 56 as CGFloat
     
     let addressLabel: UILabel
     let indicatorView: UIView
-//    let separatorView: UIView
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         indicatorView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 10, height: 10)))
         addressLabel = UILabel(fontSize: 16)
-//        separatorView = UIView()
+
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
@@ -21,9 +20,10 @@ final class NodeTableCell: FlexCell {
 //        contentView.layer.cornerRadius = 15
 //        contentView.backgroundColor = .white
 //        backgroundColor = .clear
+        addressLabel.font = applyFont(ofSize: 16)
         indicatorView.layer.masksToBounds = false
         indicatorView.layer.cornerRadius = 5
-//        contentView.layer.applySketchShadow(color: .wildDarkBlue, alpha: 0.25, x: 10, y: 3, blur: 13, spread: 2)
+
     }
     
     override func configureConstraints() {
@@ -60,7 +60,6 @@ final class LangTableCcell: FlexCell {
     override func configureView() {
         super.configureView()
         contentView.layer.masksToBounds = false
-//        contentView.layer.cornerRadius = 15
         contentView.backgroundColor = .white
         backgroundColor = .clear
         contentView.layer.applySketchShadow(color: .wildDarkBlue, alpha: 0.25, x: 10, y: 3, blur: 13, spread: 2)

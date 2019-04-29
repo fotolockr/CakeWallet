@@ -36,8 +36,8 @@ final class WalletNameView: BaseView {
         let onTapGesture = UITapGestureRecognizer(target: self, action: #selector(onHandler))
         addGestureRecognizer(onTapGesture)
         backgroundColor = .clear
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 20.0)
-        subtitleLabel.font = UIFont(name: "Lato-Regular", size: 10.0)
+        titleLabel.font = applyFont(ofSize: 16)
+        subtitleLabel.font = applyFont(ofSize: 10)
         titleLabel.textAlignment = .center
         subtitleLabel.textAlignment = .center
     }

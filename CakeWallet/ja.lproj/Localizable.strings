@@ -104,6 +104,10 @@
 "loading_wallet" = "名前でウォレットをロード";
 "create_new_wallet" = "ウォレット新規作成";
 
+// Address book
+
+"address_book" = "アドレス帳";
+
 // Rescan
 
 "starting_rescan" = "再スキャン開始";

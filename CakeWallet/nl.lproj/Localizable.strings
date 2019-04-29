@@ -90,7 +90,6 @@
 
 // Wallet
 
-
 "available_balance" = "Beschikbaar saldo";
 "reconnection" = "Herverbinding";
 "reconnect" = "Opnieuw verbinden";
@@ -105,7 +104,6 @@
 
 // Wallets
 
-
 "show_seed" = "Seed weergeven";
 "load_wallet" = "Wallet laden";
 "remove" = "Verwijderen";
@@ -115,15 +113,17 @@
 "loading_wallet" = "Laden van wallet met naam";
 "create_new_wallet" = "Nieuwe wallet aanmaken";
 
+// Address book
+
+"address_book" = "Adresboek";
+
 
 // Rescan
-
 
 "starting_rescan" = "Opnieuw scannen...";
 
 
 // Send
-
 
 "all" = "Alle";
 "optional" = "Optioneel";
