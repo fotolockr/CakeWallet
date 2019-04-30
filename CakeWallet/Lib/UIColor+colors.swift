@@ -52,4 +52,8 @@ extension UIColor {
     static var veryLightBlue: UIColor {
         return UIColor(red: 224, green: 233, blue: 246)
     }
+    
+    static var lightCream: UIColor {
+        return UIColor(red: 249, green: 249, blue: 249)
+    }
 }

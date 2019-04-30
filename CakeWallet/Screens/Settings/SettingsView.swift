@@ -22,11 +22,14 @@ final class SettingsView: BaseFlexView {
             size: CGSize(width: 50, height: 50)
         )
         table.tableFooterView = footerLabel
+        backgroundColor = .lightCream
     }
     
     override func configureConstraints() {
-        rootFlexContainer.flex.define { flex in
-            flex.addItem(table).height(100%).width(100%)
+        rootFlexContainer.flex
+            .backgroundColor(.lightCream)
+            .define { flex in
+                flex.addItem(table).height(100%).width(100%)
         }
     }
 }

@@ -33,7 +33,7 @@ final class NodesView: BaseFlexView {
     
     override func configureConstraints() {
         autoNodeSwitchContainer.flex
-            .direction(.row).backgroundColor(UIColor(red: 249, green: 249, blue: 249))
+            .direction(.row).backgroundColor(.lightCream)
             .padding(0, 20, 0, 20)
             .justifyContent(.spaceBetween).alignItems(.center)
             .height(56).define { flex in

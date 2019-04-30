@@ -220,10 +220,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel)
         
-        let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("address_book", comment: ""), style: .default) { [weak self] _ in
-            self?.dashboardFlow?.change(route: .addressBook)
-        }
-        
         let presentReconnectAction = UIAlertAction(title: NSLocalizedString("reconnect", comment: ""), style: .default) { [weak self] _ in
             self?.reconnectAction()
         }
@@ -232,9 +228,13 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.dashboardFlow?.change(route: .subaddresses)
         }
         
-        alertViewController.addAction(presentAddressBookAction)
+        let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("address_book", comment: ""), style: .default) { [weak self] _ in
+            self?.dashboardFlow?.change(route: .addressBook)
+        }
+        
         alertViewController.addAction(presentReconnectAction)
         alertViewController.addAction(presentSubaddressesAction)
+        alertViewController.addAction(presentAddressBookAction)
         alertViewController.addAction(cancelAction)
         DispatchQueue.main.async {
             self.present(alertViewController, animated: true)
