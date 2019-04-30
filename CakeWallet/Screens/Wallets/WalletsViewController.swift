@@ -4,39 +4,11 @@ import CakeWalletCore
 import CWMonero
 
 protocol WalletActionsPresentable {
-//    func presetWalletActionsMenu()
-//    func presentKeys(for wallet: WalletIndex)
     func presentSeed(for wallet: WalletIndex, withConfig walletConfig: WalletConfig)
 }
 
 extension WalletActionsPresentable where Self: AnyBaseViewController {
-//    func presentSeed(for wallet: WalletIndex, withConfig: WalletConfig) {
-//        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
-//        let navController = UINavigationController(rootViewController: authController)
-//        authController.onDismissHandler = onDismissHandler
-//        authController.handler = { [weak authController, weak self] in
-//            do {
-//                authController?.dismiss(animated: true) {
-//                    let seedViewController = SeedViewController(walletName: wallet.name, date: walletConfig.date, seed: seed, doneFlag: true)
-//                    seedViewController.doneHandler = { [weak seedViewController] in
-//                        seedViewController?.dismiss(animated: true)
-//                    }
-//                    let navigationController = UINavigationController(rootViewController: seedViewController)
-//                    self?.navigationController?.viewControllers.first?.present(navigationController, animated: true)
-//                }
-//                
-//            } catch {
-//                self?.showError(error: error)
-//            }
-//        }
-//        
-//        present(navController, animated: true)
-//    }
-    
-    
     func presentKeys() {
-//        let walletsFlow: WalletsFlow?
-        
         let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
         let navController = UINavigationController(rootViewController: authController)
         authController.onDismissHandler = onDismissHandler
@@ -79,12 +51,12 @@ struct WalletCellItem: CellItem {
     }
 }
 
-final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
+final class WalletsViewController: BaseViewController<WalletsView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
     let navigationTitleView: WalletsNavigationTitle
     weak var walletsFlow: WalletsFlow?
+    private(set) var hideWalletsListButtonTitle: UIBarButtonItem?
+    private(set) var hideWalletsListButtonImage: UIBarButtonItem?
     private lazy var signUpFlow: SignUpFlow? = { [weak self] in
-        
-        
         let navigationController: UINavigationController
         
         if let _navigationController = self?.navigationController {
@@ -92,7 +64,6 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
             
         } else {
             navigationController = UINavigationController()
-            
         }
         
         let restoreWalletFlow = RestoreWalletFlow(navigationController: navigationController)
@@ -101,13 +72,11 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
         signUpFlow.doneHandler = { [weak self] in
             self?.dismiss(animated: true) {
                 self?.signUpFlow = nil
-                
             }
         }
         
         return signUpFlow
-        }()
-    
+    }()
     
     private var wallets: [WalletCellItem]
     private var store: Store<ApplicationState>
@@ -133,8 +102,10 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
             self?.dismiss(animated: true)
         }
         
-        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        navigationItem.backBarButtonItem = backButton
+        insertNavigationItems()
+        
+        contentView.walletsTableView.separatorColor = .clear
+        contentView.walletsTableView.separatorStyle = .none
         
         store.dispatch(WalletsActions.fetchWallets)
     }
@@ -146,9 +117,11 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.titleView = navigationTitleView
-        navigationTitleView.title = currentWallet.name
-        navigationTitleView.rotate()
+//        navigationItem.titleView = navigationTitleView
+        navigationItem.titleView = UILabel(text: currentWallet.name)
+//        navigationTitleView.title = currentWallet.name
+//        navigationTitleView.rotate()
+
         store.subscribe(self, onlyOnChange: [
             \ApplicationState.walletsState,
             \ApplicationState.walletState
@@ -160,6 +133,49 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
         store.unsubscribe(self)
     }
     
+    private func insertNavigationItems() {
+        hideWalletsListButtonTitle = UIBarButtonItem(
+            title: "Done",
+            style: .plain,
+            target: self,
+            action: #selector(dismissAction)
+        )
+        
+        hideWalletsListButtonImage = UIBarButtonItem(
+            image: UIImage(named: "arrow_bottom_purple_icon")?
+                .resized(to: CGSize(width: 11, height: 9)).withRenderingMode(.alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(dismissAction)
+        )
+        
+        hideWalletsListButtonTitle?.tintColor = .vividBlue
+        hideWalletsListButtonImage?.tintColor = .vividBlue
+        
+        if let hideWalletsListButtonTitle = hideWalletsListButtonTitle,
+            let hideWalletsListButtonImage = hideWalletsListButtonImage {
+            
+            hideWalletsListButtonTitle.setTitleTextAttributes([
+                NSAttributedStringKey.font: applyFont(ofSize: 13),
+                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
+                ], for: .normal)
+            
+            hideWalletsListButtonTitle.setTitleTextAttributes([
+                NSAttributedStringKey.font: applyFont(ofSize: 13),
+                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
+                ], for: .highlighted)
+            
+            navigationItem.rightBarButtonItems = [hideWalletsListButtonImage, hideWalletsListButtonTitle]
+        }
+    }
+    
+    @objc
+    private func dismissAction() {
+        dismiss(animated: true) { [weak self] in
+            self?.onDismissHandler?()
+        }
+    }
+    
     // MARK: UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -167,8 +183,12 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let transactionItem = wallets[indexPath.row]
-        return tableView.dequeueReusableCell(withItem: transactionItem, for: indexPath)
+        let wallet = wallets[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withItem: wallet, for: indexPath)
+        
+        wallet.wallet != wallets.last?.wallet ? cell.addSeparator() : cell.removeSeparator()
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -177,9 +197,8 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return 60
     }
-    
     
     private func updateWallets(_ wallets: [WalletIndex]) {
         self.wallets = wallets.map {
@@ -409,3 +428,5 @@ final class WalletsViewController: BlurredBaseViewController<WalletsView>, UITab
         signUpFlow?.restoreWalletFlow.change(route: .root)
     }
 }
+
+

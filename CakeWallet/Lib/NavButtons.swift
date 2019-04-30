@@ -1,9 +1,9 @@
 import UIKit
 
 
-func makeIconedNavigationButton(iconName: String, target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem {
+func makeIconedNavigationButton(iconName: String, target: Any? = nil, action: Selector? = nil, iconSize: Int = 26) -> UIBarButtonItem {
     let button = UIBarButtonItem.init(
-        image: UIImage(named: iconName)?.resized(to: CGSize(width: 26, height: 26)),
+        image: UIImage(named: iconName)?.resized(to: CGSize(width: iconSize, height: iconSize)),
         style: .plain,
         target: target,
         action: action
@@ -13,16 +13,16 @@ func makeIconedNavigationButton(iconName: String, target: Any? = nil, action: Se
     return button
 }
 
-func makeTitledNavigationButton(title: String, target: Any? = nil, action: Selector? = nil, textColor: UIColor = UIColor.wildDarkBlue) -> UIBarButtonItem {
+func makeTitledNavigationButton(title: String, target: Any? = nil, action: Selector? = nil, fontSize: Int = 16, textColor: UIColor = UIColor.wildDarkBlue) -> UIBarButtonItem {
     let button = UIBarButtonItem(title: title, style: .plain, target: target, action: action)
     
     button.setTitleTextAttributes([
-        NSAttributedStringKey.font: applyFont(ofSize: 16),
+        NSAttributedStringKey.font: applyFont(ofSize: fontSize),
         NSAttributedStringKey.foregroundColor: textColor],
                                   for: .normal)
     
     button.setTitleTextAttributes([
-        NSAttributedStringKey.font: applyFont(ofSize: 16),
+        NSAttributedStringKey.font: applyFont(ofSize: fontSize),
         NSAttributedStringKey.foregroundColor: textColor],
                                   for: .highlighted)
     

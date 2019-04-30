@@ -64,10 +64,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         contentView.receiveButton.isUserInteractionEnabled = true
         contentView.receiveButton.addGestureRecognizer(receiveButtonTap)
         
-        walletNameView.onTap = { [weak self] in
-            self?.presentWalletActions()
-        }
-
         insertNavigationItems()
     }
     
@@ -87,7 +83,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             action: #selector(presentWalletsList)
         )
         
-        presentWalletsListButtonTitle?.tintColor = .vividBlue
         presentWalletsListButtonImage?.tintColor = .vividBlue
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "more")?.resized(to: CGSize(width: 28, height: 28)), style: .plain, target: self, action: #selector(presentWalletActions))

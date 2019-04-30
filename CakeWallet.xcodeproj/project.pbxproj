@@ -296,6 +296,8 @@
 		A5680F6021FF3C2F005956DA /* RestoreStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5680F5F21FF3C2F005956DA /* RestoreStateModel.swift */; };
 		A57072B3224E490C00FF7F59 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57072B2224E490C00FF7F59 /* Switch.swift */; };
 		A576DE24227738EE00BD8AEE /* NavButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A576DE23227738EE00BD8AEE /* NavButtons.swift */; };
+		A576DE2C2279AD2C00BD8AEE /* CellItem+separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A576DE2B2279AD2C00BD8AEE /* CellItem+separator.swift */; };
+		A576DE2E2279B0C700BD8AEE /* UIView+gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A576DE2D2279B0C700BD8AEE /* UIView+gradient.swift */; };
 		A577D40A21EDEFDB00FA1655 /* AddressBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A577D40921EDEFDB00FA1655 /* AddressBookView.swift */; };
 		A577D40C21EDF01100FA1655 /* AddressBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A577D40B21EDF01100FA1655 /* AddressBookViewController.swift */; };
 		A587BFF62214410000AFDFCB /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A587BFF52214410000AFDFCB /* Contact.swift */; };
@@ -768,6 +770,8 @@
 		A5680F5F21FF3C2F005956DA /* RestoreStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreStateModel.swift; sourceTree = "<group>"; };
 		A57072B2224E490C00FF7F59 /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		A576DE23227738EE00BD8AEE /* NavButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavButtons.swift; sourceTree = "<group>"; };
+		A576DE2B2279AD2C00BD8AEE /* CellItem+separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CellItem+separator.swift"; sourceTree = "<group>"; };
+		A576DE2D2279B0C700BD8AEE /* UIView+gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+gradient.swift"; sourceTree = "<group>"; };
 		A577D40921EDEFDB00FA1655 /* AddressBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookView.swift; sourceTree = "<group>"; };
 		A577D40B21EDF01100FA1655 /* AddressBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookViewController.swift; sourceTree = "<group>"; };
 		A587BFF52214410000AFDFCB /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
@@ -1382,6 +1386,8 @@
 				D1B7EA9A2255FDF30064A0DC /* JSON.swift */,
 				0CCD600C2272E64F0038B602 /* sortDateComponents.swift */,
 				A576DE23227738EE00BD8AEE /* NavButtons.swift */,
+				A576DE2B2279AD2C00BD8AEE /* CellItem+separator.swift */,
+				A576DE2D2279B0C700BD8AEE /* UIView+gradient.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -2120,7 +2126,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
@@ -2167,7 +2173,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CakeWallet/Pods-CakeWallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2284,6 +2290,7 @@
 				6413ACD320E94588004922AD /* WalletState.swift in Sources */,
 				6A24468620BAD75800C87C81 /* Configurations.swift in Sources */,
 				D1631DEC223931E10045ACAF /* TextField.swift in Sources */,
+				A576DE2E2279B0C700BD8AEE /* UIView+gradient.swift in Sources */,
 				6413ACD120E94572004922AD /* BlockchainState.swift in Sources */,
 				644E32F7213453D700331241 /* NodesFlow.swift in Sources */,
 				64F8AB2620EA28C100C59254 /* SettingsActions.swift in Sources */,
@@ -2316,6 +2323,7 @@
 				A591C677224112DF0051A4FE /* RecoverCardView.swift in Sources */,
 				64EBA5EB20F3A77E00997824 /* SubaddressesHandlers.swift in Sources */,
 				6A5A922620CFC635009B4C9A /* OnWalletChangeEffect.swift in Sources */,
+				A576DE2C2279AD2C00BD8AEE /* CellItem+separator.swift in Sources */,
 				6A36FD2420BAE43900B3502E /* NewWalletView.swift in Sources */,
 				64BEB644210CDBF200B63D67 /* ChangeLanguageView.swift in Sources */,
 				6A72CB1120CA849300CFABC9 /* SettingsViewController.swift in Sources */,

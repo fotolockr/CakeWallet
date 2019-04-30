@@ -17,7 +17,7 @@ final class RecoverFromKeysView: BaseFlexView {
         spendKeyField = TextField(placeholder: NSLocalizedString("spend_key_(private)", comment: ""), fontSize: 16, isTransparent: false)
         restoreFromHeightView = RestoreFromHeightView()
 
-        doneButton = PrimaryLoadingButton(type: .custom)
+        doneButton = PrimaryLoadingButton()
         doneButton.setTitle(NSLocalizedString("recover", comment: ""), for: .normal)
         
         super.init()

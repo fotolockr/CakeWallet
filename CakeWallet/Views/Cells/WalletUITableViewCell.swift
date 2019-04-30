@@ -24,6 +24,7 @@ final class WalletUITableViewCell: FlexCell {
     func configure(wallet: WalletIndex, isCurrent: Bool) {
         self.wallet = wallet
         nameLabel.text = wallet.name
+        backgroundColor = .white
         
         if isCurrent {
             nameLabel.textColor = .vividBlue

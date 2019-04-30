@@ -3,9 +3,19 @@ import UIKit
 class LoadingButton: UIButton {
     var originalButtonText: String?
     var activityIndicator: UIActivityIndicatorView?
-        
+    
+    required init() {
+        super.init(frame: .zero)
+        configureView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+   
     func showLoading() {
         originalButtonText = self.titleLabel?.text
+        
         setTitle("", for: .normal)
         activityIndicator = createActivityIndicator()
         
@@ -38,13 +48,14 @@ class LoadingButton: UIButton {
         
         backgroundColor = Theme.current.primaryButton.background
         setTitleColor(Theme.current.primaryButton.text, for: .normal)
+        layer.cornerRadius = 10
         layer.masksToBounds = false
         layer.shadowRadius = 20
         layer.shadowOffset = CGSize(width: 2, height: 1)
         layer.shadowOpacity = 0.3
         layer.shadowColor = UIColor.lightGray.cgColor
         contentHorizontalAlignment = .center
-        titleLabel?.font = applyFont(weight: .semibold)
+        titleLabel?.font = applyFont(ofSize: 17)
         titleLabel?.numberOfLines = 0
         titleLabel?.textAlignment = .center
     }
@@ -52,12 +63,12 @@ class LoadingButton: UIButton {
 
 final class PrimaryLoadingButton: LoadingButton {
     override func configureView() {
-        super.configureView()        
-        layer.applySketchShadow(color: UIColor(hex: 0xdfd0ff), alpha: 0.34, x: 0, y: 5, blur: 10, spread: -10)
+        super.configureView()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.applyGradient(colours: [UIColor(red: 126, green: 92, blue: 250), UIColor(red: 126, green: 92, blue: 250)])
+        
+//        self.applyGradient(colours: [UIColor(red: 126, green: 92, blue: 250), UIColor(red: 126, green: 92, blue: 250)])
     }
 }
