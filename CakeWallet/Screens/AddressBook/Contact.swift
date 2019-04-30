@@ -56,24 +56,46 @@ extension Contact: JSONConvertable {
 }
 
 extension Contact: CellItem {
-    private func color(for currency: CryptoCurrency) -> UIColor {
+    private func backgroundColor(for currency: CryptoCurrency) -> UIColor {
         switch currency {
         case .bitcoin:
             return UIColor(hex: 0xFF9900)
         case .bitcoinCash:
-            return UIColor(hex: 0xee8c28)
+            return UIColor(hex: 0xEE8C28)
         case .monero:
-            return UIColor(hex: 0xff7519)
+            return UIColor(hex: 0xD4F4F8)
         case .ethereum:
             return UIColor(hex: 0x303030)
         case .liteCoin:
-            return UIColor(hex: 0x88caf5)
+            return UIColor(hex: 0x88CAF5)
         case .dash:
-            return UIColor(hex: 0x008de4)
+            return UIColor(hex: 0x008DE4)
+        }
+    }
+    
+    private func textColor(for currency: CryptoCurrency) -> UIColor {
+        switch currency {
+        case .bitcoin:
+            return UIColor(hex: 0xFFFFFF)
+        case .bitcoinCash:
+            return UIColor(hex: 0xFFFFFF)
+        case .monero:
+            return UIColor(hex: 0x26C7DD)
+        case .ethereum:
+            return UIColor(hex: 0xFFFFFF)
+        case .liteCoin:
+            return UIColor(hex: 0x82B9DD)
+        case .dash:
+            return UIColor(hex: 0xFFFFFF)
         }
     }
     
     func setup(cell: AddressTableCell) {
-        cell.configure(name: name, type: type.formatted(), color: color(for: type))
+        cell.configure(
+            name: name,
+            type: type.formatted(),
+            backgroundColor: backgroundColor(for: type),
+            textColor: textColor(for: type)
+        )
     }
 }

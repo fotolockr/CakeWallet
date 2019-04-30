@@ -1,8 +1,11 @@
 import UIKit
+import FlexLayout
+
 
 final class AddressTableCell: FlexCell {
-    let nameLabel = UILabel(fontSize: 15)
-    let typeLabel = UILabel(fontSize: 12)
+    static let height = 56 as CGFloat
+    let nameLabel = UILabel()
+    let typeLabel = UILabel()
     let leftViewWrapper = UIView()
     let typeViewWrapper = UIView()
     let typeView = UIView()
@@ -14,26 +17,24 @@ final class AddressTableCell: FlexCell {
     override func configureView() {
         super.configureView()
         contentView.layer.masksToBounds = false
-        contentView.layer.cornerRadius = 10
         contentView.backgroundColor = .white
         backgroundColor = .clear
-        contentView.layer.applySketchShadow(color: .wildDarkBlue, alpha: 0.25, x: 10, y: 3, blur: 13, spread: 2)
         selectionStyle = .none
         
+        nameLabel.font = applyFont(ofSize: 16)
+        typeLabel.font = applyFont(ofSize: 12, weight: .bold)
+        
         typeLabel.textColor = .white
-        typeView.layer.borderWidth = 1
         typeView.layer.cornerRadius = 8
         typeView.layer.masksToBounds = true
     }
     
     override func configureConstraints() {
+        super.configureConstraints()
         contentView.flex
-            .margin(UIEdgeInsets(top: 7, left: 20, bottom: 0, right: 20))
-            .padding(5, 10, 5, 10)
-            .height(50)
-            .direction(.row)
-            .justifyContent(.spaceBetween)
-            .alignItems(.center)
+            .direction(.row).justifyContent(.spaceBetween).alignItems(.center)
+            .height(AddressTableCell.height).width(100%)
+            .marginTop(15).padding(5, 15, 5, 15)
             .define { flex in
                 flex.addItem(leftViewWrapper).define({ wrapperFlex in
                     wrapperFlex
@@ -44,19 +45,19 @@ final class AddressTableCell: FlexCell {
                         .width(90)
                         .alignItems(.center)
                         .addItem(typeView)
-                        .marginRight(14)
-                        .padding(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+                        .marginRight(15)
+                        .padding(UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15))
                         .addItem(typeLabel)
                     wrapperFlex.addItem(nameLabel)
                 })
         }
     }
     
-    func configure(name: String, type: String, color: UIColor) {
+    func configure(name: String, type: String, backgroundColor: UIColor, textColor: UIColor) {
         nameLabel.text = name
         typeLabel.text = type
-        typeLabel.textColor = color
-        typeView.layer.borderColor = color.cgColor
+        typeView.backgroundColor = backgroundColor
+        typeLabel.textColor = textColor
         nameLabel.flex.markDirty()
         typeLabel.flex.markDirty()
         contentView.flex.layout()

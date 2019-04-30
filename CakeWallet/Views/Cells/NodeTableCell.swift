@@ -16,10 +16,6 @@ final class NodeTableCell: FlexCell {
     
     override func configureView() {
         super.configureView()
-//        contentView.layer.masksToBounds = false
-//        contentView.layer.cornerRadius = 15
-//        contentView.backgroundColor = .white
-//        backgroundColor = .clear
         addressLabel.font = applyFont(ofSize: 16)
         indicatorView.layer.masksToBounds = false
         indicatorView.layer.cornerRadius = 5
@@ -29,8 +25,6 @@ final class NodeTableCell: FlexCell {
     override func configureConstraints() {
         super.configureConstraints()
         contentView.flex
-//            .margin(UIEdgeInsets(top: 7, left: 0, bottom: 0, right: 0))
-//            .padding(0, 20, 0, 20)
             .height(NodeTableCell.height)
             .direction(.row)
             .justifyContent(.spaceBetween)
@@ -46,8 +40,7 @@ final class NodeTableCell: FlexCell {
         addressLabel.text = address
         addressLabel.flex.markDirty()
         indicatorView.backgroundColor = isAble ? .greenMalachite : .red
-        contentView.backgroundColor = isCurrent ? .vividBlue : .white
-        addressLabel.textColor = isCurrent ? .white : .black
+        contentView.backgroundColor = isCurrent ? .purpleyLight : .white
         contentView.flex.layout()
     }
 }

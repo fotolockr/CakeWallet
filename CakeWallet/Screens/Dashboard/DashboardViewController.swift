@@ -37,6 +37,9 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     override func configureBinds() {
         navigationController?.navigationBar.backgroundColor = .clear
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton  
+        
         contentView.transactionsTableView.register(items: [TransactionDescription.self])
         contentView.transactionsTableView.delegate = self
         contentView.transactionsTableView.dataSource = self
@@ -217,7 +220,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel)
         
-        let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("reconnect", comment: ""), style: .default) { [weak self] _ in
+        let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("address_book", comment: ""), style: .default) { [weak self] _ in
             self?.dashboardFlow?.change(route: .addressBook)
         }
         

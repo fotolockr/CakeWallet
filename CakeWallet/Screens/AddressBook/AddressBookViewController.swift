@@ -22,7 +22,10 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     
     override func configureBinds() {
         super.configureBinds()
-        title = "Address Book"
+        title = NSLocalizedString("address_book", comment: "")
+        
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
 
         contentView.table.delegate = self
         contentView.table.dataSource = self
@@ -39,7 +42,7 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     
     private func renderActionButtons(for isModal: Bool) {
         if !isModal {
-            let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addNewAddressItem))
+            let addButton = makeIconedNavigationButton(iconName: "add_icon_purple", target: self, action: #selector(addNewAddressItem))
             navigationItem.rightBarButtonItems = [addButton]
         } else {
             let doneButton = StandartButton.init(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 12, height: 12)))
@@ -83,7 +86,7 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return AddressTableCell.height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
