@@ -56,9 +56,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         super.configureView()
         
         backgroundColor = .white
-        contentView.backgroundColor = .lightCream
-        scrollView.backgroundColor = .lightCream
-        
+
         walletNameLabel.font = applyFont()
         estimatedFeeValueLabel.numberOfLines = 0
         estimatedFeeValueLabel.textAlignment = .right
@@ -96,11 +94,10 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         
         sendAllButton.setTitleColor(UIColor.wildDarkBlue, for: .normal)
         sendAllButton.titleLabel?.font = applyFont(ofSize: 11)
-        
+
         sendButton.setTitle(NSLocalizedString("send", comment: ""), for: .normal)
         scanQrForPaymentId.setImage(UIImage(named: "qr_code_icon"), for: .normal)
         scanQrForPaymentId.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        scanQrForPaymentId.backgroundColor = .clear
         scanQrForPaymentId.layer.cornerRadius = 5
         scanQrForPaymentId.backgroundColor = UIColor.whiteSmoke
     }
@@ -151,7 +148,6 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         mainContentHolder.flex
             .alignItems(.center)
             .padding(30)
-            .backgroundColor(.lightCream)
             .define { flex in
                 flex.addItem(addressView).width(100%)
                 flex.addItem(paymentIdContainer).width(100%).marginTop(30)
@@ -162,13 +158,12 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
                 flex.addItem(estimatedDescriptionLabel).marginTop(20).width(100%)
         }
         
-        rootFlexContainer.flex.backgroundColor(.lightCream).define { flex in
+        rootFlexContainer.flex.backgroundColor(.clear).define { flex in
             flex.addItem(walletContainer)
             flex.addItem(mainContentHolder).marginTop(20)
         }
         
         bottomSectionView.flex
-            .backgroundColor(.lightCream)
             .padding(20)
             .define { flex in
                 sendButton.layer.borderColor = UIColor.grayBorder.cgColor

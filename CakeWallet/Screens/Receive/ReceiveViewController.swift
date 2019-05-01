@@ -6,14 +6,14 @@ import CakeWalletLib
 import CakeWalletCore
 import CWMonero
 
-final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, StoreSubscriber {
+final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscriber {
     var paymentId: String? {
         get {
-            return contentView.paymentIdTextField.text
+            return contentView.paymentIdTextField.textField.text
         }
         
         set {
-            contentView.paymentIdTextField.text = newValue
+            contentView.paymentIdTextField.textField.text = newValue
         }
     }
    
@@ -62,8 +62,8 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, Store
         contentView.resetButton.addTarget(self, action: #selector(resetOptions), for: .touchUpInside)
         contentView.amountTextField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
         contentView.newPaymentId.addTarget(self, action: #selector(generatePaymentId), for: .touchUpInside)
-        contentView.copyIntegratedButton.alertPresenter = self
-        contentView.copyPaymentIdButton.alertPresenter = self
+//        contentView.copyIntegratedButton.alertPresenter = self
+//        contentView.copyPaymentIdButton.alertPresenter = self
         switchOptionsButton()
         let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 10, height: 12)))
         doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
