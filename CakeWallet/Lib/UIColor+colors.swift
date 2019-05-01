@@ -45,8 +45,16 @@ extension UIColor {
         return UIColor(red: 52, green: 186, blue: 204)
     }
     
-    static var greyBlue: UIColor {
+    static var grayBlue: UIColor {
         return UIColor(red: 126, green: 147, blue: 177)
+    }
+    
+    static var grayBackground: UIColor {
+        return UIColor(red: 233, green: 237, blue: 244)
+    }
+    
+    static var grayBorder: UIColor {
+        return UIColor(red: 207, green: 216, blue: 226)
     }
     
     static var veryLightBlue: UIColor {

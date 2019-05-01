@@ -104,7 +104,6 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         
         insertNavigationItems()
         
-        contentView.walletsTableView.separatorColor = .clear
         contentView.walletsTableView.separatorStyle = .none
         
         store.dispatch(WalletsActions.fetchWallets)
@@ -117,10 +116,8 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationItem.titleView = navigationTitleView
+
         navigationItem.titleView = UILabel(text: currentWallet.name)
-//        navigationTitleView.title = currentWallet.name
-//        navigationTitleView.rotate()
 
         store.subscribe(self, onlyOnChange: [
             \ApplicationState.walletsState,

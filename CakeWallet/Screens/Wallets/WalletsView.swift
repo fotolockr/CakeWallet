@@ -28,13 +28,16 @@ final class WalletsView: BaseScrollFlexViewWithBottomSection {
         restoreWalletButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         restoreWalletButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         restoreWalletButton.contentHorizontalAlignment = .left
+        
         backgroundColor = .white
+//        contentView.backgroundColor = .white
+//        scrollView.backgroundColor = .white
     }
     
     override func configureConstraints() {
         let adaptivePadding = adaptiveLayout.getSize(forLarge: 40, forBig: 35, defaultSize: 30)
         
-        rootFlexContainer.flex.backgroundColor(.clear).padding(0, 20, 20, adaptivePadding).define { flex in
+        rootFlexContainer.flex.backgroundColor(.white).padding(0, 20, 20, adaptivePadding).define { flex in
             flex.addItem(walletsTableView).marginTop(20)
         }
         

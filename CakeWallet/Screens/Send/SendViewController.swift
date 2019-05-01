@@ -88,7 +88,7 @@ struct DefaultCryptoQRResult: QRUri {
 }
 
 
-final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscriber, QRUriUpdateResponsible, QRCodeReaderViewControllerDelegate {
+final class SendViewController: BaseViewController<SendView>, StoreSubscriber, QRUriUpdateResponsible, QRCodeReaderViewControllerDelegate {
     private static let allSymbol = NSLocalizedString("all", comment: "")
     
     let store: Store<ApplicationState>
@@ -132,11 +132,14 @@ final class SendViewController: BlurredBaseViewController<SendView>, StoreSubscr
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 12, height: 12)))
         doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
         doneButton.addTarget(self, action: #selector(dismissAction), for: .touchUpInside)
-        contentView.sendButton.addTarget(self, action: #selector(sendAction), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: doneButton)
+        
+        contentView.sendButton.addTarget(self, action: #selector(sendAction), for: .touchUpInside)
+        
         store.subscribe(self, onlyOnChange: [
             \ApplicationState.balanceState,
             \ApplicationState.transactionsState,

@@ -136,7 +136,7 @@ final class ExchangeCardView: BaseFlexView {
             .define{ flex in
                 flex.addItem(cardTitle).marginBottom(25)
                 flex.addItem(topCardView).marginBottom(25)
-                flex.addItem(addressContainer).width(100%)
+                flex.addItem(addressContainer).width(100%).backgroundColor(.white)
         }
     }
 }

@@ -46,7 +46,7 @@ final class WelcomeFlowCardView: BaseFlexView {
         title.numberOfLines = 1
         
         descriptionText.font = applyFont(ofSize: Int(descriptionFontSize))
-        descriptionText.textColor = .greyBlue
+        descriptionText.textColor = .grayBlue
         descriptionText.numberOfLines = 2
         descriptionText.textAlignment = .center
         
