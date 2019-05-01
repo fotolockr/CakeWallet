@@ -23,6 +23,7 @@ struct MoneroTransactionInfoMember;
 - (NSString *) note;
 - (NSString *) hash;
 - (uint32_t)subaddrAccount;
+- (NSArray<NSNumber *> *)subaddrIndex;
 @end
 
 #endif /* MoneroTransactionInfoAdapter_h */

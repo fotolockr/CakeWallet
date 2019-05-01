@@ -14,7 +14,8 @@ extension TransactionDescription {
             isPending: moneroTransactionInfo.blockHeight() <= 0,
             height: moneroTransactionInfo.blockHeight(),
             paymentId: moneroTransactionInfo.paymentId(),
-            accountIndex: moneroTransactionInfo.subaddrAccount()
+            accountIndex: moneroTransactionInfo.subaddrAccount(),
+            addressIndecies: moneroTransactionInfo.subaddrIndex()?.map({ $0.uint32Value }) ?? []
         )
     }
 }

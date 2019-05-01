@@ -3,6 +3,9 @@ import CakeWalletCore
 import CakeWalletLib
 import QRCode
 import CWMonero
+import RxSwift
+import RxCocoa
+import RxBiBinding
 
 extension TimeInterval: Formatted {
     private var milliseconds: Int {
@@ -68,46 +71,27 @@ extension UILabel {
 
 
 
-final class ExchangeResultViewController: BaseViewController<ExchangeResultView>, StoreSubscriber {
-    let store: Store<ApplicationState>
+final class ExchangeResultViewController: BaseViewController<ExchangeResultView> {
     let amount: Amount
-    private var trade: ExchangeTrade?
+    private var trade: BehaviorRelay<Trade>
     private var sent: Bool
     private var timeoutTimerRun: Bool = false
     private lazy var updateTradeStateTimer: Timer = {
         return Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] timer in
-            //getOrderStatusForXMRTO
-            
-            guard let trade = self?.store.state.exchangeState.trade else {
-                return
-            }
-            
-            if case trade.provider = ExchangeProvider.xmrto {
-                self?.store.dispatch(ExchangeActionCreators.shared.getOrderStatusForXMRTO(uuid: trade.id)) {
-                    if
-                        self?.store.state.exchangeState.trade?.status == .timeout
-                        || self?.store.state.exchangeState.trade?.status == .btcSent {
-                        self?.updateTradeStateTimer.invalidate()
-                    }
-                }
-                return
-            }
-            
-            self?.store.dispatch(ExchangeActionCreators.shared.updateCurrentTradeState()) {
-                if self?.store.state.exchangeState.trade?.status == .complete {
-                    self?.updateTradeStateTimer.invalidate()
-                }
-            }
+            self?.updateTrade()
         }
     }()
     
-    init(store: Store<ApplicationState>, amount: Amount) {
-        self.store = store
+    private let disposeBag: DisposeBag
+    
+    init(trade: Trade, amount: Amount) {
+        self.trade = BehaviorRelay(value: trade)
         self.amount = amount
         self.sent = false
+        disposeBag = DisposeBag()
         super.init()
     }
-    
+
     override func configureBinds() {
         title = NSLocalizedString("exchange", comment: "")
         updateTradeStateTimer.fire()
@@ -123,27 +107,42 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
             return self?.contentView.idLabel.text ?? ""
         }
         contentView.copyAddressButton.alertPresenter = self
+        
+        let tradeObserver = trade.asObservable()
+        
+        tradeObserver.subscribe(onNext: { [weak self] trade in
+                if let xmrtotrade = trade as? XMRTOTrade {
+                    self?.updateInfoAbout(trade: xmrtotrade)
+                    return
+                }
+            
+                self?.updateGeneralInfoAbout(trade: trade)
+            }).disposed(by: disposeBag)
+        
+        tradeObserver
+            .filter { $0.provider == .xmrto }
+            .subscribe(onNext: { [weak self] trade in
+                guard trade.state == .timeout || trade.state == .btcSent else {
+                    return
+                }
+
+                self?.updateTradeStateTimer.invalidate()
+        }).disposed(by: disposeBag)
+        
+        tradeObserver
+            .filter { $0.provider != .xmrto }
+            .subscribe(onNext: { [weak self] trade in
+                guard trade.state == .complete else {
+                    return
+                }
+                
+                self?.updateTradeStateTimer.invalidate()
+            }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.subscribe(self, onlyOnChange: [\ApplicationState.exchangeState])
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        store.unsubscribe(self)
-    }
-    
-    // MARK: StoreSubscriber
-    
-    func onStateChange(_ state: ApplicationState) {
-        if
-            let trade = store.state.exchangeState.trade,
-            trade != self.trade {
-            self.trade = trade
-            updateInfoAbout(trade: trade)
-        }
+        updateTrade()
     }
     
     func updateID(with id: String) {
@@ -166,11 +165,9 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
     }
     
     func updateQR(address: String, paymentID: String? = nil, amount: Amount? = nil) {
-        var text = ""
+        let text: String
         
-        if
-            let trade = self.trade,
-            case .monero = trade.inputCurrency {
+        if store.state.walletState.walletType.currency == trade.value.from {
             let uri = MoneroUri(address: address, paymentId: paymentID, amount: amount)
             text = uri.formatted()
         } else {
@@ -178,93 +175,43 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         }
         
         contentView.qrImageView.image = QRCode(text)?.image
-
     }
     
-    func updateTrade(trade: ExchangeTrade) {
-        let status = trade.status
-        
+    func updateTradeStatus(trade: Trade) {
         if
-            case .btcSent = status,
-            let outputTxID = trade.outputTxID {
-            contentView.btcTxIDLabel.text = "BTC transaction ID:"
-            contentView.btcTxIDLabel.boldSubstring("BTC transaction ID:")
+            case .btcSent = trade.state,
+            let outputTxID = trade.outputTransaction {
+            contentView.btcTxIDLabel.text = "Output transaction ID:"
+            contentView.btcTxIDLabel.boldSubstring("Output transaction ID:")
             contentView.btcTxIDLabel.flex.markDirty()
             contentView.btcTxIDTextLabel.text = outputTxID
             contentView.btcTxIDTextLabel.flex.markDirty()
         }
         
         contentView.btcTxIDRow.flex.width(contentView.infoColumn.frame.size.width).layout()
-        contentView.statusLabel.text = String(format: "%@: %@", NSLocalizedString("status", comment: ""), status.formatted())
+        contentView.statusLabel.text = String(format: "%@: %@", NSLocalizedString("status", comment: ""), trade.state.formatted())
         contentView.statusLabel.boldSubstring(NSLocalizedString("status", comment: ""))
         contentView.statusLabel.flex.markDirty()
     }
     
-    func updateInfoAbout(trade: ExchangeTrade) {
+    func updateGeneralInfoAbout(trade: Trade) {
         var description = ""
-        let amount: Amount
-        
-        if let _amount = trade.value {
-            amount = _amount
-        } else {
-            amount = self.amount
-        }
-        
-        if
-            let expiredAt = trade.expiredAt,
-            !timeoutTimerRun {
-
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                guard let trade = self.trade else {
-                    return
-                }
-                
-                let timeout = expiredAt.timeIntervalSince1970 - Date().timeIntervalSince1970 //- createdAt.timeIntervalSince1970
-                guard trade.status == .toBeCreated || trade.status == .unpaid else {
-                    self.contentView.timeoutLabel.text = nil
-                    timer.invalidate()
-                    return
-                }
-
-                guard timeout > 0 else {
-                    timer.invalidate()
-                    self.showTimeoutAlert()
-                    return
-                }
-                
-                self.contentView.timeoutLabel.text = String(format: "Offer expires in: %@", timeout.formatted())
-                self.contentView.timeoutLabel.boldSubstring("Offer expires in:")
-            }.fire()
-            
-            timeoutTimerRun = true
-        }
         
         updateID(with: trade.id)
-        updateAmount(with: amount)
+        updateAmount(with: trade.amount)
         updateAddress(with: trade.inputAddress)
-        updateQR(address: trade.inputAddress, paymentID: trade.paymentId, amount: trade.value)
-        updateTrade(trade: trade)
-        let _amount = "\(amount.formatted()) \(amount.currency.formatted())"
-        let resultDescription: String
-        
-        if trade.inputCurrency == store.state.walletState.walletType.currency {
-            let name = store.state.walletState.name
-            resultDescription = String(format: NSLocalizedString("exchange_result_confirm_text", comment: ""), _amount, name)
-                + "\n\n"
-                + NSLocalizedString("exchange_result_confirm_sending", comment: "")
-        } else {
-            resultDescription = String(format: NSLocalizedString("exchange_result_description_text", comment: ""), _amount)
-        }
+        updateQR(address: trade.inputAddress, paymentID: trade.extraId, amount: trade.amount)
+        updateTradeStatus(trade: trade)
         
         if !sent {
-            contentView.confirmButton.isHidden = trade.inputCurrency != store.state.walletState.walletType.currency
+            contentView.confirmButton.isHidden = trade.from != store.state.walletState.walletType.currency
             contentView.confirmButton.flex.markDirty()
         }
         
         description += " \n\n\n\n"
         description += "*" + NSLocalizedString("exchange_result_write_down_trade_id", comment: "")
         
-        if let paymentId = trade.paymentId {
+        if let paymentId = trade.extraId {
             contentView.paymentIDTitle.text = "Payment ID: "
             contentView.paymentIDTitle.boldSubstring("Payment ID:")
             contentView.paymentIDTitle.flex.markDirty()
@@ -273,8 +220,25 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
             contentView.paymentIDRow.flex.layout()
         }
         
-        if trade.status == .timeout {
-            showTimeoutAlert()
+        let resultDescription: String
+        
+        if trade.from == store.state.walletState.walletType.currency {
+            let name = store.state.walletState.name
+            resultDescription = String(
+                format: "%@\n\n%@",
+                String(format: NSLocalizedString("exchange_result_confirm_text", comment: ""), trade.amount.formatted(), name),
+                NSLocalizedString("exchange_result_confirm_sending", comment: ""))
+        } else {
+            resultDescription = String(format: NSLocalizedString("exchange_result_description_text", comment: ""), trade.amount.formatted())
+        }
+        
+        if let paymentId = trade.extraId {
+            contentView.paymentIDTitle.text = "Payment ID: "
+            contentView.paymentIDTitle.boldSubstring("Payment ID:")
+            contentView.paymentIDTitle.flex.markDirty()
+            contentView.paymentIDLabel.text = paymentId
+            contentView.paymentIDLabel.flex.markDirty()
+            contentView.paymentIDRow.flex.layout()
         }
         
         contentView.resultDescriptionLabel.text = resultDescription
@@ -286,31 +250,64 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         contentView.layoutSubviews()
     }
     
-    @objc
-    private func copyAddress() {
-        guard let address = store.state.exchangeState.trade?.inputAddress else {
-            return
+    func updateInfoAbout(trade: XMRTOTrade) {
+        if
+            let expiredAt = trade.expiredAt,
+            !timeoutTimerRun {
+
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
+                guard let trade = self?.trade.value else {
+                    return
+                }
+                
+                let timeout = expiredAt.timeIntervalSince1970 - Date().timeIntervalSince1970 //- createdAt.timeIntervalSince1970
+                guard trade.state == .toBeCreated || trade.state == .unpaid else {
+                    self?.contentView.timeoutLabel.text = nil
+                    timer.invalidate()
+                    return
+                }
+
+                guard timeout > 0 else {
+                    timer.invalidate()
+                    self?.showTimeoutAlert()
+                    return
+                }
+                
+                self?.contentView.timeoutLabel.text = String(format: "Offer expires in: %@", timeout.formatted())
+                self?.contentView.timeoutLabel.boldSubstring("Offer expires in:")
+            }.fire()
+            
+            timeoutTimerRun = true
         }
         
-        UIPasteboard.general.string = address
+        if trade.state == .timeout {
+            showTimeoutAlert()
+        }
+        
+        updateGeneralInfoAbout(trade: trade)
+    }
+    
+    @objc
+    private func copyAddress() {
+        UIPasteboard.general.string = trade.value.inputAddress
     }
     
     @objc
     private func copyId() {
-        guard let id = store.state.exchangeState.trade?.id else {
-            return
-        }
-        
-        UIPasteboard.general.string = id
+        UIPasteboard.general.string = trade.value.id
     }
     
     @objc
     private func confirm() {
-        guard store.state.exchangeState.trade?.inputCurrency == store.state.walletState.walletType.currency else {
+        guard trade.value.from == store.state.walletState.walletType.currency else {
             return
         }
         
         createTransaction()
+    }
+    
+    private func updateTrade() {
+        trade.value.update().bind(to: trade).disposed(by: disposeBag)
     }
     
     private func showTimeoutAlert() {
@@ -348,8 +345,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
             self?.commit(pendingTransaction: pendingTransaction)
         }
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { [weak self] _ in
-            guard let store = self?.store else { return }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { _ in
             store.dispatch(TransactionsState.Action.changedSendingStage(.none))
         }
         
@@ -368,7 +364,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         }
         
         showSpinnerAlert(withTitle: NSLocalizedString("creating_transaction", comment: "")) { [weak self, transactionID] alert in
-            self?.store.dispatch(
+            store.dispatch(
                 WalletActions.commit(
                     transaction: pendingTransaction,
                     handler: { result in
@@ -377,7 +373,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
                             case .success(_):
                                 self?.onTransactionCommited()
 
-                                if let tradeID = self?.trade!.id {
+                                if let tradeID = self?.trade.value.id {
                                     try? ExchangeTransactions.shared.add(
                                         tradeID: tradeID,
                                         transactionID: transactionID)
@@ -407,25 +403,20 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         authController.handler = { [weak self] in
             authController.dismiss(animated: true) {
                 self?.showSpinnerAlert(withTitle: NSLocalizedString("creating_transaction", comment: ""), callback: { alert in
-                    guard
-                        let priority = self?.store.state.settingsState.transactionPriority,
-                        let address = self?.store.state.exchangeState.trade?.inputAddress
-                        else { return }
-                    let amount: Amount
-                    
-                    if let _amount = self?.trade?.value {
-                        amount = _amount
-                    } else if let _amount = self?.amount {
-                        amount = _amount
-                    } else {
+                    guard let xmrtotrade = self?.trade.value as? XMRTOTrade else {
                         return
                     }
                     
-                    self?.store.dispatch(
+                    let priority = store.state.settingsState.transactionPriority
+                    let address = xmrtotrade.inputAddress
+                    let amount = xmrtotrade.amount
+                    let paymentID = xmrtotrade.extraId ?? ""
+                    
+                    store.dispatch(
                         WalletActions.send(
                             amount: amount,
                             toAddres: address,
-                            paymentID: "",
+                            paymentID: paymentID,
                             priority: priority,
                             handler: { result in
                                 alert.dismiss(animated: true) {

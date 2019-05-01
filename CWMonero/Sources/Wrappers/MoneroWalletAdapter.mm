@@ -235,9 +235,9 @@ public:
     return [NSString stringWithUTF8String: seed.c_str()];
 }
 
-- (NSString *)addressFor: (uint32_t) accountIndex
+- (NSString *)addressFor: (uint32_t) accountIndex addressIndex: (uint32_t) addressIndex
 {
-    string addr = member->wallet->address(accountIndex);
+    string addr = member->wallet->address(accountIndex, addressIndex);
     return [NSString stringWithUTF8String: addr.c_str()];
 }
 
@@ -336,7 +336,7 @@ public:
     member->wallet->startRefresh();
 }
 
-- (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority accountIndex: (uint32_t) accountIndex error: (NSError *__autoreleasing *) error
+- (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority accountIndex: (uint32_t) accountIndex addressIndex: (uint32_t) addressIndex error: (NSError *__autoreleasing *) error
 {
     
     string addressStdString = [address UTF8String];
@@ -345,13 +345,14 @@ public:
     
     Monero::PendingTransaction::Priority _priopity = static_cast<Monero::PendingTransaction::Priority>(priority);
     Monero::PendingTransaction *tx;
+    
     if (amount_str != nil) {
         uint64_t amount;
         string amountStdString = [amount_str UTF8String];
         cryptonote::parse_amount(amount, amountStdString);
-        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity, accountIndex);
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity, accountIndex, {addressIndex});
     } else {
-        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, Monero::optional<uint64_t>(), mixin, _priopity, accountIndex);
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, Monero::optional<uint64_t>(), mixin, _priopity, accountIndex, {addressIndex});
     }
     
     int status = tx->status();

@@ -201,11 +201,10 @@ final class AddressView: BaseFlexView {
 
         textView.rightView = UIView(frame: CGRect(x: 0, y: 0, width: !hideAddressBookButton ? 80 : 35, height: 0))
         textView.rightViewMode = .always
+        backgroundColor = .clear
     }
     
-    override func configureConstraints() {
-        let border = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 1.5))
-        
+    override func configureConstraints() {        
         buttonsView.flex
             .direction(.row)
             .justifyContent(.spaceBetween)
@@ -220,10 +219,10 @@ final class AddressView: BaseFlexView {
         
         rootFlexContainer.flex
             .width(100%)
-            .backgroundColor(.white)
+            .backgroundColor(.clear)
             .define{ flex in
-                flex.addItem(textView).width(100%).marginBottom(11)
-                flex.addItem(border).width(100%).backgroundColor(UIColor.veryLightBlue)
+                flex.addItem(textView).backgroundColor(.clear).width(100%).marginBottom(11)
+                flex.addItem(borderView).height(1.5).width(100%).backgroundColor(UIColor.veryLightBlue)
                 
                 flex.addItem(buttonsView).position(.absolute).top(-10).right(0)
         }

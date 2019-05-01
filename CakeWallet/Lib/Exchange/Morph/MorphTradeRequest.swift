@@ -2,13 +2,13 @@ import Foundation
 import CakeWalletLib
 
 struct MorphTradeRequest: TradeRequest {
-    let from: Currency
-    let to: Currency
+    let from: CryptoCurrency
+    let to: CryptoCurrency
     let refundAddress: String
     let weight: Int
     let outputAdress: String
     
-    init(from: Currency, to: Currency, refundAddress: String, outputAdress: String, weight: Int = 10000) {
+    init(from: CryptoCurrency, to: CryptoCurrency, refundAddress: String, outputAdress: String, weight: Int = 10000) {
         self.from = from
         self.to = to
         self.refundAddress = refundAddress

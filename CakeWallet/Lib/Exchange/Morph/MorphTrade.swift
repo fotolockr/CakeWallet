@@ -1,24 +1,24 @@
 import Foundation
 import CakeWalletLib
+import RxSwift
 
 struct MorphTrade: Trade {
     let id: String
-    let from: Currency
-    let to: Currency
+    let from: CryptoCurrency
+    let to: CryptoCurrency
     let inputAddress: String
     let outputAdress: String
+    let amount: Amount
     let min: Amount
     let max: Amount
-    let status: ExchangeTradeState
+    let state: ExchangeTradeState
+    let extraId: String?
+    let provider: ExchangeProvider
+    let outputTransaction: String?
     
-    init(id: String, from: Currency, to: Currency, inputAddress: String, outputAdress: String, min: Amount, max: Amount, status: ExchangeTradeState) {
-        self.id = id
-        self.from = from
-        self.to = to
-        self.inputAddress = inputAddress
-        self.outputAdress = outputAdress
-        self.min = min
-        self.max = max
-        self.status = status
+    func update() -> Observable<Trade> {
+        return Observable.create({ o -> Disposable in
+            return Disposables.create()
+        })
     }
 }

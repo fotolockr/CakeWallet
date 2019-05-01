@@ -87,7 +87,6 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         }
         
         let sub = subaddresses[indexPath.row]
-        store.dispatch(WalletActions.changeAccountIndex(sub.index))
         store.dispatch(WalletState.Action.changedSubaddress(sub))
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.popViewController(animated: true)

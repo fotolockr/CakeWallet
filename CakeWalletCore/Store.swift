@@ -58,7 +58,9 @@ public final class Store<State: StateType>: StoreType {
     }
     
     public func dispatch(_ action: AnyAction) {
-        self._defaultDispatch(action)
+        storeResponseQueue.async {
+            self._defaultDispatch(action)
+        }
     }
     
     public func dispatch(_ actionProducer: (State, Store<State>) -> AnyAction?) {
@@ -115,8 +117,10 @@ public final class Store<State: StateType>: StoreType {
         let oldSate = state
         self.state = newState
         
-        subscriptions.forEach { sub in
+        self.subscriptions.forEach { sub in
             sub.newState(self.state, oldState: oldSate)
         }
     }
 }
+
+let storeResponseQueue = DispatchQueue.global(qos: .utility)

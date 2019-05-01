@@ -14,6 +14,7 @@ public struct BitcoinAmount: Amount {
     }
     
     init(from string: String) {
+        let string = string.replacingOccurrences(of: ",", with: ".")
         let doubleValue = Double(string) ?? 0
         let val = doubleValue * 100000000
         let num = NSNumber(value: val)

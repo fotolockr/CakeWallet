@@ -262,8 +262,8 @@ final class ExchangeView: BaseScrollFlexView {
     let exchangeDescriptionLabel: UILabel
     
     required init() {
-        depositCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Deposit", addressPlaceholder: "Refund address")
-        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "Receive", addressPlaceholder: "Address")
+        depositCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "You will send", addressPlaceholder: "Refund address")
+        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "You will get", addressPlaceholder: "Address")
         arrowDownImageView = UIImageView(image: UIImage(named: "arrow_down_dotted"))
         clearButton = SecondaryButton(title: NSLocalizedString("clear", comment: ""))
         exchangeButton = PrimaryLoadingButton()
@@ -281,6 +281,7 @@ final class ExchangeView: BaseScrollFlexView {
         dispclaimerLabel.textColor = .lightGray
         dispclaimerLabel.textAlignment = .center
         exchangeButton.setTitle(NSLocalizedString("exchange", comment: ""), for: .normal)
+        backgroundColor = .white
     }
     
     override func configureConstraints() {
@@ -293,7 +294,7 @@ final class ExchangeView: BaseScrollFlexView {
             flex.addItem(exchangeDescriptionLabel).marginLeft(10).height(20)
         }
         
-        rootFlexContainer.flex.padding(20, 15, 20, 20).define { flex in
+        rootFlexContainer.flex.padding(20, 15, 20, 20).backgroundColor(.white).define { flex in
             flex.addItem(depositCardView).marginBottom(25)
             flex.addItem(receiveCardView).marginBottom(10)
             flex.addItem(dispclaimerLabel).width(100%).height(20).marginBottom(25)

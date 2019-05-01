@@ -2,14 +2,14 @@ import Foundation
 import CakeWalletLib
 
 struct XMRTOTradeRequest: TradeRequest {
-    let from: Currency
-    let to: Currency
+    let from: CryptoCurrency
+    let to: CryptoCurrency
     let amount: Amount
     let address: String
     
-    init(from: Currency, to: Currency, amount: Amount, address: String) {
-        self.from = from
-        self.to = to
+    init(amount: Amount, address: String) {
+        self.from = .monero
+        self.to = .bitcoin
         self.amount = amount
         self.address = address
     }

@@ -46,7 +46,7 @@ final class TransactionUITableViewCell: FlexCell {
             flex.addItem(fiatLabel)
         }
         
-        contentView.flex.marginLeft(10).padding(UIEdgeInsets(top: 25, left: 10, bottom: 25, right: 10)).direction(.row).define { flex in
+        contentView.flex.marginLeft(10).padding(UIEdgeInsets(top: 25, left: 10, bottom: 25, right: 10)).direction(.row).alignItems(.center).define { flex in
             if let imageView = imageView {
                 flex.addItem(imageView)
             }
@@ -60,8 +60,8 @@ final class TransactionUITableViewCell: FlexCell {
         }
         
         imageView?.flex.define { flex in
-            flex.height(22)
-            flex.width(22)
+            flex.height(26)
+            flex.width(26)
         }
     }
     
@@ -72,11 +72,11 @@ final class TransactionUITableViewCell: FlexCell {
         if direction == .incoming {
             status = NSLocalizedString("receive", comment: "") // FIXME: Hardcoded value
             color = .black
-            imageView?.image = UIImage(named: "arrow_down_green_icon")?.resized(to: CGSize(width: 22, height: 22))
+            imageView?.image = UIImage(named: "arrow_down_green_icon")?.resized(to: CGSize(width: 26, height: 26))
         } else {
             status = NSLocalizedString("sent", comment: "") // FIXME: Hardcoded value
             color = .black
-            imageView?.image = UIImage(named: "arrow_top_purple_icon")?.resized(to: CGSize(width: 22, height: 22))
+            imageView?.image = UIImage(named: "arrow_top_purple_icon")?.resized(to: CGSize(width: 26, height: 26))
         }
         
         if isPending {

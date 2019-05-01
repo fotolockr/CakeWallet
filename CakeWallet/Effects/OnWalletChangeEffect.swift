@@ -50,9 +50,10 @@ private func onWalletChange(_ wallet: Wallet) {
     }
     
     if let moneroWallet = currentWallet as? MoneroWallet {
-        moneroWallet.onAccountIndexChange = { index in
-            store.dispatch(WalletState.Action.changedAccountIndex(index))
-            store.dispatch(TransactionsActions.updateTransactionHistory(currentWallet.transactions()))
+        moneroWallet.onSubaddressChanged = { index in
+            print("onSubaddressChanged \(index)")
+//            store.dispatch(WalletState.Action.changedAccountIndex(index))
+//            store.dispatch(TransactionsActions.updateTransactionHistory(currentWallet.transactions()))
         }
     }
     

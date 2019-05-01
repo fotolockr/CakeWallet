@@ -19,6 +19,7 @@ final class PickerButtonView: BaseFlexView {
         pickedCurrency.font = applyFont(ofSize: 26, weight: .bold)
         walletNameLabel.font = applyFont(ofSize: 13)
         walletNameLabel.textColor = UIColor.wildDarkBlue
+        backgroundColor = .clear
     }
     
     override func configureConstraints() {
@@ -33,7 +34,7 @@ final class PickerButtonView: BaseFlexView {
         }
         
         rootFlexContainer.flex
-            .backgroundColor(.white)
+            .backgroundColor(.clear)
             .define{ flex in
                 flex.addItem(currencyWithArrowHolder)
                 flex.addItem(walletNameLabel).height(20).width(100%)
@@ -94,13 +95,11 @@ final class ExchangeCardView: BaseFlexView {
         maxLabel.textAlignment = .right
         minLabel.textColor = .wildDarkBlue
         minLabel.textAlignment = .right
+        backgroundColor = .clear
+        rootFlexContainer.layer.cornerRadius = 12
     }
     
     override func configureConstraints() {
-        rootFlexContainer.layer.cornerRadius = 12
-        rootFlexContainer.applyCardSketchShadow()
-        rootFlexContainer.backgroundColor = Theme.current.card.background
-        
         limitsRow.flex.direction(.row).define { flex in
             flex.addItem(minLabel).width(50%)
             flex.addItem(maxLabel).width(50%)
@@ -133,6 +132,7 @@ final class ExchangeCardView: BaseFlexView {
             .justifyContent(.start)
             .alignItems(.center)
             .padding(18, 15, 35, 15)
+            .backgroundColor(UIColor(hex: 0xF9FAFD))
             .define{ flex in
                 flex.addItem(cardTitle).marginBottom(25)
                 flex.addItem(topCardView).marginBottom(25)

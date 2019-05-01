@@ -34,12 +34,13 @@ class TextField: BaseFlexView {
         super.configureView()
         
         textField.font = applyFont(ofSize: fontSize, weight: .regular)
+        backgroundColor = .clear
     }
     
     override func configureConstraints() {
         rootFlexContainer.flex
             .width(100%)
-            .backgroundColor(isTransparent ? Theme.current.container.background : .white)
+            .backgroundColor(isTransparent ? Theme.current.container.background : .clear)
             .define{ flex in
                 flex.addItem(textField).width(100%).marginBottom(11)
                 flex.addItem(borderView).width(100%).height(1.5).backgroundColor(UIColor.veryLightBlue)

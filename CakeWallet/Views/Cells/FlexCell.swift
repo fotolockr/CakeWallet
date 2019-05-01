@@ -1,6 +1,8 @@
 import UIKit
 
 class FlexCell: UITableViewCell {
+    static let identifier = String(describing: FlexCell.self)
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureView()

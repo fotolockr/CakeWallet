@@ -70,7 +70,7 @@ public final class MoneroWallet: Wallet {
     }
     
     public var address: String {
-        return moneroAdapter.address(for: accountIndex)
+        return moneroAdapter.address(for: accountIndex, addressIndex: addressIndex)
     }
     
     public var seed: String {
@@ -103,9 +103,10 @@ public final class MoneroWallet: Wallet {
     public var onBalanceChange: ((Wallet) -> Void)?
     public var onConnectionStatusChange: ((ConnectionStatus) -> Void)?
     public var onAddressChange: ((String) -> Void)?
-    public var onAccountIndexChange: ((UInt32) -> Void)?
+    public var onSubaddressChanged: ((UInt32) -> Void)?
     public private(set) var config: WalletConfig
     private(set) var accountIndex: UInt32
+    private(set) var addressIndex: UInt32
     private var isBlocking: Bool
     
     private var moneroTransactionHistory: MoneroTransactionHistory?
@@ -119,15 +120,16 @@ public final class MoneroWallet: Wallet {
     private var moneroAdapter: MoneroWalletAdapter
     private var restoreHeight: UInt64
     
-    public convenience init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig, restoreHeight: UInt64, accountIndex: UInt32 = 0) {
-        self.init(moneroAdapter: moneroAdapter, config: config, accountIndex: accountIndex)
+    public convenience init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig, restoreHeight: UInt64, addressIndex: UInt32 = 0, accountIndex: UInt32 = 0) {
+        self.init(moneroAdapter: moneroAdapter, config: config, addressIndex: addressIndex, accountIndex: accountIndex)
         self.restoreHeight = restoreHeight
 //        self.moneroAdapter.setRefreshFromBlockHeight(restoreHeight)
     }
     
-    public init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig, accountIndex: UInt32 = 0) {
+    public init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig, addressIndex: UInt32 = 0, accountIndex: UInt32 = 0) {
         self.moneroAdapter = moneroAdapter
         self.isBlocking = false
+        self.addressIndex = addressIndex
         self.accountIndex = accountIndex
         self.config = config
         restoreHeight = 0
@@ -184,10 +186,10 @@ public final class MoneroWallet: Wallet {
         isBlocking = true
         moneroAdapter.delegate = nil
         
-        walletQueue.sync {
+        walletQueue.async {
             print("closing: \(Date())")
-            moneroAdapter.close()
-            moneroAdapter.clear()
+            self.moneroAdapter.close()
+            self.moneroAdapter.clear()
         }
     }
     
@@ -220,7 +222,8 @@ public final class MoneroWallet: Wallet {
                 withPaymentId: "",
                 amountStr: amount?.formatted(),
                 priority: priority.rawValue,
-                accountIndex: accountIndex)
+                accountIndex: accountIndex,
+                addressIndex: addressIndex)
             return MoneroPendingTransaction(moneroPendingTransactionAdapter: moneroPendingTransactionAdapter)
         } catch let error as NSError {
             if let transactionError = TransactionError(from: error, amount: amount, balance: self.balance) {
@@ -238,7 +241,8 @@ public final class MoneroWallet: Wallet {
                 withPaymentId: paymentID,
                 amountStr: amount?.formatted(),
                 priority: priority.rawValue,
-            accountIndex: accountIndex)
+                accountIndex: accountIndex,
+                addressIndex: addressIndex)
             return MoneroPendingTransaction(moneroPendingTransactionAdapter: moneroPendingTransactionAdapter)
         } catch let error as NSError {
             if let transactionError = TransactionError(from: error, amount: amount, balance: self.balance) {
@@ -294,13 +298,13 @@ public final class MoneroWallet: Wallet {
         }
     }
     
-    public func changeAccount(index: UInt32) {
-        guard index != accountIndex else {
+    public func changeAddress(index: UInt32) {
+        guard index != addressIndex else {
             return
         }
         
-        accountIndex = index
-        onAccountIndexChange?(index)
+        addressIndex = index
+        onSubaddressChanged?(index)
         onBalanceChange?(self)
         onAddressChange?(address)
     }

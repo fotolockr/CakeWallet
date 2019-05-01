@@ -1,13 +1,14 @@
 import CakeWalletLib
 import SwiftyJSON
 import Alamofire
+import RxSwift
 
-protocol Exchange: RateFetchable, AnyExchange {
+protocol Exchange: AnyExchange {
     associatedtype TradeType: Trade
     associatedtype TradeRequestType: TradeRequest
     
     var name: String { get }
-    func createTrade(from request: TradeRequestType, handler: @escaping (CakeWalletLib.Result<TradeType>) -> Void)
+    func createTrade1(from request: TradeRequestType) -> Observable<TradeType>
 }
 
 extension Exchange {
@@ -19,13 +20,11 @@ extension Exchange {
         return TradeRequestType.self
     }
     
-    func createTrade(from request: TradeRequest, handler: @escaping (CakeWalletLib.Result<Trade>) -> Void) {
-        if
-            let request = request as? TradeRequestType,
-            let handler = handler as? (CakeWalletLib.Result<TradeType>) -> Void {
-            createTrade(from: request, handler: handler)
-        } else {
-            assertionFailure("Cannot cast trade type. Incorrect trade type.")
+    func createTrade(from request: TradeRequest) -> Observable<Trade> {
+        if let request = request as? TradeRequestType {
+            return self.createTrade1(from: request).map({ $0 as Trade })
         }
+        
+        fatalError("Cannot cast trade type. Incorrect trade type.")
     }
 }

@@ -59,7 +59,6 @@ let store = Store<ApplicationState>(
             walletType: .monero,
             walletKeys: nil,
             stage: .none,
-            accountIndex: 0, // FIXME: Hardcoded value
             subaddress: nil
         ), walletsState: WalletsState(
             wallets: []
@@ -106,7 +105,8 @@ let store = Store<ApplicationState>(
         ChangeFiatPriceEffect(),
         UpdateFiatPriceAfterFiatChangeEffect(),
         UpdateFiatBalanceAfterPriceChangeEffect(),
-        OnNewSubaddressAddedEffect()
+        OnNewSubaddressAddedEffect(),
+        OnSubaddressCahngedEffect()
     ]
 )
 

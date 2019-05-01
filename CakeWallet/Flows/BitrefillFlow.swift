@@ -56,11 +56,11 @@ final class BitrefillFlow: Flow {
             )
             
         case let .productDetails(productDetails):
-            navigationController.pushViewController(
-                BitrefillProductDetailsViewController(bitrefillFlow: self, productDetails: productDetails, XMRExchange: ExchangeActionCreators.shared),
-                animated: true
-            )
-            
+//            navigationController.pushViewController(
+//                BitrefillProductDetailsViewController(bitrefillFlow: self, productDetails: productDetails, XMRExchange: ExchangeActionCreators.shared),
+//                animated: true
+//            )
+            break
         case let .standartOrder(orderDetails):
             navigationController.pushViewController(
                 BitrefillOrderViewController(bitrefillFlow: self, orderDetails: orderDetails),

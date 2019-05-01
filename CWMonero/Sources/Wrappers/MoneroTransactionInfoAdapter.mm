@@ -64,6 +64,19 @@ struct MoneroTransactionInfoMember {
     return member->tx->subaddrAccount();
 }
 
+- (NSArray<NSNumber *> *)subaddrIndex
+{
+    std::set<uint32_t> subaddrIndex = member->tx->subaddrIndex();
+    NSMutableArray *res = [NSMutableArray arrayWithCapacity: subaddrIndex.size()];
+    
+    for(uint32_t i : subaddrIndex) {
+        NSNumber *num = [NSNumber numberWithUnsignedChar: i];
+        [res addObject: num];
+    }
+    
+    return res;
+}
+
 - (NSTimeInterval) timestamp
 {
     if (member->tx != NULL) {

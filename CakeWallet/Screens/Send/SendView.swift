@@ -120,7 +120,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
             flex.addItem(estimatedFeeValueLabel)
         }
         
-        paymentIdContainer.flex.backgroundColor(.blue).define { flex in
+        paymentIdContainer.flex.define { flex in
             flex.addItem(paymentIdTextField).width(100%)
             flex.addItem(scanQrForPaymentId).width(35).height(35).position(.absolute).right(0).top(-10)
         }

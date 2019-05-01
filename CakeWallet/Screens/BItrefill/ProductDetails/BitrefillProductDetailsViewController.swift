@@ -82,7 +82,7 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
     
     weak var bitrefillFlow: BitrefillFlow?
     var productDetails: BitrefillProduct
-    let XMRExchange: ExchangeActionCreators
+//    let XMRExchange: ExchangeActionCreators
     
     var productPaymentRange: ProductPaymentRange?
     var selectedPaymentMethod: ProductPaymentMethod
@@ -91,10 +91,10 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
     var selectedOrderPackage: String?
     private var viaXMR: Bool = true
     
-    init(bitrefillFlow: BitrefillFlow?, productDetails: BitrefillProduct, XMRExchange: ExchangeActionCreators) {
+    init(bitrefillFlow: BitrefillFlow?, productDetails: BitrefillProduct) {
         self.bitrefillFlow = bitrefillFlow
         self.productDetails = productDetails
-        self.XMRExchange = XMRExchange
+//        self.XMRExchange = XMRExchange
         
         selectedPaymentMethod = .monero
         
@@ -275,26 +275,26 @@ final class BitrefillProductDetailsViewController: BaseViewController<BitrefillP
     }
     
     private func fetchXMRTrade (forAddress address: String, andAmount amount: BitcoinAmount, orderDetails: BitrefillOrderDetails) {
-        XMRExchange.createTradeXMRTO(amount: amount, address: address) { [weak self] res in
-            switch res {
-            case let .success(uuid):
-                exchangeQueue.asyncAfter(deadline: .now() + 2.0, execute: {
-                    self?.XMRExchange.getTradeForXMRTO(with: uuid, handler: { tradeResult in
-                        self?.contentView.submitButton.hideLoading()
-                        
-                        switch tradeResult {
-                        case let .success(trade):
-                            self?.bitrefillFlow?.change(route: .moneroOrder(trade, orderDetails))
-                        case let .failed(error):
-                            self?.showErrorAlert(error: error)
-                        }
-                    })
-                })
-            case let .failed(error):
-                self?.showErrorAlert(error: error)
-                self?.contentView.submitButton.hideLoading()
-            }
-        }
+//        XMRExchange.createTradeXMRTO(amount: amount, address: address) { [weak self] res in
+//            switch res {
+//            case let .success(uuid):
+//                exchangeQueue.asyncAfter(deadline: .now() + 2.0, execute: {
+//                    self?.XMRExchange.getTradeForXMRTO(with: uuid, handler: { tradeResult in
+//                        self?.contentView.submitButton.hideLoading()
+//
+//                        switch tradeResult {
+//                        case let .success(trade):
+//                            self?.bitrefillFlow?.change(route: .moneroOrder(trade, orderDetails))
+//                        case let .failed(error):
+//                            self?.showErrorAlert(error: error)
+//                        }
+//                    })
+//                })
+//            case let .failed(error):
+//                self?.showErrorAlert(error: error)
+//                self?.contentView.submitButton.hideLoading()
+//            }
+//        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

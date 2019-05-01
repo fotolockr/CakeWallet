@@ -16,5 +16,4 @@ public enum WalletActions: HandlableAction {
     case commit(transaction: PendingTransaction, handler: (Result<Void>) -> Void)
     case send(amount: Amount?, toAddres: String, paymentID: String, priority: TransactionPriority, handler: (Result<PendingTransaction>) -> Void)
     case rescan(fromHeight: UInt64, handler: () -> Void)
-    case changeAccountIndex(UInt32)
 }

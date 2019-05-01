@@ -4,7 +4,7 @@ import CakeWalletLib
 final class ExchangeFlow: Flow {
     enum Route {
         case start
-        case exchangeResult(Amount)
+        case exchangeResult(Trade, Amount)
     }
     
     var rootController: UIViewController {
@@ -28,8 +28,8 @@ final class ExchangeFlow: Flow {
         switch route {
         case .start:
             navigationController.popToRootViewController(animated: true)
-        case let .exchangeResult(amount):
-            let exchangeResultViewController = ExchangeResultViewController(store: store, amount: amount)
+        case let .exchangeResult(trade, amount):
+            let exchangeResultViewController = ExchangeResultViewController(trade: trade, amount: amount)
             navigationController.pushViewController(exchangeResultViewController, animated: true)
         }
     }
