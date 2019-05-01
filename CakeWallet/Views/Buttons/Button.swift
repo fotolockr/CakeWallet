@@ -53,7 +53,7 @@ class Button: UIButton {
         layer.shadowOpacity = 0.3
         layer.shadowColor = UIColor.lightGray.cgColor
         contentHorizontalAlignment = .center
-        titleLabel?.font = applyFont(weight: .semibold)
+        titleLabel?.font = applyFont()
         titleLabel?.numberOfLines = 0
         titleLabel?.textAlignment = .center
     }

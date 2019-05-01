@@ -16,7 +16,7 @@ enum Theme: String {
     var container: ContainerColorScheme {
         switch self {
         case .def:
-            return ContainerColorScheme(background: .lightCream)
+            return ContainerColorScheme(background: .white)
         case .night:
             return ContainerColorScheme(background: .wildDarkBlue)
         }
@@ -34,7 +34,7 @@ enum Theme: String {
     var secondaryButton: ButtonColorScheme {
         switch self {
         case .def:
-            return ButtonColorScheme(background: .wildDarkBlue, text: .white)
+            return ButtonColorScheme(background: .grayBackground, text: .white)
         case .night:
             return ButtonColorScheme(background: .whiteSmoke, text: .wildDarkBlue)
         }

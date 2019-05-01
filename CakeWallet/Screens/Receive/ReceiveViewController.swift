@@ -6,20 +6,20 @@ import CakeWalletLib
 import CakeWalletCore
 import CWMonero
 
-final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, StoreSubscriber {
+final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscriber {
     var paymentId: String? {
         get {
-            return contentView.paymentIdTextField.text
+            return contentView.paymentIdTextField.textField.text
         }
         
         set {
-            contentView.paymentIdTextField.text = newValue
+            contentView.paymentIdTextField.textField.text = newValue
         }
     }
    
     var amount: Amount? {
         get {
-            if let rawString = contentView.amountTextField.text {
+            if let rawString = contentView.amountTextField.textField.text {
                 return MoneroAmount(from: rawString)
             }
             
@@ -27,28 +27,28 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, Store
         }
         
         set {
-            contentView.amountTextField.text = newValue?.formatted()
+            contentView.amountTextField.textField.text = newValue?.formatted()
         }
     }
     
     var integratedAddress: String? {
         get {
-            return contentView.integratedAddressTextField.text
+            return contentView.integratedAddressTextField.textField.text
         }
         
         set {
-            contentView.integratedAddressTextField.text = newValue
+            contentView.integratedAddressTextField.textField.text = newValue
         }
     }
     
-    weak var receiveFlow: ReceiveFlow?
+    weak var dashboardFlow: DashboardFlow?
     let store: Store<ApplicationState>
     private(set) var address: String
     private var isSubaddress: Bool
     
-    init(store: Store<ApplicationState>, receiveFlow: ReceiveFlow?) {
+    init(store: Store<ApplicationState>, dashboardFlow: DashboardFlow?) {
         self.store = store
-        self.receiveFlow = receiveFlow
+        self.dashboardFlow = dashboardFlow
         self.address = store.state.walletState.address
         isSubaddress = false
         super.init()
@@ -59,11 +59,11 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, Store
         title = NSLocalizedString("receive", comment: "")
         contentView.switchOptionsButton.addTarget(self, action: #selector(switchOptionsButton), for: .touchUpInside)
         contentView.copyAddressButton.addTarget(self, action: #selector(copyAction), for: .touchUpInside)
+        contentView.paymentIdCopyButton.addTarget(self, action: #selector(onCopyPaymenIdAction), for: .touchUpInside)
+        contentView.integratedAddressCopyButton.addTarget(self, action: #selector(onCopyIntegratedAddressAction), for: .touchUpInside)
         contentView.resetButton.addTarget(self, action: #selector(resetOptions), for: .touchUpInside)
-        contentView.amountTextField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
+        contentView.amountTextField.textField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
         contentView.newPaymentId.addTarget(self, action: #selector(generatePaymentId), for: .touchUpInside)
-        contentView.copyIntegratedButton.alertPresenter = self
-        contentView.copyPaymentIdButton.alertPresenter = self
         switchOptionsButton()
         let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 10, height: 12)))
         doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
@@ -152,10 +152,22 @@ final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, Store
     }
     
     @objc
+    func onCopyPaymenIdAction() {
+        showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
+        UIPasteboard.general.string = contentView.paymentIdTextField.textField.text
+    }
+    
+    @objc
+    func onCopyIntegratedAddressAction() {
+        showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
+        UIPasteboard.general.string = contentView.integratedAddressTextField.textField.text
+    }
+    
+    @objc
     func resetOptions() {
         amount = nil
         paymentId = nil
-        contentView.integratedAddressTextField.text = nil
+        contentView.integratedAddressTextField.textField.text = nil
         changeQR(address: address, paymentId: paymentId, amount: amount)
     }
     

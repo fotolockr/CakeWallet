@@ -97,7 +97,6 @@
 		644E32FB213468A400331241 /* FileManager+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644E32FA213468A400331241 /* FileManager+extensions.swift */; };
 		645195CE2131620700F2FE8F /* DashboardFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645195CD2131620700F2FE8F /* DashboardFlow.swift */; };
 		645195D42131636B00F2FE8F /* WalletsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645195D32131636B00F2FE8F /* WalletsFlow.swift */; };
-		645195D6213181A500F2FE8F /* ReceiveFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645195D5213181A500F2FE8F /* ReceiveFlow.swift */; };
 		645F8905214428D200B085AC /* CWMonero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F88F02144202800B085AC /* CWMonero.framework */; };
 		645F8906214428D200B085AC /* CWMonero.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 645F88F02144202800B085AC /* CWMonero.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		645F8927214429BC00B085AC /* MoneroWalletHistoryAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 645F890E214429B800B085AC /* MoneroWalletHistoryAdapter.h */; };
@@ -303,13 +302,13 @@
 		A587BFF62214410000AFDFCB /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A587BFF52214410000AFDFCB /* Contact.swift */; };
 		A587BFF8221443C200AFDFCB /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A587BFF7221443C200AFDFCB /* AddressBook.swift */; };
 		A587BFFA22144ADF00AFDFCB /* AddressTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A587BFF922144ADF00AFDFCB /* AddressTableCell.swift */; };
+		A5897694227B0D5700E74EE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5897693227B0D5700E74EE7 /* Assets.xcassets */; };
 		A58B26C1223BA78100AD0B97 /* CurrencyPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58B26C0223BA78100AD0B97 /* CurrencyPickerView.swift */; };
 		A58B26C3223BA7E300AD0B97 /* CurrencyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58B26C2223BA7E300AD0B97 /* CurrencyPickerViewController.swift */; };
 		A591C677224112DF0051A4FE /* RecoverCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591C676224112DF0051A4FE /* RecoverCardView.swift */; };
 		A591C67922414C420051A4FE /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591C67822414C420051A4FE /* TextView.swift */; };
 		A5980D2C1FFC9855647CF936 /* Pods_CWMonero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 784D7BF72CC17977C433AE9E /* Pods_CWMonero.framework */; };
 		CA1D653F209A3EBB00A1FDDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1D653E209A3EBB00A1FDDB /* AppDelegate.swift */; };
-		CA1D6546209A3EBC00A1FDDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA1D6545209A3EBC00A1FDDB /* Assets.xcassets */; };
 		CA1D6554209A3EBC00A1FDDB /* CakeWalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1D6553209A3EBC00A1FDDB /* CakeWalletTests.swift */; };
 		CF597971B2D04B48B3BA7407 /* Pods_CakeWalletLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3BA9289B966EEF23CDA77D9 /* Pods_CakeWalletLib.framework */; };
 		D11519A12225520D009B6706 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11519A02225520D009B6706 /* CheckBox.swift */; };
@@ -531,7 +530,6 @@
 		644E32FA213468A400331241 /* FileManager+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+extensions.swift"; sourceTree = "<group>"; };
 		645195CD2131620700F2FE8F /* DashboardFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardFlow.swift; sourceTree = "<group>"; };
 		645195D32131636B00F2FE8F /* WalletsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsFlow.swift; sourceTree = "<group>"; };
-		645195D5213181A500F2FE8F /* ReceiveFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveFlow.swift; sourceTree = "<group>"; };
 		645F88F02144202800B085AC /* CWMonero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CWMonero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		645F88FE214422A900B085AC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		645F890E214429B800B085AC /* MoneroWalletHistoryAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneroWalletHistoryAdapter.h; sourceTree = "<group>"; };
@@ -777,6 +775,7 @@
 		A587BFF52214410000AFDFCB /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		A587BFF7221443C200AFDFCB /* AddressBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		A587BFF922144ADF00AFDFCB /* AddressTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTableCell.swift; sourceTree = "<group>"; };
+		A5897693227B0D5700E74EE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = CakeWallet/Assets.xcassets; sourceTree = "<group>"; };
 		A58B26C0223BA78100AD0B97 /* CurrencyPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerView.swift; sourceTree = "<group>"; };
 		A58B26C2223BA7E300AD0B97 /* CurrencyPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewController.swift; sourceTree = "<group>"; };
 		A591C676224112DF0051A4FE /* RecoverCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverCardView.swift; sourceTree = "<group>"; };
@@ -784,7 +783,6 @@
 		B0344026ED1C3597BDD08DC1 /* Pods_CakeWallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CakeWallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1D653B209A3EBB00A1FDDB /* CakeWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CakeWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1D653E209A3EBB00A1FDDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CA1D6545209A3EBC00A1FDDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA1D654A209A3EBC00A1FDDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA1D654F209A3EBC00A1FDDB /* CakeWalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CakeWalletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1D6553209A3EBC00A1FDDB /* CakeWalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakeWalletTests.swift; sourceTree = "<group>"; };
@@ -1466,7 +1464,6 @@
 				6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */,
 				645195CD2131620700F2FE8F /* DashboardFlow.swift */,
 				645195D32131636B00F2FE8F /* WalletsFlow.swift */,
-				645195D5213181A500F2FE8F /* ReceiveFlow.swift */,
 				644E32EE21344CE300331241 /* SettingsFlow.swift */,
 				644E32F42134511F00331241 /* ExchangeFlow.swift */,
 				644E32F6213453D700331241 /* NodesFlow.swift */,
@@ -1626,6 +1623,7 @@
 		CA1D6532209A3EBB00A1FDDB = {
 			isa = PBXGroup;
 			children = (
+				A5897693227B0D5700E74EE7 /* Assets.xcassets */,
 				CA1D653D209A3EBB00A1FDDB /* CakeWallet */,
 				CA1D6552209A3EBC00A1FDDB /* CakeWalletTests */,
 				646FF2A420E11FFE00ADF30C /* CakeWalletLib */,
@@ -1671,7 +1669,6 @@
 				6AAF1E9720B602AD000E4E02 /* Lib */,
 				CA1D653E209A3EBB00A1FDDB /* AppDelegate.swift */,
 				6AAF1E9620B6028F000E4E02 /* Screens */,
-				CA1D6545209A3EBC00A1FDDB /* Assets.xcassets */,
 				CA1D654A209A3EBC00A1FDDB /* Info.plist */,
 				6AE7241020DD5C5C003D6559 /* NodesList.swift */,
 				642622382109EC4200DA5F7B /* Localizable.strings */,
@@ -2048,10 +2045,10 @@
 				6426223A2109EC4200DA5F7B /* Localizable.strings in Resources */,
 				642622322109EA0A00DA5F7B /* LaunchScreen.storyboard in Resources */,
 				64DACEE0214807870057B604 /* NodesList.plist in Resources */,
-				CA1D6546209A3EBC00A1FDDB /* Assets.xcassets in Resources */,
 				D15BDBE922200A9B006320E0 /* Lato-Regular.ttf in Resources */,
 				642622332109EA0A00DA5F7B /* Main.storyboard in Resources */,
 				D15BDBEC22200A9B006320E0 /* Lato-Semibold.ttf in Resources */,
+				A5897694227B0D5700E74EE7 /* Assets.xcassets in Resources */,
 				64DACEDF214807870057B604 /* Terms_of_Use.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2410,7 +2407,6 @@
 				6AAF1EB620B61619000E4E02 /* CreateWalletViewController.swift in Sources */,
 				0CE9690F2204A31B006D6100 /* autoBackup.swift in Sources */,
 				64F8AB3A20EAA2A100C59254 /* TransactionsActions.swift in Sources */,
-				645195D6213181A500F2FE8F /* ReceiveFlow.swift in Sources */,
 				6A5EDC0920D5A25200D24840 /* RescanViewController.swift in Sources */,
 				6A212D9F20DAA2D700CD8594 /* ShowKeysView.swift in Sources */,
 				64F8AB3020EA44D400C59254 /* UIView+roundCorners.swift in Sources */,
