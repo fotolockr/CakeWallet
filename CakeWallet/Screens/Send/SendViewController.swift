@@ -442,7 +442,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
                 let amount = self?.contentView.cryptoAmountTextField.textField.text == SendViewController.allSymbol
                     ? nil
                     : MoneroAmount(from: self!.contentView.cryptoAmountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? "0.0")
-                let address = self?.contentView.addressView.textView.originText ?? ""
+                let address = self?.contentView.addressView.textView.originText.value ?? ""
                 guard let priority = self?.priority else { return }
                 
                 self?.store.dispatch(

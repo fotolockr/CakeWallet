@@ -94,7 +94,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     }
     
     @objc
-    func reset() {
+    private func reset() {
         store.dispatch(WalletState.Action.changedSubaddress(nil))
         navigationController?.popViewController(animated: true)
     }

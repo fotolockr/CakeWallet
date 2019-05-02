@@ -852,10 +852,10 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
 //            self?.showExchangeSelection()
 //        }).disposed(by: disposeBag)
         
-        (contentView.receiveCardView.addressContainer.textView.rx.text.orEmpty <-> receiveAddress)
+        (contentView.receiveCardView.addressContainer.textView.originText <-> receiveAddress)
             .disposed(by: disposeBag)
-        
-        (contentView.depositCardView.addressContainer.textView.rx.text.orEmpty <-> depositRefundAddress)
+
+        (contentView.depositCardView.addressContainer.textView.originText <-> depositRefundAddress)
             .disposed(by: disposeBag)
         
         (contentView.depositCardView.amountTextField.textField.rx.text.orEmpty <-> depositAmountString)
@@ -1056,7 +1056,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             
             if !didSetCurrentAddressForDeposit {
                 didSetCurrentAddressForDeposit = true
-                contentView.depositCardView.addressContainer.textView.change(text: store.state.walletState.address)
+                contentView.depositCardView.addressContainer.textView.originText.accept(store.state.walletState.address)
             }
         } else {
             didSetCurrentAddressForDeposit = false

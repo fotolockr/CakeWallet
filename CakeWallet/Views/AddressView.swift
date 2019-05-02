@@ -1,100 +1,6 @@
 import UIKit
 import FlexLayout
 import QRCodeReader
-import CakeWalletLib
-
-//fixme
-
-protocol QRUriUpdateResponsible: class {
-    func getCrypto(for adressView: AddressView) -> CryptoCurrency
-    func updated(_ adressView: AddressView, withURI uri: QRUri)
-}
-
-//fixme
-
-extension UITextView {
-    func changeText(_ text: String) {
-        self.text = text
-        self.delegate?.textViewDidChange?(self)
-    }
-}
-
-final class AddressTextField: UITextField {
-    private static let holder = "..."
-    var originText: String?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        delegate = self
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        delegate = self
-    }
-    
-    func change(text: String?) {
-        originText = text
-        
-        guard let text = text else {
-            self.text = nil
-            return
-        }
-        
-        let length = numberOfCharactersThatFit(for: text)
-        
-        guard text.count > length && length > 0 else {
-            self.text = text
-            return
-        }
-        
-        let middle = length / 2
-        let begin = text[0..<middle]
-        let end = text.suffix(middle - 3)
-        let formattedText = begin + AddressTextField.holder + end
-        self.text = formattedText
-    }
-    
-    private func numberOfCharactersThatFit(for text: String?) -> Int {
-        let fontRef = CTFontCreateWithName(font!.fontName as CFString, font!.pointSize, nil)
-        let attributes = [kCTFontAttributeName : fontRef]
-        let attributedString = NSAttributedString(string: text!, attributes: attributes as [NSAttributedStringKey : Any])
-        let frameSetterRef = CTFramesetterCreateWithAttributedString(attributedString as CFAttributedString)
-        
-        var characterFitRange: CFRange = CFRange()
-        
-        let rightViewWidth = rightView?.frame.size.width ?? 0
-        let width = bounds.size.width - rightViewWidth
-        let height = bounds.size.height
-        CTFramesetterSuggestFrameSizeWithConstraints(frameSetterRef, CFRangeMake(0, 0), nil, CGSize(width: width, height: height), &characterFitRange)
-        return Int(characterFitRange.length)
-    }
-}
-
-extension AddressTextField: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard text != nil && !text!.isEmpty else {
-            originText = nil
-            return
-        }
-        
-        text = originText
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard text != nil && !text!.isEmpty else {
-            originText = nil
-            return
-        }
-        
-        change(text: originText)
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        originText = string
-        return true
-    }
-}
 
 final class AddressView: BaseFlexView {
     let textView: AddressTextField
@@ -202,6 +108,11 @@ final class AddressView: BaseFlexView {
         textView.rightView = UIView(frame: CGRect(x: 0, y: 0, width: !hideAddressBookButton ? 80 : 35, height: 0))
         textView.rightViewMode = .always
         backgroundColor = .clear
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        textView.change(text: textView.originText.value)
     }
     
     override func configureConstraints() {        
