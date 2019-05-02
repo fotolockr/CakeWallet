@@ -54,8 +54,8 @@ class LoadingButton: UIButton {
         layer.shadowOffset = CGSize(width: 2, height: 1)
         layer.shadowOpacity = 0.3
         layer.shadowColor = UIColor.lightGray.cgColor
-        layer.borderWidth = 1
-        layer.borderColor = UIColor(red: 209, green: 189, blue: 245).cgColor
+        layer.borderWidth = 0.75
+        layer.borderColor = UIColor.purpleyBorder.cgColor
         contentHorizontalAlignment = .center
         titleLabel?.font = applyFont(ofSize: 17)
         titleLabel?.numberOfLines = 0
@@ -70,7 +70,5 @@ final class PrimaryLoadingButton: LoadingButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-//        self.applyGradient(colours: [UIColor(red: 126, green: 92, blue: 250), UIColor(red: 126, green: 92, blue: 250)])
     }
 }

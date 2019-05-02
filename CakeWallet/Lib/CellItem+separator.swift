@@ -8,8 +8,8 @@ extension UITableViewCell {
             return
         }
         
-        let width = frame.size.width
-        let y = frame.size.height - height
+        let width = self.frame.size.width
+        let y = self.frame.size.height - height
         let frame =  CGRect(x: x, y: y, width: width, height: height)
         addSeparator(frame: frame, color: color)
     }

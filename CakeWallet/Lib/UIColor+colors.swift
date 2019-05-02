@@ -37,6 +37,10 @@ extension UIColor {
         return UIColor(red: 124, green: 83, blue: 240)
     }
     
+    static var purpleyBorder: UIColor {
+        return UIColor(red: 209, green: 189, blue: 245)
+    }
+    
     static var purpleyLight: UIColor {
         return UIColor(red: 227, green: 212, blue: 255)
     }

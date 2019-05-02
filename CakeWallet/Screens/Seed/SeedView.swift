@@ -2,7 +2,7 @@ import UIKit
 import FlexLayout
 
 final class SeedView: BaseFlexView {
-    let cardView: CardView
+    let cardView: UIView
     let dateLabel: UILabel
     let seedLabel: UILabel
     let saveButton: UIButton
@@ -13,7 +13,7 @@ final class SeedView: BaseFlexView {
     let separatorView: UIView
     
     required init() {
-        cardView = CardView()
+        cardView = UIView()
         dateLabel = UILabel(fontSize: 16)
         seedLabel = UILabel(fontSize: 14)
         saveButton = SecondaryButton(title: NSLocalizedString("save", comment: ""))

@@ -3,7 +3,7 @@ import FlexLayout
 
 final class NewAddressView: BaseFlexView {
     let cardView: UIView
-    let contactNameTextField: UITextField
+    let contactNameTextField: TextField
     
     let addressView: AddressView
     
@@ -12,21 +12,22 @@ final class NewAddressView: BaseFlexView {
     let buttonsContainer: UIView
     
     let pickerView: UIPickerView
-    let pickerTextField: UITextField
+    let pickerTextField: TextField
     
     required init() {
-        cardView = CardView()
-        contactNameTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Contact Name", comment: ""))
+        cardView = UIView()
+        contactNameTextField = TextField(placeholder: NSLocalizedString("Contact Name", comment: ""), fontSize: 16)
         
-        addressView = AddressView(placeholder: "Value", hideAddressBookButton: true)
+        addressView = AddressView(placeholder: "Address", hideAddressBookButton: true)
+        addressView.textView.font = applyFont(ofSize: 16)
         
         saveButton = PrimaryButton(title: NSLocalizedString("save", comment: ""))
         resetButton = SecondaryButton(title: NSLocalizedString("reset", comment: ""))
         buttonsContainer = UIView()
         
         pickerView = UIPickerView()
-        pickerTextField = FloatingLabelTextField(placeholder: NSLocalizedString("Select cryptocurrency", comment: ""))
-        pickerTextField.inputView = pickerView
+        pickerTextField = TextField(placeholder: NSLocalizedString("Select cryptocurrency", comment: ""), fontSize: 15)
+        pickerTextField.textField.inputView = pickerView
         
         super.init()
     }
@@ -34,8 +35,8 @@ final class NewAddressView: BaseFlexView {
     override func configureConstraints() {
         cardView.flex.padding(20).justifyContent(.spaceBetween).define { flex in
             flex.addItem(contactNameTextField).height(50)
-            flex.addItem(pickerTextField).height(50).marginTop(10)
-            flex.addItem(addressView).marginTop(15)
+            flex.addItem(pickerTextField).height(50).marginTop(15)
+            flex.addItem(addressView).marginTop(20)
         }
         
         buttonsContainer.flex.direction(.row).justifyContent(.spaceBetween).define { flex in
@@ -43,9 +44,9 @@ final class NewAddressView: BaseFlexView {
             flex.addItem(saveButton).height(56).width(45%)
         }
         
-        rootFlexContainer.flex.justifyContent(.center).alignItems(.center).padding(UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)).define { flex in
+        rootFlexContainer.flex.justifyContent(.center).alignItems(.center).paddingHorizontal(10).define { flex in
             flex.addItem(cardView).width(100%)
-            flex.addItem(buttonsContainer).width(100%).marginTop(20)
+            flex.addItem(buttonsContainer).width(100%).marginTop(25).paddingHorizontal(15)
         }
     }
 }

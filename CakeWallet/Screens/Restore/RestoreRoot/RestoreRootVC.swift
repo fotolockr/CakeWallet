@@ -14,6 +14,9 @@ final class RestoreRootVC: BaseViewController<RestoreRootView> {
     override func configureBinds() {
         title = "Restore"
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         contentView.restoreWalletCard.button.addTarget(self, action: #selector(restoreWallet), for: .touchUpInside)
         contentView.restoreAppCard.button.addTarget(self, action: #selector(restoreApp), for: .touchUpInside)
     }
