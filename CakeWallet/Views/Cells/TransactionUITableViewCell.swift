@@ -32,7 +32,9 @@ final class TransactionUITableViewCell: FlexCell {
     
     override func configureView() {
         super.configureView()
-        backgroundColor = UIColor(red: 249, green: 250, blue: 252)
+        layoutMargins = .zero
+        contentView.backgroundColor = .white
+        backgroundColor = .white
     }
     
     override func configureConstraints() {
@@ -45,8 +47,8 @@ final class TransactionUITableViewCell: FlexCell {
             flex.addItem(dateLabel)
             flex.addItem(fiatLabel)
         }
-        
-        contentView.flex.marginLeft(10).padding(UIEdgeInsets(top: 25, left: 10, bottom: 25, right: 10)).direction(.row).alignItems(.center).define { flex in
+
+        contentView.flex.direction(.row).padding(UIEdgeInsets(top: 14, left: 20, bottom: 0, right: 10)).alignItems(.center).define { flex in
             if let imageView = imageView {
                 flex.addItem(imageView)
             }
@@ -96,6 +98,16 @@ final class TransactionUITableViewCell: FlexCell {
         dateLabel.flex.markDirty()
         fiatLabel.flex.markDirty()
         contentView.flex.layout()
+    }
+    
+    func addSeparator() {
+        let height = 1 as CGFloat
+        let y = frame.size.height - height
+        let leftOffset = 20 as CGFloat
+        let rightOffset = 20 as CGFloat
+        let width = frame.size.width - leftOffset - rightOffset
+        let color = UIColor(red: 248, green: 250, blue: 253)
+        addSeparator(frame: CGRect(x: leftOffset, y: y, width: width, height: height), color: color)
     }
 }
 

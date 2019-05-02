@@ -155,7 +155,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         let dateFormatter = DateFormatter()
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: tableView.frame.size.width, height: 45)))
         let date = NSCalendar.current.date(from: key)!
-//        label.backgroundColor = UIColor(red: 249, green: 250, blue: 252)
         label.textColor = UIColor(hex: 0x9BACC5)
         label.font = applyFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
@@ -179,7 +178,13 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             return UITableViewCell()
         }
         
-        return tableView.dequeueReusableCell(withItem: transaction, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withItem: transaction, for: indexPath)
+        
+        if let transactionUITableViewCell = cell as? TransactionUITableViewCell {
+            transactionUITableViewCell.addSeparator()
+        }
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

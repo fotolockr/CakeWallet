@@ -3,19 +3,25 @@ import UIKit
 extension UITableViewCell {
     private static let speparatorTag = 292
     
-    func addSeparator() {
+    func addSeparator(height: CGFloat = 1, x: CGFloat = 0, color: UIColor = .separatorGrey) {
         guard viewWithTag(UITableViewCell.speparatorTag) == nil else {
             return
         }
         
         let width = frame.size.width
-        let height = 1 as CGFloat
         let y = frame.size.height - height
-        let x = 0 as CGFloat
-        let separator = UIView(frame: CGRect(x: x, y: y, width: width, height: height))
-        separator.backgroundColor = .separatorGrey
-        separator.tag = UITableViewCell.speparatorTag
+        let frame =  CGRect(x: x, y: y, width: width, height: height)
+        addSeparator(frame: frame, color: color)
+    }
+    
+    func addSeparator(frame: CGRect, color: UIColor = .separatorGrey) {
+        guard viewWithTag(UITableViewCell.speparatorTag) == nil else {
+            return
+        }
         
+        let separator = UIView(frame: frame)
+        separator.backgroundColor = color
+        separator.tag = UITableViewCell.speparatorTag
         addSubview(separator)
     }
     
