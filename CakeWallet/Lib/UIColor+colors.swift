@@ -29,19 +29,39 @@ extension UIColor {
         return UIColor(red: 224, green: 233, blue: 246)
     }
     
+    static var separatorGrey: UIColor {
+        return UIColor(red: 240, green: 241, blue: 244)
+    }
+    
     static var purpley: UIColor {
         return UIColor(red: 124, green: 83, blue: 240)
     }
-        
+    
+    static var purpleyLight: UIColor {
+        return UIColor(red: 227, green: 212, blue: 255)
+    }
+    
     static var turquoiseBlue: UIColor {
         return UIColor(red: 52, green: 186, blue: 204)
     }
     
-    static var greyBlue: UIColor {
+    static var grayBlue: UIColor {
         return UIColor(red: 126, green: 147, blue: 177)
+    }
+    
+    static var grayBackground: UIColor {
+        return UIColor(red: 233, green: 237, blue: 244)
+    }
+    
+    static var grayBorder: UIColor {
+        return UIColor(red: 207, green: 216, blue: 226)
     }
     
     static var veryLightBlue: UIColor {
         return UIColor(red: 224, green: 233, blue: 246)
+    }
+    
+    static var lightCream: UIColor {
+        return UIColor(red: 249, green: 249, blue: 249)
     }
 }

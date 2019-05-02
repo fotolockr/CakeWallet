@@ -6,7 +6,7 @@ import ZIPFoundation
 import CryptoSwift
 import CWMonero
 import SwiftyJSON
-
+    
 //fixme
 final class TextViewUITableViewCell: FlexCell {
     let textView: UITextView
@@ -128,7 +128,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         }
     }
     
-    
     weak var settingsFlow: SettingsFlow?
     
     var transactionPriority: TransactionPriority {
@@ -164,14 +163,19 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             SettingsTextViewCellItem.self,
             SettingsCellItem.self,
             SettingsPickerCellItem<TransactionPriority>.self,
-            SettingsPickerCellItem<FiatCurrency>.self])
+            SettingsPickerCellItem<FiatCurrency>.self
+        ])
         contentView.table.delegate = self
         contentView.table.dataSource = self
         let transactionPriorities = [
             TransactionPriority.slow,
             TransactionPriority.default,
             TransactionPriority.fast,
-            TransactionPriority.fastest]
+            TransactionPriority.fastest
+        ]
+        
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
         
         let fiatCurrencyCellItem = SettingsPickerCellItem<FiatCurrency>(
             title: NSLocalizedString("currency", comment: ""),
@@ -515,7 +519,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 origin: .zero,
                 size: CGSize(width: tableView.frame.width, height: 60)))
         let titleLabel = UILabel(frame: CGRect(origin: CGPoint(x: 20, y: 5), size: CGSize(width: view.frame.width - 20, height: view.frame.height)))
-        titleLabel.font = UIFont.systemFont(ofSize: 17)
+        titleLabel.font = applyFont(ofSize: 16)
         titleLabel.textColor = Theme.current.lightText
         view.backgroundColor =  contentView.backgroundColor
         view.addSubview(titleLabel)
@@ -601,7 +605,6 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     private func showICloudIsNotEnabledAlert() {
         showOKInfoAlert(message: "Please enable iCloud in the iPhone settings")
     }
-    
     
     private func onBackupSave(error: Error) {
         if case ICloudStorageError.notEnabled = error {

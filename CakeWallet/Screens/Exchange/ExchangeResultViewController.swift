@@ -406,7 +406,6 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
                     guard let xmrtotrade = self?.trade.value as? XMRTOTrade else {
                         return
                     }
-                    
                     let priority = store.state.settingsState.transactionPriority
                     let address = xmrtotrade.inputAddress
                     let amount = xmrtotrade.amount

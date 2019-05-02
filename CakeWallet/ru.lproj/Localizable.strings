@@ -99,6 +99,10 @@
 "loading_wallet" = "Загрузка кошелька с именем";
 "create_new_wallet" = "Создать новый кошелек";
 
+// Address book
+
+"address_book" = "Книга адресов";
+
 // Rescan
 
 "rescan" = "Пересканировать";

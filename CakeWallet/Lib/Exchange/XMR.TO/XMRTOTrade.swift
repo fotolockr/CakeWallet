@@ -31,7 +31,7 @@ struct XMRTOTrade: Trade {
     
     func update() -> Observable<Trade> {
         return Observable.create({ o -> Disposable in
-            let url = URLComponents(string: String(format: "%@/order_status_query/", "https://xmr.to/api/v2/xmr2btc"))!
+            let url = URLComponents(string: String(format: "%@/order_status_query/", XMRTOExchange.uri))!
             var request = URLRequest(url: url.url!)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -86,25 +86,6 @@ struct XMRTOTrade: Trade {
                     outputTransaction: outputTransaction)
                 
                 o.onNext(trade)
-//
-//                let trade = ExchangeTrade(
-//                    id: id,
-//                    inputCurrency: .monero,
-//                    outputCurrency: .bitcoin,
-//                    inputAddress: address,
-//                    min: MoneroAmount(value: 0),
-//                    max: MoneroAmount(value: 0),
-//                    value: amount,
-//                    status: state,
-//                    paymentId: paymentId,
-//                    provider: .xmrto,
-//                    outputTxID: state == .btcSent
-//                        ? json["btc_transaction_id"].stringValue
-//                        : nil,
-//                    expiredAt: expiredAt
-//                )
-//
-//                handler(.success(trade))
             })
             
             return Disposables.create()

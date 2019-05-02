@@ -41,6 +41,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         contentView.table.delegate = self
         contentView.table.register(items: [Subaddress.self])
         contentView.newSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,6 +90,12 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         let sub = subaddresses[indexPath.row]
         store.dispatch(WalletState.Action.changedSubaddress(sub))
         tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func reset() {
+        store.dispatch(WalletState.Action.changedSubaddress(nil))
         navigationController?.popViewController(animated: true)
     }
     

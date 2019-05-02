@@ -42,6 +42,16 @@ final class XMRTOExchange: Exchange {
         }
     }
     
+    static var uri: String {
+        guard xmrtouri.isEmpty else {
+            return xmrtouri
+        }
+        
+        updateUri()
+        
+        return xmrtouri
+    }
+    
     private static func updateUri() {
         guard xmrtouri.isEmpty else {
             return
@@ -58,15 +68,6 @@ final class XMRTOExchange: Exchange {
     
     private static let originalUri = "https://xmr.to/api/v2/xmr2btc"
     private static let proxyUri = "https://xmrproxy.net/api/v2/xmr2btc"
-    private static var uri: String {
-        guard xmrtouri.isEmpty else {
-            return xmrtouri
-        }
-        
-        updateUri()
-        
-        return xmrtouri
-    }
     private static let cakeUserAgent = "CakeWallet/XMR iOS"
     private static let rateSufixUri = "order_parameter_query"
     private static var rateURI: String {

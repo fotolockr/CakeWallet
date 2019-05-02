@@ -42,7 +42,8 @@ final class WalletsNavigationTitle: BaseView {
         frame = CGRect(x: 0, y: 0, width: width, height: WalletsNavigationTitle.height)
         titleLabel.frame = CGRect(
             origin: titleLabel.frame.origin,
-            size: CGSize(width: titleLabel.frame.size.width, height: WalletsNavigationTitle.height))
+            size: CGSize(width: titleLabel.frame.size.width, height: WalletsNavigationTitle.height)
+        )
         arrowImageView.frame = CGRect(
             origin: CGPoint(x: width - arrowImageView.frame.width, y: (titleLabel.frame.size.height  / 2) - (WalletsNavigationTitle.arrowSize.height / 2)),
             size: WalletsNavigationTitle.arrowSize)

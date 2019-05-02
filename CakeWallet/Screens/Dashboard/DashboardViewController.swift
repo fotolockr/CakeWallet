@@ -37,6 +37,9 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     override func configureBinds() {
         navigationController?.navigationBar.backgroundColor = .clear
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton  
+        
         contentView.transactionsTableView.register(items: [TransactionDescription.self])
         contentView.transactionsTableView.delegate = self
         contentView.transactionsTableView.dataSource = self
@@ -61,10 +64,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         contentView.receiveButton.isUserInteractionEnabled = true
         contentView.receiveButton.addGestureRecognizer(receiveButtonTap)
         
-        walletNameView.onTap = { [weak self] in
-            self?.presentWalletActions()
-        }
-
         insertNavigationItems()
     }
     
@@ -84,7 +83,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             action: #selector(presentWalletsList)
         )
         
-        presentWalletsListButtonTitle?.tintColor = .vividBlue
         presentWalletsListButtonImage?.tintColor = .vividBlue
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "more")?.resized(to: CGSize(width: 28, height: 28)), style: .plain, target: self, action: #selector(presentWalletActions))
@@ -94,12 +92,12 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
            let presentWalletsListButtonImage = presentWalletsListButtonImage {
             
             presentWalletsListButtonTitle.setTitleTextAttributes([
-                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 13.0)!,
+                NSAttributedStringKey.font: applyFont(ofSize: 13),
                 NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
             ], for: .normal)
             
             presentWalletsListButtonTitle.setTitleTextAttributes([
-                NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 13.0)!,
+                NSAttributedStringKey.font: applyFont(ofSize: 13),
                 NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
             ], for: .highlighted)
             
@@ -157,9 +155,9 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         let dateFormatter = DateFormatter()
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: tableView.frame.size.width, height: 45)))
         let date = NSCalendar.current.date(from: key)!
-        label.backgroundColor = UIColor(red: 249, green: 250, blue: 252)
+//        label.backgroundColor = UIColor(red: 249, green: 250, blue: 252)
         label.textColor = UIColor(hex: 0x9BACC5)
-        label.font = UIFont(name: "Lato-SemiBold", size: 14.0)
+        label.font = applyFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
         
         if Calendar.current.isDateInToday(date) {
@@ -225,8 +223,13 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.dashboardFlow?.change(route: .subaddresses)
         }
         
+        let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("address_book", comment: ""), style: .default) { [weak self] _ in
+            self?.dashboardFlow?.change(route: .addressBook)
+        }
+        
         alertViewController.addAction(presentReconnectAction)
         alertViewController.addAction(presentSubaddressesAction)
+        alertViewController.addAction(presentAddressBookAction)
         alertViewController.addAction(cancelAction)
         DispatchQueue.main.async {
             self.present(alertViewController, animated: true)

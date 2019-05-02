@@ -75,7 +75,6 @@ class BaseScrollFlexViewWithBottomSection: BaseView {
         scrollView.pin.all(pin.safeArea)
         contentView.pin.top().left().right()
         rootFlexContainer.pin.top().left().right()
-//        contentView.flex.padding(0, 15, 0, 15)
         bottomSectionView.flex.paddingBottom(10).layout(mode: .adjustHeight)
         contentView.flex.layout(mode: .adjustHeight)
         rootFlexContainer.flex.layout(mode: .adjustHeight)

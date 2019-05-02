@@ -2,7 +2,8 @@ import UIKit
 import FlexLayout
 
 final class SendView: BaseScrollFlexViewWithBottomSection {
-    let cardView: CardView
+    let mainContentHolder: UIView
+    let walletNameContainer: UIView
     let addressView: AddressView
     let takeFromAddressBookButton: Button
     let paymentIdTextField: TextField
@@ -17,7 +18,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     let estimatedDescriptionLabel: UILabel
     let sendButton: PrimaryLoadingButton
     let walletContainer: UIView
-    let walletNameLabel: UILabel
+    let walletTitleLabel, walletNameLabel: UILabel
     let cryptoAmountValueLabel: UILabel
     let cryptoAmountTitleLabel: UILabel
     let sendAllButton: TransparentButton
@@ -25,13 +26,14 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     let scanQrForPaymentId: UIButton
     
     required init() {
-        cardView = CardView()
+        mainContentHolder = UIView()
+        walletNameContainer = UIView()
         addressView = AddressView(placeholder: "Monero address")
         takeFromAddressBookButton = SecondaryButton(title: NSLocalizedString("A", comment: ""))
-        paymentIdTextField = TextField(placeholder: "Payment ID (optional)", fontSize: 15, isTransparent: false)
+        paymentIdTextField = TextField(placeholder: "Payment ID (optional)", fontSize: 15)
         paymentIdContainer = UIView()
-        cryptoAmountTextField = TextField(placeholder: "0.0000", fontSize: 19, isTransparent: false)
-        fiatAmountTextField = TextField(placeholder: "0.0000", fontSize: 19, isTransparent: false)
+        cryptoAmountTextField = TextField(placeholder: "0.0000")
+        fiatAmountTextField = TextField(placeholder: "0.0000")
         currenciesRowViev = UIView()
         currenciesContainer = UIView()
         estimatedFeeTitleLabel = UILabel(fontSize: 12)
@@ -39,7 +41,8 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         estimatedFeeContriner = UIView()
         estimatedDescriptionLabel = UILabel.withLightText(fontSize: 12)
         sendButton = PrimaryLoadingButton()
-        walletContainer = CardView()
+        walletContainer = UIView()
+        walletTitleLabel = UILabel(text: "Your Wallet")
         walletNameLabel = UILabel()
         cryptoAmountValueLabel = UILabel()
         cryptoAmountTitleLabel = UILabel()
@@ -52,13 +55,17 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     override func configureView() {
         super.configureView()
         
-        walletNameLabel.font = applyFont(ofSize: 17)
-        walletNameLabel.textColor = .wildDarkBlue
+        backgroundColor = .white
+
+        walletNameLabel.font = applyFont()
         estimatedFeeValueLabel.numberOfLines = 0
         estimatedFeeValueLabel.textAlignment = .right
 
         cryptoAmountTitleLabel.font = applyFont(ofSize: 14)
         cryptoAmountTitleLabel.textAlignment = .right
+        
+        walletTitleLabel.font = applyFont(ofSize: 14)
+        walletTitleLabel.textColor = .purpley
         
         cryptoAmountValueLabel.textAlignment = .right
         cryptoAmountValueLabel.font = applyFont(ofSize: 26)
@@ -87,25 +94,38 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         
         sendAllButton.setTitleColor(UIColor.wildDarkBlue, for: .normal)
         sendAllButton.titleLabel?.font = applyFont(ofSize: 11)
-        
+
         sendButton.setTitle(NSLocalizedString("send", comment: ""), for: .normal)
         scanQrForPaymentId.setImage(UIImage(named: "qr_code_icon"), for: .normal)
         scanQrForPaymentId.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        scanQrForPaymentId.backgroundColor = .clear
         scanQrForPaymentId.layer.cornerRadius = 5
         scanQrForPaymentId.backgroundColor = UIColor.whiteSmoke
     }
     
     override func configureConstraints() {
+        walletNameContainer.flex.define { flex in
+            flex.addItem(walletTitleLabel).marginBottom(5)
+            flex.addItem(walletNameLabel)
+        }
+        
         cryptoAmonutContainer.flex.define { flex in
             flex.addItem(cryptoAmountTitleLabel)
             flex.addItem(cryptoAmountValueLabel)
         }
         
-        walletContainer.flex.direction(.row).padding(20).justifyContent(.spaceBetween).define { flex in
-            flex.addItem(walletNameLabel).height(20)
-            flex.addItem(cryptoAmonutContainer)
+        walletContainer.flex
+            .direction(.row).justifyContent(.spaceBetween)
+            .width(100%)
+            .paddingTop(30)
+            .paddingBottom(15)
+            .backgroundColor(.white)
+            .define { flex in
+                flex.addItem(UIView()).width(100%).height(1).backgroundColor(UIColor.separatorGrey).position(.absolute).top(10).left(0)
+                flex.addItem(walletNameContainer).marginHorizontal(20)
+                flex.addItem(cryptoAmonutContainer).marginHorizontal(20)
         }
+        
+        walletContainer.applyCardSketchShadow()
         
         currenciesContainer.flex
             .justifyContent(.spaceBetween)
@@ -125,23 +145,30 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
             flex.addItem(scanQrForPaymentId).width(35).height(35).position(.absolute).right(0).top(-10)
         }
         
-        cardView.flex.alignItems(.center).padding(30, 20, 30, 20).define { flex in
-            flex.addItem(addressView).width(100%)
-            flex.addItem(paymentIdContainer).width(100%).marginTop(30)
+        mainContentHolder.flex
+            .alignItems(.center)
+            .padding(30)
+            .define { flex in
+                flex.addItem(addressView).width(100%)
+                flex.addItem(paymentIdContainer).width(100%).marginTop(30)
             
-            flex.addItem(currenciesContainer).marginTop(25).width(100%)
+                flex.addItem(currenciesContainer).marginTop(25).width(100%)
             
-            flex.addItem(estimatedFeeContriner).marginTop(20).width(100%)
-            flex.addItem(estimatedDescriptionLabel).marginTop(20).width(100%)
+                flex.addItem(estimatedFeeContriner).marginTop(20).width(100%)
+                flex.addItem(estimatedDescriptionLabel).marginTop(20).width(100%)
         }
         
-        rootFlexContainer.flex.padding(20).backgroundColor(.clear).define { flex in
+        rootFlexContainer.flex.backgroundColor(.clear).define { flex in
             flex.addItem(walletContainer)
-            flex.addItem(cardView).marginTop(20)
+            flex.addItem(mainContentHolder).marginTop(20)
         }
         
-        bottomSectionView.flex.padding(20).define { flex in
-            flex.addItem(sendButton).height(56)
+        bottomSectionView.flex
+            .padding(20)
+            .define { flex in
+                sendButton.layer.borderColor = UIColor.grayBorder.cgColor
+            
+                flex.addItem(sendButton).height(56).backgroundColor(.grayBackground)
         }
     }
 }

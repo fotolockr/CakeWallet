@@ -104,6 +104,10 @@
 "loading_wallet" = "Abriendo cartera con nombre";
 "create_new_wallet" = "Crear una cartera nueva";
 
+// Address book
+
+"address_book" = "Libreta de direcciones";
+
 // Rescan
 
 "starting_rescan" = "Empezando sincronización";

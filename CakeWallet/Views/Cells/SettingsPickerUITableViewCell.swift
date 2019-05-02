@@ -24,6 +24,8 @@ final class SettingsPickerUITableViewCell<Item: Formatted>: FlexCell, UIPickerVi
         pinckerTextField.textAlignment = .right
         pinckerTextField.inputView = pickerView
         pinckerTextField.textColor = Theme.current.lightText
+        pinckerTextField.backgroundColor = .white
+        backgroundColor = .white
         pickerView.delegate = self
         pickerView.dataSource = self
         pinckerTextField.delegate = self

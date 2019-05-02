@@ -51,10 +51,6 @@ final class WalletFlow: NSObject, Flow, UITabBarControllerDelegate {
         return ExchangeFlow()
     }()
     
-    private lazy var bitrefillFlow: BitrefillFlow = {
-        return BitrefillFlow()
-    }()
-    
     convenience override init() {
         let tabbarController = CustomTabBarController()
         self.init(rootController: tabbarController)
@@ -78,7 +74,6 @@ final class WalletFlow: NSObject, Flow, UITabBarControllerDelegate {
         _root.viewControllers = [
             dashboardFlow.rootController,
             exchangeFlow.rootController,
-            bitrefillFlow.rootController,
             settingsFlow.rootController
         ]
     }

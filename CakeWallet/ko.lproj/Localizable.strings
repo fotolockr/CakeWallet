@@ -79,7 +79,6 @@
 
 // Connection state
 
-
 "blocks_remaining" = "남은 블락 ";
 "connecting" = "연결중";
 "not_connected" = "연결되지 않음 ";
@@ -89,7 +88,6 @@
 
 
 // Wallet
-
 
 "available_balance" = "잔여잔고";
 "reconnection" = "재연결";
@@ -105,7 +103,6 @@
 
 // Wallets
 
-
 "show_seed" = "시드 보기 ";
 "load_wallet" = "지갑 로드 ";
 "remove" = "지우기";
@@ -115,15 +112,17 @@
 "loading_wallet" = "명명된 지갑 로딩 ";
 "create_new_wallet" = "새로운 지갑 생성 ";
 
+// Address book
+
+"address_book" = "주소록";
+
 
 // Rescan
-
 
 "starting_rescan" = "재스캔 시작 ";
 
 
 // Send
-
 
 "all" = "모두";
 "optional" = "옵션";

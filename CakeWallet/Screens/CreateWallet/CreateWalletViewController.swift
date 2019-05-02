@@ -16,14 +16,12 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
         super.init()
     }
     
-    override func viewDidLoad() {
-//        let BarButtonItemAppearance = UIBarButtonItem.appearance()
-//        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-        navigationItem.backBarButtonItem?.title = ""
-    }
-    
     override func configureBinds() {
+        super.configureBinds()
+        
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         title = NSLocalizedString("new_wallet", comment: "")
         contentView.continueButton.addTarget(self, action: #selector(onContinueHandler), for: .touchUpInside)
     }

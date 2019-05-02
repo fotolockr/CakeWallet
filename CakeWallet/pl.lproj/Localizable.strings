@@ -105,6 +105,10 @@
 "loading_wallet" = "Wczytywanie portfela o nazwie";
 "create_new_wallet" = "Utwórz Nowy Portfel";
 
+// Address book
+
+"address_book" = "Książka adresowa";
+
 // Rescan
 
 "starting_rescan" = "Rozpoczęcie skanowania";
