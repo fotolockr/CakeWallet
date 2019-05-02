@@ -7,7 +7,7 @@ final class CreateWalletView: BaseFlexView {
     let continueButton: LoadingButton
     
     required init() {
-        let nameTextFieldFontSize = adaptiveLayout.getSize(forLarge: 22, forBig: 21, defaultSize: 20)
+        let nameTextFieldFontSize = adaptiveLayout.getSize(forLarge: 20, forBig: 19, defaultSize: 18)
         
         logoImage = UIImageView(image: UIImage(named: "create_wallet_logo"))
         nameTextField = TextField(placeholder: NSLocalizedString("wallet_name", comment: ""), fontSize: Int(nameTextFieldFontSize))
@@ -26,7 +26,7 @@ final class CreateWalletView: BaseFlexView {
             .define { flex in
                 flex.addItem(logoImage).marginBottom(margin)
                 flex.addItem(nameTextField).width(80%)
-                flex.addItem(continueButton).position(.absolute).width(80%).height(50).bottom(25)
+                flex.addItem(continueButton).position(.absolute).width(90%).height(56).bottom(25)
         }
     }
 }

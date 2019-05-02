@@ -45,6 +45,9 @@ final class SetupPinViewController: BaseViewController<BaseFlexView> {
             NSAttributedStringKey.font: UIFont(name: "Lato-Regular", size: 16)!,
             NSAttributedStringKey.foregroundColor: Theme.current.lightText], for: .highlighted)
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         title = NSLocalizedString("setup_pin", comment: "")
         togglePingLengthBtn.title = NSLocalizedString("use_6_pin", comment: "")
         togglePingLengthBtn.style = .plain
