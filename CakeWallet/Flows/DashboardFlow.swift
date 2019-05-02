@@ -20,7 +20,6 @@ final class DashboardFlow: Flow {
     
     private let navigationController: UINavigationController
     private var walletsFlow: WalletsFlow?
-    private var receiveFlow: ReceiveFlow?
     
     convenience init() {
         let dashboardViewController = DashboardController(store: store, dashboardFlow: nil)
@@ -38,7 +37,9 @@ final class DashboardFlow: Flow {
         case .start:
             navigationController.popToRootViewController(animated: true)
         case .receive:
-            presentReceive()
+            let receiveController = ReceiveViewController(store: store, dashboardFlow: self)
+            let navController = UINavigationController(rootViewController: receiveController)
+            presentPopup(navController)
         case .send:
             let sendViewController = SendViewController(store: store, address: nil)
             let navController = UINavigationController(rootViewController: sendViewController)
@@ -57,12 +58,6 @@ final class DashboardFlow: Flow {
             navigationController.pushViewController(subaddressVC, animated: true)
         }
 
-    }
-    
-    private func presentReceive() {
-        let receiveFlow = ReceiveFlow()
-        self.receiveFlow = receiveFlow
-        presentPopup(receiveFlow.rootController)
     }
     
     private func presentWallets() {

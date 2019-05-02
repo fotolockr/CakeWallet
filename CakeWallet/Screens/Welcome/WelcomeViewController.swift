@@ -27,6 +27,9 @@ final class WelcomeViewController: BaseViewController<WelcomeView> {
             contentView.welcomeSubtitleLabel.text = NSLocalizedString("first_wallet_text", comment: "")
         }
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         contentView.descriptionTextView.text = NSLocalizedString("please_make_selection", comment: "")
     }
     

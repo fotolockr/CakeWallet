@@ -102,6 +102,9 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
             self?.dismiss(animated: true)
         }
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         insertNavigationItems()
         
         contentView.walletsTableView.separatorStyle = .none

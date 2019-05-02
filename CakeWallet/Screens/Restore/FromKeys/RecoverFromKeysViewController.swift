@@ -17,6 +17,9 @@ final class RecoverFromKeysViewController: BaseViewController<RecoverFromKeysVie
     override func configureBinds() {
         title = NSLocalizedString("restore_keys_card_title", comment: "")
         contentView.doneButton.addTarget(self, action: #selector(recoverAction), for: .touchUpInside)
+        
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
         super.configureBinds()
     }
     
