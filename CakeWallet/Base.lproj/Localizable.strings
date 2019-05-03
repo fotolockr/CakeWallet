@@ -19,12 +19,12 @@
 
 "use_6_pin" = "Use 6-digits PIN";
 "use_4_pin" = "Use 4-digits PIN";
-"enter_your_pin" = "Enter your PIN";
-"create_pin" = "Create PIN";
-"re_enter_your_pin" = "Re-enter your PIN";
+"enter_your_pin" = "Enter your pin";
+"create_pin" = "Create pin";
+"re_enter_your_pin" = "Re-enter your pin";
 "setup_pin" = "Setup PIN";
-"pin_setup_success" = "Your PIN has been set up successfully!";
-"incorrect_pin" = "Incorrect PIN.";
+"pin_setup_success" = "Your pin has been set up successfully!";
+"incorrect_pin" = "Incorrect pin";
 
 // Restore root
 
