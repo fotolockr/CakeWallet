@@ -21,7 +21,9 @@ extension Store {
         }
         
         if let _action = action as? State.Action {
-            _defaultDispatch(_action)
+            storeDispatchQueue.async {
+                self._defaultDispatch(_action)
+            }
         }
         
         handler?()

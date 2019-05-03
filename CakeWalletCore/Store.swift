@@ -58,7 +58,7 @@ public final class Store<State: StateType>: StoreType {
     }
     
     public func dispatch(_ action: AnyAction) {
-        storeResponseQueue.async {
+        storeDispatchQueue.sync {
             self._defaultDispatch(action)
         }
     }
@@ -122,5 +122,3 @@ public final class Store<State: StateType>: StoreType {
         }
     }
 }
-
-let storeResponseQueue = DispatchQueue.global(qos: .utility)

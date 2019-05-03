@@ -17,7 +17,7 @@ func byteToBinaryString( _ byte:UInt8 ) -> String {
     
     var result = String( byte, radix: 2)
     
-    while result.characters.count < 8 {
+    while result.count < 8 {
         
         result = "0" + result
     }
@@ -28,13 +28,13 @@ func byteToBinaryString( _ byte:UInt8 ) -> String {
 func toByteArray( _ hex:String ) -> [UInt8] {
     
     // remove "-" from Hexadecimal
-    var hexString = hex.removeWord( "-" )
+    let hexString = hex.removeWord( "-" )
     
-    let size = hexString.characters.count / 2
+    let size = hexString.count / 2
     var result:[UInt8] = [UInt8]( repeating: 0, count: size ) // array with length = size
     
     // for ( int i = 0; i < hexString.length; i += 2 )
-    for i in stride( from: 0, to: hexString.characters.count, by: 2 ) {
+    for i in stride( from: 0, to: hexString.count, by: 2 ) {
         
         let subHexStr = hexString.subString( i, length: 2 )
         

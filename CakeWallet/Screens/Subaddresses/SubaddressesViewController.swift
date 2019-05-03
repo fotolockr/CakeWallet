@@ -54,6 +54,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         contentView.table.separatorStyle = .none
         contentView.table.register(items: [Subaddress.self])
         contentView.newSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
+<<<<<<< HEAD
         
         let resetButton = UIBarButtonItem()
         resetButton.title = "Reset"
@@ -67,6 +68,9 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
             NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue], for: .highlighted)
         
         navigationItem.rightBarButtonItem = resetButton
+=======
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Unselect", style: .plain, target: self, action: #selector(reset))
+>>>>>>> Fixes
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +90,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     
     func onStateChange(_ state: ApplicationState) {
         subaddresses = state.subaddressesState.subaddresses
+        navigationItem.rightBarButtonItem?.isEnabled = state.walletState.subaddress != nil
     }
     
     // MARK: UITableViewDataSource
@@ -126,7 +131,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     
     @objc
     private func addSubaddressAction() {
-        guard let label = contentView.newSubaddressTextiField.text else {
+        guard let label = contentView.newSubaddressTextiField.textField.text else {
             return
         }
                 
@@ -135,7 +140,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
                 withLabel: label,
                 handler: { [weak self] in
                     DispatchQueue.main.async {
-                        self?.contentView.newSubaddressTextiField.text = nil
+                        self?.contentView.newSubaddressTextiField.textField.text = nil
                     }
             })
         )

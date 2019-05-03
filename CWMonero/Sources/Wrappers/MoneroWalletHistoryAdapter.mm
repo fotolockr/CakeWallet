@@ -7,26 +7,32 @@
 #import "MoneroWalletAdapter.mm"
 #import "Subaddresses.mm"
 
+struct MoneroTransactionHistoryMember {
+    Monero::TransactionHistory *transactionHistory;
+};
+
 @implementation MoneroWalletHistoryAdapter: NSObject
-Monero::TransactionHistory *transactionHistory;
+
 
 - (instancetype)initWithWallet: (MoneroWalletAdapter *) wallet
 {
     self = [super init];
     if (self) {
-        transactionHistory = [wallet rawHistory];
+        member = new MoneroTransactionHistoryMember();
+        member->transactionHistory = [wallet rawHistory];
+//        transactionHistory = [wallet rawHistory];
     }
     return self;
 }
 
 - (int)count
 {
-    return transactionHistory->count();
+    return member->transactionHistory->count();
 }
 
 - (MoneroTransactionInfoAdapter *)transaction:(int) index
 {
-    Monero::TransactionInfo *_tx = transactionHistory->transaction(index);
+    Monero::TransactionInfo *_tx = member->transactionHistory->transaction(index);
     MoneroTransactionInfoMember *txMember = new MoneroTransactionInfoMember();
     txMember->tx = _tx;
     MoneroTransactionInfoAdapter *tx = [[MoneroTransactionInfoAdapter alloc] initWithMember: txMember];
@@ -36,7 +42,7 @@ Monero::TransactionHistory *transactionHistory;
 - (NSArray<MoneroTransactionInfoAdapter *> *)getAll
 {
     NSMutableArray<MoneroTransactionInfoAdapter *> *_arr = [[NSMutableArray alloc] init];
-    vector<Monero::TransactionInfo *> txs = transactionHistory->getAll();
+    vector<Monero::TransactionInfo *> txs = member->transactionHistory->getAll();
     
     for (auto &originalTx : txs) {
         if (originalTx == NULL)
@@ -55,7 +61,7 @@ Monero::TransactionHistory *transactionHistory;
 
 - (void)refresh
 {
-    transactionHistory->refresh();
+    member->transactionHistory->refresh();
 }
 @end
 

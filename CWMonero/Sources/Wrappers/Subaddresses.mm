@@ -6,14 +6,19 @@
 
 uint32_t DEFAULT_ACCOUNT_INDEX = 0;
 
+struct SubaddressesMember {
+    Monero::SubaddressImpl *subaddressAccount;
+};
+
 @implementation Subaddresses: NSObject
-Monero::SubaddressImpl *subaddressAccount;
+//Monero::SubaddressImpl *subaddressAccount;
 
 - (instancetype)initWithWallet: (MoneroWalletAdapter *) wallet
 {
     self = [super init];
     if (self) {
-        subaddressAccount = new Monero::SubaddressImpl(wallet->member->wallet);
+        member = new SubaddressesMember();
+        member->subaddressAccount = new Monero::SubaddressImpl(wallet->member->wallet);
     }
     return self;
 }
@@ -21,18 +26,18 @@ Monero::SubaddressImpl *subaddressAccount;
 - (void)newSubaddressWithLabel:(NSString *) label
 {
     string utf8Label = [label UTF8String];
-    subaddressAccount->addRow(DEFAULT_ACCOUNT_INDEX, utf8Label);
+    member->subaddressAccount->addRow(DEFAULT_ACCOUNT_INDEX, utf8Label);
 }
 
 - (void)setLabel:(NSString *)label AtIndex:(uint32_t)index
 {
     string utf8Label = [label UTF8String];
-    subaddressAccount->setLabel(DEFAULT_ACCOUNT_INDEX, index, utf8Label);
+    member->subaddressAccount->setLabel(DEFAULT_ACCOUNT_INDEX, index, utf8Label);
 }
 
 - (NSArray *)getAll
 {
-    std::vector<Monero::SubaddressRow*> _subs = subaddressAccount->getAll();
+    std::vector<Monero::SubaddressRow*> _subs = member->subaddressAccount->getAll();
     std::size_t count = _subs.capacity();
     NSMutableArray *result = [[NSMutableArray alloc]init];
     
@@ -52,7 +57,7 @@ Monero::SubaddressImpl *subaddressAccount;
 
 - (void)refresh
 {
-    subaddressAccount->refresh(DEFAULT_ACCOUNT_INDEX);
+    member->subaddressAccount->refresh(DEFAULT_ACCOUNT_INDEX);
 }
 
 @end

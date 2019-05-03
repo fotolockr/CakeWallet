@@ -20,8 +20,8 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
     
     private func setSettings(_ node: NodeDescription) {
         setAddress(fromUri: node.uri)
-        contentView.loginTextField.text = node.login
-        contentView.passwordTextField.text =  node.password
+        contentView.loginTextField.textField.text = node.login
+        contentView.passwordTextField.textField.text =  node.password
     }
     
     private func setAddress(fromUri uri: String) {
@@ -29,8 +29,8 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
         let address = splitedUri.first ?? ""
         let port = Int(splitedUri.last ?? "") ?? 0
         
-        contentView.nodeAddressTextField.text = address
-        contentView.nodePortTextField.text  = "\(port)"
+        contentView.nodeAddressTextField.textField.text = address
+        contentView.nodePortTextField.textField.text  = "\(port)"
     }
     
     @objc
@@ -41,8 +41,8 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
     @objc
     private func save() {
         guard
-            let address = contentView.nodeAddressTextField.text,
-            let port = contentView.nodePortTextField.text else {
+            let address = contentView.nodeAddressTextField.textField.text,
+            let port = contentView.nodePortTextField.textField.text else {
                 return
         }
 
@@ -51,18 +51,15 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
             
             let nodeDescription = MoneroNodeDescription(
                 uri: uri,
-                login: self.contentView.loginTextField.text ?? "",
-                password: self.contentView.passwordTextField.text ?? "")
+                login: self.contentView.loginTextField.textField.text ?? "",
+                password: self.contentView.passwordTextField.textField.text ?? "")
             
             do {
                 try self.nodesList.add(node: nodeDescription)
                 alert.dismiss(animated: true) { [weak self] in
-                    let okAction = CWAlertAction(title: NSLocalizedString("ok", comment: ""), handler: { action in
-                        action.alertView?.dismiss(animated: false) {
-                            self?.navigationController?.popViewController(animated: true)
-                        }
-                    })
-                    self?.showOKInfoAlert(title: NSLocalizedString("saved", comment: ""))
+                    self?.showOKInfoAlert(title: NSLocalizedString("saved", comment: "")) {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
                 }
             } catch {
                 alert.dismiss(animated: true) { [weak self] in

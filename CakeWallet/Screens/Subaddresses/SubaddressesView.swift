@@ -3,15 +3,20 @@ import FlexLayout
 
 final class SubaddressesView: BaseFlexView {
     let table: UITableView
-    let newSubaddressTextiField: FloatingLabelTextField
+    let newSubaddressTextiField: TextField
     let newSubaddressButton: UIButton
     let newSubaddressContiner: UIView
     let cardView: UIView
     
     required init() {
         table = UITableView()
+<<<<<<< HEAD
         newSubaddressTextiField = FloatingLabelTextField(placeholder: NSLocalizedString("new_subaddress_label", comment: ""))
         newSubaddressButton = SecondaryButton(title: NSLocalizedString("add", comment: ""))
+=======
+        newSubaddressTextiField = TextField(placeholder: NSLocalizedString("new_subaddress_label", comment: ""))
+        newSubaddressButton = PrimaryButton(title: NSLocalizedString("add", comment: ""))
+>>>>>>> Fixes
         newSubaddressContiner = UIView()
         cardView = UIView()
         super.init()

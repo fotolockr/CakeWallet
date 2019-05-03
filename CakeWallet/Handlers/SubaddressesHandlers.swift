@@ -36,7 +36,7 @@ public struct AddNewSubaddressesHandler: AsyncHandler {
             let moneroWallet = currentWallet as? MoneroWallet else { return handler(nil) }
         guard !label.isEmpty else { return handler(nil) }
         
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             let subaddresses = moneroWallet.subaddresses()
             subaddresses.newSubaddress(withLabel: label)
             subaddresses.refresh()
@@ -44,7 +44,7 @@ public struct AddNewSubaddressesHandler: AsyncHandler {
                 SubaddressesState.Action.added(subaddresses.all())
             )
             completionHandler()
-        }
+//        }
     }
 }
 

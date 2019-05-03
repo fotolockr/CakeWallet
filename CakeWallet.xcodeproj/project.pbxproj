@@ -53,6 +53,7 @@
 		0CD650CA227B0402007D552C /* UITextView+changeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD650C9227B0402007D552C /* UITextView+changeText.swift */; };
 		0CD650CC227B0417007D552C /* AddressTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD650CB227B0417007D552C /* AddressTextField.swift */; };
 		0CD650CE227B0458007D552C /* AddressTextField+UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD650CD227B0458007D552C /* AddressTextField+UITextFieldDelegate.swift */; };
+		0CD650D6227CAD8E007D552C /* storeDispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD650D5227CAD8E007D552C /* storeDispatchQueue.swift */; };
 		0CDBEEC8227475860047A53C /* PickerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBEEC7227475860047A53C /* PickerTableCell.swift */; };
 		0CDBEECA22747A140047A53C /* ExchangeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBEEC922747A140047A53C /* ExchangeList.swift */; };
 		0CDF00FB2278794F00AD8276 /* ChangeNowTradeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDF00FA2278794F00AD8276 /* ChangeNowTradeRequest.swift */; };
@@ -255,7 +256,6 @@
 		6A36FD2420BAE43900B3502E /* NewWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD2320BAE43900B3502E /* NewWalletView.swift */; };
 		6A36FD2620BAE45300B3502E /* NewWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD2520BAE45300B3502E /* NewWalletViewController.swift */; };
 		6A36FD3320BB4CEF00B3502E /* RestoreFromHeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD3220BB4CEF00B3502E /* RestoreFromHeightView.swift */; };
-		6A36FD4220BB5FB300B3502E /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD4120BB5FB300B3502E /* FloatingLabelTextField.swift */; };
 		6A36FD4520BB622A00B3502E /* SeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD4420BB622A00B3502E /* SeedView.swift */; };
 		6A36FD4720BB623800B3502E /* SeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD4620BB623800B3502E /* SeedViewController.swift */; };
 		6A36FD4920BDC1FB00B3502E /* CellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A36FD4820BDC1FB00B3502E /* CellItem.swift */; };
@@ -479,6 +479,7 @@
 		0CD650C9227B0402007D552C /* UITextView+changeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+changeText.swift"; sourceTree = "<group>"; };
 		0CD650CB227B0417007D552C /* AddressTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextField.swift; sourceTree = "<group>"; };
 		0CD650CD227B0458007D552C /* AddressTextField+UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddressTextField+UITextFieldDelegate.swift"; sourceTree = "<group>"; };
+		0CD650D5227CAD8E007D552C /* storeDispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storeDispatchQueue.swift; sourceTree = "<group>"; };
 		0CDBEEC7227475860047A53C /* PickerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableCell.swift; sourceTree = "<group>"; };
 		0CDBEEC922747A140047A53C /* ExchangeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeList.swift; sourceTree = "<group>"; };
 		0CDF00FA2278794F00AD8276 /* ChangeNowTradeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNowTradeRequest.swift; sourceTree = "<group>"; };
@@ -744,7 +745,6 @@
 		6A36FD2320BAE43900B3502E /* NewWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWalletView.swift; sourceTree = "<group>"; };
 		6A36FD2520BAE45300B3502E /* NewWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWalletViewController.swift; sourceTree = "<group>"; };
 		6A36FD3220BB4CEF00B3502E /* RestoreFromHeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreFromHeightView.swift; sourceTree = "<group>"; };
-		6A36FD4120BB5FB300B3502E /* FloatingLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextField.swift; sourceTree = "<group>"; };
 		6A36FD4420BB622A00B3502E /* SeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedView.swift; sourceTree = "<group>"; };
 		6A36FD4620BB623800B3502E /* SeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedViewController.swift; sourceTree = "<group>"; };
 		6A36FD4820BDC1FB00B3502E /* CellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItem.swift; sourceTree = "<group>"; };
@@ -1038,6 +1038,7 @@
 				644A99F820E173F20035429B /* AnyAction.swift */,
 				644A99FA20E175F20035429B /* SubscriptionWrapper.swift */,
 				64F02F4F20E8D0F700527F08 /* registerHandler.swift */,
+				0CD650D5227CAD8E007D552C /* storeDispatchQueue.swift */,
 			);
 			path = CakeWalletCore;
 			sourceTree = "<group>";
@@ -1509,7 +1510,6 @@
 				6AAF1E9D20B60345000E4E02 /* CardView.swift */,
 				6AAF1EA020B603AB000E4E02 /* ProgressBar.swift */,
 				6A36FD3220BB4CEF00B3502E /* RestoreFromHeightView.swift */,
-				6A36FD4120BB5FB300B3502E /* FloatingLabelTextField.swift */,
 				64F8AB2B20EA447400C59254 /* WalletsNavigationTitle.swift */,
 				64C28A5F2104E7C000327509 /* AddressView.swift */,
 				64AA49A721456DD9002CE1FE /* AnyBaseViewController.swift */,
@@ -2238,7 +2238,6 @@
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/JVFloatLabeledTextField/JVFloatLabeledTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/PinLayout/PinLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCodeReader.swift/QRCodeReader.framework",
@@ -2246,10 +2245,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxBiBinding/RxBiBinding.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
-				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSVG/SwiftSVG.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/VisualEffectView/VisualEffectView.framework",
 				"${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework",
@@ -2261,7 +2257,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JVFloatLabeledTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PinLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCodeReader.framework",
@@ -2269,10 +2264,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBiBinding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSVG.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VisualEffectView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZIPFoundation.framework",
@@ -2303,6 +2295,7 @@
 				644A99EC20E173930035429B /* Store.swift in Sources */,
 				644A99F020E173930035429B /* AnyStore.swift in Sources */,
 				644A99FB20E175F20035429B /* SubscriptionWrapper.swift in Sources */,
+				0CD650D6227CAD8E007D552C /* storeDispatchQueue.swift in Sources */,
 				644A99ED20E173930035429B /* Subscription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2591,7 +2584,6 @@
 				64B2D3A4211334EC00AFBCAA /* BaseScrollFlexView.swift in Sources */,
 				6AAF1E9120B60215000E4E02 /* Theme.swift in Sources */,
 				A591C67922414C420051A4FE /* TextView.swift in Sources */,
-				6A36FD4220BB5FB300B3502E /* FloatingLabelTextField.swift in Sources */,
 				0C5EFB8422022EB80069AF7F /* RestoreFromCloudView.swift in Sources */,
 				A587BFFA22144ADF00AFDFCB /* AddressTableCell.swift in Sources */,
 				64AA49BF2145707C002CE1FE /* PrimaryButton.swift in Sources */,
