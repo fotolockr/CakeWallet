@@ -93,32 +93,12 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         contentView.table.separatorStyle = .none
         contentView.table.register(items: [Subaddress.self])
         contentView.newSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-        let resetButton = UIBarButtonItem()
-        resetButton.title = "Reset"
-        resetButton.action = #selector(reset)
-        
-        resetButton.setTitleTextAttributes([
-            NSAttributedStringKey.font: applyFont(ofSize: 16, weight: .regular),
-            NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue], for: .normal)
-        resetButton.setTitleTextAttributes([
-            NSAttributedStringKey.font: applyFont(ofSize: 16, weight: .regular),
-            NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue], for: .highlighted)
-        
-        navigationItem.rightBarButtonItem = resetButton
-=======
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Unselect", style: .plain, target: self, action: #selector(reset))
->>>>>>> Fixes
-=======
-        
+
         let resetButton = makeTitledNavigationButton(title: NSLocalizedString("reset", comment: ""), target: self, action: #selector(reset))
         navigationItem.rightBarButtonItems = [resetButton]
         
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem = backButton
->>>>>>> Subaddresses redesign
     }
     
     override func viewWillAppear(_ animated: Bool) {
