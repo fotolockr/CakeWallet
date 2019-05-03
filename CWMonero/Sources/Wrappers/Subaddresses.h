@@ -4,7 +4,12 @@
 #import <Foundation/Foundation.h>
 #import "MoneroTransactionInfoAdapter.h"
 
+struct SubaddressesMember;
+
 @interface Subaddresses: NSObject
+{
+    struct SubaddressesMember *member;
+}
 - (instancetype)initWithWallet: (MoneroWalletAdapter *) wallet;
 - (void)newSubaddressWithLabel:(NSString *) label;
 - (void)setLabel:(NSString *)label AtIndex:(uint32_t)index;

@@ -3,7 +3,6 @@ PODS:
   - CryptoSwift (0.13.1)
   - FlexLayout (1.3.9)
   - IQKeyboardManagerSwift (6.0.4)
-  - JVFloatLabeledTextField (1.2.1)
   - KeychainAccess (3.1.2)
   - PinLayout (1.7.7)
   - QRCode (2.0)
@@ -16,9 +15,6 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
-  - SkyFloatingLabelTextField (3.5.1)
-  - Starscream (3.0.5)
-  - SwiftSoup (1.7.1)
   - SwiftSVG (2.2.0)
   - SwiftyJSON (4.1.0)
   - VisualEffectView (3.1.0)
@@ -29,7 +25,6 @@ DEPENDENCIES:
   - CryptoSwift
   - FlexLayout
   - IQKeyboardManagerSwift
-  - JVFloatLabeledTextField
   - KeychainAccess
   - PinLayout
   - QRCode
@@ -37,9 +32,6 @@ DEPENDENCIES:
   - RxBiBinding
   - RxCocoa (~> 4.0)
   - RxSwift (~> 4.0)
-  - SkyFloatingLabelTextField (~> 3.01)
-  - Starscream (~> 3.0.2)
-  - SwiftSoup
   - SwiftSVG (~> 2.0)
   - SwiftyJSON
   - VisualEffectView
@@ -51,7 +43,6 @@ SPEC REPOS:
     - CryptoSwift
     - FlexLayout
     - IQKeyboardManagerSwift
-    - JVFloatLabeledTextField
     - KeychainAccess
     - PinLayout
     - QRCode
@@ -60,9 +51,6 @@ SPEC REPOS:
     - RxBiBinding
     - RxCocoa
     - RxSwift
-    - SkyFloatingLabelTextField
-    - Starscream
-    - SwiftSoup
     - SwiftSVG
     - SwiftyJSON
     - VisualEffectView
@@ -73,7 +61,6 @@ SPEC CHECKSUMS:
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   FlexLayout: dbe4b2da72ee63d7145cf32bb5bfba375aeeb9e6
   IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
-  JVFloatLabeledTextField: cfc44e3c4d493b2ed92ede8035e8e89c2912ba64
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
   PinLayout: 0777b5d8d73822aa203454d90118d4e98086e43a
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
@@ -82,14 +69,11 @@ SPEC CHECKSUMS:
   RxBiBinding: e2a54fdaaf9b6fe66e840cd0980a054830280935
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
-  SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
-  Starscream: faf918b2f2eff7d5dd21180646bf015a669673bd
-  SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
   SwiftSVG: 19bc4e434dcf236ece45ddf75f5ee1d3ef8061e6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   VisualEffectView: 922eedf8d7d7e776a367ac11e0a4d4a0b2ba3545
   ZIPFoundation: 68c35eb2637c21abe56dc60b3277636443bc1501
 
-PODFILE CHECKSUM: 8d4170582f34feae13ca51c6182a83e277b0ac97
+PODFILE CHECKSUM: 16e8547cbba943f917db98697941e1149999d2f3
 
 COCOAPODS: 1.6.0

@@ -1,6 +1,5 @@
 import UIKit
 import FlexLayout
-import SwiftSoup
 
 private let dates: [Date: UInt64] = {
     let formatter = DateFormatter()

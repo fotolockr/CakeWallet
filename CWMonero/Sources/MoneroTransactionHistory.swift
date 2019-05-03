@@ -1,7 +1,7 @@
 import Foundation
 import CakeWalletLib
 
-public final class MoneroTransactionHistory: TransactionHistory {
+public struct MoneroTransactionHistory: TransactionHistory {
     public var transactions: [TransactionDescription] {
         return transactionHisory.getAll().map { TransactionDescription(moneroTransactionInfo: $0) }
     }

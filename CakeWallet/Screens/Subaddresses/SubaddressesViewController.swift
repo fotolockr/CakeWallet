@@ -41,7 +41,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         contentView.table.delegate = self
         contentView.table.register(items: [Subaddress.self])
         contentView.newSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Unselect", style: .plain, target: self, action: #selector(reset))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +61,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     
     func onStateChange(_ state: ApplicationState) {
         subaddresses = state.subaddressesState.subaddresses
+        navigationItem.rightBarButtonItem?.isEnabled = state.walletState.subaddress != nil
     }
     
     // MARK: UITableViewDataSource
@@ -101,7 +102,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     
     @objc
     private func addSubaddressAction() {
-        guard let label = contentView.newSubaddressTextiField.text else {
+        guard let label = contentView.newSubaddressTextiField.textField.text else {
             return
         }
                 
@@ -110,7 +111,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
                 withLabel: label,
                 handler: { [weak self] in
                     DispatchQueue.main.async {
-                        self?.contentView.newSubaddressTextiField.text = nil
+                        self?.contentView.newSubaddressTextiField.textField.text = nil
                     }
             })
         )

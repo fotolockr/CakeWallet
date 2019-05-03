@@ -4,7 +4,12 @@
 #ifndef MoneroWalletHistoryAdapter_h
 #define MoneroWalletHistoryAdapter_h
 
+struct MoneroTransactionHistoryMember;
+
 @interface MoneroWalletHistoryAdapter: NSObject
+{
+    struct MoneroTransactionHistoryMember *member;
+}
 - (instancetype)initWithWallet: (MoneroWalletAdapter *) wallet;
 - (int)count;
 - (MoneroTransactionInfoAdapter *)transaction:(int) index;

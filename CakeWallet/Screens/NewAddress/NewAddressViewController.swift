@@ -17,7 +17,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
         contentView.pickerView.dataSource = self
         
         contentView.pickerView.selectRow(0, inComponent: 0, animated: true)
-        contentView.pickerTextField.text = CryptoCurrency.all[0].formatted()
+        contentView.pickerTextField.textField.text = CryptoCurrency.all[0].formatted()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -25,11 +25,11 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
         
         if let contact = self.contact {
             if let coinTypeIndex = CryptoCurrency.all.firstIndex(of: contact.type) {
-                contentView.pickerTextField.text = contact.type.formatted()
+                contentView.pickerTextField.textField.text = contact.type.formatted()
                 contentView.pickerView.selectRow(coinTypeIndex, inComponent: 0, animated: true)
             }
             
-            contentView.contactNameTextField.text = contact.name
+            contentView.contactNameTextField.textField.text = contact.name
             contentView.addressView.textView.text = contact.address
         }
     }
@@ -44,16 +44,16 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     
     @objc
     func resetAction() {
-        contentView.contactNameTextField.text = ""
-        contentView.pickerTextField.text = ""
+        contentView.contactNameTextField.textField.text = ""
+        contentView.pickerTextField.textField.text = ""
         contentView.addressView.textView.text = ""
     }
     
     @objc
     func saveAction() {
-        if let name = contentView.contactNameTextField.text,
+        if let name = contentView.contactNameTextField.textField.text,
             let address = contentView.addressView.textView.text,
-            let typeText = contentView.pickerTextField.text,
+            let typeText = contentView.pickerTextField.textField.text,
             name.count > 0,
             address.count > 0,
             typeText.count > 0,
@@ -84,7 +84,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        contentView.pickerTextField.text = CryptoCurrency.all[row].formatted()
+        contentView.pickerTextField.textField.text = CryptoCurrency.all[row].formatted()
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -95,7 +95,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     
     func getCrypto(for adressView: AddressView) -> CryptoCurrency {
         guard
-            let typeText = contentView.pickerTextField.text,
+            let typeText = contentView.pickerTextField.textField.text,
             let type = CryptoCurrency(from: typeText) else {
             return .monero
         }

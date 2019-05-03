@@ -13,10 +13,6 @@ func mndecode(seed: String, wordset: Wordset = englishWordset) -> String {
     let n = wordset.words.count
     var out = ""
     var wlist = seed.components(separatedBy: " ")
-    //    print("wordset.tructWords")
-    //    print(wordset.tructWords)
-    var checksumWord = wlist.popLast()! // hardcoded value for english
-    
     
     for i in stride(from: 0, to: wlist.count, by: 3) {
         let w1 = Int(wordset.tructWords.index(of: String(wlist[i][0..<wordset.prefixLength]))!)

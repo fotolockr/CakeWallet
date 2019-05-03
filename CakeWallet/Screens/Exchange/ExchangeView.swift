@@ -112,7 +112,7 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
     let exchangePickerView: ExchangePickerView
     let titleLabel: UILabel
     let addressContainer: AddressView
-    let amountTextField: UITextField
+    let amountTextField: TextField
     let amountTitleLabel: UILabel
     let amountLabel: UILabel
     let minLabel: UILabel
@@ -122,7 +122,7 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
     required init() {
         titleLabel = UILabel(fontSize: 16)
         exchangePickerView = ExchangePickerView()
-        amountTextField = FloatingLabelTextField(placeholder: NSLocalizedString("amount", comment: ""))
+        amountTextField = TextField(placeholder: NSLocalizedString("amount", comment: ""))
         addressContainer = AddressView()
         amountTitleLabel = UILabel(fontSize: 14)
         amountLabel = UILabel(fontSize: 24)
@@ -137,7 +137,7 @@ final class DepositExchangeCardView: BaseFlexView, ExchangableCardView {
         super.configureView()
         titleLabel.text = NSLocalizedString("deposit", comment: "")
         titleLabel.textAlignment = .center
-        amountTextField.keyboardType = .decimalPad
+        amountTextField.textField.keyboardType = .decimalPad
         layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.16, x: 0, y: 16, blur: 46, spread: -5)
         backgroundColor = .white
         walletNameLabel.textAlignment = .center
@@ -189,7 +189,7 @@ final class ReceiveExchangeCardView: BaseFlexView, ExchangableCardView {
     let minLabel: UILabel
     let maxLabel: UILabel
     let limitsRow: UIView
-    let amountTextField: UITextField
+    let amountTextField: TextField
     
     required init() {
         titleLabel = UILabel(fontSize: 16)
@@ -201,7 +201,7 @@ final class ReceiveExchangeCardView: BaseFlexView, ExchangableCardView {
         minLabel = UILabel(fontSize: 12)
         maxLabel = UILabel(fontSize: 12)
         limitsRow = UIView()
-        amountTextField = FloatingLabelTextField(placeholder: NSLocalizedString("amount", comment: ""))
+        amountTextField = TextField(placeholder: NSLocalizedString("amount", comment: ""))
         super.init()
     }
     
@@ -221,7 +221,7 @@ final class ReceiveExchangeCardView: BaseFlexView, ExchangableCardView {
         walletNameLabel.textColor = .wildDarkBlue
         minLabel.textColor = .wildDarkBlue
         maxLabel.textColor = .wildDarkBlue
-        amountTextField.keyboardType = .decimalPad
+        amountTextField.textField.keyboardType = .decimalPad
     }
     
     override func layoutSublayers(of layer: CALayer) {

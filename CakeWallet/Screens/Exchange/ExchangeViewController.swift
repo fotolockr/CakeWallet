@@ -2,7 +2,6 @@ import UIKit
 import CakeWalletLib
 import CakeWalletCore
 import FlexLayout
-import Starscream
 import SwiftyJSON
 import Alamofire
 import CWMonero

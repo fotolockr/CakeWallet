@@ -110,6 +110,7 @@ public final class MoneroWallet: Wallet {
     private var isBlocking: Bool
     
     private var moneroTransactionHistory: MoneroTransactionHistory?
+    private var _subaddresses: Subaddresses?
     
     private var _keys: MoneroWalletKeys {
         return MoneroWalletKeys(
@@ -212,7 +213,13 @@ public final class MoneroWallet: Wallet {
     }
     
     public func subaddresses() -> Subaddresses {
-        return Subaddresses(wallet: moneroAdapter)
+        if let subaddresses = self._subaddresses {
+            return subaddresses
+        } else {
+            let subaddresses = Subaddresses(wallet: moneroAdapter)!
+            self._subaddresses = subaddresses
+            return subaddresses
+        }
     }
     
     public func send(amount: Amount?, to address: String, withPriority priority: TransactionPriority) throws -> PendingTransaction {
