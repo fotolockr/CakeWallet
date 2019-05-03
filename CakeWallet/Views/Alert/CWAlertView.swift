@@ -123,8 +123,8 @@ final class ExchangeAlertView: CWBaseAlertView {
     
     required init() {
         bottomView = UIView()
-        cancelButton = SecondaryButton(title: NSLocalizedString("cancel", comment: ""))
-        doneButton = PrimaryButton(title: NSLocalizedString("i_saved_sec_key", comment: ""), fontSize: 14)
+        cancelButton = SecondaryButton(title: NSLocalizedString("cancel", comment: ""), fontSize: 17)
+        doneButton = PrimaryButton(title: NSLocalizedString("i_saved_sec_key", comment: ""), fontSize: 17)
         innerView = ExchangeContentAlertView()
         super.init()
     }
@@ -136,7 +136,6 @@ final class ExchangeAlertView: CWBaseAlertView {
     
     override func configureConstraints() {
         contentView.flex.backgroundColor(.white).alignItems(.center).define { flex in
-            flex.addItem(statusImageView).width(100).height(100).alignSelf(.center).position(.absolute).top(-30)
             flex.addItem(titleLabel).margin(UIEdgeInsets(top: 80, left: 30, bottom: 20, right: 30))
             flex.addItem(innerView)
         }
@@ -159,7 +158,7 @@ class CWBaseAlertView: BaseFlexView {
     var width: CGFloat {
         return UIScreen.main.bounds.width > CWBaseAlertView.approximatedDefaultWidth
             ? CWBaseAlertView.approximatedDefaultWidth
-            : UIScreen.main.bounds.width - 50 // 50 = 2x25 offset
+            : UIScreen.main.bounds.width - 50
     }
     
     required init() {
@@ -172,19 +171,10 @@ class CWBaseAlertView: BaseFlexView {
     override func configureView() {
         super.configureView()
         isOpaque = true
-        rootFlexContainer.backgroundColor = UIColor.whiteSmoke.withAlphaComponent(0.4)
-        contentView.layer.masksToBounds = false
+        rootFlexContainer.backgroundColor = Theme.current.container.background
+        
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
-        contentView.layer.shadowRadius = 20
-        contentView.layer.shadowOffset = CGSize(width: 2, height: 1)
-        contentView.layer.shadowOpacity = 0.3
-        contentView.layer.shadowColor = UIColor.lightGray.cgColor
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.layer.cornerRadius = contentView.frame.size.height * 0.1
     }
     
     override func configureConstraints() {

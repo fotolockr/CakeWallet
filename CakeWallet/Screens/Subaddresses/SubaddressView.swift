@@ -6,9 +6,8 @@ final class SubaddressView: BaseFlexView {
     let editButton: UIButton
     
     required init() {
-        let labelTextFieldFontSize = adaptiveLayout.getSize(forLarge: 22, forBig: 21, defaultSize: 20)
-        
-        labelContainer = TextField(placeholder: NSLocalizedString("label", comment: ""), fontSize: Int(labelTextFieldFontSize))
+        labelContainer = TextField(placeholder: NSLocalizedString("label", comment: ""))
+        labelContainer.textField.font = applyFont(ofSize: 19)
         editButton = PrimaryButton(title: NSLocalizedString("edit", comment: ""))
         super.init()
     }
@@ -19,7 +18,7 @@ final class SubaddressView: BaseFlexView {
             .alignItems(.center)
             .define { flex in
                 flex.addItem(labelContainer).width(80%)
-                flex.addItem(editButton).position(.absolute).width(80%).height(50).bottom(25)
+                flex.addItem(editButton).position(.absolute).width(85%).height(56).bottom(25)
         }
     }
 }

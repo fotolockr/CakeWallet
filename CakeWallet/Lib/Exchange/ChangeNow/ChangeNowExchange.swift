@@ -87,7 +87,6 @@ final class ChangeNowExchange: Exchange {
     
     func calculateAmount(_ amount: Double, from input: CryptoCurrency, to output: CryptoCurrency) -> Observable<Amount> {
         return Observable.create({ o -> Disposable in
-            print("amount: \(amount)")
             let url = "\(ChangeNowExchange.baseExchangeAmountURI)\(String(amount))/\(input.formatted())_\(output.formatted())"
             Alamofire.request(url).responseData(completionHandler: { response in
                 if let error = response.error {
@@ -101,7 +100,6 @@ final class ChangeNowExchange: Exchange {
                 
                 do {
                     let json = try JSON(data: data)
-                    print("json\n", json)
                     let estimatedAmount = json["estimatedAmount"].stringValue
                     let amount = makeAmount(estimatedAmount, currency: output)
                     o.onNext(amount)

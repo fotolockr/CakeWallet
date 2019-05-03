@@ -30,9 +30,6 @@ final class PinCodeKeyButton: UIButton {
         setTitleColor(.white, for: .normal)
         titleLabel?.font = applyFont(ofSize: 26, weight: .regular)
         backgroundColor = UIColor(hex: 0xf5f6f9)
-        
-//        backgroundColor = Theme.current.pinKey.background
-//        layer.applySketchShadow(color: UIColor(hex: 0x9BACC5), alpha: 0.45, x: 0, y: 19, blur: 22, spread: -11)
     }
     
     override func layoutSublayers(of layer: CALayer) {

@@ -46,8 +46,6 @@ class CopyableLabel: UILabel {
 
 final class ExchangeResultView: BaseScrollFlexView {
     let idLabel: UILabel
-//    let minAmountLabel: UILabel
-    //    let maxAmountLabel: UILabel
     let amountLabel: UILabel
     let addressLabel: UILabel
     let qrImageView: UIImageView
@@ -70,19 +68,17 @@ final class ExchangeResultView: BaseScrollFlexView {
     let timeoutLabel: UILabel
     
     required init() {
-        idLabel = UILabel(fontSize: 14)
-        amountLabel = UILabel(fontSize: 14)
-//        minAmountLabel = UILabel(fontSize: 14)
-//        maxAmountLabel = UILabel(fontSize: 14)
-        addressLabel = UILabel(fontSize: 14)
-        statusLabel = UILabel(fontSize: 14)
+        idLabel = UILabel()
+        amountLabel = UILabel()
+        addressLabel = UILabel()
+        statusLabel = UILabel()
         qrImageView = UIImageView(image: nil)
         copyAddressButton = CopyButton(title: NSLocalizedString("copy_address", comment: ""))
         copyIdButton = CopyButton(title: NSLocalizedString("copy_id", comment: ""))
         confirmButton = PrimaryButton(title: NSLocalizedString("confirm", comment: ""))
         resultDescriptionLabel = UILabel(fontSize: 14)
         descriptionTextView = UITextView(frame: .zero)
-        cardView = CardView()
+        cardView = UIView()
         topRow = UIView()
         infoColumn = UIView()
         copyButtonsRow = UIView()
@@ -102,19 +98,34 @@ final class ExchangeResultView: BaseScrollFlexView {
         descriptionTextView.isEditable = false
         idLabel.numberOfLines = 0
         idLabel.textColor = .spaceViolet
+        
+        idLabel.font = applyFont(ofSize: 15)
+        amountLabel.font = applyFont(ofSize: 15)
+        addressLabel.font = applyFont(ofSize: 15)
+        statusLabel.font = applyFont(ofSize: 15)
+        timeoutLabel.font = applyFont(ofSize: 15)
+        
         amountLabel.numberOfLines = 0
         amountLabel.textColor = .spaceViolet
+        
         addressLabel.numberOfLines = 0
         addressLabel.textAlignment = .center
-        copyAddressButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        copyIdButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        addressLabel.font = applyFont(ofSize: 13)
+        addressLabel.textColor = .purpley
+        
+        copyAddressButton.titleLabel?.font = applyFont(ofSize: 13)
+        copyIdButton.titleLabel?.font = applyFont(ofSize: 13)
         descriptionTextView.textColor = .wildDarkBlue
-        descriptionTextView.font = UIFont.systemFont(ofSize: 11)
+        descriptionTextView.font = applyFont(ofSize: 12)
         descriptionTextView.isEditable = false
+        
         resultDescriptionLabel.numberOfLines = 0
+        resultDescriptionLabel.font = applyFont(ofSize: 14)
+        resultDescriptionLabel.textColor = .grayBlue
+        
         btcTxIDLabel.numberOfLines = 0
         btcTxIDRow.isUserInteractionEnabled = true
-        btcTxIDTextLabel.font = UIFont.systemFont(ofSize: 14)
+        btcTxIDTextLabel.font = applyFont(ofSize: 14)
         btcTxIDTextLabel.numberOfLines = 0
         paymentIDLabel.numberOfLines =  0
     }
@@ -133,28 +144,36 @@ final class ExchangeResultView: BaseScrollFlexView {
         }
         
         infoColumn.flex.justifyContent(.center).define({ flex in
-            flex.addItem(idLabel).height(25).width(100%)
-            flex.addItem(amountLabel).height(25).width(100%)
-            flex.addItem(paymentIDRow).height(25).width(100%)
-            flex.addItem(statusLabel).height(25).width(100%)
-            flex.addItem(timeoutLabel).height(25).width(100%)
+            flex.addItem(idLabel).height(28).width(100%)
+            flex.addItem(amountLabel).height(28).width(100%)
+            flex.addItem(paymentIDRow).height(28).width(100%)
+            flex.addItem(statusLabel).height(28).width(100%)
+            flex.addItem(timeoutLabel).height(28).width(100%)
             flex.addItem(btcTxIDRow).width(100%)
         })
         
-        topRow.flex.direction(isSmallScreen ? .column : .row).justifyContent(isSmallScreen ? .center : .spaceBetween).alignItems(isSmallScreen ? .center : .stretch).define { flex in
-            let infoColumnFlex = flex.addItem(infoColumn)
-            flex.addItem(qrImageView).height(111).width(111)
-            
-            if !isSmallScreen {
-                infoColumnFlex.height(100%)
-            } else {
-                infoColumnFlex.width(100%)
-            }
+        topRow.flex
+            .direction(isSmallScreen ? .column : .row)
+            .justifyContent(isSmallScreen ? .center : .spaceBetween)
+            .alignItems(isSmallScreen ? .center : .stretch)
+            .define { flex in
+                let infoColumnFlex = flex.addItem(infoColumn)
+                flex.addItem(qrImageView).height(111).width(111)
+                
+                if !isSmallScreen {
+                    infoColumnFlex.height(100%)
+                } else {
+                    infoColumnFlex.width(100%)
+                }
         }
         
-        copyButtonsRow.flex.direction(.row).justifyContent(.spaceBetween).marginTop(20).define({ flex in
-            flex.addItem(copyAddressButton).height(56).width(45%)
-            flex.addItem(copyIdButton).height(56).width(45%)
+        copyButtonsRow.flex
+            .direction(.row)
+            .justifyContent(.center)
+            .marginTop(20)
+            .define({ flex in
+                flex.addItem(copyAddressButton).height(40).width(46%).marginRight(10)
+                flex.addItem(copyIdButton).height(40).width(46%).marginLeft(10)
         })
         
         cardView.flex.padding(20).define { flex in
