@@ -45,7 +45,7 @@ enum Theme: String {
     }
     
     var pinKey: PinKeyScheme {
-        return PinKeyScheme(background: .wildDarkBlue, text: .white)
+        return PinKeyScheme(background: .grayBackground, text: .grayBlue)
     }
     
     var pinKeyReversed: PinKeyReversedScheme {

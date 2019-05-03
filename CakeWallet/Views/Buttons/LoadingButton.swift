@@ -39,7 +39,8 @@ class LoadingButton: UIButton {
         let x = frame.size.width / 2 - size.width / 2
         let indicator = UIActivityIndicatorView(frame: CGRect(origin: CGPoint(x: x, y: y), size: size))
         indicator.hidesWhenStopped = true
-        indicator.color = .white
+        indicator.color = .gray
+        
         return indicator
     }
     
