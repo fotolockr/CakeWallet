@@ -102,6 +102,10 @@ struct MoneroTransactionInfoMember {
     return [NSString stringWithUTF8String: member->tx->hash().c_str()];
 }
 
+- (void) dealloc {
+    delete member;
+}
+
 @end
 
 

@@ -9,6 +9,14 @@ final class SubaddressCell: FlexCell {
     func setup(label: String, address: String) {
         textLabel?.text = label
     }
+    
+    override func configureConstraints() {
+        super.configureConstraints()
+        
+        contentView.flex.define { flex in
+            
+        }
+    }
 }
 
 extension Subaddress: CellItem {
@@ -37,11 +45,31 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     override func configureBinds() {
         super.configureBinds()
         title = NSLocalizedString("subaddresses", comment: "")
+        
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         contentView.table.dataSource = self
         contentView.table.delegate = self
+        contentView.table.separatorStyle = .none
         contentView.table.register(items: [Subaddress.self])
         contentView.newSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Unselect", style: .plain, target: self, action: #selector(reset))
+        let resetButton = UIBarButtonItem()
+        resetButton.title = "Unselect"
+        resetButton.target = self
+        resetButton.action = #selector(reset)
+        
+        resetButton.setTitleTextAttributes([
+            NSAttributedStringKey.font: applyFont(ofSize: 16, weight: .regular),
+            NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue], for: .normal)
+        resetButton.setTitleTextAttributes([
+            NSAttributedStringKey.font: applyFont(ofSize: 16, weight: .regular),
+            NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue], for: .highlighted)
+        resetButton.setTitleTextAttributes([
+            NSAttributedStringKey.font: applyFont(ofSize: 16, weight: .regular),
+            NSAttributedStringKey.foregroundColor: UIColor.gray], for: .disabled)
+        
+        navigationItem.rightBarButtonItem = resetButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +153,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         let editButton = UIButton()
         editButton.setTitle(NSLocalizedString("edit", comment: ""), for: .normal)
         editButton.setTitleColor(.blueBolt, for: .normal)
-        editButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+        editButton.titleLabel?.font = applyFont(ofSize: 12)
         editButton.titleLabel?.textAlignment = .right
         editButton.sizeToFit()
         editButton.rx.tap.subscribe(onNext: { [weak self] _ in

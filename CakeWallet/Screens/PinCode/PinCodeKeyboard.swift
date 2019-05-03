@@ -38,6 +38,7 @@ final class PinCodeKeyboard: BaseView {
                 row.flex.addItem().direction(.row).justifyContent(.spaceBetween).define({ flex in
                     keysTitles.forEach {
                         let key = PinCodeKeyButton(pinCode: $0)
+                        key.setTitleColor(.grayBlue, for: .normal)
                         key.addTarget(self, action: #selector(onKeyHandler(_:)), for: .touchUpInside)
                         let maxSize: CGFloat = 79
                         flex.addItem(key).maxWidth(25%).height(maxSize).aspectRatio(1)

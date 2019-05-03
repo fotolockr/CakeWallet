@@ -17,8 +17,9 @@ final class PinCodeIndicatorView: BaseView {
         addSubview(rootFlexContainer)
         addSubview(innerCircleView)
         backgroundColor = Theme.current.pin.background
-        layer.cornerRadius = 12
-        layer.applySketchShadow(color: UIColor(hex: 0x9BACC5), alpha: 0.25, x: 0, y: 10, blur: 20, spread: -10)
+        
+        innerCircleView.layer.borderWidth = 0.7
+        innerCircleView.layer.borderColor = UIColor.wildDarkBlue.cgColor
     }
     
     override func configureConstraints() {
@@ -26,7 +27,7 @@ final class PinCodeIndicatorView: BaseView {
     }
     
     func fill() {
-        innerCircleView.backgroundColor = Theme.current.pin.value
+        innerCircleView.backgroundColor = UIColor.purpley
     }
     
     func clear() {

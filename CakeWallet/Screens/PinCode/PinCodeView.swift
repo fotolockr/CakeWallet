@@ -23,10 +23,15 @@ final class PinCodeView: BaseFlexView {
     
     override func configureConstraints() {
         rootFlexContainer.flex.define { flex in
+            let pinPasswordKeyboardContainer = UIView()
+            
             flex.addItem(titleLabel).marginTop(20%)
             flex.addItem(pinCodesView).marginTop(25).width(100%).alignItems(.center)
-            let pinPasswordKeyboardContainer = UIView()
-            pinPasswordKeyboardContainer.flex.justifyContent(.end).grow(1).marginBottom(10.8%).marginTop(25).addItem(pinPasswordKeyboard).marginLeft(10.8%).marginRight(10.8%)
+        
+            pinPasswordKeyboardContainer.flex
+                .justifyContent(.end).grow(1)
+                .marginBottom(10.8%).marginTop(25)
+                    .addItem(pinPasswordKeyboard).marginLeft(10.8%).marginRight(10.8%)
             flex.addItem(pinPasswordKeyboardContainer)
         }
     }

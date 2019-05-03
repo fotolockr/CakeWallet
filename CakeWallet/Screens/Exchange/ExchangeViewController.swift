@@ -846,6 +846,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         }
         navigationItem.titleView = exchangeNameView
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Switch exchange", style: .plain, target: nil, action: nil)
 //        navigationItem.leftBarButtonItem?.rx.tap.subscribe(onNext: { [weak self] _ in
 //            self?.showExchangeSelection()
@@ -1390,6 +1393,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         alert.onDone = { [weak self] in
             self?.exchangeFlow?.change(route: .exchangeResult(trade, amount))
         }
+        
         alert.setTradeID(trade.id)
         present(alert, animated: true)
     }
@@ -1421,7 +1425,7 @@ class ExchangeContentAlertView: BaseFlexView {
     let copyButton: CopyButton
     
     required init() {
-        messageLabel = UILabel(fontSize: 14)
+        messageLabel = UILabel()
         copiedLabel = UILabel(fontSize: 12)
         copyButton = CopyButton(title: NSLocalizedString("copy_id", comment: ""), fontSize: 14)
         super.init()
@@ -1432,7 +1436,7 @@ class ExchangeContentAlertView: BaseFlexView {
         copyButton.backgroundColor = .vividBlue
         messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
-        messageLabel.textColor = .wildDarkBlue
+        messageLabel.font = applyFont(ofSize: 16)
         copiedLabel.textAlignment = .center
         copiedLabel.textColor = .wildDarkBlue
         backgroundColor = .clear
@@ -1442,7 +1446,7 @@ class ExchangeContentAlertView: BaseFlexView {
         rootFlexContainer.flex.alignItems(.center).backgroundColor(.clear).define { flex in
             flex.addItem(messageLabel).margin(UIEdgeInsets(top: 0, left: 30, bottom: 30, right: 30))
             flex.addItem(copiedLabel).height(10).marginBottom(5)
-            flex.addItem(copyButton).height(56).marginBottom(20).width(80%)
+            flex.addItem(copyButton).height(56).marginBottom(20).width(80%).backgroundColor(UIColor(hex: 0x97E2FF))
         }
     }
     
