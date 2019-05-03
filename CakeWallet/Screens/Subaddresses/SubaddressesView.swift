@@ -6,14 +6,14 @@ final class SubaddressesView: BaseFlexView {
     let newSubaddressTextiField: FloatingLabelTextField
     let newSubaddressButton: UIButton
     let newSubaddressContiner: UIView
-    let cardView: CardView
+    let cardView: UIView
     
     required init() {
         table = UITableView()
         newSubaddressTextiField = FloatingLabelTextField(placeholder: NSLocalizedString("new_subaddress_label", comment: ""))
-        newSubaddressButton = PrimaryButton(title: NSLocalizedString("add", comment: ""))
+        newSubaddressButton = SecondaryButton(title: NSLocalizedString("add", comment: ""))
         newSubaddressContiner = UIView()
-        cardView = CardView()
+        cardView = UIView()
         super.init()
     }
     
@@ -21,6 +21,8 @@ final class SubaddressesView: BaseFlexView {
         super.configureView()
         table.tableFooterView = UIView()
         table.backgroundColor = .clear
+
+//        newSubaddressButton.setTitleColor(.white, for: .normal)
     }
     
     override func layoutSubviews() {
@@ -32,7 +34,7 @@ final class SubaddressesView: BaseFlexView {
         
     override func configureConstraints() {
         newSubaddressContiner.flex.direction(.rowReverse).padding(20).justifyContent(.spaceBetween).alignItems(.center).width(100%).define { flex in
-            flex.addItem(newSubaddressButton).height(35)
+            flex.addItem(newSubaddressButton).height(35).backgroundColor(.whiteSmoke)
             flex.addItem(newSubaddressTextiField).height(50)
         }
         

@@ -31,6 +31,7 @@ final class AddressTableCell: FlexCell {
     
     override func configureConstraints() {
         super.configureConstraints()
+        
         contentView.flex
             .direction(.row).justifyContent(.spaceBetween).alignItems(.center)
             .height(AddressTableCell.height).width(100%)
