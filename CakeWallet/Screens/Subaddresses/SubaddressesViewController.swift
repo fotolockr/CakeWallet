@@ -4,24 +4,66 @@ import CWMonero
 import CakeWalletLib
 import RxCocoa
 import RxSwift
+import FlexLayout
+
+
+//final class SubaddressCell: FlexCell {
+//    func setup(label: String, address: String) {
+//        textLabel?.text = label
+//    }
+//
+//    override func configureConstraints() {
+//        super.configureConstraints()
+//
+//        contentView.flex.define { flex in
+//
+//        }
+//    }
+//}
+
 
 final class SubaddressCell: FlexCell {
-    func setup(label: String, address: String) {
-        textLabel?.text = label
+    static let height = 56 as CGFloat
+    let nameLabel = UILabel()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    override func configureView() {
+        super.configureView()
+        contentView.layer.masksToBounds = false
+        contentView.backgroundColor = .white
+        backgroundColor = .clear
+        selectionStyle = .none
+        
+        nameLabel.font = applyFont(ofSize: 16)
     }
     
     override func configureConstraints() {
         super.configureConstraints()
         
-        contentView.flex.define { flex in
-            
+        contentView.flex
+            .direction(.row).justifyContent(.spaceBetween).alignItems(.center)
+            .height(SubaddressCell.height).width(100%)
+            .marginTop(15).paddingVertical(5)
+            .define { flex in
+                flex.addItem(nameLabel)
         }
+    }
+    
+    func configure(name: String) {
+        nameLabel.text = name
+        nameLabel.flex.markDirty()
+        
+        contentView.flex.layout()
     }
 }
 
+
 extension Subaddress: CellItem {
     func setup(cell: SubaddressCell) {
-        cell.setup(label: label, address: address)
+        cell.configure(name: label)
     }
 }
 
@@ -46,14 +88,12 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         super.configureBinds()
         title = NSLocalizedString("subaddresses", comment: "")
         
-        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        
         contentView.table.dataSource = self
         contentView.table.delegate = self
         contentView.table.separatorStyle = .none
         contentView.table.register(items: [Subaddress.self])
         contentView.newSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
+<<<<<<< HEAD
 <<<<<<< HEAD
         
         let resetButton = UIBarButtonItem()
@@ -71,6 +111,14 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
 =======
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Unselect", style: .plain, target: self, action: #selector(reset))
 >>>>>>> Fixes
+=======
+        
+        let resetButton = makeTitledNavigationButton(title: NSLocalizedString("reset", comment: ""), target: self, action: #selector(reset))
+        navigationItem.rightBarButtonItems = [resetButton]
+        
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+>>>>>>> Subaddresses redesign
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,14 +134,10 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         store.unsubscribe(self)
     }
     
-    // MARK: StoreSubscriber
-    
     func onStateChange(_ state: ApplicationState) {
         subaddresses = state.subaddressesState.subaddresses
         navigationItem.rightBarButtonItem?.isEnabled = state.walletState.subaddress != nil
     }
-    
-    // MARK: UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return subaddresses.count
@@ -102,11 +146,9 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = subaddresses[indexPath.row]
         let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath)
-        addEditButton(for: cell, subaddress: item)
+
         return cell
     }
-    
-    // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
@@ -121,6 +163,22 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         store.dispatch(WalletState.Action.changedSubaddress(sub))
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.popViewController(animated: true)
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler ) in
+            guard let subaddress = self?.subaddresses[indexPath.row] else {
+                return
+            }
+         
+            self?.editSubaddress(subaddress)
+        }
+        
+        editAction.image = UIImage(named: "edit_icon")
+        
+        let confrigation = UISwipeActionsConfiguration(actions: [editAction])
+        return confrigation
     }
     
     @objc
@@ -150,16 +208,16 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
         flow?.change(route: .editSubaddress(subaddress))
     }
     
-    private func addEditButton(for cell: UITableViewCell, subaddress: Subaddress) {
-        let editButton = UIButton()
-        editButton.setTitle(NSLocalizedString("edit", comment: ""), for: .normal)
-        editButton.setTitleColor(.blueBolt, for: .normal)
-        editButton.titleLabel?.font = applyFont(ofSize: 12)
-        editButton.titleLabel?.textAlignment = .right
-        editButton.sizeToFit()
-        editButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            self?.editSubaddress(subaddress)
-        }).disposed(by: disposeBag)
-        cell.accessoryView = editButton
-    }
+//    private func addEditButton(for cell: UITableViewCell, subaddress: Subaddress) {
+//        let editButton = UIButton()
+//        editButton.setTitle(NSLocalizedString("edit", comment: ""), for: .normal)
+//        editButton.setTitleColor(.blueBolt, for: .normal)
+//        editButton.titleLabel?.font = applyFont(ofSize: 12)
+//        editButton.titleLabel?.textAlignment = .right
+//        editButton.sizeToFit()
+//        editButton.rx.tap.subscribe(onNext: { [weak self] _ in
+//            self?.editSubaddress(subaddress)
+//        }).disposed(by: disposeBag)
+//        cell.accessoryView = editButton
+//    }
 }

@@ -10,13 +10,14 @@ final class SubaddressesView: BaseFlexView {
     
     required init() {
         table = UITableView()
-<<<<<<< HEAD
-        newSubaddressTextiField = FloatingLabelTextField(placeholder: NSLocalizedString("new_subaddress_label", comment: ""))
-        newSubaddressButton = SecondaryButton(title: NSLocalizedString("add", comment: ""))
-=======
-        newSubaddressTextiField = TextField(placeholder: NSLocalizedString("new_subaddress_label", comment: ""))
         newSubaddressButton = PrimaryButton(title: NSLocalizedString("add", comment: ""))
->>>>>>> Fixes
+        newSubaddressTextiField = TextField(placeholder: NSLocalizedString("new_subaddress_label", comment: ""), isTransparent: false)
+    
+        newSubaddressButton = UIButton()
+        newSubaddressButton.backgroundColor = Theme.current.container.background
+        newSubaddressButton.imageView?.backgroundColor = Theme.current.container.background
+        newSubaddressButton.setImage(UIImage(named: "add_icon_purple")?.resized(to: CGSize(width: 30, height: 30)), for: .normal)
+        
         newSubaddressContiner = UIView()
         cardView = UIView()
         super.init()
@@ -24,28 +25,37 @@ final class SubaddressesView: BaseFlexView {
     
     override func configureView() {
         super.configureView()
+        newSubaddressTextiField.textField.font = applyFont(ofSize: 17)
+        
         table.tableFooterView = UIView()
         table.backgroundColor = .clear
-
-//        newSubaddressButton.setTitleColor(.white, for: .normal)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let width = newSubaddressContiner.frame.size.width - newSubaddressButton.frame.size.width - 50
+        let width = newSubaddressContiner.frame.size.width - newSubaddressButton.frame.size.width - 35
+        
         newSubaddressTextiField.flex.width(width).layout()
         newSubaddressContiner.flex.layout()
     }
         
     override func configureConstraints() {
-        newSubaddressContiner.flex.direction(.rowReverse).padding(20).justifyContent(.spaceBetween).alignItems(.center).width(100%).define { flex in
-            flex.addItem(newSubaddressButton).height(35).backgroundColor(.whiteSmoke)
-            flex.addItem(newSubaddressTextiField).height(50)
+        newSubaddressContiner.flex
+            .direction(.row)
+            .justifyContent(.spaceBetween)
+            .alignItems(.center)
+            .width(100%)
+            .backgroundColor(Theme.current.container.background)
+            .define { flex in
+                flex.addItem(newSubaddressTextiField).height(40)
+                flex.addItem(newSubaddressButton).height(35).backgroundColor(.whiteSmoke)
         }
         
-        cardView.flex.define { flex in
-            flex.addItem(newSubaddressContiner).width(100%)
-            flex.addItem(table).width(100%).grow(1)
+        cardView.flex
+            .paddingTop(10)
+            .define { flex in
+                flex.addItem(newSubaddressContiner).width(100%)
+                flex.addItem(table).width(100%).grow(1)
         }
         
         rootFlexContainer.flex.padding(20).alignItems(.start).define { flex in

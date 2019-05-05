@@ -6,7 +6,8 @@ import CakeWalletLib
 import CakeWalletCore
 import CWMonero
 
-final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscriber {
+
+final class ReceiveViewController: BlurredBaseViewController<ReceiveView>, StoreSubscriber {
     var paymentId: String? {
         get {
             return contentView.paymentIdTextField.textField.text
@@ -79,7 +80,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         ]
         changeAddress(store.state.walletState.address)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         store.subscribe(self, onlyOnChange: [\ApplicationState.walletState])
