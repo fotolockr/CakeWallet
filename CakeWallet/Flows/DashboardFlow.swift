@@ -9,6 +9,8 @@ final class DashboardFlow: Flow {
         case wallets
         case send
         case receive
+         case showSeed(wallet: String, date: Date, seed: String)
+        case showKeys
         case addressBook
         case subaddresses
         case addOrEditSubaddress(Subaddress?)
@@ -49,6 +51,17 @@ final class DashboardFlow: Flow {
         case .addressBook:
             let addressBook = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: false)
             navigationController.pushViewController(addressBook, animated: true)
+        case let .showSeed(wallet, date, seed):
+            let seedViewController = SeedViewController(walletName: wallet, date: date, seed: seed, doneFlag: true)
+            seedViewController.doneHandler = { [weak seedViewController] in
+                seedViewController?.dismiss(animated: true)
+            }
+            let navigationController = UINavigationController(rootViewController: seedViewController)
+            self.navigationController.viewControllers.first?.present(navigationController, animated: true)
+        case .showKeys:
+            let keysViewController = ShowKeysViewController(store: store)
+            let navigationController = UINavigationController(rootViewController: keysViewController)
+            self.navigationController.viewControllers.first?.present(navigationController, animated: true)
         case .subaddresses:
             let subaddressesVC = SubaddressesViewController(store: store)
             subaddressesVC.flow = self

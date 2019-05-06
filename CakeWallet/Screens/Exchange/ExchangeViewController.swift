@@ -833,6 +833,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         let depositOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDepositPickerButtonTap))
         contentView.depositCardView.pickerButtonView.addGestureRecognizer(depositOnTapGesture)
         
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        
         let receiveOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onReceivePickerButtonTap))
         contentView.receiveCardView.pickerButtonView.addGestureRecognizer(receiveOnTapGesture)
         contentView.depositCardView.addressContainer.presenter = self

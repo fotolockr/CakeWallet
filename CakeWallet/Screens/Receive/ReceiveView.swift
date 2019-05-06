@@ -108,13 +108,17 @@ final class ReceiveView: BaseScrollFlexView {
                 
                 flex.addItem(topSectionWrapper)
                 
-                flex.addItem(copyAddressButton).marginTop(20).height(56).width(100%).backgroundColor(UIColor(red: 235, green: 248, blue: 250))
+                flex.addItem(copyAddressButton).marginTop(20).height(56).width(98%).backgroundColor(UIColor(red: 235, green: 248, blue: 250))
                 flex.addItem(optionsView).width(100%).marginTop(adaptiveLayout.getSize(forLarge: 15, forBig: 10, defaultSize: 0))
                 flex.addItem(switchOptionsButton).marginTop(20)
         }
         
-        rootFlexContainer.flex.alignItems(.center).justifyContent(.end).backgroundColor(.clear).define { flex in
-            flex.addItem(cardView).width(100%).marginTop(10)
+        rootFlexContainer.flex
+            .alignItems(.center).justifyContent(.end)
+            .paddingHorizontal(10)
+            .backgroundColor(.clear)
+            .define { flex in
+                flex.addItem(cardView).width(100%).marginTop(10)
         }
     }
 }
