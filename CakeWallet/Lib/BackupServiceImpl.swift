@@ -10,8 +10,8 @@ import SwiftyJSON
 
 final class BackupServiceImpl: BackupService {
     
-    private static let salt = ""
-    private static let keychainSalt = ""
+    private static let salt = AppSecrets.backupSalt
+    private static let keychainSalt = AppSecrets.keychainSalt
     private static var defaultBackupName: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"

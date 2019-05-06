@@ -22,6 +22,8 @@
 		0C5EFB9222022FED0069AF7F /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB9122022FED0069AF7F /* CloudStorage.swift */; };
 		0C5EFB94220230030069AF7F /* ICloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB93220230030069AF7F /* ICloudStorage.swift */; };
 		0C5EFB96220230160069AF7F /* CloudStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5EFB95220230160069AF7F /* CloudStorageError.swift */; };
+		0C651F3322803C9D005617FD /* AppSecrets.stencil in Sources */ = {isa = PBXBuildFile; fileRef = 0C651F3222803C9D005617FD /* AppSecrets.stencil */; };
+		0C651F372280406A005617FD /* AppSecrets.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C651F362280406A005617FD /* AppSecrets.generated.swift */; };
 		0C6E3A1721FA02C700030C92 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6E3A1621FA02C700030C92 /* CloudKit.framework */; };
 		0C782005226E34CE009FDB62 /* SubaddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C782004226E34CE009FDB62 /* SubaddressView.swift */; };
 		0C9B94A921B014FE001F9868 /* DisclaimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B94A821B014FE001F9868 /* DisclaimerView.swift */; };
@@ -444,6 +446,8 @@
 		0C5EFB9122022FED0069AF7F /* CloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
 		0C5EFB93220230030069AF7F /* ICloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudStorage.swift; sourceTree = "<group>"; };
 		0C5EFB95220230160069AF7F /* CloudStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorageError.swift; sourceTree = "<group>"; };
+		0C651F3222803C9D005617FD /* AppSecrets.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = AppSecrets.stencil; sourceTree = "<group>"; };
+		0C651F362280406A005617FD /* AppSecrets.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSecrets.generated.swift; path = Generated/AppSecrets.generated.swift; sourceTree = SOURCE_ROOT; };
 		0C6E3A1521FA02C100030C92 /* CakeWallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CakeWallet.entitlements; sourceTree = "<group>"; };
 		0C6E3A1621FA02C700030C92 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		0C782004226E34CE009FDB62 /* SubaddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubaddressView.swift; sourceTree = "<group>"; };
@@ -1455,6 +1459,7 @@
 		6AAF1E9720B602AD000E4E02 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				0C651F362280406A005617FD /* AppSecrets.generated.swift */,
 				0CCD604422731DB60038B602 /* Exchange */,
 				64AA49D821457883002CE1FE /* Amounts */,
 				6AAF1E8E20B5EF81000E4E02 /* UIColor+extensions.swift */,
@@ -1784,6 +1789,7 @@
 				642622382109EC4200DA5F7B /* Localizable.strings */,
 				64AA49D92145888A002CE1FE /* AuthenticationError.swift */,
 				0C337243217D0F2B000D259D /* migrateKeychainAccessibilities.swift */,
+				0C651F3222803C9D005617FD /* AppSecrets.stencil */,
 			);
 			path = CakeWallet;
 			sourceTree = "<group>";
@@ -1976,6 +1982,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA1D6558209A3EBC00A1FDDB /* Build configuration list for PBXNativeTarget "CakeWallet" */;
 			buildPhases = (
+				0C6DEB272280713900536AA1 /* ShellScript */,
 				3C6808B88FF9BF86AD508F6F /* [CP] Check Pods Manifest.lock */,
 				CA1D6537209A3EBB00A1FDDB /* Sources */,
 				CA1D6538209A3EBB00A1FDDB /* Frameworks */,
@@ -2173,6 +2180,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0C6DEB272280713900536AA1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "source \"${SRCROOT}/inject_secrets.sh\"\n\"${PODS_ROOT}/Sourcery/bin/sourcery\" --sources CakeWallet --templates Templates/AppSecrets.stencil --output Generated --args backupSalt=\\\"$BACKUP_SALT\\\",keychainSalt=\\\"$KEYCHAIN_SALT\\\",morphRef=\\\"$MORPH_REF\\\",changeNowApiKey=\\\"$CHANGE_NOW_API_KEY\\\"\n";
+		};
 		3C6808B88FF9BF86AD508F6F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2388,6 +2412,7 @@
 				A57072B3224E490C00FF7F59 /* Switch.swift in Sources */,
 				6A5A923F20D04D38009B4C9A /* OnSyncedEffect.swift in Sources */,
 				6413ACD320E94588004922AD /* WalletState.swift in Sources */,
+				0C651F372280406A005617FD /* AppSecrets.generated.swift in Sources */,
 				6A24468620BAD75800C87C81 /* Configurations.swift in Sources */,
 				D1631DEC223931E10045ACAF /* TextField.swift in Sources */,
 				A576DE2E2279B0C700BD8AEE /* UIView+gradient.swift in Sources */,
@@ -2586,6 +2611,7 @@
 				A591C67922414C420051A4FE /* TextView.swift in Sources */,
 				0C5EFB8422022EB80069AF7F /* RestoreFromCloudView.swift in Sources */,
 				A587BFFA22144ADF00AFDFCB /* AddressTableCell.swift in Sources */,
+				0C651F3322803C9D005617FD /* AppSecrets.stencil in Sources */,
 				64AA49BF2145707C002CE1FE /* PrimaryButton.swift in Sources */,
 				6A4DB73C20C9A27100647F21 /* WelcomeView.swift in Sources */,
 				6A212D9C20DA9DCC00CD8594 /* UpdateEstimatedFeeEffect.swift in Sources */,

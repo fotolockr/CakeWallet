@@ -41,3 +41,6 @@ CakeWalletMonero/External/
 lmdb/Sources/
 .idea/
 SharedExternal/
+Generated/
+CakeWallet/Lib/AppSecrets.generated.swift
+__inject_secrets.sh

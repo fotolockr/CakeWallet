@@ -25,7 +25,7 @@ final class ChangeNowExchange: Exchange {
     }()
     
     static let provider = ExchangeProvider.changenow
-    static let apiKey = "ab1e78750a63d17847a12822cd9d04d98163b9d7e5459264fcd024eca0926545"
+    static let apiKey = AppSecrets.changeNowApiKey
     static let uri = "https://changenow.io/api/v1/"
     private static let baseExchangeAmountURI = String(format: "%@exchange-amount/", uri)
     private static let minAmountURI = String(format: "%@min-amount/", uri)

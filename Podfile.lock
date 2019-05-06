@@ -15,6 +15,7 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
+  - Sourcery (0.15.0)
   - SwiftSVG (2.2.0)
   - SwiftyJSON (4.1.0)
   - VisualEffectView (3.1.0)
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - RxBiBinding
   - RxCocoa (~> 4.0)
   - RxSwift (~> 4.0)
+  - Sourcery
   - SwiftSVG (~> 2.0)
   - SwiftyJSON
   - VisualEffectView
@@ -51,6 +53,7 @@ SPEC REPOS:
     - RxBiBinding
     - RxCocoa
     - RxSwift
+    - Sourcery
     - SwiftSVG
     - SwiftyJSON
     - VisualEffectView
@@ -69,11 +72,12 @@ SPEC CHECKSUMS:
   RxBiBinding: e2a54fdaaf9b6fe66e840cd0980a054830280935
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
+  Sourcery: 5895672cae353cdbfa95f3f4aaeb75a664d76f6a
   SwiftSVG: 19bc4e434dcf236ece45ddf75f5ee1d3ef8061e6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   VisualEffectView: 922eedf8d7d7e776a367ac11e0a4d4a0b2ba3545
   ZIPFoundation: 68c35eb2637c21abe56dc60b3277636443bc1501
 
-PODFILE CHECKSUM: c757d65ce4e71d54f285c6f12621959c00a45d97
+PODFILE CHECKSUM: f197991ad43844434d9e463da213f44af850c072
 
 COCOAPODS: 1.6.0
