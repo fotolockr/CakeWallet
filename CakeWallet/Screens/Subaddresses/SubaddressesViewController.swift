@@ -7,21 +7,6 @@ import RxSwift
 import FlexLayout
 
 
-//final class SubaddressCell: FlexCell {
-//    func setup(label: String, address: String) {
-//        textLabel?.text = label
-//    }
-//
-//    override func configureConstraints() {
-//        super.configureConstraints()
-//
-//        contentView.flex.define { flex in
-//
-//        }
-//    }
-//}
-
-
 final class SubaddressCell: FlexCell {
     static let height = 56 as CGFloat
     let nameLabel = UILabel()

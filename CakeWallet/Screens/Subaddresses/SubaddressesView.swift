@@ -10,10 +10,9 @@ final class SubaddressesView: BaseFlexView {
     
     required init() {
         table = UITableView()
-        newSubaddressButton = PrimaryButton(title: NSLocalizedString("add", comment: ""))
+        newSubaddressButton = UIButton()
         newSubaddressTextiField = TextField(placeholder: NSLocalizedString("new_subaddress_label", comment: ""), isTransparent: false)
     
-        newSubaddressButton = UIButton()
         newSubaddressButton.backgroundColor = Theme.current.container.background
         newSubaddressButton.imageView?.backgroundColor = Theme.current.container.background
         newSubaddressButton.setImage(UIImage(named: "add_icon_purple")?.resized(to: CGSize(width: 30, height: 30)), for: .normal)

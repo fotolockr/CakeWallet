@@ -1,6 +1,9 @@
 import UIKit
 
 final class CustomTabBarController: UITabBarController {
+    private static let additionalHeight = 10 as CGFloat
+    private static let titlePositionOffset = UIOffset(horizontal: 0, vertical: -5)
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         selectedViewController?.viewWillAppear(animated)
@@ -26,8 +29,14 @@ final class CustomTabBarController: UITabBarController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         var tabFrame = self.tabBar.frame
-        tabFrame.size.height = 90
+        let height = tabFrame.size.height + CustomTabBarController.additionalHeight
+        tabFrame.size.height = height
+        tabFrame.origin.y = self.view.frame.size.height - height
         self.tabBar.frame = tabFrame
+        
+        tabBar.items?.forEach { item in
+            item.titlePositionAdjustment = CustomTabBarController.titlePositionOffset
+        }
     }
 }
 
