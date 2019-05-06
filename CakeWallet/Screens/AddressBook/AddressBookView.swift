@@ -21,6 +21,7 @@ final class AddressBookView: BaseFlexView {
     
     override func configureConstraints() {
         rootFlexContainer.flex
+            .paddingTop(10)
             .backgroundColor(.white)
             .define { flex in
                 flex.addItem(table).height(100%).width(100%)

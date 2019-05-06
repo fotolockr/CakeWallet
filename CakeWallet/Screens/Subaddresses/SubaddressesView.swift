@@ -10,6 +10,7 @@ final class SubaddressesView: BaseFlexView {
     
     required init() {
         table = UITableView()
+        table.separatorStyle = .none
         newSubaddressButton = UIButton()
         newSubaddressTextiField = TextField(placeholder: NSLocalizedString("new_subaddress_label", comment: ""), isTransparent: false)
     
@@ -53,11 +54,11 @@ final class SubaddressesView: BaseFlexView {
         cardView.flex
             .paddingTop(10)
             .define { flex in
-                flex.addItem(newSubaddressContiner).width(100%)
+//                flex.addItem(newSubaddressContiner).width(100%)
                 flex.addItem(table).width(100%).grow(1)
         }
         
-        rootFlexContainer.flex.padding(20).alignItems(.start).define { flex in
+        rootFlexContainer.flex.alignItems(.start).define { flex in
             flex.addItem(cardView).grow(1).width(100%)
         }
     }

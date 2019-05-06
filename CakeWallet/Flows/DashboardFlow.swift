@@ -11,7 +11,7 @@ final class DashboardFlow: Flow {
         case receive
         case addressBook
         case subaddresses
-        case editSubaddress(Subaddress)
+        case addOrEditSubaddress(Subaddress?)
     }
     
     var rootController: UIViewController {
@@ -53,8 +53,8 @@ final class DashboardFlow: Flow {
             let subaddressesVC = SubaddressesViewController(store: store)
             subaddressesVC.flow = self
             navigationController.pushViewController(subaddressesVC, animated: true)
-        case let .editSubaddress(sub):
-            let subaddressVC = SubaddressViewController(store: store, subaddress: sub)
+        case let .addOrEditSubaddress(sub):
+            let subaddressVC = SubaddressViewController(flow: self, store: store, subaddress: sub)
             navigationController.pushViewController(subaddressVC, animated: true)
         }
 
