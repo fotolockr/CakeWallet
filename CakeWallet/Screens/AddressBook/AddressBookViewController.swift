@@ -3,8 +3,10 @@ import CakeWalletLib
 import CakeWalletCore
 import FlexLayout
 import SwiftyJSON
+import SwipeCellKit
 
-final class AddressBookViewController: BaseViewController<AddressBookView>, UITableViewDelegate, UITableViewDataSource {
+
+final class AddressBookViewController: BaseViewController<AddressBookView>, UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
     let addressBook: AddressBook
     let store: Store<ApplicationState>
     let isReadOnly: Bool?
@@ -82,7 +84,11 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let contact = contacts[indexPath.row]
-        return tableView.dequeueReusableCell(withItem: contact, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withItem: contact, for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
+        cell.addSeparator()
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -125,22 +131,24 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
         }
     }
     
-    @available(iOS 11.0, *)
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, view, completionHandler ) in
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let editAction = SwipeAction(style: .default, title: "Edit") { [weak self] action, indexPath in
             guard let contact = self?.contacts[indexPath.row] else {
                 return
             }
+            
             let newContactVC = NewAddressViewController(
                 addressBoook: AddressBook.shared,
                 contact: contact
             )
             self?.navigationController?.pushViewController(newContactVC, animated: true)
         }
+        editAction.image = UIImage(named: "edit_icon")?.resized(to: CGSize(width: 20, height: 20))
         
-        editAction.image = UIImage(named: "edit_icon")
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler ) in
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
             guard let uuid = self?.contacts[indexPath.row].uuid else {
                 return
             }
@@ -153,11 +161,9 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
                 self?.showErrorAlert(error: error)
             }
         }
+        deleteAction.image = UIImage(named: "trash_icon")?.resized(to: CGSize(width: 23, height: 23))
         
-        deleteAction.image = UIImage(named: "trash_icon")
-        
-        let confrigation = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
-        return confrigation
+        return [deleteAction, editAction]
     }
     
     private func createNoDataLabel(with size: CGSize) -> UIView {

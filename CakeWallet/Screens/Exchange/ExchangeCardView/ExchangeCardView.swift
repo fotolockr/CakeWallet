@@ -97,6 +97,8 @@ final class ExchangeCardView: BaseFlexView {
         minLabel.textAlignment = .right
         backgroundColor = .clear
         rootFlexContainer.layer.cornerRadius = 12
+//        rootFlexContainer.layer.borderWidth = 0.75
+//        rootFlexContainer.layer.borderColor = UIColor.grayBorder.cgColor
     }
     
     override func configureConstraints() {

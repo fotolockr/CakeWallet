@@ -18,6 +18,7 @@ target 'CakeWallet' do
     pod 'RxCocoa',    '~> 4.0'
     pod 'RxBiBinding'
     pod 'Sourcery'
+    pod 'SwipeCellKit'
 end
 
 target 'CWMonero' do

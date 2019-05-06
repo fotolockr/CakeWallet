@@ -18,6 +18,7 @@ PODS:
   - Sourcery (0.15.0)
   - SwiftSVG (2.2.0)
   - SwiftyJSON (4.1.0)
+  - SwipeCellKit (2.5.1)
   - VisualEffectView (3.1.0)
   - ZIPFoundation (0.9.6)
 
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - Sourcery
   - SwiftSVG (~> 2.0)
   - SwiftyJSON
+  - SwipeCellKit
   - VisualEffectView
   - ZIPFoundation (~> 0.9)
 
@@ -56,6 +58,7 @@ SPEC REPOS:
     - Sourcery
     - SwiftSVG
     - SwiftyJSON
+    - SwipeCellKit
     - VisualEffectView
     - ZIPFoundation
 
@@ -75,9 +78,10 @@ SPEC CHECKSUMS:
   Sourcery: 5895672cae353cdbfa95f3f4aaeb75a664d76f6a
   SwiftSVG: 19bc4e434dcf236ece45ddf75f5ee1d3ef8061e6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  SwipeCellKit: 30fd6a4f8a8b8ac864ea389c8b4c8bac5ba5471a
   VisualEffectView: 922eedf8d7d7e776a367ac11e0a4d4a0b2ba3545
   ZIPFoundation: 68c35eb2637c21abe56dc60b3277636443bc1501
 
-PODFILE CHECKSUM: f197991ad43844434d9e463da213f44af850c072
+PODFILE CHECKSUM: ca46be02938736c045b745c643070f747495f8d6
 
 COCOAPODS: 1.6.0

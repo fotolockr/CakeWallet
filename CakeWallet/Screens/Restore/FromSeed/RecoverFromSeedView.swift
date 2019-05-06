@@ -1,21 +1,25 @@
 import UIKit
 import FlexLayout
 
+
 final class RecoverFromSeedView: BaseFlexView {
-    let cardWrapper, actionButtonsContainer: UIView
+    let cardWrapper, actionButtonsContainer, seedContainer: UIView
     let restoreFromHeightView: RestoreFromHeightView
     var walletNameField: TextField
     var seedField: TextView
     let doneButton: LoadingButton
+    let pasteSeedButton: IconedCopyButton
     
     required init() {
         cardWrapper = UIView()
         actionButtonsContainer = UIView()
+        seedContainer = UIView()
         walletNameField = TextField(placeholder: NSLocalizedString("wallet_name", comment: ""), fontSize: 16, isTransparent: false)
         restoreFromHeightView = RestoreFromHeightView()
         seedField = TextView(placeholder: NSLocalizedString("seed", comment: ""), fontSize: 16)
         doneButton = PrimaryLoadingButton()
         doneButton.setTitle(NSLocalizedString("recover", comment: ""), for: .normal)
+        pasteSeedButton = IconedCopyButton()
         
         super.init()
     }
@@ -29,7 +33,6 @@ final class RecoverFromSeedView: BaseFlexView {
     override func configureConstraints() {
         var adaptiveMargin: CGFloat
         cardWrapper.layer.cornerRadius = 12
-        cardWrapper.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 0, blur: 20, spread: -10)
         cardWrapper.backgroundColor = Theme.current.card.background
         
         adaptiveMargin = adaptiveLayout.getSize(forLarge: 34, forBig: 32, defaultSize: 30)
@@ -38,14 +41,20 @@ final class RecoverFromSeedView: BaseFlexView {
             adaptiveMargin = 18
         }
         
+        seedContainer.flex
+            .define { flex in
+                flex.addItem(seedField).width(100%).paddingRight(30)
+//                flex.addItem(pasteSeedButton).width(35).height(35).position(.absolute).right(0).top(-5)
+        }
+        
         cardWrapper.flex
             .justifyContent(.start)
             .alignItems(.center)
-            .padding(40, 20, 45, 20)
+            .padding(40, 10, 45, 10)
             .define{ flex in
                 flex.addItem(walletNameField).width(100%).marginBottom(adaptiveMargin)
                 flex.addItem(restoreFromHeightView).width(100%).marginBottom(adaptiveMargin - 10)
-                flex.addItem(seedField).width(100%)
+                flex.addItem(seedContainer).width(100%)
         }
         
         actionButtonsContainer.flex

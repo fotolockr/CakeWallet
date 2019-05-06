@@ -1982,8 +1982,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA1D6558209A3EBC00A1FDDB /* Build configuration list for PBXNativeTarget "CakeWallet" */;
 			buildPhases = (
-				0C6DEB272280713900536AA1 /* ShellScript */,
 				3C6808B88FF9BF86AD508F6F /* [CP] Check Pods Manifest.lock */,
+				0C6DEB272280713900536AA1 /* ShellScript */,
 				CA1D6537209A3EBB00A1FDDB /* Sources */,
 				CA1D6538209A3EBB00A1FDDB /* Frameworks */,
 				CA1D6539209A3EBB00A1FDDB /* Resources */,
@@ -2271,6 +2271,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSVG/SwiftSVG.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/VisualEffectView/VisualEffectView.framework",
 				"${BUILT_PRODUCTS_DIR}/ZIPFoundation/ZIPFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
@@ -2290,6 +2291,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSVG.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VisualEffectView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZIPFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
