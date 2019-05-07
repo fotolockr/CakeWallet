@@ -6,8 +6,8 @@ final class SubaddressView: BaseFlexView {
     let editButton: UIButton
     
     required init() {
-        labelContainer = CWTextField(placeholder: NSLocalizedString("label", comment: ""))
-        labelContainer.font = applyFont(ofSize: 19)
+        labelContainer = CWTextField(placeholder: "Subaddress")
+        labelContainer.font = applyFont(ofSize: 17)
         editButton = PrimaryButton(title: NSLocalizedString("edit", comment: ""))
         super.init()
     }

@@ -116,7 +116,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
         updateWallets(state.walletsState.wallets)
         updateCurrentWallet()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 

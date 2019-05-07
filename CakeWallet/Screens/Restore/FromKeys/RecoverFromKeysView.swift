@@ -27,7 +27,6 @@ final class RecoverFromKeysView: BaseFlexView {
     override func configureConstraints() {
         var adaptiveMargin: CGFloat
         cardWrapper.layer.cornerRadius = 12
-        cardWrapper.layer.applySketchShadow(color: UIColor(hex: 0x29174d), alpha: 0.1, x: 0, y: 0, blur: 20, spread: -10)
         cardWrapper.backgroundColor = Theme.current.card.background
         
         adaptiveMargin = adaptiveLayout.getSize(forLarge: 34, forBig: 32, defaultSize: 30)
@@ -39,7 +38,7 @@ final class RecoverFromKeysView: BaseFlexView {
         cardWrapper.flex
             .justifyContent(.start)
             .alignItems(.center)
-            .padding(30, 20, 10, 20)
+            .padding(30, 10, 10, 10)
             .define{ flex in
                 flex.addItem(walletNameField).width(100%).marginBottom(adaptiveMargin - 10)
                 flex.addItem(addressTextView).width(100%).marginBottom(adaptiveMargin)

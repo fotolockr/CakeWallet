@@ -16,7 +16,8 @@ final class NewAddressView: BaseFlexView {
     
     required init() {
         cardView = UIView()
-        contactNameTextField = CWTextField(placeholder: NSLocalizedString("Contact Name", comment: ""), fontSize: 16)
+        contactNameTextField = CWTextField(placeholder: NSLocalizedString("Contact Name", comment: ""))
+        contactNameTextField.font = applyFont(ofSize: 15)
         
         addressView = AddressView(placeholder: "Address", hideAddressBookButton: true)
         addressView.textView.font = applyFont(ofSize: 16)
@@ -26,22 +27,22 @@ final class NewAddressView: BaseFlexView {
         buttonsContainer = UIView()
         
         pickerView = UIPickerView()
-        pickerTextField = CWTextField(placeholder: NSLocalizedString("Select cryptocurrency", comment: ""), fontSize: 15)
+        pickerTextField = CWTextField(placeholder: NSLocalizedString("Select cryptocurrency", comment: ""))
         pickerTextField.inputView = pickerView
         
         super.init()
     }
     
     override func configureConstraints() {
-        cardView.flex.padding(20).justifyContent(.spaceBetween).define { flex in
+        cardView.flex.padding(20, 10, 20, 10).justifyContent(.spaceBetween).define { flex in
             flex.addItem(contactNameTextField).height(50)
             flex.addItem(pickerTextField).height(50).marginTop(15)
             flex.addItem(addressView).marginTop(20)
         }
         
-        buttonsContainer.flex.direction(.row).justifyContent(.spaceBetween).define { flex in
-            flex.addItem(resetButton).height(56).width(45%)
-            flex.addItem(saveButton).height(56).width(45%)
+        buttonsContainer.flex.direction(.row).justifyContent(.center).define { flex in
+            flex.addItem(resetButton).height(56).width(45%).marginRight(10)
+            flex.addItem(saveButton).height(56).width(45%).marginLeft(10)
         }
         
         rootFlexContainer.flex.justifyContent(.center).alignItems(.center).paddingHorizontal(10).define { flex in

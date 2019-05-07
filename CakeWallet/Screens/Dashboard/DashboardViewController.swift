@@ -1,7 +1,9 @@
 import UIKit
 import CakeWalletLib
 import CakeWalletCore
+import CWMonero
 import FlexLayout
+
 
 final class DashboardController: BaseViewController<DashboardView>, StoreSubscriber, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
     let walletNameView = WalletNameView()
@@ -224,6 +226,21 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.reconnectAction()
         }
         
+        let showSeedAction = UIAlertAction(title: NSLocalizedString("show_seed", comment: ""), style: .default) { [weak self] _ in
+            guard
+                let walletName = self?.store.state.walletState.name,
+                let walletType = self?.store.state.walletState.walletType else {
+                    return
+            }
+            
+            let index = WalletIndex(name: walletName, type: walletType)
+            self?.showSeedAction(for: index)
+        }
+        
+        let showKeysAction = UIAlertAction(title: NSLocalizedString("show_keys", comment: ""), style: .default) { [weak self] _ in
+            self?.showKeysAction()
+        }
+        
         let presentSubaddressesAction = UIAlertAction(title: NSLocalizedString("subaddresses", comment: ""), style: .default) { [weak self] _ in
             self?.dashboardFlow?.change(route: .subaddresses)
         }
@@ -233,6 +250,8 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         }
         
         alertViewController.addAction(presentReconnectAction)
+        alertViewController.addAction(showSeedAction)
+        alertViewController.addAction(showKeysAction)
         alertViewController.addAction(presentSubaddressesAction)
         alertViewController.addAction(presentAddressBookAction)
         alertViewController.addAction(cancelAction)
@@ -255,6 +274,45 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private func onWalletChange(_ walletState: WalletState, _ blockchainState: BlockchainState) {
         initialHeight = 0
         updateTitle(walletState.name)
+    }
+    
+    private func showSeedAction(for wallet: WalletIndex) {
+        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
+        let navController = UINavigationController(rootViewController: authController)
+        
+        authController.onDismissHandler = onDismissHandler
+        authController.handler = { [weak authController, weak self] in
+            do {
+                let gateway = MoneroWalletGateway()
+                let walletURL = gateway.makeConfigURL(for: wallet.name)
+                let walletConfig = try WalletConfig.load(from: walletURL)
+                let seed = try gateway.fetchSeed(for: wallet)
+                
+                authController?.dismiss(animated: true) {
+                    self?.dashboardFlow?.change(route: .showSeed(wallet: wallet.name, date: walletConfig.date, seed: seed))
+                }
+                
+            } catch {
+                print(error)
+                self?.showErrorAlert(error: error)
+            }
+        }
+        
+        present(navController, animated: true)
+    }
+    
+    
+    private func showKeysAction() {
+        let authController = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
+        let navController = UINavigationController(rootViewController: authController)
+        authController.onDismissHandler = onDismissHandler
+        authController.handler = { [weak authController, weak self] in
+            authController?.dismiss(animated: true) {
+                self?.dashboardFlow?.change(route: .showKeys)
+            }
+        }
+        
+        present(navController, animated: true)
     }
     
     private func reconnectAction() {

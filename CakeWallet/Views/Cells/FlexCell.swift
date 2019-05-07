@@ -1,7 +1,8 @@
 import UIKit
 import FlexLayout
+import SwipeCellKit
 
-class FlexCell: UITableViewCell {
+class FlexCell: SwipeTableViewCell {
     static let identifier = String(describing: FlexCell.self)
     let separatorView: UIView
     

@@ -33,9 +33,9 @@ final class AddressTableCell: FlexCell {
         super.configureConstraints()
         
         contentView.flex
-            .direction(.row).justifyContent(.spaceBetween).alignItems(.center)
+            .direction(.row).alignItems(.center)
             .height(AddressTableCell.height).width(100%)
-            .marginTop(15).padding(5, 15, 5, 15)
+            .padding(5, 15, 5, 15)
             .define { flex in
                 flex.addItem(leftViewWrapper).define({ wrapperFlex in
                     wrapperFlex
