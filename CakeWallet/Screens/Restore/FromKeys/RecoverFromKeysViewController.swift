@@ -38,10 +38,10 @@ final class RecoverFromKeysViewController: BaseViewController<RecoverFromKeysVie
     private func recoverAction() {
         contentView.doneButton.showLoading()
         
-        if let walletName = contentView.walletNameField.textField.text,
-            let address = contentView.addressField.textField.text,
-            let viewKey = contentView.viewKeyField.textField.text,
-            let spendKey = contentView.spendKeyField.textField.text {
+        if let walletName = contentView.walletNameField.text,
+            let address = contentView.addressTextView.text,
+            let viewKey = contentView.viewKeyField.text,
+            let spendKey = contentView.spendKeyField.text {
             
             self.store.dispatch(
                 WalletActions.restoreFromKeys(

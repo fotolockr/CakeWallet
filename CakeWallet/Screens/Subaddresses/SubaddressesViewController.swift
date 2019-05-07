@@ -130,7 +130,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
     
     @objc
     private func addSubaddressAction() {
-        guard let label = contentView.newSubaddressTextiField.textField.text else {
+        guard let label = contentView.newSubaddressTextiField.text else {
             return
         }
                 
@@ -139,7 +139,7 @@ final class SubaddressesViewController: BaseViewController<SubaddressesView>, UI
                 withLabel: label,
                 handler: { [weak self] in
                     DispatchQueue.main.async {
-                        self?.contentView.newSubaddressTextiField.textField.text = nil
+                        self?.contentView.newSubaddressTextiField.text = nil
                     }
             })
         )

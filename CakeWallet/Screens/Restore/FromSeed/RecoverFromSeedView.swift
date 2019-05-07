@@ -4,16 +4,16 @@ import FlexLayout
 final class RecoverFromSeedView: BaseFlexView {
     let cardWrapper, actionButtonsContainer: UIView
     let restoreFromHeightView: RestoreFromHeightView
-    var walletNameField: TextField
-    var seedField: TextView
+    var walletNameField: CWTextField
+    var seedField: CWTextView
     let doneButton: LoadingButton
     
     required init() {
         cardWrapper = UIView()
         actionButtonsContainer = UIView()
-        walletNameField = TextField(placeholder: NSLocalizedString("wallet_name", comment: ""), fontSize: 16, isTransparent: false)
+        walletNameField = CWTextField(placeholder: NSLocalizedString("wallet_name", comment: ""), fontSize: 16)
         restoreFromHeightView = RestoreFromHeightView()
-        seedField = TextView(placeholder: NSLocalizedString("seed", comment: ""), fontSize: 16)
+        seedField = CWTextView(placeholder: NSLocalizedString("seed", comment: ""), fontSize: 16)
         doneButton = PrimaryLoadingButton()
         doneButton.setTitle(NSLocalizedString("recover", comment: ""), for: .normal)
         
@@ -22,8 +22,8 @@ final class RecoverFromSeedView: BaseFlexView {
     
     override func configureView() {
         super.configureView()
-        seedField.textField.isScrollEnabled = false
-        seedField.textField.delegate = self
+        seedField.isScrollEnabled = false
+        seedField.delegate = self
     }
     
     override func configureConstraints() {

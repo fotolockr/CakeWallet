@@ -20,9 +20,9 @@ final class SubaddressViewController: BaseViewController<SubaddressView> {
     
     override func configureBinds() {
         title = "Edit subaddress"
-        contentView.labelContainer.textField.text = label.value
+        contentView.labelContainer.text = label.value
         
-        contentView.labelContainer.textField.rx.text.orEmpty
+        contentView.labelContainer.rx.text.orEmpty
             .bind(to: label)
             .disposed(by: disposeBag)
         

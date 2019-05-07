@@ -9,17 +9,17 @@ import CWMonero
 final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscriber {
     var paymentId: String? {
         get {
-            return contentView.paymentIdTextField.textField.text
+            return contentView.paymentIdTextField.text
         }
         
         set {
-            contentView.paymentIdTextField.textField.text = newValue
+            contentView.paymentIdTextField.text = newValue
         }
     }
    
     var amount: Amount? {
         get {
-            if let rawString = contentView.amountTextField.textField.text {
+            if let rawString = contentView.amountTextField.text {
                 return MoneroAmount(from: rawString)
             }
             
@@ -27,17 +27,17 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         }
         
         set {
-            contentView.amountTextField.textField.text = newValue?.formatted()
+            contentView.amountTextField.text = newValue?.formatted()
         }
     }
     
     var integratedAddress: String? {
         get {
-            return contentView.integratedAddressTextField.textField.text
+            return contentView.integratedAddressTextField.text
         }
         
         set {
-            contentView.integratedAddressTextField.textField.text = newValue
+            contentView.integratedAddressTextField.text = newValue
         }
     }
     
@@ -62,7 +62,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         contentView.paymentIdCopyButton.addTarget(self, action: #selector(onCopyPaymenIdAction), for: .touchUpInside)
         contentView.integratedAddressCopyButton.addTarget(self, action: #selector(onCopyIntegratedAddressAction), for: .touchUpInside)
         contentView.resetButton.addTarget(self, action: #selector(resetOptions), for: .touchUpInside)
-        contentView.amountTextField.textField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
+        contentView.amountTextField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
         contentView.newPaymentId.addTarget(self, action: #selector(generatePaymentId), for: .touchUpInside)
         switchOptionsButton()
         let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 10, height: 12)))
@@ -154,20 +154,20 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
     @objc
     func onCopyPaymenIdAction() {
         showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
-        UIPasteboard.general.string = contentView.paymentIdTextField.textField.text
+        UIPasteboard.general.string = contentView.paymentIdTextField.text
     }
     
     @objc
     func onCopyIntegratedAddressAction() {
         showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
-        UIPasteboard.general.string = contentView.integratedAddressTextField.textField.text
+        UIPasteboard.general.string = contentView.integratedAddressTextField.text
     }
     
     @objc
     func resetOptions() {
         amount = nil
         paymentId = nil
-        contentView.integratedAddressTextField.textField.text = nil
+        contentView.integratedAddressTextField.text = nil
         changeQR(address: address, paymentId: paymentId, amount: amount)
     }
     

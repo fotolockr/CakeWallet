@@ -3,20 +3,20 @@ import FlexLayout
 
 final class NewNodeView: BaseFlexView {
     let cardView: UIView
-    let nodeAddressTextField: TextField
-    let nodePortTextField: TextField
-    let loginTextField: TextField
-    let passwordTextField: TextField
+    let nodeAddressTextField: CWTextField
+    let nodePortTextField: CWTextField
+    let loginTextField: CWTextField
+    let passwordTextField: CWTextField
     let saveButton: UIButton
     let resetSettings: UIButton
     let buttonsContainer: UIView
     
     required init() {
         cardView = CardView()
-        nodeAddressTextField = TextField(placeholder: NSLocalizedString("node_address", comment: "")) //FloatingLabelTextField(placeholder: NSLocalizedString("node_address", comment: ""))
-        nodePortTextField = TextField(placeholder: NSLocalizedString("node_port", comment: "")) //FloatingLabelTextField(placeholder: NSLocalizedString("node_port", comment: ""))
-        loginTextField = TextField(placeholder: NSLocalizedString("login", comment: "")) //FloatingLabelTextField(placeholder: NSLocalizedString("login", comment: ""), isOptional: true)
-        passwordTextField = TextField(placeholder: NSLocalizedString("password", comment: "")) //FloatingLabelTextField(placeholder: NSLocalizedString("password", comment: ""), isOptional: true)
+        nodeAddressTextField = CWTextField(placeholder: NSLocalizedString("node_address", comment: "")) //FloatingLabelTextField(placeholder: NSLocalizedString("node_address", comment: ""))
+        nodePortTextField = CWTextField(placeholder: NSLocalizedString("node_port", comment: "")) //FloatingLabelTextField(placeholder: NSLocalizedString("node_port", comment: ""))
+        loginTextField = CWTextField(placeholder: NSLocalizedString("login", comment: "")) //FloatingLabelTextField(placeholder: NSLocalizedString("login", comment: ""), isOptional: true)
+        passwordTextField = CWTextField(placeholder: NSLocalizedString("password", comment: "")) //FloatingLabelTextField(placeholder: NSLocalizedString("password", comment: ""), isOptional: true)
         saveButton = PrimaryButton(title: NSLocalizedString("save", comment: ""))
         resetSettings = SecondaryButton(title: NSLocalizedString("reset", comment: ""))
         buttonsContainer = UIView()
@@ -25,8 +25,8 @@ final class NewNodeView: BaseFlexView {
     
     override func configureView() {
         super.configureView()
-        nodePortTextField.textField.keyboardType = .numberPad
-        passwordTextField.textField.isSecureTextEntry = true
+        nodePortTextField.keyboardType = .numberPad
+        passwordTextField.isSecureTextEntry = true
     }
     
     override func configureConstraints() {

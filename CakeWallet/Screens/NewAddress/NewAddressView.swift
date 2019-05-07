@@ -3,7 +3,7 @@ import FlexLayout
 
 final class NewAddressView: BaseFlexView {
     let cardView: UIView
-    let contactNameTextField: TextField
+    let contactNameTextField: CWTextField
     
     let addressView: AddressView
     
@@ -12,11 +12,11 @@ final class NewAddressView: BaseFlexView {
     let buttonsContainer: UIView
     
     let pickerView: UIPickerView
-    let pickerTextField: TextField
+    let pickerTextField: CWTextField
     
     required init() {
         cardView = UIView()
-        contactNameTextField = TextField(placeholder: NSLocalizedString("Contact Name", comment: ""), fontSize: 16)
+        contactNameTextField = CWTextField(placeholder: NSLocalizedString("Contact Name", comment: ""), fontSize: 16)
         
         addressView = AddressView(placeholder: "Address", hideAddressBookButton: true)
         addressView.textView.font = applyFont(ofSize: 16)
@@ -26,8 +26,8 @@ final class NewAddressView: BaseFlexView {
         buttonsContainer = UIView()
         
         pickerView = UIPickerView()
-        pickerTextField = TextField(placeholder: NSLocalizedString("Select cryptocurrency", comment: ""), fontSize: 15)
-        pickerTextField.textField.inputView = pickerView
+        pickerTextField = CWTextField(placeholder: NSLocalizedString("Select cryptocurrency", comment: ""), fontSize: 15)
+        pickerTextField.inputView = pickerView
         
         super.init()
     }

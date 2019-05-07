@@ -117,37 +117,25 @@ func getHeight(from date: Date, handler: @escaping (UInt64) -> Void) {
 }
 
 final class RestoreFromHeightView: BaseFlexView {
-    let withTransparentBackground: Bool
     let wrapper: UIView
-    let restoreHeightTextField: TextField
-    let dateTextField: TextField
+    let restoreHeightTextField: CWTextField
+    let dateTextField: CWTextField
     let datePicker: UIDatePicker
     var restoreHeight: UInt64 {
         var height: UInt64 = 0
         if
-            let heightStr = restoreHeightTextField.textField.text,
+            let heightStr = restoreHeightTextField.text,
             let _height = UInt64(heightStr) {
             height = _height
         }
         return height
     }
     
-    required init(withTransparentBackground: Bool = false) {
-        self.withTransparentBackground = withTransparentBackground
-        wrapper = UIView()
-        restoreHeightTextField = TextField(placeholder: NSLocalizedString("restore_height", comment: ""), fontSize: 16, isTransparent: withTransparentBackground)
-        dateTextField = TextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), fontSize: 16, isTransparent: withTransparentBackground)
-        datePicker = UIDatePicker()
-        super.init()
-    }
-    
     required init() {
-        self.withTransparentBackground = false
         wrapper = UIView()
-        restoreHeightTextField = TextField(placeholder: NSLocalizedString("restore_height", comment: ""), fontSize: 16, isTransparent: withTransparentBackground)
-        dateTextField = TextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), fontSize: 16, isTransparent: withTransparentBackground)
+        restoreHeightTextField = CWTextField(placeholder: NSLocalizedString("restore_height", comment: ""), fontSize: 16)
+        dateTextField = CWTextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), fontSize: 16)
         datePicker = UIDatePicker()
-        
         super.init()
     }
     
@@ -155,10 +143,10 @@ final class RestoreFromHeightView: BaseFlexView {
         super.configureView()
         
         backgroundColor = .clear
-        restoreHeightTextField.textField.keyboardType = .numberPad
+        restoreHeightTextField.keyboardType = .numberPad
         datePicker.datePickerMode = .date
         datePicker.locale = Locale.current
-        dateTextField.textField.inputView = datePicker
+        dateTextField.inputView = datePicker
         datePicker.maximumDate = Date()
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         datePicker.addTarget(self, action: #selector(onDateChange(_:)), for: .valueChanged)
@@ -172,7 +160,7 @@ final class RestoreFromHeightView: BaseFlexView {
         
         getHeight(from: date) { [weak self] height in
             DispatchQueue.main.async {
-                self?.restoreHeightTextField.textField.text = "\(height)"
+                self?.restoreHeightTextField.text = "\(height)"
             }
         }
     }
@@ -183,7 +171,7 @@ final class RestoreFromHeightView: BaseFlexView {
         dateFormatter.locale = Locale.current
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = Locale.current.regionCode?.lowercased() == "us" ? "MMMM d, yyyy" : "d MMMM, yyyy" //fixme hardcoded regionCode value
-        dateTextField.textField.text = dateFormatter.string(from: datePicker.date)
+        dateTextField.text = dateFormatter.string(from: datePicker.date)
     }
     
     override func configureConstraints() {

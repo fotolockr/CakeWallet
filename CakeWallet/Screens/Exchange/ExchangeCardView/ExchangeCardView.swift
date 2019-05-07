@@ -48,7 +48,7 @@ final class ExchangeCardView: BaseFlexView {
     let topCardView: UIView
     let pickerRow: UIView
     let pickerButton: UIView
-    let amountTextField: TextField
+    let amountTextField: CWTextField
     let addressContainer: AddressView
     let receiveView: UIView
     let receiveViewTitle: UILabel
@@ -64,7 +64,7 @@ final class ExchangeCardView: BaseFlexView {
         topCardView = UIView()
         pickerRow = UIView()
         pickerButton = UIView()
-        amountTextField = TextField(placeholder: "0.000", fontSize: 25, isTransparent: false)
+        amountTextField = CWTextField(placeholder: "0.000", fontSize: 25)
         addressContainer = AddressView(placeholder: addressPlaceholder)
         receiveView = UIView()
         receiveViewTitle = UILabel(text: "You will receive")
@@ -83,8 +83,8 @@ final class ExchangeCardView: BaseFlexView {
     override func configureView() {
         super.configureView()
         cardTitle.font = applyFont(ofSize: 17, weight: .semibold)
-        amountTextField.textField.textAlignment = .right
-        amountTextField.textField.keyboardType = .decimalPad
+        amountTextField.textAlignment = .right
+        amountTextField.keyboardType = .decimalPad
         receiveViewTitle.font = applyFont(ofSize: 15)
         receiveViewTitle.textColor = UIColor.wildDarkBlue
         receiveViewTitle.textAlignment = .right

@@ -10,14 +10,14 @@ final class ReceiveView: BaseScrollFlexView {
     let copyAddressButton: UIButton
     let switchOptionsButton: UIButton
     let optionsView: UIView
-    let amountTextField: TextField
+    let amountTextField: CWTextField
     
     let paymentIdContainer: UIView
-    let paymentIdTextField: TextField
+    let paymentIdTextField: CWTextField
     let paymentIdCopyButton: IconedCopyButton
     
     let integratedAddressContainer: UIView
-    let integratedAddressTextField: TextField
+    let integratedAddressTextField: CWTextField
     let integratedAddressCopyButton: IconedCopyButton
     
     let resetButton: UIButton
@@ -33,9 +33,9 @@ final class ReceiveView: BaseScrollFlexView {
         copyAddressButton = SecondaryButton(title: NSLocalizedString("copy_address", comment: ""))
         switchOptionsButton = UIButton()
         optionsView = UIView()
-        amountTextField = TextField(placeholder: NSLocalizedString("amount", comment: ""), fontSize: 15)
-        paymentIdTextField = TextField(placeholder: "Payment ID (optional)", fontSize: 15)
-        integratedAddressTextField = TextField(placeholder: NSLocalizedString("Integrated address (optional)", comment: ""), fontSize: 15)
+        amountTextField = CWTextField(placeholder: NSLocalizedString("amount", comment: ""), fontSize: 15)
+        paymentIdTextField = CWTextField(placeholder: "Payment ID (optional)", fontSize: 15)
+        integratedAddressTextField = CWTextField(placeholder: NSLocalizedString("Integrated address (optional)", comment: ""), fontSize: 15)
         integratedAddressContainer = UIView()
         paymentIdContainer = UIView()
         resetButton = SecondaryButton(title: "Reset", fontSize: 14)
@@ -56,7 +56,7 @@ final class ReceiveView: BaseScrollFlexView {
         addressLabel.textAlignment = .center
         addressLabel.numberOfLines = 0
         addressLabel.font = applyFont(ofSize: 14)
-        amountTextField.textField.keyboardType = .decimalPad
+        amountTextField.keyboardType = .decimalPad
         switchOptionsButton.setTitle(NSLocalizedString("more_options", comment: ""), for: .normal)
         switchOptionsButton.setTitleColor(UIColor.turquoiseBlue, for: .normal)
     }
@@ -74,13 +74,13 @@ final class ReceiveView: BaseScrollFlexView {
         paymentIdContainer.flex
             .define { flex in
                 flex.addItem(paymentIdTextField).width(100%)
-                flex.addItem(paymentIdCopyButton).width(35).height(35).position(.absolute).right(0).top(-10)
+                flex.addItem(paymentIdCopyButton).width(35).height(35).position(.absolute).right(0)
         }
         
         integratedAddressContainer.flex
             .define { flex in
                 flex.addItem(integratedAddressTextField).width(100%)
-                flex.addItem(integratedAddressCopyButton).width(35).height(35).position(.absolute).right(0).top(-10)
+                flex.addItem(integratedAddressCopyButton).width(35).height(35).position(.absolute).right(0)
         }
         
         buttonsContainer.flex.justifyContent(.center).direction(.row).define { flex in
@@ -91,9 +91,9 @@ final class ReceiveView: BaseScrollFlexView {
         optionsView.flex
             .paddingHorizontal(9)
             .define { flex in
-                flex.addItem(amountTextField).marginTop(25)
-                flex.addItem(paymentIdContainer).marginTop(30)
-                flex.addItem(integratedAddressContainer).marginTop(30)
+                flex.addItem(amountTextField).marginTop(25).height(45)
+                flex.addItem(paymentIdContainer).marginTop(30).height(45)
+                flex.addItem(integratedAddressContainer).marginTop(30).height(45)
                 flex.addItem(buttonsContainer).marginTop(30).width(100%)
         }
         

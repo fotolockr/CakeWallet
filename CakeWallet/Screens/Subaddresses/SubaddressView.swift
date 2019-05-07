@@ -2,12 +2,12 @@ import UIKit
 import FlexLayout
 
 final class SubaddressView: BaseFlexView {
-    let labelContainer: TextField
+    let labelContainer: CWTextField
     let editButton: UIButton
     
     required init() {
-        labelContainer = TextField(placeholder: NSLocalizedString("label", comment: ""))
-        labelContainer.textField.font = applyFont(ofSize: 19)
+        labelContainer = CWTextField(placeholder: NSLocalizedString("label", comment: ""))
+        labelContainer.font = applyFont(ofSize: 19)
         editButton = PrimaryButton(title: NSLocalizedString("edit", comment: ""))
         super.init()
     }

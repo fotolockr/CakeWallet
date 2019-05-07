@@ -39,8 +39,8 @@ final class RecoverFromSeedViewCntroller: BaseViewController<RecoverFromSeedView
     private func recoverAction() {
         contentView.doneButton.showLoading()
         
-        if let walletName = contentView.walletNameField.textField.text,
-            let seed = contentView.seedField.textField.text {
+        if let walletName = contentView.walletNameField.text,
+            let seed = contentView.seedField.text {
             
             self.store.dispatch(
                 WalletActions.restoreFromSeed(

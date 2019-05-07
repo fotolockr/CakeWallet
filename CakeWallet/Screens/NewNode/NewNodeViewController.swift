@@ -20,8 +20,8 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
     
     private func setSettings(_ node: NodeDescription) {
         setAddress(fromUri: node.uri)
-        contentView.loginTextField.textField.text = node.login
-        contentView.passwordTextField.textField.text =  node.password
+        contentView.loginTextField.text = node.login
+        contentView.passwordTextField.text =  node.password
     }
     
     private func setAddress(fromUri uri: String) {
@@ -29,8 +29,8 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
         let address = splitedUri.first ?? ""
         let port = Int(splitedUri.last ?? "") ?? 0
         
-        contentView.nodeAddressTextField.textField.text = address
-        contentView.nodePortTextField.textField.text  = "\(port)"
+        contentView.nodeAddressTextField.text = address
+        contentView.nodePortTextField.text  = "\(port)"
     }
     
     @objc
@@ -41,8 +41,8 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
     @objc
     private func save() {
         guard
-            let address = contentView.nodeAddressTextField.textField.text,
-            let port = contentView.nodePortTextField.textField.text else {
+            let address = contentView.nodeAddressTextField.text,
+            let port = contentView.nodePortTextField.text else {
                 return
         }
 
@@ -51,8 +51,8 @@ final class NewNodeViewController: BaseViewController<NewNodeView> {
             
             let nodeDescription = MoneroNodeDescription(
                 uri: uri,
-                login: self.contentView.loginTextField.textField.text ?? "",
-                password: self.contentView.passwordTextField.textField.text ?? "")
+                login: self.contentView.loginTextField.text ?? "",
+                password: self.contentView.passwordTextField.text ?? "")
             
             do {
                 try self.nodesList.add(node: nodeDescription)

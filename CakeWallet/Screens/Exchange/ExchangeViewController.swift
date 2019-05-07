@@ -711,18 +711,18 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     let store: Store<ApplicationState>
     
     var depositAmount: Amount {
-        let stringAmount = contentView.depositCardView.amountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? ""
+        let stringAmount = contentView.depositCardView.amountTextField.text?.replacingOccurrences(of: ",", with: ".") ?? ""
         return makeAmount(stringAmount, currency: depositCrypto.value)
     }
     
     private var receiveAmount: Amount {
         get {
-            let stringAmount = contentView.receiveCardView.amountTextField.textField.text?.replacingOccurrences(of: ",", with: ".") ?? ""
+            let stringAmount = contentView.receiveCardView.amountTextField.text?.replacingOccurrences(of: ",", with: ".") ?? ""
             return makeAmount(stringAmount, currency: receiveCrypto.value)
         }
         
         set {
-            contentView.receiveCardView.amountTextField.textField.text = newValue.formatted()
+            contentView.receiveCardView.amountTextField.text = newValue.formatted()
         }
     }
     
@@ -860,10 +860,10 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         (contentView.depositCardView.addressContainer.textView.originText <-> depositRefundAddress)
             .disposed(by: disposeBag)
         
-        (contentView.depositCardView.amountTextField.textField.rx.text.orEmpty <-> depositAmountString)
+        (contentView.depositCardView.amountTextField.rx.text.orEmpty <-> depositAmountString)
             .disposed(by: disposeBag)
         
-        (contentView.receiveCardView.amountTextField.textField.rx.text.orEmpty <-> receiveAmountString)
+        (contentView.receiveCardView.amountTextField.rx.text.orEmpty <-> receiveAmountString)
             .disposed(by: disposeBag)
         
         let depositCryptoObserver = depositCrypto.asObservable()
@@ -884,13 +884,13 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             .map { self.exchange.calculateAmount($0, from: self.depositCrypto.value, to: self.receiveCrypto.value) }
             .flatMap { $0 }
             .map { return $0.formatted() }
-            .bind(to: contentView.receiveCardView.amountTextField.textField.rx.text)
+            .bind(to: contentView.receiveCardView.amountTextField.rx.text)
             .disposed(by: disposeBag)
         
         depositAmountObserver
             .filter { $0.isEmpty }
             .map { _ in return nil }
-            .bind(to: contentView.receiveCardView.amountTextField.textField.rx.text)
+            .bind(to: contentView.receiveCardView.amountTextField.rx.text)
             .disposed(by: disposeBag)
         
         receiveAmountObserver
@@ -899,13 +899,13 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             .map { self.exchange.calculateAmount($0, from: self.receiveCrypto.value, to: self.depositCrypto.value) }
             .flatMap { $0 }
             .map { return $0.formatted() }
-            .bind(to: contentView.depositCardView.amountTextField.textField.rx.text)
+            .bind(to: contentView.depositCardView.amountTextField.rx.text)
             .disposed(by: disposeBag)
         
         receiveAmountObserver
             .filter { $0.isEmpty }
             .map { _ in return nil }
-            .bind(to: contentView.depositCardView.amountTextField.textField.rx.text)
+            .bind(to: contentView.depositCardView.amountTextField.rx.text)
             .disposed(by: disposeBag)
         
         receiveCryptoObserver.bind {
@@ -1031,15 +1031,15 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         updateLimits()
         setProviderTitle()
         exchangeNameView.subtitle = exchange.provider.formatted()
-        contentView.depositCardView.amountTextField.textField.isUserInteractionEnabled = !isXMRTO
-        contentView.receiveCardView.amountTextField.textField.isUserInteractionEnabled = isXMRTO
+        contentView.depositCardView.amountTextField.isUserInteractionEnabled = !isXMRTO
+        contentView.receiveCardView.amountTextField.isUserInteractionEnabled = isXMRTO
         highlightNeededFields()
     }
     
     private func highlightNeededFields() {
         let isXMRTO = self.isXMRTO
-        contentView.depositCardView.amountTextField.borderView.backgroundColor = !isXMRTO ? UIColor(red: 126, green: 92, blue: 250) : UIColor.veryLightBlue
-        contentView.receiveCardView.amountTextField.borderView.backgroundColor = isXMRTO ? UIColor(red: 126, green: 92, blue: 250) : UIColor.veryLightBlue
+        contentView.depositCardView.amountTextField.bottomBorder.backgroundColor = !isXMRTO ? UIColor(red: 126, green: 92, blue: 250).cgColor : UIColor.veryLightBlue.cgColor
+        contentView.receiveCardView.amountTextField.bottomBorder.backgroundColor = isXMRTO ? UIColor(red: 126, green: 92, blue: 250).cgColor : UIColor.veryLightBlue.cgColor
     }
     
     private func changeExchange(deposit: CryptoCurrency, receive: CryptoCurrency) {
@@ -1076,7 +1076,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         
         
 //        receiveAmountString.accept(receiveAmount)
-//        contentView.receiveCardView.amountTextField.textField.text = receiveAmount
+//        contentView.receiveCardView.amountTextField.text = receiveAmount
         setProviderTitle()
         updateLimits()
     }
@@ -1272,10 +1272,10 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     @objc
     private func clear() {
-        contentView.depositCardView.amountTextField.textField.text = ""
+        contentView.depositCardView.amountTextField.text = ""
         contentView.depositCardView.addressContainer.textView.text = ""
         
-        contentView.receiveCardView.amountTextField.textField.text = ""
+        contentView.receiveCardView.amountTextField.text = ""
         contentView.receiveCardView.addressContainer.textView.text = ""
         updateReceiveResult(with: makeAmount(0 as UInt64, currency: receiveCrypto.value))
         store.dispatch(ExchangeState.Action.changedTrade(nil))

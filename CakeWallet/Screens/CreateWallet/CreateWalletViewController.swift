@@ -7,7 +7,7 @@ final class CreateWalletViewController: BaseViewController<CreateWalletView> {
     let store: Store<ApplicationState>
     
     private var name: String {
-        return contentView.nameTextField.textField.text ?? ""
+        return contentView.nameTextField.text ?? ""
     }
     
     init(signUpFlow: SignUpFlow, store: Store<ApplicationState>) {

@@ -2,13 +2,13 @@ import UIKit
 import FlexLayout
 
 final class RecoverCardView: BaseFlexView {
-    var walletNameField, restoreHeightField, restoreDateField: TextField
+    var walletNameField, restoreHeightField, restoreDateField: CWTextField
     var seedView: AddressView
     
     required init() {
-        walletNameField = TextField(placeholder: NSLocalizedString("wallet_name", comment: ""), fontSize: 16, isTransparent: false)
-        restoreHeightField = TextField(fontSize: 16, isTransparent: false)
-        restoreDateField = TextField(fontSize: 16, isTransparent: false)
+        walletNameField = CWTextField(placeholder: NSLocalizedString("wallet_name", comment: ""), fontSize: 16)
+        restoreHeightField = CWTextField(fontSize: 16)
+        restoreDateField = CWTextField(fontSize: 16)
         seedView = AddressView(hideAddressBookButton: true)
         
         super.init()

@@ -6,10 +6,10 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
     let walletNameContainer: UIView
     let addressView: AddressView
     let takeFromAddressBookButton: Button
-    let paymentIdTextField: TextField
+    let paymentIdTextField: CWTextField
     let paymentIdContainer: UIView
-    let cryptoAmountTextField: TextField
-    let fiatAmountTextField: TextField
+    let cryptoAmountTextField: CWTextField
+    let fiatAmountTextField: CWTextField
     let currenciesRowViev: UIView
     let currenciesContainer: UIView
     let estimatedFeeTitleLabel: UILabel
@@ -30,10 +30,10 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         walletNameContainer = UIView()
         addressView = AddressView(placeholder: "Monero address")
         takeFromAddressBookButton = SecondaryButton(title: NSLocalizedString("A", comment: ""))
-        paymentIdTextField = TextField(placeholder: "Payment ID (optional)", fontSize: 15)
+        paymentIdTextField = CWTextField(placeholder: "Payment ID (optional)", fontSize: 15)
         paymentIdContainer = UIView()
-        cryptoAmountTextField = TextField(placeholder: "0.0000")
-        fiatAmountTextField = TextField(placeholder: "0.0000")
+        cryptoAmountTextField = CWTextField(placeholder: "0.0000")
+        fiatAmountTextField = CWTextField(placeholder: "0.0000")
         currenciesRowViev = UIView()
         currenciesContainer = UIView()
         estimatedFeeTitleLabel = UILabel(fontSize: 12)
@@ -69,7 +69,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         
         cryptoAmountValueLabel.textAlignment = .right
         cryptoAmountValueLabel.font = applyFont(ofSize: 26)
-        cryptoAmountTextField.textField.keyboardType = .decimalPad
+        cryptoAmountTextField.keyboardType = .decimalPad
         
         let cryptoAmountTextFieldLeftView = UILabel(text: "XMR:")
         cryptoAmountTextFieldLeftView.font = applyFont()
@@ -78,19 +78,19 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         let cryptoAmountTextFieldRightView = UIView()
         cryptoAmountTextFieldRightView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         
-        cryptoAmountTextField.textField.leftView = cryptoAmountTextFieldLeftView
-        cryptoAmountTextField.textField.leftViewMode = .always
+        cryptoAmountTextField.leftView = cryptoAmountTextFieldLeftView
+        cryptoAmountTextField.leftViewMode = .always
         
-        cryptoAmountTextField.textField.rightView = cryptoAmountTextFieldRightView
-        cryptoAmountTextField.textField.rightViewMode = .always
+        cryptoAmountTextField.rightView = cryptoAmountTextFieldRightView
+        cryptoAmountTextField.rightViewMode = .always
         
         let fiatAmountTextFieldLeftView = UILabel(text: "USD:")
         fiatAmountTextFieldLeftView.font = applyFont()
         fiatAmountTextFieldLeftView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         
-        fiatAmountTextField.textField.keyboardType = .decimalPad
-        fiatAmountTextField.textField.leftView = fiatAmountTextFieldLeftView
-        fiatAmountTextField.textField.leftViewMode = .always
+        fiatAmountTextField.keyboardType = .decimalPad
+        fiatAmountTextField.leftView = fiatAmountTextFieldLeftView
+        fiatAmountTextField.leftViewMode = .always
         
         sendAllButton.setTitleColor(UIColor.wildDarkBlue, for: .normal)
         sendAllButton.titleLabel?.font = applyFont(ofSize: 11)
@@ -142,7 +142,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         
         paymentIdContainer.flex.define { flex in
             flex.addItem(paymentIdTextField).width(100%)
-            flex.addItem(scanQrForPaymentId).width(35).height(35).position(.absolute).right(0).top(-10)
+            flex.addItem(scanQrForPaymentId).width(35).height(35).position(.absolute).right(0)
         }
         
         mainContentHolder.flex
