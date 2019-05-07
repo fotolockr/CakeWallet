@@ -37,6 +37,7 @@ class CWTextField: UITextField {
         super.configureView()
         borderStyle = .none
         bottomBorder.backgroundColor = UIColor.veryLightBlue.cgColor
+        font = applyFont(ofSize: fontSize)
         layer.addSublayer(bottomBorder)
     }
     

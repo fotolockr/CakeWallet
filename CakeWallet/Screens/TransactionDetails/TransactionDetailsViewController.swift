@@ -2,41 +2,7 @@ import UIKit
 import CakeWalletLib
 import CWMonero
 
-struct TransactionDetailsCellItem: CellItem {
-    let row: TransactionDetailsRows
-    let value: String
-    
-    func setup(cell: TransactionDetailsCell) {
-        cell.configure(title: row.string() + ":", value: value)
-    }
-}
-
-enum TransactionDetailsRows: Stringify {
-    case id, paymentId, date, amount, height, fee, exchangeID, transactionKey
-    
-    func string() -> String {
-        switch self {
-        case .id:
-            return NSLocalizedString("transaction_id", comment: "")
-        case .paymentId:
-            return NSLocalizedString("Payment ID", comment: "")
-        case .date:
-            return NSLocalizedString("date", comment: "")
-        case .amount:
-            return NSLocalizedString("amount", comment: "")
-        case .height:
-            return NSLocalizedString("height", comment: "")
-        case .fee:
-            return  NSLocalizedString("fee", comment: "")
-        case .exchangeID:
-            return "Exchange ID"
-        case .transactionKey:
-            return "Transaction key"
-        }
-    }
-}
-
-final class TransactionDetailsViewController: BlurredBaseViewController<TransactionDetailsView>, UITableViewDataSource, UITableViewDelegate {
+final class TransactionDetailsViewController: BaseViewController<TransactionDetailsView>, UITableViewDataSource, UITableViewDelegate {
     private static let emptyPaymentId = "0000000000000000"
     private(set) var items: [TransactionDetailsCellItem]
     private let transactionDescription: TransactionDescription
@@ -71,27 +37,7 @@ final class TransactionDetailsViewController: BlurredBaseViewController<Transact
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath)
-        //fixme: move to a class
-        var rounded = false
-        
-        if indexPath.row == 0 {
-            cell.layer.masksToBounds = true
-//            cell.roundCorners([.topLeft, .topRight], radius: 20)
-            rounded = true
-        }
-        
-        if indexPath.row == items.count - 1 {
-            cell.layer.masksToBounds = true
-//            cell.contentView.roundCorners([.bottomLeft, .bottomRight], radius: 20)
-            rounded = true
-        }
-        
-        if !rounded {
-            cell.layer.mask = nil
-        }
-        
-        return cell
+        return tableView.dequeueReusableCell(withItem: item, for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
@@ -121,11 +67,15 @@ final class TransactionDetailsViewController: BlurredBaseViewController<Transact
             items.append(TransactionDetailsCellItem(row: .paymentId, value: transactionDescription.paymentId))
         }
         
+        let subaddresses = transactionDescription.subaddresses()
+            .map({ $0.label })
+            .joined(separator: ",")
+        
         items.append(contentsOf: [
             TransactionDetailsCellItem(row: .date, value: dateFormatter.string(from: transactionDescription.date)),
             TransactionDetailsCellItem(row: .height, value: String(transactionDescription.height)),
-            TransactionDetailsCellItem(row: .amount, value: transactionDescription.totalAmount.formatted())
-            ])
+            TransactionDetailsCellItem(row: .amount, value: transactionDescription.totalAmount.formatted()),
+            TransactionDetailsCellItem(row: .subaddresses, value:  subaddresses)])
         
         let fee = MoneroAmountParser.formatValue(transactionDescription.fee.value) ?? "0.0"
 

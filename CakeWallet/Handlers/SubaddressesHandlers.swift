@@ -24,7 +24,7 @@ public struct UpdateSubaddressesHandler: Handler {
 public struct UpdateSubaddressesHistroyHandler: Handler {
     public func handle(action: SubaddressesActions, store: Store<ApplicationState>) -> AnyAction? {
         guard case let .updateFromSubaddresses(subaddresses) = action else { return nil }
-        subaddresses.refresh()
+        subaddresses.refresh(store.state.walletState.account.index)
         return SubaddressesState.Action.changed(subaddresses.all())
     }
 }
@@ -38,8 +38,8 @@ public struct AddNewSubaddressesHandler: AsyncHandler {
         
 //        DispatchQueue.main.async {
             let subaddresses = moneroWallet.subaddresses()
-            subaddresses.newSubaddress(withLabel: label)
-            subaddresses.refresh()
+            subaddresses.newSubaddress(withLabel: label, withAccountIndex: store.state.walletState.account.index)
+            subaddresses.refresh(store.state.walletState.account.index)
             handler(
                 SubaddressesState.Action.added(subaddresses.all())
             )
@@ -55,8 +55,8 @@ public struct UpdateSubaddressHandler: AsyncHandler {
             let moneroWallet = currentWallet as? MoneroWallet else { return handler(nil) }
         guard !label.isEmpty else { return handler(nil) }
         let subaddresses = moneroWallet.subaddresses()
-        subaddresses.setLabel(label, at: index)
-        subaddresses.refresh()
+        subaddresses.setLabel(label, at: index, withAccountIndex: store.state.walletState.account.index)
+        subaddresses.refresh(store.state.walletState.account.index)
         let subaddressesList = subaddresses.all()
         
         

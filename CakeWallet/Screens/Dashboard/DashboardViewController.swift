@@ -136,7 +136,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         updateInitialHeight(state.blockchainState)
         
         walletNameView.title = state.walletState.name
-        walletNameView.subtitle = state.walletState.subaddress?.label
+        walletNameView.subtitle = state.walletState.account.label
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -241,18 +241,18 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.showKeysAction()
         }
         
-        let presentSubaddressesAction = UIAlertAction(title: NSLocalizedString("subaddresses", comment: ""), style: .default) { [weak self] _ in
-            self?.dashboardFlow?.change(route: .subaddresses)
-        }
-        
         let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("address_book", comment: ""), style: .default) { [weak self] _ in
             self?.dashboardFlow?.change(route: .addressBook)
+        }
+        
+        let presentAccountsAction = UIAlertAction(title: NSLocalizedString("accounts", comment: ""), style: .default) { [weak self] _ in
+            self?.dashboardFlow?.change(route: .accounts)
         }
         
         alertViewController.addAction(presentReconnectAction)
         alertViewController.addAction(showSeedAction)
         alertViewController.addAction(showKeysAction)
-        alertViewController.addAction(presentSubaddressesAction)
+        alertViewController.addAction(presentAccountsAction)
         alertViewController.addAction(presentAddressBookAction)
         alertViewController.addAction(cancelAction)
         DispatchQueue.main.async {
@@ -376,8 +376,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private func presentTransactionDetails(for tx: TransactionDescription) {
         let transactionDetailsViewController = TransactionDetailsViewController(transactionDescription: tx)
         let nav = UINavigationController(rootViewController: transactionDetailsViewController)
-        nav.modalPresentationStyle = .custom
-        tabBarController?.presentWithBlur(nav, animated: true)
+        tabBarController?.present(nav, animated: true)
     }
     
     private func updateSyncing(_ currentHeight: UInt64, blockchainHeight: UInt64) {

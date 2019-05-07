@@ -41,16 +41,16 @@ final class WelcomeFlowCardView: BaseFlexView {
         let descriptionFontSize = adaptiveLayout.getFontSize(forLarge: 17, forBig: 16, defaultSize: 16)
         let buttonFontSize = adaptiveLayout.getFontSize(forLarge: 19, forBig: 18, defaultSize: 17)
         
-        title.font = applyFont(ofSize: Int(titleFontSize), weight: .semibold)
+        title.font = applyFont(ofSize: titleFontSize, weight: .semibold)
         title.textColor = textColor
         title.numberOfLines = 1
         
-        descriptionText.font = applyFont(ofSize: Int(descriptionFontSize))
+        descriptionText.font = applyFont(ofSize: descriptionFontSize)
         descriptionText.textColor = .grayBlue
         descriptionText.numberOfLines = 2
         descriptionText.textAlignment = .center
         
-        buttonText.font = applyFont(ofSize: Int(buttonFontSize), weight: .semibold)
+        buttonText.font = applyFont(ofSize: buttonFontSize, weight: .semibold)
         buttonText.textColor = textColor
     }
     

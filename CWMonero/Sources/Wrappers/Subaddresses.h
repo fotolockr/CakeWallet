@@ -11,10 +11,10 @@ struct SubaddressesMember;
     struct SubaddressesMember *member;
 }
 - (instancetype)initWithWallet: (MoneroWalletAdapter *) wallet;
-- (void)newSubaddressWithLabel:(NSString *) label;
-- (void)setLabel:(NSString *)label AtIndex:(uint32_t)index;
+- (void)newSubaddressWithLabel:(NSString *) label withAccountIndex:(uint32_t) accountIndex;
+- (void)setLabel:(NSString *)label AtIndex:(uint32_t)index withAccountIndex:(uint32_t) accountIndex;
 - (NSArray *)getAll;
-- (void)refresh;
+- (void)refresh:(uint32_t) accountIndex;
 @end
 
 

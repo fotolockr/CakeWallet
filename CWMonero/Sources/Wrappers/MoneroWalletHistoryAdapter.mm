@@ -6,6 +6,7 @@
 #import "MoneroTransactionInfoAdapter.mm"
 #import "MoneroWalletAdapter.mm"
 #import "Subaddresses.mm"
+#import "Accounts.mm"
 
 struct MoneroTransactionHistoryMember {
     Monero::TransactionHistory *transactionHistory;

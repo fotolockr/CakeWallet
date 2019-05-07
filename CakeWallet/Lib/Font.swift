@@ -18,7 +18,7 @@ public enum FontWeight: String {
 //    static let deviceScreenSquare = width * height
 //}
 
-public func applyFont(ofSize: Int = 18, weight: FontWeight = .regular) -> UIFont {
+public func applyFont(ofSize: CGFloat = 18, weight: FontWeight = .regular) -> UIFont {
     var selectedFont: String
     
     switch weight {
@@ -30,7 +30,7 @@ public func applyFont(ofSize: Int = 18, weight: FontWeight = .regular) -> UIFont
         selectedFont = "Lato-Bold"
     }
     
-    guard let customFont = UIFont(name: selectedFont, size: CGFloat(ofSize)) else {
+    guard let customFont = UIFont(name: selectedFont, size: ofSize) else {
         fatalError("""
                 Failed to load the "Lato" font.
                 Make sure the font file is included in the project and the font name is spelled correctly.

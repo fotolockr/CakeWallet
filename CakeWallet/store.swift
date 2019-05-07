@@ -59,7 +59,8 @@ let store = Store<ApplicationState>(
             walletType: .monero,
             walletKeys: nil,
             stage: .none,
-            subaddress: nil
+            subaddress: nil,
+            account: Account(label: "Primary", index: 0)
         ), walletsState: WalletsState(
             wallets: []
         ), settingsState: SettingsState(
@@ -89,6 +90,8 @@ let store = Store<ApplicationState>(
             subaddresses: []
         ), exchangeState: ExchangeState(
             trade: nil
+        ), accountsState: AccountsState(
+            accounts: []
         )
     ), effects: [
         HandlerEffect<ApplicationState>(),
@@ -106,7 +109,9 @@ let store = Store<ApplicationState>(
         UpdateFiatPriceAfterFiatChangeEffect(),
         UpdateFiatBalanceAfterPriceChangeEffect(),
         OnNewSubaddressAddedEffect(),
-        OnSubaddressCahngedEffect()
+        OnSubaddressCahngedEffect(),
+        OnAccountCahngedEffect(),
+        OnNewSubaddressAddedEffect()
     ]
 )
 

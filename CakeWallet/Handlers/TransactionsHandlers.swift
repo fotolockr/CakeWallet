@@ -33,14 +33,9 @@ public struct UpdateTransactionHistoryHandler: AsyncHandler {
         
         workQueue.async {
             let transactions = store.state.transactionsState.transactions
-            let refreshedTransactions: [TransactionDescription]
             transactionHistory.refresh()
-            
-            if let addressIndex = store.state.walletState.subaddress?.index {
-                refreshedTransactions = transactionHistory.transactions.filter { $0.addressIndecies.contains(addressIndex) }
-            } else {
-                refreshedTransactions = transactionHistory.transactions
-            }
+            let addressIndex = store.state.walletState.account.index
+            let refreshedTransactions = transactionHistory.transactions.filter { $0.accountIndex == addressIndex }
 
             if
                 transactions.count != refreshedTransactions.count || transactions.filter({ $0.isPending }).count > 0 {
@@ -57,14 +52,9 @@ public struct ForceUpdateTransactionsHandler: AsyncHandler {
         
         workQueue.async {
             let transactionHistory = currentWallet.transactions()
-            let transactions: [TransactionDescription]
             transactionHistory.refresh()
-            
-            if let addressIndex = store.state.walletState.subaddress?.index {
-                transactions = transactionHistory.transactions.filter { $0.addressIndecies.contains(addressIndex) }
-            } else {
-                transactions = transactionHistory.transactions
-            }
+            let addressIndex = store.state.walletState.account.index
+            let transactions = transactionHistory.transactions.filter { $0.accountIndex == addressIndex }
             
             handler(TransactionsState.Action.reset(transactions))
         }

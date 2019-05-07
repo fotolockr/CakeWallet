@@ -13,7 +13,6 @@ public final class OnSubaddressCahngedEffect: Effect {
             moneroWallet.changeAddress(index: index)
         }
         
-        store.dispatch(TransactionsActions.forceUpdateTransactions)
         return action
     }
 }

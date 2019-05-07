@@ -1,15 +1,12 @@
 #import <Foundation/Foundation.h>
-#import "Subaddress.h"
+#import "Account.h"
 
-@implementation Subaddress: NSObject
+@implementation Account: NSObject
 
-- (instancetype)initWithAddress:(NSString *)address andLabel:(NSString *)label index: (uint32_t) index
-
+- (instancetype)initWithLabel:(NSString *)label index: (uint32_t) index
 {
     self = [super init];
     if (self) {
-        self.address = address;
-        
         if ([label isEqualToString: @"Primary account"]) {
             label = @"Primary";
         }

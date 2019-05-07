@@ -103,7 +103,6 @@ public final class MoneroWallet: Wallet {
     public var onBalanceChange: ((Wallet) -> Void)?
     public var onConnectionStatusChange: ((ConnectionStatus) -> Void)?
     public var onAddressChange: ((String) -> Void)?
-    public var onSubaddressChanged: ((UInt32) -> Void)?
     public private(set) var config: WalletConfig
     private(set) var accountIndex: UInt32
     private(set) var addressIndex: UInt32
@@ -111,6 +110,7 @@ public final class MoneroWallet: Wallet {
     
     private var moneroTransactionHistory: MoneroTransactionHistory?
     private var _subaddresses: Subaddresses?
+    private var _accounts: Accounts?
     
     private var _keys: MoneroWalletKeys {
         return MoneroWalletKeys(
@@ -222,6 +222,16 @@ public final class MoneroWallet: Wallet {
         }
     }
     
+    public func accounts() -> Accounts {
+        if let accounts = self._accounts {
+            return accounts
+        } else {
+            let accounts = Accounts(wallet: moneroAdapter)!
+            self._accounts = accounts
+            return accounts
+        }
+    }
+    
     public func send(amount: Amount?, to address: String, withPriority priority: TransactionPriority) throws -> PendingTransaction {
         do {
             let moneroPendingTransactionAdapter = try self.moneroAdapter.createTransaction(
@@ -311,7 +321,16 @@ public final class MoneroWallet: Wallet {
         }
         
         addressIndex = index
-        onSubaddressChanged?(index)
+        onBalanceChange?(self)
+        onAddressChange?(address)
+    }
+    
+    public func changeAccount(index: UInt32) {
+        guard index != addressIndex else {
+            return
+        }
+        
+        accountIndex = index
         onBalanceChange?(self)
         onAddressChange?(address)
     }

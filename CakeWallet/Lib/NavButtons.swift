@@ -13,7 +13,7 @@ func makeIconedNavigationButton(iconName: String, target: Any? = nil, action: Se
     return button
 }
 
-func makeTitledNavigationButton(title: String, target: Any? = nil, action: Selector? = nil, fontSize: Int = 16, textColor: UIColor = UIColor.wildDarkBlue) -> UIBarButtonItem {
+func makeTitledNavigationButton(title: String, target: Any? = nil, action: Selector? = nil, fontSize: CGFloat = 16, textColor: UIColor = UIColor.wildDarkBlue) -> UIBarButtonItem {
     let button = UIBarButtonItem(title: title, style: .plain, target: target, action: action)
     button.tintColor = UIColor.wildDarkBlue
     

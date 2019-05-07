@@ -5,19 +5,10 @@ import QRCode
 import CakeWalletLib
 import CakeWalletCore
 import CWMonero
+import SwipeCellKit
 
 
-final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscriber {
-    var paymentId: String? {
-        get {
-            return contentView.paymentIdTextField.text
-        }
-        
-        set {
-            contentView.paymentIdTextField.text = newValue
-        }
-    }
-   
+final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscriber, UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
     var amount: Amount? {
         get {
             if let rawString = contentView.amountTextField.text {
@@ -32,40 +23,36 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         }
     }
     
-    var integratedAddress: String? {
-        get {
-            return contentView.integratedAddressTextField.text
-        }
-        
-        set {
-            contentView.integratedAddressTextField.text = newValue
-        }
-    }
-    
     weak var dashboardFlow: DashboardFlow?
     let store: Store<ApplicationState>
     private(set) var address: String
     private var isSubaddress: Bool
+    private  var subaddresses: [Subaddress] {
+        didSet {
+            contentView.table.reloadData()
+        }
+    }
     
     init(store: Store<ApplicationState>, dashboardFlow: DashboardFlow?) {
         self.store = store
         self.dashboardFlow = dashboardFlow
         self.address = store.state.walletState.address
         isSubaddress = false
+        subaddresses = []
         super.init()
     }
     
     override func configureBinds() {
         super.configureBinds()
         title = NSLocalizedString("receive", comment: "")
-        contentView.switchOptionsButton.addTarget(self, action: #selector(switchOptionsButton), for: .touchUpInside)
-        contentView.copyAddressButton.addTarget(self, action: #selector(copyAction), for: .touchUpInside)
-        contentView.paymentIdCopyButton.addTarget(self, action: #selector(onCopyPaymenIdAction), for: .touchUpInside)
-        contentView.integratedAddressCopyButton.addTarget(self, action: #selector(onCopyIntegratedAddressAction), for: .touchUpInside)
-        contentView.resetButton.addTarget(self, action: #selector(resetOptions), for: .touchUpInside)
-        contentView.amountTextField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
-        contentView.newPaymentId.addTarget(self, action: #selector(generatePaymentId), for: .touchUpInside)
-        switchOptionsButton()
+        contentView.table.delegate = self
+        contentView.table.dataSource = self
+        contentView.table.separatorStyle = .none
+        contentView.table.register(items: [Subaddress.self])
+        let onAddressTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAction))
+        contentView.addressLabel.addGestureRecognizer(onAddressTapGesture)
+        contentView.addressLabel.isUserInteractionEnabled = true
+        contentView.addSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
         let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 10, height: 12)))
         doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
         doneButton.addTarget(self, action: #selector(dismissAction), for: .touchUpInside)
@@ -83,7 +70,10 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        store.subscribe(self, onlyOnChange: [\ApplicationState.walletState])
+        store.subscribe(self, onlyOnChange: [
+            \ApplicationState.walletState,
+            \ApplicationState.subaddressesState])
+        store.dispatch(SubaddressesActions.update)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -98,9 +88,53 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
             changeAddress(state.walletState.address)
         }
         
-        if let subaddress = state.walletState.subaddress {
-            setSubaddress(subaddress)
+        subaddresses = state.subaddressesState.subaddresses
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return subaddresses.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = subaddresses[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
+        cell.addSeparator()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let editAction = SwipeAction(style: .default, title: "Edit") { [weak self] action, indexPath in
+            guard let subaddress = self?.subaddresses[indexPath.row] else {
+                return
+            }
+            
+            self?.editSubaddress(subaddress)
         }
+        
+        
+        editAction.image = UIImage(named: "edit_icon")?.resized(to: CGSize(width: 20, height: 20))
+        
+        return [editAction]
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return SubaddressCell.height
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard subaddresses.count > indexPath.row else {
+            return
+        }
+        
+        let sub = subaddresses[indexPath.row]
+        
+        
+        store.dispatch(WalletState.Action.changedSubaddress(sub))
+        tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     func setSubaddress(_ subaddress: Subaddress) {
@@ -115,73 +149,14 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         }
         
         changeAddress(subaddress.address)
-        resetOptions()
-        contentView.optionsView.isHidden = true
-        hideOptions()
     }
     
     func changeAddress(_ address: String) {
         self.address = address
         contentView.addressLabel.text = address
-        changeQR(address: address, paymentId: paymentId, amount: amount)
+        changeQR(address: address, paymentId: nil, amount: amount)
         contentView.addressLabel.flex.markDirty()
         contentView.rootFlexContainer.flex.layout()
-    }
-    
-    func showOptions() {
-        contentView.switchOptionsButton.setTitle(NSLocalizedString("hide_options", comment: ""), for: .normal)
-        contentView.integratedAddressContainer.isHidden = isSubaddress
-        
-        if isSubaddress {
-            contentView.integratedAddressContainer.flex.height(0)
-        }
-        
-        contentView.resetButton.isHidden = false
-        contentView.optionsView.flex.height(nil)
-        contentView.newPaymentId.isHidden = false
-        contentView.optionsView.flex.markDirty()
-        contentView.setNeedsLayout()
-    }
-    
-    func hideOptions() {
-        contentView.switchOptionsButton.setTitle(NSLocalizedString("more_options", comment: ""), for: .normal)
-        contentView.optionsView.flex.height(0)
-        contentView.resetButton.isHidden = true
-        contentView.newPaymentId.isHidden = true
-        contentView.optionsView.flex.markDirty()
-        contentView.setNeedsLayout()
-    }
-    
-    @objc
-    func onCopyPaymenIdAction() {
-        showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
-        UIPasteboard.general.string = contentView.paymentIdTextField.text
-    }
-    
-    @objc
-    func onCopyIntegratedAddressAction() {
-        showDurationInfoAlert(title: NSLocalizedString("copied", comment: ""), message: "", duration: 1)
-        UIPasteboard.general.string = contentView.integratedAddressTextField.text
-    }
-    
-    @objc
-    func resetOptions() {
-        amount = nil
-        paymentId = nil
-        contentView.integratedAddressTextField.text = nil
-        changeQR(address: address, paymentId: paymentId, amount: amount)
-    }
-    
-    @objc
-    private func switchOptionsButton() {
-        contentView.optionsView.isHidden = !contentView.optionsView.isHidden
-        
-        if contentView.optionsView.isHidden {
-            hideOptions()
-            return
-        }
-        
-        showOptions()
     }
     
     @objc
@@ -211,22 +186,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
     
     @objc
     private func onAmountChange(_ textField: UITextField) {
-        changeQR(address: address, paymentId: paymentId, amount: amount)
-    }
-    
-    @objc
-    private func generatePaymentId() {
-        // FIX-ME: We don't need know anout MoneroWalletAdapter, but it's should not be part of WalletProtocol.
-        guard
-            let paymentId = MoneroWalletAdapter.generatePaymentId(),
-            let wallet = currentWallet as? MoneroWallet else {
-            return
-        }
-        
-        let integratedAddress = wallet.integratedAddress(for: paymentId)
-        self.paymentId = paymentId
-        self.integratedAddress = integratedAddress
-        changeQR(address: address, paymentId: paymentId, amount: amount)
+        changeQR(address: address, paymentId: nil, amount: amount)
     }
     
     private func changeQR(address: String, paymentId: String?, amount: Amount?) {
@@ -235,57 +195,13 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         contentView.addressLabel.text = address
         contentView.qrImage.image = qrCode?.image
     }
-}
-
-//fixme
-
-struct MoneroUri {
-    let address: String
-    let paymentId: String?
-    let amount: Amount?
     
-    init(address: String, paymentId: String? = nil, amount: Amount? = nil) {
-        self.address = address
-        self.paymentId = paymentId
-        self.amount = amount
+    private func editSubaddress(_ subaddress: Subaddress) {
+        dashboardFlow?.change(route: .addOrEditSubaddress(subaddress))
     }
     
-    func formatted() -> String {
-        var result = "monero:\(address)"
-        var paymentIDString = ""
-        var amountString = ""
-        
-        if
-            let paymentId = paymentId,
-            !paymentId.isEmpty {
-            paymentIDString = "tx_payment_id=\(paymentId)"
-        }
-        
-        if let amount = amount {
-            let formattedAmount = amount.formatted()
-            
-            if !formattedAmount.isEmpty && Double(formattedAmount) != 0 {
-                amountString += "tx_amount=\(amount.formatted())"
-            }
-        }
-        
-        if !paymentIDString.isEmpty || !amountString.isEmpty {
-            result += "?"
-        }
-        
-        if !paymentIDString.isEmpty {
-            result += paymentIDString
-        }
-        
-        if !amountString.isEmpty {
-            if !paymentIDString.isEmpty {
-                result += "&"
-            }
-            
-            result += amountString
-        }
-        
-        
-        return result
+    @objc
+    private func addSubaddressAction() {
+        dashboardFlow?.change(route: .addOrEditSubaddress(nil))
     }
 }

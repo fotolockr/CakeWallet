@@ -14,6 +14,8 @@ final class DashboardFlow: Flow {
         case addressBook
         case subaddresses
         case addOrEditSubaddress(Subaddress?)
+        case accounts
+        case addOrEditAccount(Account?)
     }
     
     var rootController: UIViewController {
@@ -22,6 +24,7 @@ final class DashboardFlow: Flow {
     
     private let navigationController: UINavigationController
     private var walletsFlow: WalletsFlow?
+    private weak var receiveVC: UIViewController?
     
     convenience init() {
         let dashboardViewController = DashboardController(store: store, dashboardFlow: nil)
@@ -41,6 +44,7 @@ final class DashboardFlow: Flow {
         case .receive:
             let receiveController = ReceiveViewController(store: store, dashboardFlow: self)
             let navController = UINavigationController(rootViewController: receiveController)
+            receiveVC = receiveController
             presentPopup(navController)
         case .send:
             let sendViewController = SendViewController(store: store, address: nil)
@@ -68,7 +72,14 @@ final class DashboardFlow: Flow {
             navigationController.pushViewController(subaddressesVC, animated: true)
         case let .addOrEditSubaddress(sub):
             let subaddressVC = SubaddressViewController(flow: self, store: store, subaddress: sub)
-            navigationController.pushViewController(subaddressVC, animated: true)
+            receiveVC?.navigationController?.pushViewController(subaddressVC, animated: true)
+        case .accounts:
+            let accountsVC = AccountsViewController(store: store)
+            accountsVC.flow = self
+            navigationController.pushViewController(accountsVC, animated: true)
+        case let .addOrEditAccount(account):
+            let accountVC = AccountViewController(flow: self, store: store, account: account)
+            navigationController.pushViewController(accountVC, animated: true)
         }
 
     }

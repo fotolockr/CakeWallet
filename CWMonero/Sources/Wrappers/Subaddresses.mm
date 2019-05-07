@@ -11,7 +11,6 @@ struct SubaddressesMember {
 };
 
 @implementation Subaddresses: NSObject
-//Monero::SubaddressImpl *subaddressAccount;
 
 - (instancetype)initWithWallet: (MoneroWalletAdapter *) wallet
 {
@@ -23,16 +22,16 @@ struct SubaddressesMember {
     return self;
 }
 
-- (void)newSubaddressWithLabel:(NSString *) label
+- (void)newSubaddressWithLabel:(NSString *) label withAccountIndex:(uint32_t) accountIndex
 {
     string utf8Label = [label UTF8String];
-    member->subaddressAccount->addRow(DEFAULT_ACCOUNT_INDEX, utf8Label);
+    member->subaddressAccount->addRow(accountIndex, utf8Label);
 }
 
-- (void)setLabel:(NSString *)label AtIndex:(uint32_t)index
+- (void)setLabel:(NSString *)label AtIndex:(uint32_t)index withAccountIndex:(uint32_t) accountIndex
 {
     string utf8Label = [label UTF8String];
-    member->subaddressAccount->setLabel(DEFAULT_ACCOUNT_INDEX, index, utf8Label);
+    member->subaddressAccount->setLabel(accountIndex, index, utf8Label);
 }
 
 - (NSArray *)getAll
@@ -55,9 +54,9 @@ struct SubaddressesMember {
     return result;
 }
 
-- (void)refresh
+- (void)refresh:(uint32_t) accountIndex
 {
-    member->subaddressAccount->refresh(DEFAULT_ACCOUNT_INDEX);
+    member->subaddressAccount->refresh(accountIndex);
 }
 
 @end

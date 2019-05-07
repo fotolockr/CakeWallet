@@ -24,10 +24,11 @@ public struct ApplicationState: StateType {
     public let blockchainState: BlockchainState
     public let transactionsState: TransactionsState
     public let subaddressesState: SubaddressesState
+    public let accountsState: AccountsState
     public let exchangeState: ExchangeState
     public let error: Error?
     
-    public init(walletState: WalletState, walletsState: WalletsState, settingsState: SettingsState, balanceState: BalanceState, blockchainState: BlockchainState, transactionsState: TransactionsState, subaddressesState: SubaddressesState, exchangeState: ExchangeState, error: Error? = nil) {
+    public init(walletState: WalletState, walletsState: WalletsState, settingsState: SettingsState, balanceState: BalanceState, blockchainState: BlockchainState, transactionsState: TransactionsState, subaddressesState: SubaddressesState, exchangeState: ExchangeState, accountsState: AccountsState, error: Error? = nil) {
         self.walletState = walletState
         self.walletsState = walletsState
         self.settingsState = settingsState
@@ -36,6 +37,7 @@ public struct ApplicationState: StateType {
         self.transactionsState = transactionsState
         self.subaddressesState = subaddressesState
         self.exchangeState = exchangeState
+        self.accountsState = accountsState
         self.error = error
     }
     
@@ -53,6 +55,7 @@ public struct ApplicationState: StateType {
             transactionsState: transactionsState.reduceAny(action) ?? transactionsState,
             subaddressesState: subaddressesState.reduceAny(action) ?? subaddressesState,
             exchangeState: exchangeState.reduceAny(action) ?? exchangeState,
+            accountsState: accountsState.reduceAny(action) ?? accountsState,
             error: error
         )
     }
@@ -69,6 +72,7 @@ public struct ApplicationState: StateType {
                 transactionsState: transactionsState,
                 subaddressesState: subaddressesState,
                 exchangeState: exchangeState,
+                accountsState: accountsState,
                 error: error
             )
         }

@@ -64,6 +64,17 @@ private func onWalletChange(_ wallet: Wallet) {
     store.dispatch(
         BalanceState.Action.changedUnlockedBalance(wallet.unlockedBalance)
     )
+    
+    guard let moneroWallet = currentWallet as? MoneroWallet else {
+        return
+    }
+    
+    let accounts = moneroWallet.accounts()
+    accounts.refresh()
+    
+    if let account = accounts.all().filter({ $0.index == 0 }).first {
+        store.dispatch(WalletState.Action.changeAccount(account))
+    }
 }
 
 public final class OnWalletChangeEffect: Effect {

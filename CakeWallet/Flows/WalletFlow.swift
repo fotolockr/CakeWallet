@@ -3,6 +3,7 @@ import UIKit
 final class CustomTabBarController: UITabBarController {
     private static let additionalHeight = 10 as CGFloat
     private static let titlePositionOffset = UIOffset(horizontal: 0, vertical: -5)
+    private var tabbarHeightChanged = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
