@@ -14,8 +14,10 @@ public final class OnAccountChangedEffect: Effect {
         }
         
         store.dispatch(WalletState.Action.changedSubaddress(nil))
-        store.dispatch(TransactionsActions.askToUpdate)
-        store.dispatch(TransactionsActions.updateTransactions(currentWallet.transactions().transactions, account.index))
+        let transactionsHistory = currentWallet.transactions()
+        transactionsHistory.askToUpdate()
+        let transactions = transactionsHistory.transactions
+        store.dispatch(TransactionsActions.updateTransactions(transactions, account.index))
         return action
     }
 }

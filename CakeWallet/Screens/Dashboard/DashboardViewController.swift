@@ -108,12 +108,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        store.dispatch(TransactionsActions.askToUpdate)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         store.subscribe(self)

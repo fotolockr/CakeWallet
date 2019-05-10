@@ -40,7 +40,7 @@ final class NodeTableCell: FlexCell {
         addressLabel.text = address
         addressLabel.flex.markDirty()
         indicatorView.backgroundColor = isAble ? .greenMalachite : .red
-        contentView.backgroundColor = isCurrent ? .purpleyLight : .white
+        self.isCurrent(isCurrent)
         contentView.flex.layout()
     }
 }

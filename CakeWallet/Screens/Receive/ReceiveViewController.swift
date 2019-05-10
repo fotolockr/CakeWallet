@@ -7,7 +7,6 @@ import CakeWalletCore
 import CWMonero
 import SwipeCellKit
 
-
 final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscriber, UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
     var amount: Amount? {
         get {
@@ -27,10 +26,14 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
     let store: Store<ApplicationState>
     private(set) var address: String
     private var isSubaddress: Bool
-    private  var subaddresses: [Subaddress] {
+    private var subaddresses: [Subaddress] {
         didSet {
             contentView.table.reloadData()
         }
+    }
+    
+    private var currentSubaddress: UInt32 {
+        return store.state.walletState.subaddress?.index ?? 0
     }
     
     init(store: Store<ApplicationState>, dashboardFlow: DashboardFlow?) {
@@ -99,6 +102,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         let item = subaddresses[indexPath.row]
         let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath) as! SwipeTableViewCell
         cell.delegate = self
+        cell.isCurrent(currentSubaddress == item.index)
         cell.addSeparator()
         return cell
     }

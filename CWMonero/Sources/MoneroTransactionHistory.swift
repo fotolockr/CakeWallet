@@ -8,6 +8,7 @@ public class MoneroTransactionHistory: TransactionHistory {
         return Int(self.transactionHisory.count())
     }
     private(set) var transactionHisory: MoneroWalletHistoryAdapter
+    private var isRefreshing = false
     
     public init(moneroWalletHistoryAdapter: MoneroWalletHistoryAdapter) {
         self.transactionHisory = moneroWalletHistoryAdapter
@@ -15,13 +16,18 @@ public class MoneroTransactionHistory: TransactionHistory {
     }
     
     public func refresh() {
-        self.transactionHisory.refresh()
-        update()
+        askToUpdate()
     }
     
     public func askToUpdate() {
+        guard !isRefreshing else {
+            return
+        }
+        
+        isRefreshing = true
         self.transactionHisory.refresh()
         update()
+        isRefreshing = false
     }
     
     public func newTransactions(afterIndex index: Int) -> [TransactionDescription] {

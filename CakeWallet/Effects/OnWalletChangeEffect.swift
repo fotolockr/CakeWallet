@@ -78,7 +78,7 @@ private func onWalletChange(_ wallet: Wallet) {
     store.dispatch(
         BalanceState.Action.changedUnlockedBalance(wallet.unlockedBalance)
     )
-        
+    
     guard let moneroWallet = currentWallet as? MoneroWallet else {
         return
     }

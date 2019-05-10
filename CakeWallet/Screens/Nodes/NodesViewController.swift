@@ -26,6 +26,13 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     weak var nodesFlow: NodesFlow?
     let store: Store<ApplicationState>
     private(set) var nodes: [NodeCellItem]
+    private var currentNode: NodeDescription? {
+        didSet {
+            if oldValue != nil {
+                updateNodes()
+            }
+        }
+    }
     
     init(store: Store<ApplicationState>, nodesFlow: NodesFlow?) {
         self.nodesFlow = nodesFlow
@@ -68,6 +75,7 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     }
     
     func onStateChange(_ state: ApplicationState) {
+        currentNode = state.settingsState.node
         updateAutoSwitch(isOn: state.settingsState.isAutoSwitchNodeOn)
     }
     
@@ -124,23 +132,20 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     }
     
     private func updateNodes() {
-        //fixme
-        let dispatchGroup = DispatchGroup()
-        
-        self.nodes = NodesList.shared.values // fixme
+        nodes = NodesList.shared.values // fixme
             .map { NodeCellItem(node: $0, isCurrent: self.store.state.settingsState.node!.compare(with: $0)) }
         
         nodes.forEach { nodeCell in
-            dispatchGroup.enter()
             nodeCell.node.isAble({ isAble in
                 nodeCell.isAble = isAble
-                dispatchGroup.leave()
+                
+                DispatchQueue.main.async {
+                    self.contentView.table.reloadData()
+                }
             })
         }
-
-        dispatchGroup.notify(queue: .main) {
-            self.contentView.table.reloadData()
-        }
+        
+        contentView.table.reloadData()
     }
     
     private func updateAutoSwitch(isOn: Bool) {
