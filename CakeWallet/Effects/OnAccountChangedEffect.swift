@@ -2,7 +2,7 @@ import CWMonero
 import CakeWalletLib
 import CakeWalletCore
 
-public final class OnAccountCahngedEffect: Effect {
+public final class OnAccountChangedEffect: Effect {
     public func effect(_ store: Store<ApplicationState>, action: WalletState.Action) -> AnyAction? {
         guard case let .changeAccount(account) = action else {
             return action
@@ -14,7 +14,8 @@ public final class OnAccountCahngedEffect: Effect {
         }
         
         store.dispatch(WalletState.Action.changedSubaddress(nil))
-        store.dispatch(TransactionsActions.forceUpdateTransactions)
+        store.dispatch(TransactionsActions.askToUpdate)
+        store.dispatch(TransactionsActions.updateTransactions(currentWallet.transactions().transactions, account.index))
         return action
     }
 }

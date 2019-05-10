@@ -526,7 +526,7 @@ public:
 - (void)close
 {
     member->wallet->pauseRefresh();
-    member->wallet->close();
+    member->wallet->close(true);
 }
 
 - (void)clear

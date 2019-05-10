@@ -130,11 +130,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         }
         
         let sub = subaddresses[indexPath.row]
-        
-        
         store.dispatch(WalletState.Action.changedSubaddress(sub))
-        tableView.deselectRow(at: indexPath, animated: true)
-        navigationController?.popViewController(animated: true)
     }
     
     func setSubaddress(_ subaddress: Subaddress) {

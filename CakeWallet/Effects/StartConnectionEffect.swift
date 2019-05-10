@@ -15,22 +15,21 @@ private func connectToNode(_ wallet: Wallet) throws {
 public final class StartConnectionEffect: Effect {
     public init() {}
     public func effect(_ store: Store<ApplicationState>, action: WalletState.Action) -> AnyAction? {
-        workQueue.async {
-            do {
-                switch action {
-                case let .created(wallet):
-                    try connectToNode(wallet)
-                case let .loaded(wallet):
-                    try connectToNode(wallet)
-                case let .restored(wallet):
-                    try connectToNode(wallet)
-                default:
-                    break
-                }
-            } catch {
-                store.dispatch(BlockchainState.Action.changedConnectionStatus(.failed))
-                store.dispatch(ApplicationState.Action.changedError(error))
+        do {
+            switch action {
+            case let .created(wallet):
+                try connectToNode(wallet)
+            case let .loaded(wallet):
+                try connectToNode(wallet)
+            case let .restored(wallet):
+                try connectToNode(wallet)
+            default:
+                break
             }
+            
+        } catch {
+            store.dispatch(BlockchainState.Action.changedConnectionStatus(.failed))
+            store.dispatch(ApplicationState.Action.changedError(error))
         }
         
         return action

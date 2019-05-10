@@ -102,8 +102,16 @@ struct MoneroTransactionInfoMember {
     return [NSString stringWithUTF8String: member->tx->hash().c_str()];
 }
 
-- (void) dealloc {
+- (void) dealloc
+{
     delete member;
+}
+
+- (BOOL)isEqual:(MoneroTransactionInfoAdapter *)other
+{
+    return [[self hash] isEqualToString: [other hash]]
+        && [self isPending] == [other isPending]
+        && [self confirmations] == [other confirmations];
 }
 
 @end

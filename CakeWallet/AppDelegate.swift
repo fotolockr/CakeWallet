@@ -33,8 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         register(handler: CalculateEstimatedFeeHandler())
         register(handler: FetchWalletsHandler())
         register(handler: UpdateTransactionsHandler())
-        register(handler: UpdateTransactionHistoryHandler())
-        register(handler: ForceUpdateTransactionsHandler())
+        register(handler: AskToUpdateHandler())
         register(handler: ConnectToNodeHandler())
         register(handler: ReconnectToNodeHandler())
         register(handler: SaveHandler())
@@ -92,26 +91,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = splashController
             
             splashController.handler = { [weak self] in
-                let splashQueue = DispatchQueue(label: "splash", qos: .default)
-                
-                splashQueue.async {
-                    loadWalletHandler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
-                        guard let action = action else {
-                            return
-                        }
-                        
-                        store._defaultDispatch(action)
-                        
-                        DispatchQueue.main.async {
-                            self?.window?.rootViewController = authController
-                        }
-                    })
-                }
+                loadWalletHandler.handle(action: WalletActions.loadCurrentWallet, store: store, handler: { action in
+                    guard let action = action else {
+                        return
+                    }
+            
+                    store.dispatch(action)
+                    store.dispatch(WalletActions.connectToCurrentNode)
+                    
+                    DispatchQueue.main.async {
+                        self?.window?.rootViewController = authController
+                    }
+                })
             }
             
             authController.handler = { [weak self] in
                 store.dispatch(SettingsState.Action.isAuthenticated)
-                store.dispatch(WalletActions.connectToCurrentNode)
                 DispatchQueue.main.async {
                     self?.walletFlow = WalletFlow()
                     self?.walletFlow?.change(route: .start)

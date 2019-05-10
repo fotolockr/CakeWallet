@@ -21,9 +21,7 @@ public final class UpdateTransactionsListEffect: Effect {
         }
         
         if amount.compare(with: store.state.balanceState.balance) {
-            store.dispatch(
-                TransactionsActions.updateTransactionHistory(currentWallet.transactions())
-            )
+            store.dispatch(TransactionsActions.askToUpdate)
         }
         
         return action

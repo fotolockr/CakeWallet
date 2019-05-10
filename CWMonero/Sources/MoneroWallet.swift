@@ -78,7 +78,10 @@ public final class MoneroWallet: Wallet {
     }
     
     public var isConnected: Bool {
-        return moneroAdapter.connectionStatus() != 0
+        var connectionStatus = moneroAdapter.connectionStatus()
+        let isConneected = connectionStatus != 0
+        connectionStatus = 0
+        return isConneected
     }
     
     public var keys: WalletKeys {
@@ -104,18 +107,22 @@ public final class MoneroWallet: Wallet {
     public var onConnectionStatusChange: ((ConnectionStatus) -> Void)?
     public var onAddressChange: ((String) -> Void)?
     public private(set) var config: WalletConfig
-    private(set) var accountIndex: UInt32
-    private(set) var addressIndex: UInt32
+    public private(set) var accountIndex: UInt32
+    public private(set) var addressIndex: UInt32
     private var isBlocking: Bool
     
     private var moneroTransactionHistory: MoneroTransactionHistory?
     private var _subaddresses: Subaddresses?
     private var _accounts: Accounts?
+    private lazy var secretSpendKey = moneroAdapter.secretSpendKey() ?? ""
+    private lazy var publicSpendKey = moneroAdapter.publicSpendKey() ?? ""
+    private lazy var publicViewKey = moneroAdapter.publicViewKey() ?? ""
+    private lazy var secretViewKey = moneroAdapter.secretViewKey() ?? ""
     
     private var _keys: MoneroWalletKeys {
         return MoneroWalletKeys(
-            spendKey: MoneroWalletKeysPair(pub: self.moneroAdapter.publicSpendKey(), sec: self.moneroAdapter.secretSpendKey()),
-            viewKey: MoneroWalletKeysPair(pub: self.moneroAdapter.publicViewKey(), sec: self.moneroAdapter.secretViewKey()))
+            spendKey: MoneroWalletKeysPair(pub: publicSpendKey, sec: secretSpendKey),
+            viewKey: MoneroWalletKeysPair(pub: publicViewKey, sec: secretViewKey))
     }
     
     private var moneroAdapter: MoneroWalletAdapter
@@ -188,7 +195,6 @@ public final class MoneroWallet: Wallet {
         moneroAdapter.delegate = nil
         
         walletQueue.async {
-            print("closing: \(Date())")
             self.moneroAdapter.close()
             self.moneroAdapter.clear()
         }
@@ -213,13 +219,18 @@ public final class MoneroWallet: Wallet {
     }
     
     public func subaddresses() -> Subaddresses {
+        let __subaddresses: Subaddresses
+        
         if let subaddresses = self._subaddresses {
-            return subaddresses
+            __subaddresses = subaddresses
         } else {
             let subaddresses = Subaddresses(wallet: moneroAdapter)!
             self._subaddresses = subaddresses
-            return subaddresses
+            __subaddresses = subaddresses
         }
+        
+        __subaddresses.refresh(accountIndex)
+        return __subaddresses
     }
     
     public func accounts() -> Accounts {
@@ -321,12 +332,12 @@ public final class MoneroWallet: Wallet {
         }
         
         addressIndex = index
-        onBalanceChange?(self)
+//        onBalanceChange?(self)
         onAddressChange?(address)
     }
     
     public func changeAccount(index: UInt32) {
-        guard index != addressIndex else {
+        guard index != accountIndex else {
             return
         }
         

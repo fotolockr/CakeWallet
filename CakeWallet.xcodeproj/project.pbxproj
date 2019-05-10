@@ -31,7 +31,7 @@
 		0C6DEB4B2281819200536AA1 /* AccountsActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB4A2281819200536AA1 /* AccountsActions.swift */; };
 		0C6DEB4E228184BC00536AA1 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB4D228184BC00536AA1 /* AccountsViewController.swift */; };
 		0C6DEB502281850800536AA1 /* AccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB4F2281850800536AA1 /* AccountsView.swift */; };
-		0C6DEB522281906400536AA1 /* OnAccountCahngedEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB512281906400536AA1 /* OnAccountCahngedEffect.swift */; };
+		0C6DEB522281906400536AA1 /* OnAccountChangedEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB512281906400536AA1 /* OnAccountChangedEffect.swift */; };
 		0C6DEB542281944900536AA1 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB532281944800536AA1 /* AccountViewController.swift */; };
 		0C6DEB562281945500536AA1 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB552281945500536AA1 /* AccountView.swift */; };
 		0C6DEB582281AF6900536AA1 /* Subaddresses+getByIndeciees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB572281AF6900536AA1 /* Subaddresses+getByIndeciees.swift */; };
@@ -81,7 +81,6 @@
 		0CE58CF522734D23009182CA /* ChangeNowExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE58CF422734D23009182CA /* ChangeNowExchange.swift */; };
 		0CE9690F2204A31B006D6100 /* autoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE9690E2204A31B006D6100 /* autoBackup.swift */; };
 		0CF85F55226E355000F5B6D6 /* SubaddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF85F54226E355000F5B6D6 /* SubaddressViewController.swift */; };
-		361CA1C7D01950BBA7C9570F /* Pods_CakeWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F899B21444E0E00B085AC /* Pods_CakeWallet.framework */; };
 		640A2AA021761C640047E60C /* CWAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640A2A9F21761C640047E60C /* CWAlertViewController.swift */; };
 		640A2AA221761C870047E60C /* CWAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640A2AA121761C870047E60C /* CWAlertView.swift */; };
 		640A2AA421761D1E0047E60C /* CWAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640A2AA321761D1E0047E60C /* CWAlertAction.swift */; };
@@ -191,7 +190,6 @@
 		648D7F7C20F770A6004C6200 /* ExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648D7F7B20F770A6004C6200 /* ExchangeView.swift */; };
 		648D7F7E20F7F26A004C6200 /* OnNewSubaddressAddedEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648D7F7D20F7F26A004C6200 /* OnNewSubaddressAddedEffect.swift */; };
 		649F9AD52148097C0071AF17 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649F9AD42148097C0071AF17 /* TermsView.swift */; };
-		64A5AE1920E2490500BD6098 /* CakeWalletLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646FF2A320E11FFE00ADF30C /* CakeWalletLib.framework */; };
 		64A5AE1A20E2490500BD6098 /* CakeWalletLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 646FF2A320E11FFE00ADF30C /* CakeWalletLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		64AA499F21455CAB002CE1FE /* MoneroWalletHistoryAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 645F891D214429BA00B085AC /* MoneroWalletHistoryAdapter.mm */; };
 		64AA49A021455F2A002CE1FE /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24468320BACEF100C87C81 /* KeychainKey.swift */; };
@@ -474,7 +472,7 @@
 		0C6DEB4A2281819200536AA1 /* AccountsActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsActions.swift; sourceTree = "<group>"; };
 		0C6DEB4D228184BC00536AA1 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		0C6DEB4F2281850800536AA1 /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
-		0C6DEB512281906400536AA1 /* OnAccountCahngedEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnAccountCahngedEffect.swift; sourceTree = "<group>"; };
+		0C6DEB512281906400536AA1 /* OnAccountChangedEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnAccountChangedEffect.swift; sourceTree = "<group>"; };
 		0C6DEB532281944800536AA1 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		0C6DEB552281945500536AA1 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		0C6DEB572281AF6900536AA1 /* Subaddresses+getByIndeciees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Subaddresses+getByIndeciees.swift"; sourceTree = "<group>"; };
@@ -944,10 +942,8 @@
 				0C6E3A1721FA02C700030C92 /* CloudKit.framework in Frameworks */,
 				646FF2E820E1492B00ADF30C /* CakeWalletLib.framework in Frameworks */,
 				645F8905214428D200B085AC /* CWMonero.framework in Frameworks */,
-				64A5AE1920E2490500BD6098 /* CakeWalletLib.framework in Frameworks */,
 				644A99DA20E172FA0035429B /* CakeWalletCore.framework in Frameworks */,
 				06CC905F24A0FB1C5311CF69 /* Pods_CakeWallet.framework in Frameworks */,
-				361CA1C7D01950BBA7C9570F /* Pods_CakeWallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1431,7 +1427,7 @@
 				643062D420EC2FAB00853394 /* OnCurrentNodeChangeEffect.swift */,
 				648D7F7D20F7F26A004C6200 /* OnNewSubaddressAddedEffect.swift */,
 				0C51C10D2279DB1800F54BFF /* OnSubaddressCahngedEffect.swift */,
-				0C6DEB512281906400536AA1 /* OnAccountCahngedEffect.swift */,
+				0C6DEB512281906400536AA1 /* OnAccountChangedEffect.swift */,
 				0C6DEB612281B34D00536AA1 /* OnAccountAddedEffect.swift */,
 			);
 			path = Effects;
@@ -2097,7 +2093,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Mykola Misiura";
 				TargetAttributes = {
 					644A99D220E172FA0035429B = {
@@ -2502,7 +2498,7 @@
 				A5178DF4222FEAAE00EC4829 /* SplashViewController.swift in Sources */,
 				A5610DDE21FF032D00C38F99 /* NewAddressViewController.swift in Sources */,
 				64AA49C5214570F5002CE1FE /* MiniCopyButton.swift in Sources */,
-				0C6DEB522281906400536AA1 /* OnAccountCahngedEffect.swift in Sources */,
+				0C6DEB522281906400536AA1 /* OnAccountChangedEffect.swift in Sources */,
 				64F8AB3420EA60F100C59254 /* StartConnectionEffect.swift in Sources */,
 				0CCD600B2272E6180038B602 /* WalletNameView.swift in Sources */,
 				0CB841C722031AE200AF4985 /* getTransactionKey.swift in Sources */,
@@ -2883,7 +2879,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -2941,7 +2937,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3025,7 +3021,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3059,7 +3055,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3143,7 +3139,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3216,7 +3212,6 @@
 			baseConfigurationReference = DF8D71357842AFE3FDCA691E /* Pods-CakeWallet.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3263,7 +3258,6 @@
 			baseConfigurationReference = 04BE9685AD75114223AEF911 /* Pods-CakeWallet.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

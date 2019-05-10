@@ -95,7 +95,7 @@ let store = Store<ApplicationState>(
         )
     ), effects: [
         HandlerEffect<ApplicationState>(),
-//        LoggerEffect<ApplicationState>(),
+        LoggerEffect<ApplicationState>(),
         OnWalletChangeEffect(),
         StartConnectionEffect(),
         startingSyncEffect(),
@@ -110,7 +110,7 @@ let store = Store<ApplicationState>(
         UpdateFiatBalanceAfterPriceChangeEffect(),
         OnNewSubaddressAddedEffect(),
         OnSubaddressCahngedEffect(),
-        OnAccountCahngedEffect(),
+        OnAccountChangedEffect(),
         OnNewSubaddressAddedEffect()
     ]
 )

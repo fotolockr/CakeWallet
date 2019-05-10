@@ -80,6 +80,7 @@ public struct TransactionDescription {
     public let paymentId: String
     public let accountIndex: UInt32
     public let addressIndecies: [UInt32]
+    public let confirmations: UInt64
     
     public init(
         id: String,
@@ -93,7 +94,8 @@ public struct TransactionDescription {
         height: UInt64,
         paymentId: String,
         accountIndex: UInt32,
-        addressIndecies: [UInt32]) {
+        addressIndecies: [UInt32],
+        confirmations: UInt64) {
         self.id = id
         self.date = date
         self.totalAmount = totalAmount
@@ -106,6 +108,7 @@ public struct TransactionDescription {
         self.paymentId = paymentId
         self.accountIndex = accountIndex
         self.addressIndecies = addressIndecies
+        self.confirmations = confirmations
     }
 }
 
@@ -119,11 +122,13 @@ extension TransactionDescription: Equatable {
 }
 
 
-public protocol TransactionHistory {
+public protocol TransactionHistory: class {
     var count: Int { get }
     var transactions: [TransactionDescription] { get }
+    var transactionsChanged: (([TransactionDescription]) -> Void)? { get set }
     
     func newTransactions(afterIndex index: Int) -> [TransactionDescription]
     func refresh()
+    func askToUpdate()
 }
 

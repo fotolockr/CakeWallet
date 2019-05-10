@@ -19,7 +19,7 @@ extension AddressTextField: UITextFieldDelegate {
         change(text: originText.value)
     }
     
-    func CWTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         originText.accept(string)
         return true
     }

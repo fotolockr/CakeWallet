@@ -11,7 +11,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private var showAbleBalance: Bool
     private(set) var presentWalletsListButtonTitle: UIBarButtonItem?
     private(set) var presentWalletsListButtonImage: UIBarButtonItem?
-    private var transactions: [TransactionDescription] = []
     private var sortedTransactions:  [DateComponents : [TransactionDescription]] = [:] {
         didSet {
             transactionsKeys = sort(dateComponents: Array(sortedTransactions.keys))
@@ -20,11 +19,13 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private var transactionsKeys: [DateComponents] = []
     private var initialHeight: UInt64
     private var refreshControl: UIRefreshControl
+    private let calendar: Calendar
     let store: Store<ApplicationState>
     
-    init(store: Store<ApplicationState>, dashboardFlow: DashboardFlow?) {
+    init(store: Store<ApplicationState>, dashboardFlow: DashboardFlow?, calendar: Calendar = Calendar.current) {
         self.store = store
         self.dashboardFlow = dashboardFlow
+        self.calendar = calendar
         showAbleBalance = true
         initialHeight = 0
         refreshControl = UIRefreshControl()
@@ -110,7 +111,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        store.dispatch(TransactionsActions.forceUpdateTransactions)
+        store.dispatch(TransactionsActions.askToUpdate)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -345,7 +346,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             return
         }
         
-        store.dispatch(TransactionsActions.forceUpdateTransactions)
+        store.dispatch(TransactionsActions.askToUpdate)
     }
     
     private func updateInitialHeight(_ blockchainState: BlockchainState) {
@@ -487,17 +488,12 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         contentView.transactionTitleLabel.isHidden = transactions.count <= 0
         
         let sortedTransactions = Dictionary(grouping: transactions) {
-            return Calendar.current.dateComponents([.day, .year, .month], from: ($0.date))
+            return calendar.dateComponents([.day, .year, .month], from: ($0.date))
         }
 
-        guard self.transactions != transactions else {
-            return
-        }
-        
-        self.transactions = transactions
         self.sortedTransactions = sortedTransactions
         
-        if self.transactions.count > 0 {
+        if self.sortedTransactions.count > 0 {
             if contentView.transactionTitleLabel.isHidden {
                 contentView.transactionTitleLabel.isHidden = false
             }
@@ -521,7 +517,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     
     @objc
     private func refresh(_ refreshControl: UIRefreshControl) {
-        store.dispatch(TransactionsActions.forceUpdateTransactions)
+        store.dispatch(TransactionsActions.askToUpdate)
         refreshControl.endRefreshing()
     }
 }

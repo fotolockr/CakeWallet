@@ -6,7 +6,9 @@ import CWMonero
 // fixme
 private let moneroBlockSize = 1000
 
-private func onWalletChange(_ wallet: Wallet) {    
+private func onWalletChange(_ wallet: Wallet) {
+    syncedHeight = 0
+    
     if wallet.name != UserDefaults.standard.string(forKey: Configurations.DefaultsKeys.currentWalletName) {
         UserDefaults.standard.set(wallet.name, forKey: Configurations.DefaultsKeys.currentWalletName)
     }
@@ -22,11 +24,9 @@ private func onWalletChange(_ wallet: Wallet) {
     }
     
     currentWallet.onNewBlock = { block in
-        updateQueue.async {
-            store.dispatch(
-                BlockchainState.Action.changedConnectionStatus(.syncing(block))
-            )
-        }
+        store.dispatch(
+            BlockchainState.Action.changedConnectionStatus(.syncing(block))
+        )
     }
    
     currentWallet.onConnectionStatusChange = { conntectionStatus in
@@ -49,9 +49,23 @@ private func onWalletChange(_ wallet: Wallet) {
         )
     }
     
-    store.dispatch(
-        TransactionsActions.updateTransactionHistory(currentWallet.transactions())
-    )
+    currentWallet.transactions().transactionsChanged = { transactions in
+        let account: UInt32
+        
+        if let moneroWallet = currentWallet as? MoneroWallet {
+            account = moneroWallet.accountIndex
+        } else {
+            account = 0
+        }
+        
+        store.dispatch(TransactionsActions.updateTransactions(transactions, account))
+        
+        do {
+            try currentWallet.save()
+        } catch {
+            store.dispatch(ApplicationState.Action.changedError(error))
+        }
+    }
     
     store.dispatch(
         BlockchainState.Action.changedCurrentHeight(wallet.currentHeight)
@@ -64,7 +78,7 @@ private func onWalletChange(_ wallet: Wallet) {
     store.dispatch(
         BalanceState.Action.changedUnlockedBalance(wallet.unlockedBalance)
     )
-    
+        
     guard let moneroWallet = currentWallet as? MoneroWallet else {
         return
     }
