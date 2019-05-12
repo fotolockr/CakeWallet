@@ -8,9 +8,9 @@ enum DashboardActionType {
     var title: String {
         switch self {
         case .send:
-            return "Send"
+            return NSLocalizedString("send", comment: "")
         case .receive:
-            return "Receive"
+            return NSLocalizedString("receive", comment: "")
         }
     }
     
@@ -67,14 +67,17 @@ final class DashboardActionButton: BaseFlexView {
     }
     
     override func configureView() {
+        super.configureView()
         label.font = applyFont(ofSize: 17, weight: .semibold)
         
+        wrapper.applyCardSketchShadow()
+        wrapper.frame = CGRect(x: 0, y: 0, width: 200, height: 60)
+        buttonImageView.image = type.image
+        
+        rootFlexContainer.layer.cornerRadius = 12
         wrapper.layer.cornerRadius = 12
         wrapper.layer.borderWidth = 1
         wrapper.layer.borderColor = type.borderColor.cgColor
-        wrapper.applyCardSketchShadow()
-        
-        buttonImageView.image = type.image
         
         super.configureView()
     }
@@ -90,63 +93,26 @@ final class DashboardActionButton: BaseFlexView {
         }
         
         rootFlexContainer.flex
-            .height(60)
-            .backgroundColor(.white)
             .define { flex in
                 flex.addItem(wrapper).width(100%).height(100%)
         }
     }
 }
 
-final class ShortStatusBarView: BaseView {
-    let cryptoAmountLabel: UILabel
-    let fiatAmountLabel: UILabel
-    let receiveButton: UIButton
-    let sendButton: UIButton
-    let amountContainer: UIView
-    
-    required init() {
-        cryptoAmountLabel = UILabel(fontSize: 18)
-        fiatAmountLabel = UILabel(fontSize: 12)
-        receiveButton = PrimaryButton(title: NSLocalizedString("receive", comment: ""))
-        sendButton = PrimaryButton(title: NSLocalizedString("send", comment: ""))
-        amountContainer = UIView()
-        super.init()
-    }
-    
-    override func configureConstraints() {
-        amountContainer.flex.define { flex in
-            flex.addItem(cryptoAmountLabel).grow(1).width(100%)
-            flex.addItem(fiatAmountLabel).grow(1).width(100%)
-        }
-        
-        flex.direction(.row).padding(10, 15, 10, 15).define { flex in
-            flex.addItem(amountContainer).grow(1).marginRight(10)
-            flex.addItem(sendButton).height(40).marginRight(10)
-            flex.addItem(receiveButton).height(40)
-        }
-    }
-}
-
-final class DashboardView: BaseFlexView {
-    let cardView: UIView
-    let fiatAmountLabel, cryptoAmountLabel, statusLabel, cryptoTitleLabel, transactionTitleLabel: UILabel
+final class DashboardView: BaseScrollFlexView {
+    let fixedHeader: UIView
+    let fiatAmountLabel, cryptoAmountLabel, cryptoTitleLabel, transactionTitleLabel: UILabel
     let progressBar: ProgressBar
-    let statusView, buttonsRow: UIView
-    let syncingImageView: UIImageView
+    let buttonsRow: UIView
     let receiveButton, sendButton: DashboardActionButton
     let transactionsTableView: UITableView
-    let tableHeaderView: BaseFlexView
-    let shortStatusBarView: ShortStatusBarView
     let cardViewCoreDataWrapper: UIView
-    let cardViewStatusBarUIWrapper: UIView
     let buttonsRowPadding: CGFloat
-    private var isShowSyncingIconHidden: Bool
+    static let fixedHeaderHeight = 320 as CGFloat
     
     required init() {
-        cardView = UIView()
+        fixedHeader = UIView()
         progressBar = ProgressBar()
-        statusLabel = UILabel.withLightText(fontSize: 10)
         cryptoAmountLabel = UILabel()
         fiatAmountLabel = UILabel.withLightText(fontSize: 17)
         cryptoTitleLabel = UILabel(fontSize: 16)
@@ -154,135 +120,107 @@ final class DashboardView: BaseFlexView {
         sendButton = DashboardActionButton(type: .send)
         buttonsRow = UIView()
         transactionTitleLabel = UILabel.withLightText(fontSize: 16)
-        transactionsTableView = UITableView()
-        syncingImageView = UIImageView(image: UIImage(named: "sync_icon"))
-        statusView = UIView()
-        tableHeaderView = BaseFlexView()
-        isShowSyncingIconHidden = false
-        shortStatusBarView = ShortStatusBarView()
+        transactionsTableView = UITableView.init(frame: CGRect.zero, style: .grouped)
         cardViewCoreDataWrapper = UIView()
-        cardViewStatusBarUIWrapper = UIView()
         buttonsRowPadding = 10
+        
         super.init()
     }
     
     override func configureView() {
         super.configureView()
         
-        statusLabel.textAlignment = .center
         cryptoAmountLabel.font = applyFont(ofSize: 40)
         cryptoAmountLabel.textAlignment = .center
         fiatAmountLabel.textAlignment = .center
         fiatAmountLabel.font = applyFont(ofSize: 17)
-        
         cryptoTitleLabel.font = applyFont(ofSize: 16, weight: .semibold)
         cryptoTitleLabel.textColor = UIColor.purpley
-        cryptoTitleLabel.textAlignment = .center
-        
         transactionsTableView.separatorStyle = .none
-        tableHeaderView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: 340))
-        transactionsTableView.tableHeaderView = tableHeaderView
+        cryptoTitleLabel.textAlignment = .center
         transactionsTableView.tableFooterView = UIView()
+        transactionsTableView.isScrollEnabled = false
         transactionsTableView.layoutMargins = .zero
         transactionsTableView.separatorInset = .zero
         transactionsTableView.backgroundColor = .white
         transactionTitleLabel.text = NSLocalizedString("transactions", comment: "")
         transactionTitleLabel.textAlignment = .center
-        syncingImageView.isHidden = true
-        tableHeaderView.backgroundColor = .clear
-        tableHeaderView.rootFlexContainer.flex.backgroundColor(.clear)
         transactionsTableView.layer.masksToBounds = false
         rootFlexContainer.layer.masksToBounds = true
         backgroundColor = .white
+        fixedHeader.applyCardSketchShadow()
+        addSubview(fixedHeader)
+        bringSubview(toFront: fixedHeader)
     }
     
     override func configureConstraints() {
-        statusView.flex
-            .direction(.row)
-            .justifyContent(.center)
-            .alignItems(.center)
-            .define { flex in
-                flex.addItem(syncingImageView).height(12).width(12)
-                flex.addItem(statusLabel).height(100%).width(100%).marginRight(syncingImageView.isHidden ? 12 : 0)
-        }
-    
+        super.configureConstraints()
+        
         cardViewCoreDataWrapper.flex
             .alignItems(.center)
-            .paddingTop(20)
             .width(100%)
             .define{ flex in
-                flex.addItem(cryptoTitleLabel).marginBottom(8).width(100%)
-                flex.addItem(cryptoAmountLabel).marginBottom(10).width(100%)
-                flex.addItem(fiatAmountLabel).width(100%)
-        }
-        
-        cardViewStatusBarUIWrapper.flex
-            .alignItems(.center)
-            .define{ flex in
-                flex.addItem(statusView).width(100%).marginBottom(8)
-                flex.addItem(progressBar).width(85%).height(4)
-        }
-        
-        cardView.flex
-            .alignItems(.center).justifyContent(.spaceBetween).alignItems(.center)
-            .width(100%).padding(20).marginTop(15)
-            .backgroundColor(.white)
-            .define { flex in
-                flex.addItem(cardViewCoreDataWrapper).marginBottom(29)
-                flex.addItem(cardViewStatusBarUIWrapper).width(100%)
+                flex.addItem(cryptoTitleLabel).width(100%).height(20).marginBottom(10)
+                flex.addItem(cryptoAmountLabel).width(100%).height(32).marginBottom(10)
+                flex.addItem(fiatAmountLabel).width(100%).height(20)
         }
         
         buttonsRow.flex
-            .direction(.row)
-            .justifyContent(.spaceBetween)
-            .marginTop(15)
+            .direction(.row).alignItems(.center).justifyContent(.center)
             .paddingHorizontal(buttonsRowPadding)
             .backgroundColor(.clear)
             .define { flex in
-                flex.addItem(sendButton).width(48%)
-                flex.addItem(receiveButton).width(48%)
+                flex.addItem(sendButton).width(45%).height(100%).marginRight(7)
+                flex.addItem(receiveButton).width(45%).height(100%).marginLeft(7)
         }
-
+        
+        fixedHeader.flex
+            .alignItems(.center).justifyContent(.end)
+            .width(100%).height(DashboardView.fixedHeaderHeight)
+            .backgroundColor(.white)
+            .define { flex in
+                flex.addItem(cardViewCoreDataWrapper).width(100%).position(.absolute).top(45)
+                flex.addItem(progressBar).width(200).height(22).marginBottom(120)
+                flex.addItem(buttonsRow).height(60).position(.absolute).bottom(35)
+                
+                
+        }
+        
         rootFlexContainer.flex
             .backgroundColor(.white)
             .define { flex in
-                flex.addItem(transactionsTableView).height(100%).width(100%)
-        }
-        
-        
-        tableHeaderView.rootFlexContainer.flex
-            .alignItems(.center)
-            .backgroundColor(.white)
-            .define { flex in
-                flex.addItem(cardView).width(92%)
-                 flex.addItem(buttonsRow).marginTop(15).width(92%)
+                flex.addItem(transactionsTableView).height(100%).width(100%).marginTop(DashboardView.fixedHeaderHeight - 10)
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        tableHeaderView.layoutSubviews()
-        tableHeaderView.rootFlexContainer.layer.applySketchShadow(color: UIColor(red: 132, green: 141, blue: 198), alpha: 0.05, x: 0, y: 12, blur: 20, spread: 20)
-        tableHeaderView.rootFlexContainer.layer.masksToBounds = false
+        fixedHeader.pin.top(pin.safeArea.top).left(pin.safeArea.left).right(pin.safeArea.right)
+        fixedHeader.flex.layout()
     }
     
-    func showSyncingIcon() {
-        guard !isShowSyncingIconHidden else { return }
-        isShowSyncingIconHidden = true
-        syncingImageView.isHidden = false
-        syncingImageView.flex.size(CGSize(width: 12, height: 12))
-        syncingImageView.flex.markDirty()
-    }
-    
-    func hideSyncingIcon() {
-        guard isShowSyncingIconHidden else { return }
-        isShowSyncingIconHidden = false
-        syncingImageView.isHidden = true
-        syncingImageView.flex.size(CGSize(width: 1, height: 1))
-        syncingImageView.flex.markDirty()
-    }
-    
-    func updateStatus(text: String) {
-        statusLabel.text = text
+    func updateStatus(text: String, done: Bool = false) {
+        progressBar.statusLabel.text = text.uppercased()
+        progressBar.statusLabel.flex.markDirty()
+        
+        progressBar.animateSyncImage()
+        
+        if done {
+            progressBar.progressView.backgroundColor = UIColor(red: 244, green: 239, blue: 253)
+            progressBar.progressView.layer.borderWidth = 0.7
+            progressBar.progressView.layer.borderColor = UIColor.purpleyBorder.cgColor
+            progressBar.statusLabel.textColor = .black
+            
+            progressBar.imageHolder.flex.height(0)
+            progressBar.imageHolder.flex.width(0)
+            progressBar.imageHolder.flex.markDirty()
+            progressBar.imageHolder.isHidden = true
+            
+            progressBar.progressLabel.flex.height(0)
+            progressBar.progressLabel.flex.markDirty()
+            progressBar.progressLabel.isHidden = true
+        }
+        
+        progressBar.flex.layout()
     }
 }

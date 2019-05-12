@@ -69,7 +69,7 @@ class CWTextField: UITextField {
     func updateLayoutBottomBorder() {
         let y = frame.size.height - CWTextField.bottomBorderHeight
         bottomBorder.frame = CGRect(
-            origin: CGPoint(x: .zero, y: y),
+            origin: CGPoint(x: 0, y: y),
             size: CGSize(width: self.frame.size.width, height: CWTextField.bottomBorderHeight))
     }
 }
