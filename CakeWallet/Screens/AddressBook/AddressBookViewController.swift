@@ -103,7 +103,7 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
             doneHandler?(contact.address)
         } else {
             let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
-            let copyAction = UIAlertAction(title: "Copy", style: .default) { _ in
+            let copyAction = UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default) { _ in
                 UIPasteboard.general.string = contact.address
             }
             
@@ -112,7 +112,7 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
             // fixme: hardcoded value .monero,
             // it must be depend on current wallet type or will be removed when send screen will support exchange
             if contact.type == .monero {
-                let sendAction = UIAlertAction(title: "Send", style: .default) { [weak self] _ in
+                let sendAction = UIAlertAction(title: NSLocalizedString("send", comment: ""), style: .default) { [weak self] _ in
                     guard let store = self?.store else { return }
                     
                     let sendVC = SendViewController(store: store, address: contact.address)
@@ -168,7 +168,7 @@ final class AddressBookViewController: BaseViewController<AddressBookView>, UITa
     
     private func createNoDataLabel(with size: CGSize) -> UIView {
         let noDataLabel: UILabel = UILabel(frame: CGRect(origin: .zero, size: size))
-        noDataLabel.text = "No contacts yet"
+        noDataLabel.text = NSLocalizedString("no_contacts", comment: "")
         noDataLabel.textColor = UIColor(hex: 0x9bacc5)
         noDataLabel.textAlignment = .center
         

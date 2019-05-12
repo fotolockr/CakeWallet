@@ -207,7 +207,7 @@ final class ReceiveExchangeCardView: BaseFlexView, ExchangableCardView {
     
     override func configureView() {
         super.configureView()
-        titleLabel.text = NSLocalizedString("Receive", comment: "")
+        titleLabel.text = NSLocalizedString("receive", comment: "")
         titleLabel.textAlignment = .center
         amountTitleLabel.textColor = . wildDarkBlue
         amountLabel.textColor = .spaceViolet
@@ -262,8 +262,16 @@ final class ExchangeView: BaseScrollFlexView {
     let exchangeDescriptionLabel: UILabel
     
     required init() {
-        depositCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "You will send", addressPlaceholder: "Refund address")
-        receiveCardView = ExchangeCardView(cardType: ExchangeCardType.deposit, cardTitle: "You will get", addressPlaceholder: "Address")
+        depositCardView = ExchangeCardView(
+            cardType: ExchangeCardType.deposit,
+            cardTitle: NSLocalizedString("you_will_send", comment: ""),
+            addressPlaceholder: NSLocalizedString("refund_address", comment: "")
+        )
+        receiveCardView = ExchangeCardView(
+            cardType: ExchangeCardType.deposit,
+            cardTitle: NSLocalizedString("you_will_get", comment: ""),
+            addressPlaceholder: NSLocalizedString("address", comment: "")
+        )
         arrowDownImageView = UIImageView(image: UIImage(named: "arrow_down_dotted"))
         clearButton = SecondaryButton(title: NSLocalizedString("clear", comment: ""))
         exchangeButton = PrimaryLoadingButton()

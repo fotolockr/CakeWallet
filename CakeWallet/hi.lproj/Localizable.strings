@@ -103,17 +103,25 @@
 "removing_wallet" = "- नाम का बटुआ डिलीट हो रहा है";
 "loading_wallet" = "- नाम का बटुआ लोड हो रहा है";
 "create_new_wallet" = "नया बटुआ बनाएं";
+"accounts" = "हिसाब किताब";
+
 
 // Address book
 
 "address_book" = "पता पुस्तिका";
+"no_contacts" = "अभी तक कोई संपर्क नहीं";
+"contact" = "संपर्क करें";
+"contact_name" = "संपर्क नाम";
+
 
 // Rescan
 
 "starting_rescan" = "स्कैन पुनः शुरू हो रहा है";
 
+
 // Send
 
+"your_wallet" = "आपका बटुआ";
 "all" = "सभी";
 "optional" = " ऐच्छिक ";
 "estimated_fee" = " अनुमानित शुल्क ";
@@ -135,11 +143,13 @@
 "hide_options" = " विकल्प छुपाएं ";
 "copied" = "कॉपी किया गया";
 
+
 // Subs
 
 "subaddresses" = " पता";
 "new_subaddress_label" = " नए पते का नाम ";
 "add" = "ऐड करें";
+
 
 // Settings
 
@@ -150,27 +160,47 @@
 "allow_biometric_authentication" = " बॉयोमीट्रिक प्रमाणीकरण की अनुमति दें ";
 "remember_pin" = "पिन याद करें";
 "node_settings" = "डेमॉन सेटिंग ";
+"backup_password" = "बैकअप पासवर्ड";
+"show_backup_password" = "बैकअप पासवर्ड सफल बदल गया है";
+"show_password" = "शो पासवर्ड";
+"save_backup_password" = "क्या आपने अपना बैकअप पासवर्ड सहेजा है?";
+"save_backup_file" = "बैकअप फ़ाइल को अन्य स्थान पर सहेजें";
+"enable_icloud" = "कृपया iPhone सेटिंग्स में iCloud सक्षम करें";
+"backup_password_has_changed" = "बैकअप पासवर्ड सफल बदल गया है";
+"change_backup_password" = "बैकअप पासवर्ड बदलें";
+"auto_backup" = "ICloud के लिए ऑटो बैकअप";
+"backup_now" = "अब iCloud पर बैकअप लें";
+"creating_backup" = "बैकअप बनाना";
+"change_backup_warning" = "यदि आप बैकअप के लिए बैकअप पासवर्ड को बदल देंगे, तो पिछले MANUAL बैकअप नए पासवर्ड के साथ काम नहीं करेंगे। नए पासवर्ड के साथ ऑटो बैकअप काम करना जारी रखेगा।";
+
 
 // Settings sections
 
 "personal" = "निजी";
 "wallets" = "बटुए";
 "advanced" = " उन्नत ";
+"backup" = "बैकअप";
+"manual_backup" = "मैनुअल बैकअप";
+
 
 // Nodes
 
 "nodes" = "नोड";
 "auto_switch_node" = "स्वतः नोड बदलें ";
+"node_new" = "नया नोड";
+
 
 // Exchange
 
 "exchange" = "एक्सचेंज";
+"switch_exchange" = "विनिमय स्विच करें";
 "refund_address_is_empty" = "रिफंड पता खाली है";
 "create_exchange" = "नया एक्सचेंज बनाएं";
 "deposit" = "जमा करें";
 "refund_address" = "रिफंड पता";
 "you_will_receive" = "आपको प्राप्त होगा";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "तुम भेजोगे";
+"you_will_get" = "आपको मिल जायेगा";
 "clear" = "मिटायें";
 "copy_id" = "आईडी कॉपी करें";
 "confirm" = "पुष्टि करें";
@@ -182,6 +212,9 @@
 "exchange_result_confirm_sending" = " कृपया जारी रखने के लिए कन्फर्म दबाएं या राशि बदलने के लिए पीछे जाएं।";
 "exchange_result_write_down_trade_id" = " कृपया ऊपर दिखाए गए अपनी आईडी को कॉपी करें या लिखें ";
 "trade_not_found" = "लेनदेन नही पाया गया";
+"amount_is_guaranteed" = "प्राप्त राशि की गारंटी है";
+"amount_is_estimate" = "प्राप्त राशि एक अनुमान है";
+
 
 // Auth
 
@@ -190,15 +223,18 @@
 "use_pin_password" = "पिन पासवर्ड का उपयोग करें";
 "unlock_wallet" = "अपने बटुए को खोलने के लिए";
 
+
 // Wallets keys
 
 "wallet_keys" = "बटुआ कुंजी";
 "view_key_public" = "कुंजी देखें (निजी)";
 "spend_key_public" = "कुंजी रखें (निजी)";
 
+
 // Seed
 
 "seed_disclaimer" = " कृपया अपने सीड वाक्यांश को साझा करें, कॉपी करें या लिखें। सीड वाक्यांश का उपयोग आपके बटुए को पुनः लोड करने के लिए किया जाता है। यह आपका निजी सीड वाक्यांश है। अन्य लोगों के साथ इस सीड वाक्यांश को साझा न करें!";
+
 
 // Transactions details
 
@@ -206,6 +242,7 @@
 "date" = "दिनांक";
 "transaction_id" = "लेनदेन संख्या";
 "transaction_details" = " लेनदेन विवरण ";
+
 
 // Exchange trade states
 
@@ -236,6 +273,7 @@
 "delete_node_message" = "क्या आप वाकई चयनित नोड को मिटाना चाहते हैं?";
 "change_current_node_message" = "क्या आप वर्तमान नोड को %@ में बदलना चाहते हैं?";
 "change" = "बदलें";
+"done" = "किया हुआ";
 "yes" = "हां";
 "terms" = "नियम और शर्तें";
 "terms_accepting_message" = "इस ऐप का उपयोग करके, आप नीचे बताए गए समझौते की शर्तों से सहमत हैं।";

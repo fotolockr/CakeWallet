@@ -984,7 +984,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     override func viewDidLoad() {
         super.viewDidLoad()
         let clearButton = UIBarButtonItem()
-        clearButton.title = "Clear"
+        clearButton.title = NSLocalizedString("clear", comment: "")
         clearButton.action = #selector(clear)
         
         clearButton.setTitleTextAttributes([
@@ -1275,7 +1275,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             return
         }
         
-        contentView.dispclaimerLabel.text = exchange.provider == .xmrto ? "The receive amount is guaranteed" : "The receive amount is an estimate."
+        contentView.dispclaimerLabel.text = exchange.provider == .xmrto
+            ? NSLocalizedString("amount_is_guaranteed", comment: "")
+            : NSLocalizedString("amount_is_estimate", comment: "")
         changeProviderTitle(title, icon: UIImage(named: icon))
     }
     

@@ -16,10 +16,10 @@ final class NewAddressView: BaseFlexView {
     
     required init() {
         cardView = UIView()
-        contactNameTextField = CWTextField(placeholder: NSLocalizedString("Contact Name", comment: ""))
+        contactNameTextField = CWTextField(placeholder: NSLocalizedString(NSLocalizedString("contact_name", comment: ""), comment: ""))
         contactNameTextField.font = applyFont(ofSize: 15)
         
-        addressView = AddressView(placeholder: "Address", hideAddressBookButton: true)
+        addressView = AddressView(placeholder: NSLocalizedString("address", comment: ""), hideAddressBookButton: true)
         addressView.textView.font = applyFont(ofSize: 16)
         
         saveButton = PrimaryButton(title: NSLocalizedString("save", comment: ""))
@@ -34,10 +34,10 @@ final class NewAddressView: BaseFlexView {
     }
     
     override func configureConstraints() {
-        cardView.flex.padding(20, 10, 20, 10).justifyContent(.spaceBetween).define { flex in
+        cardView.flex.padding(20, 15, 20, 15).justifyContent(.spaceBetween).define { flex in
             flex.addItem(contactNameTextField).height(50)
             flex.addItem(pickerTextField).height(50).marginTop(15)
-            flex.addItem(addressView).marginTop(20)
+            flex.addItem(addressView).marginTop(30)
         }
         
         buttonsContainer.flex.direction(.row).justifyContent(.center).define { flex in

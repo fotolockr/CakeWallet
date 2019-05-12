@@ -27,7 +27,7 @@ final class SubaddressViewController: BaseViewController<SubaddressView> {
         contentView.labelContainer.text = label.value
         
         if subaddress == nil {
-            contentView.editButton.setTitle("Add", for: .normal)
+            contentView.editButton.setTitle(NSLocalizedString("add", comment: ""), for: .normal)
         }
         
         contentView.labelContainer.rx.text.orEmpty

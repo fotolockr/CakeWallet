@@ -135,7 +135,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     
     private func insertNavigationItems() {
         hideWalletsListButtonTitle = UIBarButtonItem(
-            title: "Done",
+            title: NSLocalizedString("done", comment: ""),
             style: .plain,
             target: self,
             action: #selector(dismissAction)

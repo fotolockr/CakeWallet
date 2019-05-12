@@ -15,6 +15,7 @@
 "restore" = "Restore";
 "please_make_selection" = "Please make a selection below to either create a new wallet or restore a wallet";
 
+
 // Pin
 
 "use_6_pin" = "Use 6-digits PIN";
@@ -26,6 +27,7 @@
 "pin_setup_success" = "Your PIN has been set up successfully!";
 "incorrect_pin" = "Incorrect PIN";
 
+
 // Restore root
 
 "restore_from_seed_keys" = "Restore from seed/keys";
@@ -33,12 +35,14 @@
 "restore_from_backup" = "Restore from a back-up file";
 "restore_from_backup_long" = "Restore the whole Cake Wallet app from your back-up file";
 
+
 // Restore cards
 
 "restore_seed_card_title" = "Restore from seed";
 "restore_seed_card_description" = "Restore your wallet from either the 25 word or 12 word seed";
 "restore_keys_card_title" = "Restore from keys";
 "restore_keys_card_description" = "Restore your wallet from your private keys";
+
 
 // Restore
 
@@ -71,6 +75,7 @@
 
 "wallet" = "Wallet";
 
+
 // Connection state
 
 "blocks_remaining" = "Blocks remaining";
@@ -79,6 +84,7 @@
 "starting_sync" = "Starting sync";
 "synchronized" = "Synchronized";
 "failed_connection_to_node" = "Failed connect to the node";
+
 
 // Wallet
 
@@ -93,9 +99,14 @@
 "sent" = "Sent";
 "pending" = "pending";
 
+
 // Address book
 
 "address_book" = "Address book";
+"no_contacts" = "No contacts yet";
+"contact" = "Contact";
+"contact_name" = "Contact name";
+
 
 // Wallets
 
@@ -107,13 +118,17 @@
 "removing_wallet" = "Removing wallet with name";
 "loading_wallet" = "Loading wallet with name";
 "create_new_wallet" = "Create New Wallet";
+"accounts" = "Accounts";
+
 
 // Rescan
 
 "starting_rescan" = "Starting rescan";
 
+
 // Send
 
+"your_wallet" = "Your wallet";
 "all" = "ALL";
 "optional" = "Optional";
 "estimated_fee" = "Estimated fee";
@@ -135,11 +150,13 @@
 "hide_options" = "Hide options";
 "copied" = "Copied";
 
+
 // Subs
 
 "subaddresses" = "Subaddresses";
 "new_subaddress_label" = "New subaddress label";
 "add" = "Add";
+
 
 // Settings
 
@@ -150,27 +167,48 @@
 "allow_biometric_authentication" = "Allow biometric authentication";
 "remember_pin" = "Remember pin";
 "node_settings" = "Daemon settings";
+"backup_password" = "Backup password";
+"show_backup_password" = "Show backup password";
+"show_password" = "Show password";
+"save_backup_password" = "Did you save your backup password?";
+"save_backup_file" = "Save backup file to other location";
+"enable_icloud" = "Please enable iCloud in the iPhone settings";
+"backup_password_has_changed" = "Backup password has changed successfuly";
+"change_backup_password" = "Change backup password";
+"auto_backup" = "Auto backup to iCloud";
+"backup_now" = "Backup now to iCloud";
+"creating_backup" = "Creating backup";
+
+"change_backup_warning" = "If you will change the Backup password for backups, the previous MANUAL backups will not work with the new password. Auto backups will continue to work with the new password.";
+
 
 // Settings sections
 
 "personal" = "Personal";
 "wallets" = "Wallets";
 "advanced" = "Advanced";
+"backup" = "Backup";
+"manual_backup" = "Manual backup";
+
 
 // Nodes
 
 "nodes" = "Nodes";
 "auto_switch_node" = "Auto switch node";
+"node_new" = "New node";
+
 
 // Exchange
 
 "exchange" = "Exchange";
+"switch_exchange" = "Switch exchange";
 "refund_address_is_empty" = "Refund address is empty";
 "create_exchange" = "Create a new exchange";
 "deposit" = "Deposit";
 "refund_address" = "Refund address";
 "you_will_receive" = "You will receive";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "You will send";
+"you_will_get" = "You will get";
 "clear" = "Clear";
 "copy_id" = "Copy ID";
 "confirm" = "Confirm";
@@ -183,6 +221,9 @@
 "exchange_result_confirm_sending" = "Please press confirm to continue or go back to change the amounts.";
 "exchange_result_write_down_trade_id" = "Please copy or write down your ID shown above";
 "trade_not_found" = "Trade is not found";
+"amount_is_guaranteed" = "The receive amount is guaranteed";
+"amount_is_estimate" = "The receive amount is an estimate";
+
 
 // Auth
 
@@ -191,15 +232,18 @@
 "use_pin_password" = "Use Pin password";
 "unlock_wallet" = "To unlock your wallet";
 
+
 // Wallets keys
 
 "wallet_keys" = "Wallet keys";
 "view_key_public" = "View key (public)";
 "spend_key_public" = "Spend key (public)";
 
+
 // Seed
 
 "seed_disclaimer" = "Please share, copy, or write down your seed. The seed is used to recover your wallet. This is your PRIVATE seed. DO NOT SHARE this seed with other people!";
+
 
 // Transactions details
 
@@ -207,6 +251,7 @@
 "date" = "Date";
 "transaction_id" = "Transaction ID";
 "transaction_details" = "Transaction details";
+
 
 // Exchange trade states
 
@@ -216,6 +261,7 @@
 "exchange_trade_state_trading" = "Trading";
 "exchange_trade_state_traded" = "Traded";
 "exchange_trade_state_complete" = "Complete";
+
 
 // Exchange check errors
 
@@ -239,6 +285,7 @@
 "delete_node_message" = "Are you sure that you want to remove selected node ?";
 "change_current_node_message" = "Are you sure to change current node to %@ ?";
 "change" = "Change";
+"done" = "Done";
 "yes" = "Yes";
 "terms" = "Terms and conditions";
 "terms_accepting_message" = "By using this app, you agree to the Terms of Agreement set forth below";

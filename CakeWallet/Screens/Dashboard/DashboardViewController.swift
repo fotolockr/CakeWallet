@@ -20,6 +20,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private var initialHeight: UInt64
     private var refreshControl: UIRefreshControl
     private let calendar: Calendar
+    private var scrollViewOffset: CGFloat = 0
     let store: Store<ApplicationState>
     
     init(store: Store<ApplicationState>, dashboardFlow: DashboardFlow?, calendar: Calendar = Calendar.current) {
@@ -47,12 +48,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         contentView.transactionsTableView.delegate = self
         contentView.transactionsTableView.dataSource = self
         contentView.transactionsTableView.addSubview(refreshControl)
-        contentView.transactionsTableView.bringSubview(toFront: contentView.tableHeaderView)
-        
-        contentView.shortStatusBarView.receiveButton.addTarget(self, action: #selector(presentReceive), for: .touchUpInside)
-        contentView.shortStatusBarView.sendButton.addTarget(self, action: #selector(presentSend), for: .touchUpInside)
-        contentView.shortStatusBarView.isHidden = true
-        
+    
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
         
         let onCryptoAmountTap = UITapGestureRecognizer(target: self, action: #selector(changeShownBalance))
@@ -72,7 +68,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     
     private func insertNavigationItems() {
         presentWalletsListButtonTitle = UIBarButtonItem(
-            title: "Change",
+            title: NSLocalizedString("change", comment: ""),
             style: .plain,
             target: self,
             action: #selector(presentWalletsList)
@@ -116,6 +112,12 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         store.unsubscribe(self)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        contentView.scrollView.delegate = self
     }
     
     override func setTitle() {
@@ -197,19 +199,61 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentOffset.y > contentView.cardView.frame.height else {
-            contentView.shortStatusBarView.isHidden = true
-            updateCryptoBalance(store.state.balanceState.balance)
-            updateFiatBalance(store.state.balanceState.unlockedFiatBalance)
-            return
-        }
-
-        contentView.shortStatusBarView.isHidden = false
+        animateFixedHeader(for: scrollView)
+        
         updateCryptoBalance(store.state.balanceState.balance)
         updateFiatBalance(store.state.balanceState.unlockedFiatBalance)
-        contentView.shortStatusBarView.receiveButton.flex.markDirty()
-        contentView.shortStatusBarView.sendButton.flex.markDirty()
-        contentView.shortStatusBarView.flex.layout()
+    }
+    
+    private func animateFixedHeader(for scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let headerHeight = contentView.fixedHeader.bounds.height
+        let headerMinHeight: CGFloat = 185
+        
+        let hideContentAnimation = { (toValue: CGFloat) -> Void in
+            UIViewPropertyAnimator(duration: 0.15, curve: .easeOut, animations: { [weak self] in
+                self?.contentView.progressBar.alpha = toValue
+                self?.contentView.cryptoTitleLabel.alpha = toValue
+            }).startAnimation()
+        }
+        
+        if currentOffset > 0 {
+            if (currentOffset > 25 && headerHeight > headerMinHeight) || (currentOffset < scrollViewOffset && headerHeight < DashboardView.fixedHeaderHeight) {
+                scrollViewOffset = currentOffset
+                let dashboardHeightToSet = DashboardView.fixedHeaderHeight - currentOffset + 25
+                
+                if currentOffset > 130 {
+                    contentView.buttonsRow.flex.height(80 - currentOffset * 0.15)
+                }
+                
+                if dashboardHeightToSet > 160 {
+                    contentView.fixedHeader.flex.height(dashboardHeightToSet)
+                }
+                
+                if currentOffset > 60 {
+                    hideContentAnimation(0.0)
+                    
+                } else {
+                    hideContentAnimation(1.0)
+                }
+                
+                if 100 - currentOffset > 10 {
+                    contentView.cardViewCoreDataWrapper.flex.top(70 - currentOffset)
+                }
+                
+                contentView.buttonsRow.flex.markDirty()
+                contentView.fixedHeader.flex.markDirty()
+                contentView.fixedHeader.flex.layout(mode: .adjustHeight)
+                return
+            }
+        }
+        
+        guard scrollView.contentOffset.y > contentView.fixedHeader.frame.height else {
+            updateCryptoBalance(store.state.balanceState.balance)
+            updateFiatBalance(store.state.balanceState.unlockedFiatBalance)
+            
+            return
+        }
     }
     
     @objc
@@ -412,66 +456,41 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private func updateStatusConnection() {
         contentView.progressBar.updateProgress(0)
         contentView.updateStatus(text: NSLocalizedString("connecting", comment: ""))
-        contentView.hideSyncingIcon()
     }
     
     private func updateStatusNotConnected() {
         contentView.progressBar.updateProgress(0)
         contentView.updateStatus(text: NSLocalizedString("not_connected", comment: ""))
-        contentView.hideSyncingIcon()
     }
     
     private func updateStatusstartingSync() {
         contentView.progressBar.updateProgress(0)
         contentView.updateStatus(text: NSLocalizedString("starting_sync", comment: ""))
-        contentView.hideSyncingIcon()
         contentView.rootFlexContainer.flex.layout()
     }
     
     private func updateStatusSynced() {
         contentView.progressBar.updateProgress(100)
         contentView.updateStatus(text: NSLocalizedString("synchronized", comment: ""))
-        contentView.hideSyncingIcon()
     }
     
     private func updateStatusFailed() {
         contentView.progressBar.updateProgress(0)
         contentView.updateStatus(text: NSLocalizedString("failed_connection_to_node", comment: ""))
-        contentView.hideSyncingIcon()
     }
     
     private func updateFiatBalance(_ amount: Amount) {
-        guard contentView.shortStatusBarView.isHidden else {
-            updateShortFiatBalance(amount)
-            return
-        }
-        
         contentView.fiatAmountLabel.text = amount.formatted()
         contentView.fiatAmountLabel.flex.markDirty()
     }
     
     private func updateCryptoBalance(_ amount: Amount) {
-        guard contentView.shortStatusBarView.isHidden else {
-            updateShortCryptoBalance(amount)
-            return
-        }
-        
         contentView.cryptoTitleLabel.text = "XMR"
             + " "
             + (showAbleBalance ? NSLocalizedString("available_balance", comment: "") : NSLocalizedString("full_balance", comment: ""))
         contentView.cryptoAmountLabel.text = amount.formatted()
         contentView.cryptoTitleLabel.flex.markDirty()
         contentView.cryptoAmountLabel.flex.markDirty()
-    }
-    
-    private func updateShortCryptoBalance(_ amount: Amount) {
-        contentView.shortStatusBarView.cryptoAmountLabel.text = amount.formatted()
-        contentView.shortStatusBarView.cryptoAmountLabel.flex.markDirty()
-    }
-    
-    private func updateShortFiatBalance(_ amount: Amount) {
-        contentView.shortStatusBarView.fiatAmountLabel.text = amount.formatted()
-        contentView.shortStatusBarView.fiatAmountLabel.flex.markDirty()
     }
     
     private func updateTransactions(_ transactions: [TransactionDescription]) {

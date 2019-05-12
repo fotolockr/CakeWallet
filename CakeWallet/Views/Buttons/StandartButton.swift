@@ -3,8 +3,7 @@ import UIKit
 final class StandartButton: Button {
     override func configureView() {
         super.configureView()
-        applyCardSketchShadow()
-        backgroundColor = .white
+        backgroundColor = .clear
         setTitleColor(UIColor.spaceViolet, for: .normal)
     }
 }

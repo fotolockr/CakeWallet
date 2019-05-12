@@ -6,8 +6,8 @@ import ZIPFoundation
 import CryptoSwift
 import CWMonero
 import SwiftyJSON
-    
-//fixme
+
+
 final class TextViewUITableViewCell: FlexCell {
     let textView: UITextView
     
@@ -164,7 +164,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             SettingsCellItem.self,
             SettingsPickerCellItem<TransactionPriority>.self,
             SettingsPickerCellItem<FiatCurrency>.self
-        ])
+            ])
         contentView.table.delegate = self
         contentView.table.dataSource = self
         let transactionPriorities = [
@@ -236,45 +236,45 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 self?.settingsFlow?.change(route: .terms)
         })
         let createBackupCellItem = SettingsCellItem(
-            title: "Save backup file to other location",
+            title: NSLocalizedString("save_backup_file", comment: ""),
             action: { [weak self] in
-            self?.askToShowBackupPasswordAlert() {
-                self?.showSpinnerAlert(withTitle: "Creating backup") { [weak self] alert in
-                    do {
-                        guard
-                            let password = self?.masterPassword,
-                            let backupService = self?.backupService else {
-                            return
-                        }
-                        
-                        let url = try backupService.exportToTmpFile(withPassword: password)
-                        
-                        alert.dismiss(animated: true) {
-                            let activityViewController = UIActivityViewController(
-                                activityItems: [url],
-                                applicationActivities: nil)
-                            activityViewController.excludedActivityTypes = [
-                                UIActivityType.message, UIActivityType.mail,
-                                UIActivityType.print, UIActivityType.airDrop]
-                            self?.present(activityViewController, animated: true)
-                        }
-                    } catch {
-                        alert.dismiss(animated: true) {
-                            self?.onBackupSave(error: error)
+                self?.askToShowBackupPasswordAlert() {
+                    self?.showSpinnerAlert(withTitle: NSLocalizedString("creating_backup", comment: "")) { [weak self] alert in
+                        do {
+                            guard
+                                let password = self?.masterPassword,
+                                let backupService = self?.backupService else {
+                                    return
+                            }
+                            
+                            let url = try backupService.exportToTmpFile(withPassword: password)
+                            
+                            alert.dismiss(animated: true) {
+                                let activityViewController = UIActivityViewController(
+                                    activityItems: [url],
+                                    applicationActivities: nil)
+                                activityViewController.excludedActivityTypes = [
+                                    UIActivityType.message, UIActivityType.mail,
+                                    UIActivityType.print, UIActivityType.airDrop]
+                                self?.present(activityViewController, animated: true)
+                            }
+                        } catch {
+                            alert.dismiss(animated: true) {
+                                self?.onBackupSave(error: error)
+                            }
                         }
                     }
                 }
-            }
         })
         let backupNowCellItem = SettingsCellItem(
-            title: "Backup now to iCloud",
+            title: NSLocalizedString("backup_now", comment: ""),
             action: { [weak self] in
                 self?.askToShowBackupPasswordAlert() {
-                    self?.showSpinnerAlert(withTitle: "Creating backup") { [weak self] alert in
+                    self?.showSpinnerAlert(withTitle: NSLocalizedString("creating_backup", comment: "")) { [weak self] alert in
                         autoBackup(force: true, handler: { error in
                             alert.dismiss(animated: true) {
                                 guard let error = error else {
-                                    self?.showOKInfoAlert(title: "Backup uploaded", message: "Backup is uploaded to your iCloud")
+                                    self?.showOKInfoAlert(title: "Backup uploaded", message: "Backup has uploaded to your iCloud")
                                     return
                                 }
                                 
@@ -285,14 +285,14 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 }
         })
         let showMasterPasswordCellItem = SettingsCellItem(
-            title: "Show backup password",
+            title: NSLocalizedString("show_backup_password", comment: ""),
             action: { [weak self] in
                 self?.showBackupPassword()
         })
         let autoBackupSwitcher = SettingsSwitchCellItem(
-            title: "Auto backup to iCloud",
+            title: NSLocalizedString("auto_backup", comment: ""),
             isOn: UserDefaults.standard.bool(forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
-        ) { [weak self] isEnabled, item in            
+        ) { [weak self] isEnabled, item in
             if isEnabled {
                 let icloud = ICloudStorage()
                 guard icloud.isEnabled() else {
@@ -305,19 +305,19 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 self?.askToShowBackupPasswordAlert(onCancelHandler: {
                     item.switcher.isOn = false
                     UserDefaults.standard.set(false, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
-                    }, onSavedHandler: {
-                        UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
-                        autoBackup(cloudStorage: icloud, force: true, queue: .main) { error in
-                            DispatchQueue.main.async {
-                                guard let error = error else {
-                                    return
-                                }
-                                
-                                item.switcher.isOn = false
-                                self?.showICloudIsNotEnabledAlert()
-                                self?.onBackupSave(error: error)
+                }, onSavedHandler: {
+                    UserDefaults.standard.set(true, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
+                    autoBackup(cloudStorage: icloud, force: true, queue: .main) { error in
+                        DispatchQueue.main.async {
+                            guard let error = error else {
+                                return
                             }
+                            
+                            item.switcher.isOn = false
+                            self?.showICloudIsNotEnabledAlert()
+                            self?.onBackupSave(error: error)
                         }
+                    }
                 })
                 
                 return
@@ -326,9 +326,9 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             UserDefaults.standard.set(isEnabled, forKey: Configurations.DefaultsKeys.isAutoBackupEnabled)
         }
         let changeMasterPassword = SettingsCellItem(
-            title: "Change backup password",
+            title: NSLocalizedString("change_backup_password", comment: ""),
             action: { [weak self] in
-                let changeAction = UIAlertAction(title: "Change", style: .default, handler: { alert in
+                let changeAction = UIAlertAction(title: NSLocalizedString("change", comment: ""), style: .default, handler: { alert in
                     let authVC = AuthenticationViewController(store: self!.store, authentication: AuthenticationImpl())
                     authVC.handler = { [weak self, weak authVC] in
                         authVC?.dismiss(animated: true) {
@@ -357,14 +357,14 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                             alert.addAction(UIAlertAction(title: "Generate new", style: .default, handler: { _ in
                                 let password = UUID().uuidString
                                 changePassword(password) {
-                                    let copyAction = UIAlertAction(title: "Copy", style: .default) { [weak self] _ in
+                                    let copyAction = UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default) { [weak self] _ in
                                         UIPasteboard.general.string = self?.masterPassword
                                     }
                                     
                                     let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
                                     
                                     self?.showInfoAlert(
-                                        title: "Backup password",
+                                        title: NSLocalizedString("backup_password", comment: ""),
                                         message: "Backup password has changed successfuly!\nYour new backup password: \(password)",
                                         actions: [okAction, copyAction]
                                     )
@@ -377,7 +377,10 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                                 }
                                 
                                 changePassword(password) {
-                                    self?.showOKInfoAlert(title: "Backup password", message: "Backup password has changed successfuly")
+                                    self?.showOKInfoAlert(
+                                        title: NSLocalizedString("backup_password", comment: ""),
+                                        message: NSLocalizedString("backup_password_has_changed", comment: "")
+                                    )
                                 }
                             }))
                             
@@ -392,11 +395,11 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
                 
                 self?.showInfoAlert(
-                    title: "Backup password",
-                    message: "If you change the Backup password for backups, the previous MANUAL backups will not work with the new password. Auto backups will continue to work with the new password.",
+                    title: NSLocalizedString("backup_password", comment: ""),
+                    message: NSLocalizedString("change_backup_warning", comment: ""),
                     actions: [cancelAction, changeAction])
         })
-    
+        
         sections[.wallets] = [
             fiatCurrencyCellItem,
             feePriorityCellItem
@@ -406,7 +409,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             changeLanguage,
             biometricCellItem,
             rememberPasswordCellItem,
-//            toggleNightModeCellItem
+            //            toggleNightModeCellItem
         ]
         sections[.advanced] = [
             daemonSettingsCellItem
@@ -534,9 +537,9 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         case .support:
             titleLabel.text = NSLocalizedString("support", comment: "")
         case .backup:
-            titleLabel.text = "Backup"
+            titleLabel.text = NSLocalizedString("backup", comment: "")
         case .manualBackup:
-            titleLabel.text = "Manual backup"
+            titleLabel.text = NSLocalizedString("manual_backup", comment: "")
         }
         
         return view
@@ -549,7 +552,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                 tableView.deselectRow(at: indexPath, animated: true)
                 return
         }
-
+        
         item.action?()
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -566,19 +569,23 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
     
     private func askToShowBackupPasswordAlert(onCancelHandler: (() -> Void)? = nil, onSavedHandler: @escaping () -> Void) {
-        let savedAction = UIAlertAction(title: "Yes", style: .default) { _ in
+        let savedAction = UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default) { _ in
             onSavedHandler()
         }
-        let showBackupPassowrd = UIAlertAction(title: "Show password", style: .default) { [weak self] _ in
+        let showBackupPassowrd = UIAlertAction(title: NSLocalizedString("show_password", comment: ""), style: .default) { [weak self] _ in
             self?.showBackupPassword()
             onCancelHandler?()
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
-        showInfoAlert(title: "Backup", message: "Did you save your backup password?", actions: [savedAction, showBackupPassowrd, cancelAction])
+        showInfoAlert(
+            title: NSLocalizedString("backup", comment: ""),
+            message: NSLocalizedString("save_backup_password", comment: ""),
+            actions: [savedAction, showBackupPassowrd, cancelAction]
+        )
     }
     
     private func showBackupPassword() {
-        let copyAction = UIAlertAction(title: "Copy", style: .default) { [weak self] _ in
+        let copyAction = UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default) { [weak self] _ in
             UIPasteboard.general.string = self?.masterPassword
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
@@ -586,7 +593,10 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
         let authVC = AuthenticationViewController(store: store, authentication: AuthenticationImpl())
         authVC.handler = { [weak self] in
             authVC.dismiss(animated: true) {
-                self?.showInfoAlert(title: "Backup password", message: self!.masterPassword, actions: [copyAction, cancelAction])
+                self?.showInfoAlert(
+                    title: NSLocalizedString("backup_password", comment: ""),
+                    message: self!.masterPassword, actions: [copyAction, cancelAction]
+                )
             }
         }
         
@@ -603,7 +613,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
     }
     
     private func showICloudIsNotEnabledAlert() {
-        showOKInfoAlert(message: "Please enable iCloud in the iPhone settings")
+        showOKInfoAlert(message: NSLocalizedString("enable_icloud", comment: ""))
     }
     
     private func onBackupSave(error: Error) {

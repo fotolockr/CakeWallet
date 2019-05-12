@@ -323,6 +323,7 @@
 		6AE7241120DD5C5C003D6559 /* NodesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7241020DD5C5C003D6559 /* NodesList.swift */; };
 		6AF4786820C18CBE0072796B /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF4786720C18CBE0072796B /* AuthenticationViewController.swift */; };
 		6AFC5C7D20C2CDCE007DFB53 /* WalletFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC5C7C20C2CDCE007DFB53 /* WalletFlow.swift */; };
+		6E4A9DB9257C7470F79FF494 /* Pods_CakeWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645F899B21444E0E00B085AC /* Pods_CakeWallet.framework */; };
 		A5178DE7222EBCAF00EC4829 /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5178DE6222EBCAF00EC4829 /* AdaptiveLayout.swift */; };
 		A5178DF2222FEAA200EC4829 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5178DF1222FEAA200EC4829 /* SplashView.swift */; };
 		A5178DF4222FEAAE00EC4829 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5178DF3222FEAAE00EC4829 /* SplashViewController.swift */; };
@@ -950,6 +951,7 @@
 				645F8905214428D200B085AC /* CWMonero.framework in Frameworks */,
 				644A99DA20E172FA0035429B /* CakeWalletCore.framework in Frameworks */,
 				06CC905F24A0FB1C5311CF69 /* Pods_CakeWallet.framework in Frameworks */,
+				6E4A9DB9257C7470F79FF494 /* Pods_CakeWallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
