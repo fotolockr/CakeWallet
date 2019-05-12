@@ -149,13 +149,13 @@ final class AddressView: BaseFlexView {
     private func fromAddressBook() {
         let addressBookVC = AddressBookViewController(addressBook: AddressBook.shared, store: store, isReadOnly: true)
         addressBookVC.doneHandler = { [weak self] address in
-            self?.textView.change(text: address)
+            self?.textView.originText.accept(address)
         }
         let sendNavigation = UINavigationController(rootViewController: addressBookVC)
         presenter?.present(sendNavigation, animated: true)
     }
     
     private func updateAddress(from uri: QRUri) {
-        textView.change(text: uri.address)
+        textView.originText.accept(uri.address)
     }
 }

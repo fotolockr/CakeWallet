@@ -53,8 +53,11 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         contentView.table.separatorStyle = .none
         contentView.table.register(items: [Subaddress.self])
         let onAddressTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAction))
+        let onQrImageTapGesture = UITapGestureRecognizer(target: self, action: #selector(copyAction))
         contentView.addressLabel.addGestureRecognizer(onAddressTapGesture)
         contentView.addressLabel.isUserInteractionEnabled = true
+        contentView.qrImage.addGestureRecognizer(onQrImageTapGesture)
+        contentView.qrImage.isUserInteractionEnabled = true
         contentView.addSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
         let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 10, height: 12)))
         doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))

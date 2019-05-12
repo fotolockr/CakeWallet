@@ -54,12 +54,10 @@ public struct SaveHandler: AsyncHandler {
     public func handle(action: WalletActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
         guard case .save = action else { return }
         
-        walletQueue.async {
-            do {
-                try currentWallet.save()
-            } catch {
-                handler(ApplicationState.Action.changedError(error))
-            }
+        do {
+            try currentWallet.save()
+        } catch {
+            handler(ApplicationState.Action.changedError(error))
         }
     }
 }
@@ -204,6 +202,7 @@ public struct CreateWalletHandler: AsyncHandler {
         
         walletQueue.async {
             do {
+                try validateWallet(name: name)
                 let password = UUID().uuidString
                 let wallet = try getGateway(for: type).create(withName: name, andPassword: password)
                 let index = WalletIndex(name: name, type: type)
@@ -257,6 +256,7 @@ public struct RestoreFromSeedWalletHandler: AsyncHandler {
         
         walletQueue.sync {
             do {
+                try validateWallet(name: name)
                 let password = UUID().uuidString
                 let wallet = try getGateway(for: type).recoveryWallet(
                     withName: name,
@@ -282,6 +282,7 @@ public struct RestoreFromKeysWalletHandler: AsyncHandler {
         
         walletQueue.sync {
             do {
+                try validateWallet(name: name)
                 let password = UUID().uuidString
                 let wallet = try getGateway(for: type).recoveryWallet(
                     withName: name,

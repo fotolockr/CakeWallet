@@ -112,8 +112,12 @@ public final class MoneroWallet: Wallet {
     private var isBlocking: Bool
     
     private var moneroTransactionHistory: MoneroTransactionHistory?
-    private var _subaddresses: Subaddresses?
-    private var _accounts: Accounts?
+    private lazy var _subaddresses: Subaddresses = {
+        return Subaddresses(wallet: moneroAdapter)!
+    }()
+    private lazy var _accounts: Accounts = {
+        return Accounts(wallet: moneroAdapter)!
+    }()
     private lazy var secretSpendKey = moneroAdapter.secretSpendKey() ?? ""
     private lazy var publicSpendKey = moneroAdapter.publicSpendKey() ?? ""
     private lazy var publicViewKey = moneroAdapter.publicViewKey() ?? ""
@@ -127,6 +131,8 @@ public final class MoneroWallet: Wallet {
     
     private var moneroAdapter: MoneroWalletAdapter
     private var restoreHeight: UInt64
+    private var isAccountRefreshing: Bool
+    private var isSaving: Bool
     
     public convenience init(moneroAdapter: MoneroWalletAdapter, config: WalletConfig, restoreHeight: UInt64, addressIndex: UInt32 = 0, accountIndex: UInt32 = 0) {
         self.init(moneroAdapter: moneroAdapter, config: config, addressIndex: addressIndex, accountIndex: accountIndex)
@@ -141,9 +147,10 @@ public final class MoneroWallet: Wallet {
         self.accountIndex = accountIndex
         self.config = config
         restoreHeight = 0
+        isAccountRefreshing = false
+        isSaving = false
         self.moneroAdapter.delegate = self
         moneroTransactionHistory = nil
-        
         
         if config.isRecovery {
             moneroAdapter.setIsRecovery(config.isRecovery)
@@ -171,13 +178,15 @@ public final class MoneroWallet: Wallet {
     }
     
     public func save() throws {
-        guard !isBlocking else {
+        guard !isBlocking || !isSaving else {
             return
         }
-        
-        try walletQueue.sync {
+
+        isSaving = true
+        try walletQueue.sync { [weak self] in
             print("saving: \(Date())")
-            try moneroAdapter.save()
+            try self?.moneroAdapter.save()
+            self?.isSaving = false
         }
     }
     
@@ -194,9 +203,10 @@ public final class MoneroWallet: Wallet {
         isBlocking = true
         moneroAdapter.delegate = nil
         
-        walletQueue.async {
-            self.moneroAdapter.close()
-            self.moneroAdapter.clear()
+        walletQueue.async { [weak self] in
+            self?.moneroAdapter.close()
+            self?.moneroAdapter.clear()
+            self?.isBlocking = false
         }
     }
     
@@ -219,28 +229,18 @@ public final class MoneroWallet: Wallet {
     }
     
     public func subaddresses() -> Subaddresses {
-        let __subaddresses: Subaddresses
-        
-        if let subaddresses = self._subaddresses {
-            __subaddresses = subaddresses
-        } else {
-            let subaddresses = Subaddresses(wallet: moneroAdapter)!
-            self._subaddresses = subaddresses
-            __subaddresses = subaddresses
-        }
-        
-        __subaddresses.refresh(accountIndex)
-        return __subaddresses
+        _subaddresses.refresh(accountIndex)
+        return _subaddresses
     }
     
     public func accounts() -> Accounts {
-        if let accounts = self._accounts {
-            return accounts
-        } else {
-            let accounts = Accounts(wallet: moneroAdapter)!
-            self._accounts = accounts
-            return accounts
+        if !isAccountRefreshing {
+            isAccountRefreshing = true
+            _accounts.refresh()
         }
+        
+        isAccountRefreshing = false
+        return _accounts
     }
     
     public func send(amount: Amount?, to address: String, withPriority priority: TransactionPriority) throws -> PendingTransaction {
@@ -250,8 +250,7 @@ public final class MoneroWallet: Wallet {
                 withPaymentId: "",
                 amountStr: amount?.formatted(),
                 priority: priority.rawValue,
-                accountIndex: accountIndex,
-                addressIndex: addressIndex)
+                accountIndex: accountIndex)
             return MoneroPendingTransaction(moneroPendingTransactionAdapter: moneroPendingTransactionAdapter)
         } catch let error as NSError {
             if let transactionError = TransactionError(from: error, amount: amount, balance: self.balance) {
@@ -269,8 +268,7 @@ public final class MoneroWallet: Wallet {
                 withPaymentId: paymentID,
                 amountStr: amount?.formatted(),
                 priority: priority.rawValue,
-                accountIndex: accountIndex,
-                addressIndex: addressIndex)
+                accountIndex: accountIndex)
             return MoneroPendingTransaction(moneroPendingTransactionAdapter: moneroPendingTransactionAdapter)
         } catch let error as NSError {
             if let transactionError = TransactionError(from: error, amount: amount, balance: self.balance) {
@@ -359,34 +357,32 @@ extension MoneroWallet: MoneroWalletAdapterDelegate {
     }
 
     public func refreshed() {
-//        updateQueue.async {
-            do {
-//                let currentHeight = currentHeight
-                let blockchainheight = try blockchainHeight()
-                let isRecovery = config.isRecovery
-                
-                guard currentWallet.currentHeight != 0 && blockchainheight != 0 else {
+        do {
+            let blockchainheight = try blockchainHeight()
+            let isRecovery = config.isRecovery
+            
+            guard currentWallet.currentHeight != 0 && blockchainheight != 0 else {
+                return
+            }
+            
+            if (blockchainheight >= currentHeight && blockchainheight - currentHeight < moneroBlockSize) {
+                if currentHeight == blockchainheight && isRecovery {
+                    try currentWallet.config.update(isRecovery: false)
+                    self.onConnectionStatusChange?(.synced)
                     return
                 }
                 
-                if (blockchainheight >= currentHeight && blockchainheight - currentHeight < moneroBlockSize) {
-                    if currentHeight == blockchainheight && isRecovery {
-                        try currentWallet.config.update(isRecovery: false)
-                        self.onConnectionStatusChange?(.synced)
-                        return
-                    }
-                    
-                    if !isRecovery {
-                        self.onConnectionStatusChange?(.synced)
-                    }
+                if !isRecovery {
+                    self.onConnectionStatusChange?(.synced)
                 }
-                
-                if isRecovery {
-                    try save()
-                }
-            } catch {
-                print(error)
             }
+            
+            if isRecovery {
+                try save()
+            }
+        } catch {
+            print(error)
+        }
     }
 
     public func moneyReceived(_ txId: String!, amount: UInt64) {

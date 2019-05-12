@@ -6,7 +6,7 @@ final class Configurations {
     enum DefaultsKeys: Stringify {
         case nodeUri, nodeLogin, nodePassword, termsOfUseAccepted, currentWalletName,
         currentWalletType, biometricAuthenticationOn, passwordIsRemembered, transactionPriority,
-        currency, defaultNodeChanged, autoSwitchNode, pinLength, currentTheme, termsOfUseXMRto, termsOfUseMorph, walletsDirectoryPathMigrated, masterPassword, lastBackupDate, isAutoBackupEnabled, bitrefillSelectedCountry
+        currency, defaultNodeChanged, autoSwitchNode, pinLength, currentTheme, termsOfUseXMRto, termsOfUseMorph, walletsDirectoryPathMigrated, masterPassword, lastBackupDate, isAutoBackupEnabled, bitrefillSelectedCountry, checkForIsEu
         
         func string() -> String {
             switch self {
@@ -52,11 +52,14 @@ final class Configurations {
                 return "is_auto_backup_enabled"
             case .bitrefillSelectedCountry:
                 return "bitrefill_selected_country"
+            case .checkForIsEu:
+                return "check_for_node_is_eu"
             }
         }
     }
     
     static let defaultMoneroNode = MoneroNodeDescription(uri: "node.cakewallet.io:18081", login: "cake", password: "public_node")
+    static let defaultEuMoneroNode = MoneroNodeDescription(uri: "eu-node.cakewallet.io:18081", login: "cake", password: "public_node")
     static let preDefaultNodeUri = "node.xmrbackb.one:18081"
 //    static let defaultNodeUri = "opennode.xmr-tw.org:18089"
 //    static let defaultCurreny = Currency.usd

@@ -30,8 +30,6 @@ final class ChangeNowExchange: Exchange {
     private static let baseExchangeAmountURI = String(format: "%@exchange-amount/", uri)
     private static let minAmountURI = String(format: "%@min-amount/", uri)
     private static let createTransactionURI = String(format: "%@transactions/", uri)
-//    private static let rateURI = String(format: "%@/order_parameter_query", xmrtoUri)
-//    private static let createTradeURI = String(format: "%@/order_create/", xmrtoUri)
     
     let name: String
     let pairs: [Pair]
@@ -64,6 +62,17 @@ final class ChangeNowExchange: Exchange {
                 
                 do {
                     let json = try JSON(data: data)
+                    
+                    if let error = json["error"].string {
+                        if error == "cannot_create_transction" {
+                            o.onError(ExchangerError.tradeNotCreated)
+                        } else {
+                            o.onError(ExchangerError.notCreated(error))
+                        }
+                        
+                        return
+                    }
+                    
                     let trade = ChangeNowTrade(
                         id: json["id"].stringValue,
                         from: request.from,
@@ -140,4 +149,3 @@ final class ChangeNowExchange: Exchange {
         })
     }
 }
-

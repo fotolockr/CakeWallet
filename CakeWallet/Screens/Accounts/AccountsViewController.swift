@@ -115,6 +115,7 @@ final class AccountsViewController: BaseViewController<AccountsView>, UITableVie
         let item = accounts[indexPath.row]
         let cell = tableView.dequeueReusableCell(withItem: item, for: indexPath) as! SwipeTableViewCell
         cell.delegate = self
+        cell.isCurrent(item.index == store.state.walletState.account.index)
         cell.addSeparator()
         return cell
     }

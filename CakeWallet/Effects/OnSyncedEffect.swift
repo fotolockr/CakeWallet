@@ -14,16 +14,14 @@ public final class OnSyncedEffect: Effect {
                 return action
         }
         
-        workQueue.async {
-            currentWallet.transactions().askToUpdate()
-            
-            if !currentWallet.balance.compare(with: store.state.balanceState.balance) {
-                store.dispatch(BalanceState.Action.changedBalance(currentWallet.balance))
-            }
-            
-            if !currentWallet.unlockedBalance.compare(with: store.state.balanceState.unlockedBalance) {
-                store.dispatch(BalanceState.Action.changedUnlockedBalance(currentWallet.unlockedBalance))
-            }
+        currentWallet.transactions().askToUpdate()
+        
+        if !currentWallet.balance.compare(with: store.state.balanceState.balance) {
+            store.dispatch(BalanceState.Action.changedBalance(currentWallet.balance))
+        }
+        
+        if !currentWallet.unlockedBalance.compare(with: store.state.balanceState.unlockedBalance) {
+            store.dispatch(BalanceState.Action.changedUnlockedBalance(currentWallet.unlockedBalance))
         }
         
         let currentHeight = currentWallet.currentHeight

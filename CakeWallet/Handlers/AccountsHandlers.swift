@@ -24,7 +24,6 @@ public struct UpdateAccountsHandler: Handler {
 public struct UpdateAccountsHistroyHandler: Handler {
     public func handle(action: AccountsActions, store: Store<ApplicationState>) -> AnyAction? {
         guard case let .updateFromAccounts(accounts) = action else { return nil }
-        accounts.refresh()
         return AccountsState.Action.changed(accounts.all())
     }
 }
@@ -38,7 +37,6 @@ public struct AddNewAccountHandler: AsyncHandler {
         
         let accounts = moneroWallet.accounts()
         accounts.newAccount(withLabel: label)
-        accounts.refresh()
         handler(AccountsState.Action.added(accounts.all()))
         completionHandler()
     }
@@ -52,7 +50,6 @@ public struct UpdateAccountHandler: AsyncHandler {
         guard !label.isEmpty else { return handler(nil) }
         let accounts = moneroWallet.accounts()
         accounts.setLabel(label, at: index)
-        accounts.refresh()
         let accountsList = accounts.all()
         
         

@@ -52,7 +52,7 @@
 - (NSString *)secretSpendKey;
 - (NSString *)publicSpendKey;
 - (void)startRefreshAsync;
-- (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority accountIndex: (uint32_t) accountIndex addressIndex: (uint32_t) addressIndex error: (NSError *__autoreleasing *) error;
+- (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority accountIndex: (uint32_t) accountIndex error: (NSError *__autoreleasing *) error;
 - (BOOL)save: (NSError **) error;
 - (BOOL)connectToDaemon: (NSError **) error;
 - (BOOL)checkConnectionWithTimeout:(uint32_t) timeout;

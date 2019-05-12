@@ -51,23 +51,21 @@ final class RestoreFromCloudVC: BaseViewController<RestoreFromCloudView>, UIDocu
                             return
                         }
                         
-                        store._defaultDispatch(action)
+                        store.dispatch(action)
+                        store.dispatch(WalletActions.connectToCurrentNode)
                         
+                        alert.dismiss(animated: true) {
                         if
                             let action = action as? ApplicationState.Action,
                             case let .changedError(_error) = action,
                             let error = _error {
-                            alert.dismiss(animated: true) {
+                            
                                 self?.showErrorAlert(error: error)
                             }
                             return
                         }
                         
-                        if let action = action as? WalletState.Action, case .loaded(_) = action {
-                            alert.dismiss(animated: true) {
-                                self?.doneHandler?()
-                            }
-                        }
+                        self?.doneHandler?()
                     }
                 })
             } catch {

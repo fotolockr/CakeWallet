@@ -150,6 +150,13 @@ final class PickerViewController<Item>: BlurredBaseViewController<PickerView>, U
         super.viewDidLoad()
         let receiveOnTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDismiss))
         contentView.backgroundView.addGestureRecognizer(receiveOnTapGesture)
+        
+        if items.count <= 4 {
+            let height = PickerTableCell.height * CGFloat(items.count)
+            contentView.picker.flex.height(height).markDirty()
+            contentView.pickerHolderView.flex.markDirty()
+            contentView.flex.layout()
+        }
     }
     
     @objc

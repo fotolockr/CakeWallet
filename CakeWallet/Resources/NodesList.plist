@@ -3,6 +3,16 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>uri</key>
+		<string>eu-node.cakewallet.io:18081</string>
+		<key>login</key>
+		<string>cake</string>
+		<key>password</key>
+		<string>public_node</string>
+		<key>isDefault</key>
+		<false/>
+	</dict>
+	<dict>
 		<key>isDefault</key>
 		<true/>
 		<key>password</key>

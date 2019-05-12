@@ -8,12 +8,10 @@ public final class OnAccountAddedEffect: Effect {
             return action
         }
         
-        workQueue.async {
-            do {
-                try currentWallet.save()
-            } catch {
-                store.dispatch(ApplicationState.Action.changedError(error))
-            }
+        do {
+            try currentWallet.save()
+        } catch {
+            store.dispatch(ApplicationState.Action.changedError(error))
         }
         
         return action

@@ -176,6 +176,7 @@ enum ExchangerError: Error {
     case limitsNotFoud
     case tradeNotCreated
     case incorrectOutputAddress
+    case notCreated(String)
 }
 
 extension ExchangerError: LocalizedError {
@@ -191,6 +192,8 @@ extension ExchangerError: LocalizedError {
             return "Trade not created"
         case .incorrectOutputAddress:
             return "Inccorrect output address"
+        case let .notCreated(description):
+            return description
         }
     }
 }
@@ -917,7 +920,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             .disposed(by: disposeBag)
         
         Observable.combineLatest(receiveLimitsObserver.map({ $0.max }), receiveCryptoObserver) { limit, currency -> String? in
-                guard let limitFormatted = limit?.formatted() else {
+                guard
+                    limit?.value != 0,
+                    let limitFormatted = limit?.formatted() else {
                     return nil
                 }
             
@@ -927,7 +932,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             .disposed(by: disposeBag)
         
         Observable.combineLatest(receiveLimitsObserver.map({ $0.min }), receiveCryptoObserver) { limit, currency -> String? in
-            guard let limitFormatted = limit?.formatted() else {
+            guard
+                limit?.value != 0,
+                let limitFormatted = limit?.formatted() else {
                 return nil
             }
             
@@ -937,7 +944,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             .disposed(by: disposeBag)
         
         Observable.combineLatest(depositLimitsObserver.map({ $0.max }), depositCryptoObserver) { limit, currency -> String? in
-            guard let limitFormatted = limit?.formatted() else {
+            guard
+                limit?.value != 0,
+                let limitFormatted = limit?.formatted() else {
                 return nil
             }
             
@@ -947,7 +956,9 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             .disposed(by: disposeBag)
         
         Observable.combineLatest(depositLimitsObserver.map({ $0.min }), depositCryptoObserver) { limit, currency -> String? in
-            guard let limitFormatted = limit?.formatted() else {
+            guard
+                limit?.value != 0,
+                let limitFormatted = limit?.formatted() else {
                 return nil
             }
             
@@ -1115,10 +1126,12 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
             exchange.fetchLimist(from: receiveCrypto.value, to: depositCrypto.value)
                 .bind(to: receiveLimits)
                 .disposed(by: disposeBag)
+            depositLimits.accept((min: nil, max: nil))
         } else {
             exchange.fetchLimist(from: depositCrypto.value, to: receiveCrypto.value)
                 .bind(to: depositLimits)
                 .disposed(by: disposeBag)
+            receiveLimits.accept((min: nil, max: nil))
         }
         
 //        fetchLimits(for: receiveCrypto.value, and: depositCrypto.value) { [weak self] result in

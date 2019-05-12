@@ -74,8 +74,11 @@ final class TransactionDetailsViewController: BaseViewController<TransactionDeta
         items.append(contentsOf: [
             TransactionDetailsCellItem(row: .date, value: dateFormatter.string(from: transactionDescription.date)),
             TransactionDetailsCellItem(row: .height, value: String(transactionDescription.height)),
-            TransactionDetailsCellItem(row: .amount, value: transactionDescription.totalAmount.formatted()),
-            TransactionDetailsCellItem(row: .subaddresses, value:  subaddresses)])
+            TransactionDetailsCellItem(row: .amount, value: transactionDescription.totalAmount.formatted())])
+        
+        if !subaddresses.isEmpty {
+            items.append(TransactionDetailsCellItem(row: .subaddresses, value:  subaddresses))
+        }
         
         let fee = MoneroAmountParser.formatValue(transactionDescription.fee.value) ?? "0.0"
 

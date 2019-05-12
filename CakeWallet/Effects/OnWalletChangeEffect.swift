@@ -60,11 +60,11 @@ private func onWalletChange(_ wallet: Wallet) {
         
         store.dispatch(TransactionsActions.updateTransactions(transactions, account))
         
-        do {
-            try currentWallet.save()
-        } catch {
-            store.dispatch(ApplicationState.Action.changedError(error))
-        }
+//        do {
+//            try currentWallet.save()
+//        } catch {
+//            store.dispatch(ApplicationState.Action.changedError(error))
+//        }
     }
     
     store.dispatch(
@@ -84,8 +84,7 @@ private func onWalletChange(_ wallet: Wallet) {
     }
     
     let accounts = moneroWallet.accounts()
-    accounts.refresh()
-    
+
     if let account = accounts.all().filter({ $0.index == 0 }).first {
         store.dispatch(WalletState.Action.changeAccount(account))
     }

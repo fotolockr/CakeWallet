@@ -336,13 +336,13 @@ public:
     member->wallet->startRefresh();
 }
 
-- (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority accountIndex: (uint32_t) accountIndex addressIndex: (uint32_t) addressIndex error: (NSError *__autoreleasing *) error
+- (MoneroPendingTransactionAdapter *)createTransactionToAddress: (NSString *) address WithPaymentId: (NSString *) paymentId amountStr: (NSString *) amount_str priority: (UInt64) priority accountIndex: (uint32_t) accountIndex error: (NSError *__autoreleasing *) error
 {
     
     string addressStdString = [address UTF8String];
     string paymentIdStdString = [paymentId UTF8String];
     uint32_t mixin = member->wallet->defaultMixin();
-    
+    std::set<uint32_t> subaddr_indices;
     Monero::PendingTransaction::Priority _priopity = static_cast<Monero::PendingTransaction::Priority>(priority);
     Monero::PendingTransaction *tx;
     
@@ -350,9 +350,9 @@ public:
         uint64_t amount;
         string amountStdString = [amount_str UTF8String];
         cryptonote::parse_amount(amount, amountStdString);
-        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity, accountIndex, {addressIndex});
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, amount, mixin, _priopity, accountIndex, subaddr_indices);
     } else {
-        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, Monero::optional<uint64_t>(), mixin, _priopity, accountIndex, {addressIndex});
+        tx = member-> wallet->createTransaction(addressStdString, paymentIdStdString, Monero::optional<uint64_t>(), mixin, _priopity, accountIndex, subaddr_indices);
     }
     
     int status = tx->status();
