@@ -78,8 +78,7 @@ final class DashboardActionButton: BaseFlexView {
         wrapper.layer.cornerRadius = 12
         wrapper.layer.borderWidth = 1
         wrapper.layer.borderColor = type.borderColor.cgColor
-        
-        super.configureView()
+        backgroundColor = .clear
     }
     
     override func configureConstraints() {
@@ -93,6 +92,7 @@ final class DashboardActionButton: BaseFlexView {
         }
         
         rootFlexContainer.flex
+            .backgroundColor(.clear)
             .define { flex in
                 flex.addItem(wrapper).width(100%).height(100%)
         }
@@ -100,6 +100,11 @@ final class DashboardActionButton: BaseFlexView {
 }
 
 final class DashboardView: BaseScrollFlexView {
+    static let tableSectionHeaderHeight = 45 as CGFloat
+    static let fixedHeaderTopOffset = 45 as CGFloat
+    static let headerButtonsHeight = 60 as CGFloat
+    static let minHeaderButtonsHeight = 45 as CGFloat
+    static let headerMinHeight: CGFloat = 185
     let fixedHeader: UIView
     let fiatAmountLabel, cryptoAmountLabel, cryptoTitleLabel, transactionTitleLabel: UILabel
     let progressBar: ProgressBar
@@ -129,7 +134,7 @@ final class DashboardView: BaseScrollFlexView {
     
     override func configureView() {
         super.configureView()
-        
+        scrollView.showsVerticalScrollIndicator = false
         cryptoAmountLabel.font = applyFont(ofSize: 40)
         cryptoAmountLabel.textAlignment = .center
         fiatAmountLabel.textAlignment = .center
@@ -179,9 +184,9 @@ final class DashboardView: BaseScrollFlexView {
             .width(100%).height(DashboardView.fixedHeaderHeight)
             .backgroundColor(.white)
             .define { flex in
-                flex.addItem(cardViewCoreDataWrapper).width(100%).position(.absolute).top(45)
+                flex.addItem(cardViewCoreDataWrapper).width(100%).position(.absolute).top(DashboardView.fixedHeaderTopOffset)
                 flex.addItem(progressBar).width(200).height(22).marginBottom(120)
-                flex.addItem(buttonsRow).height(60).position(.absolute).bottom(35)
+                flex.addItem(buttonsRow).height(DashboardView.headerButtonsHeight).position(.absolute).bottom(35)
                 
                 
         }
@@ -189,7 +194,7 @@ final class DashboardView: BaseScrollFlexView {
         rootFlexContainer.flex
             .backgroundColor(.white)
             .define { flex in
-                flex.addItem(transactionsTableView).height(100%).width(100%).marginTop(DashboardView.fixedHeaderHeight - 10)
+                flex.addItem(transactionsTableView).width(100%).minWidth(200).grow(1).marginTop(DashboardView.fixedHeaderHeight - 10)
         }
     }
     
@@ -211,13 +216,10 @@ final class DashboardView: BaseScrollFlexView {
             progressBar.progressView.layer.borderColor = UIColor.purpleyBorder.cgColor
             progressBar.statusLabel.textColor = .black
             
-            progressBar.imageHolder.flex.height(0)
-            progressBar.imageHolder.flex.width(0)
-            progressBar.imageHolder.flex.markDirty()
+            progressBar.imageHolder.flex.height(0).width(0).markDirty()
             progressBar.imageHolder.isHidden = true
             
-            progressBar.progressLabel.flex.height(0)
-            progressBar.progressLabel.flex.markDirty()
+            progressBar.progressLabel.flex.height(0).markDirty()
             progressBar.progressLabel.isHidden = true
         }
         

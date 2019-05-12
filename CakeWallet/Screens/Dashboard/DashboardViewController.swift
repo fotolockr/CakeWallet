@@ -39,6 +39,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     override func configureBinds() {
+        super.configureBinds()
         navigationController?.navigationBar.backgroundColor = .clear
         
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -146,7 +147,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 45
+        return DashboardView.tableSectionHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -195,7 +196,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return TransactionUITableViewCell.height
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -207,46 +208,57 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     
     private func animateFixedHeader(for scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
-        let headerHeight = contentView.fixedHeader.bounds.height
-        let headerMinHeight: CGFloat = 185
         
-        let hideContentAnimation = { (toValue: CGFloat) -> Void in
-            UIViewPropertyAnimator(duration: 0.15, curve: .easeOut, animations: { [weak self] in
-                self?.contentView.progressBar.alpha = toValue
-                self?.contentView.cryptoTitleLabel.alpha = toValue
-            }).startAnimation()
+        if currentOffset > 60 {
+            hideContentAnimation(toValue: 0.0)
+        } else {
+            hideContentAnimation(toValue: 1.0)
+        }
+
+        scrollViewOffset = currentOffset
+        let estimatedDashboardHeightToSet = DashboardView.fixedHeaderHeight - currentOffset + 25
+        let dashboardHeightToSet = estimatedDashboardHeightToSet >= DashboardView.headerMinHeight ? estimatedDashboardHeightToSet : DashboardView.headerMinHeight
+        let estimatedButtonsHeight =  80 - currentOffset * 0.15
+        let estimatedOffsetTop = 70 - currentOffset
+        let offsetTop: CGFloat
+        let buttonsHeight: CGFloat
+        
+        if estimatedButtonsHeight > DashboardView.headerButtonsHeight {
+            buttonsHeight = DashboardView.headerButtonsHeight
+        } else if estimatedButtonsHeight < DashboardView.minHeaderButtonsHeight {
+            buttonsHeight = DashboardView.minHeaderButtonsHeight
+        } else {
+            buttonsHeight = estimatedButtonsHeight
         }
         
-        if currentOffset > 0 {
-            if (currentOffset > 25 && headerHeight > headerMinHeight) || (currentOffset < scrollViewOffset && headerHeight < DashboardView.fixedHeaderHeight) {
-                scrollViewOffset = currentOffset
-                let dashboardHeightToSet = DashboardView.fixedHeaderHeight - currentOffset + 25
-                
-                if currentOffset > 130 {
-                    contentView.buttonsRow.flex.height(80 - currentOffset * 0.15)
-                }
-                
-                if dashboardHeightToSet > 160 {
-                    contentView.fixedHeader.flex.height(dashboardHeightToSet)
-                }
-                
-                if currentOffset > 60 {
-                    hideContentAnimation(0.0)
-                    
-                } else {
-                    hideContentAnimation(1.0)
-                }
-                
-                if 100 - currentOffset > 10 {
-                    contentView.cardViewCoreDataWrapper.flex.top(70 - currentOffset)
-                }
-                
-                contentView.buttonsRow.flex.markDirty()
-                contentView.fixedHeader.flex.markDirty()
-                contentView.fixedHeader.flex.layout(mode: .adjustHeight)
-                return
+        if estimatedOffsetTop > DashboardView.fixedHeaderTopOffset {
+            offsetTop = DashboardView.fixedHeaderTopOffset
+        } else if estimatedOffsetTop < 0 {
+            offsetTop = 0
+        } else {
+            offsetTop = estimatedOffsetTop
+        }
+
+        if contentView.buttonsRow.frame.size.height != buttonsHeight {
+            contentView.buttonsRow.flex.height(buttonsHeight).markDirty()
+            let buttonHeight = contentView.sendButton.buttonImageView.frame.size.height
+            
+            if buttonHeight != 0 {
+                let imageTop: CGFloat = (buttonsHeight / 2) - (buttonHeight / 2)
+                contentView.sendButton.buttonImageView.flex.top(imageTop).markDirty()
+                contentView.receiveButton.buttonImageView.flex.top(imageTop).markDirty()
             }
         }
+        
+        if contentView.fixedHeader.frame.size.height != dashboardHeightToSet {
+            contentView.fixedHeader.flex.height(dashboardHeightToSet).markDirty()
+        }
+        
+        if contentView.cardViewCoreDataWrapper.frame.origin.y != offsetTop {
+            contentView.cardViewCoreDataWrapper.flex.top(offsetTop).markDirty()
+        }
+        
+        contentView.fixedHeader.flex.layout()
         
         guard scrollView.contentOffset.y > contentView.fixedHeader.frame.height else {
             updateCryptoBalance(store.state.balanceState.balance)
@@ -254,6 +266,13 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             
             return
         }
+    }
+    
+    private func hideContentAnimation(toValue value: CGFloat) {
+        UIViewPropertyAnimator(duration: 0.15, curve: .easeOut, animations: { [weak self] in
+            self?.contentView.progressBar.alpha = value
+            self?.contentView.cryptoTitleLabel.alpha = value
+        }).startAnimation()
     }
     
     @objc
@@ -466,12 +485,12 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     private func updateStatusstartingSync() {
         contentView.progressBar.updateProgress(0)
         contentView.updateStatus(text: NSLocalizedString("starting_sync", comment: ""))
-        contentView.rootFlexContainer.flex.layout()
+        contentView.rootFlexContainer.flex.layout(mode: .adjustHeight)
     }
     
     private func updateStatusSynced() {
         contentView.progressBar.updateProgress(100)
-        contentView.updateStatus(text: NSLocalizedString("synchronized", comment: ""))
+        contentView.updateStatus(text: NSLocalizedString("synchronized", comment: ""), done: true)
     }
     
     private func updateStatusFailed() {
@@ -515,6 +534,18 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         }
         
         contentView.transactionsTableView.reloadData()
+        let height = calculateTableHeight()
+        contentView.transactionsTableView.flex.height(height).markDirty()
+        contentView.rootFlexContainer.flex.layout(mode: .adjustHeight)
+        contentView.setNeedsLayout()
+    }
+    
+    private func calculateTableHeight() -> CGFloat {
+        let height = sortedTransactions.reduce(CGFloat(0)) { (result, keyVal) -> CGFloat in
+            return result + DashboardView.tableSectionHeaderHeight + (CGFloat(keyVal.1.count) * TransactionUITableViewCell.height)
+        }
+        
+        return height
     }
     
     private func updateTitle(_ title: String) {

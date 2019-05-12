@@ -61,6 +61,10 @@ final class ProgressBar: BaseFlexView {
     }
     
     func animateSyncImage() {
+        guard imageHolder.layer.animation(forKey: "rotate") == nil else {
+            return
+        }
+        
         let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
         animation.duration = 1.0
         animation.fillMode = kCAFillModeForwards

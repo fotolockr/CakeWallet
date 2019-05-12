@@ -2,6 +2,7 @@ import UIKit
 import CakeWalletLib
 
 final class TransactionUITableViewCell: FlexCell {
+    static let height = 70 as CGFloat
     let statusLabel: UILabel
     let dateLabel: UILabel
     let cryptoLabel: UILabel
