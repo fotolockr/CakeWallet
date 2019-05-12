@@ -53,27 +53,31 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     
     @objc
     func saveAction() {
-        if let name = contentView.contactNameTextField.text,
-            let address = contentView.addressView.textView.text,
+        let address = contentView.addressView.textView.originText.value
+        
+        guard
+            let name = contentView.contactNameTextField.text,
             let typeText = contentView.pickerTextField.text,
             name.count > 0,
             address.count > 0,
             typeText.count > 0,
-            let type = CryptoCurrency(from: typeText) {
-            var uuid: String?
-            
-            if let contact = self.contact {
-                uuid = contact.uuid
-            }
-           
-            let contact = Contact(uuid: uuid, type: type, name: name, address: address)
-            
-            do {
-                try addressBoook.addOrUpdate(contact: contact)
-                navigationController?.popViewController(animated: true)
-            } catch {
-                showOKInfoAlert(title: "Error has occurred, please try again")
-            }
+            let type = CryptoCurrency(from: typeText) else {
+                return
+        }
+        
+        var uuid: String?
+        
+        if let contact = self.contact {
+            uuid = contact.uuid
+        }
+        
+        let contact = Contact(uuid: uuid, type: type, name: name, address: address)
+        
+        do {
+            try addressBoook.addOrUpdate(contact: contact)
+            navigationController?.popViewController(animated: true)
+        } catch {
+            showOKInfoAlert(title: "Error has occurred, please try again")
         }
     }
     

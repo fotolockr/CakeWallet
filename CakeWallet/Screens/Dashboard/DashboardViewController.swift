@@ -272,7 +272,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.dashboardFlow?.change(route: .accounts)
         }
         
-        let presentWalletsListAction = UIAlertAction(title: NSLocalizedString("change_current_wallet", comment: ""), style: .default) { [weak self] _ in
+        let presentWalletsListAction = UIAlertAction(title: NSLocalizedString("wallets", comment: ""), style: .default) { [weak self] _ in
             self?.presentWalletsList()
         }
         
@@ -511,7 +511,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     private func calculateTableHeight() -> CGFloat {
-        let height = sortedTransactions.reduce(CGFloat(0)) { (result, keyVal) -> CGFloat in
+        let height = sortedTransactions.reduce(DashboardView.tableSectionHeaderHeight) { (result, keyVal) -> CGFloat in
             return result + DashboardView.tableSectionHeaderHeight + (CGFloat(keyVal.1.count) * TransactionUITableViewCell.height)
         }
         

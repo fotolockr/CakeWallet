@@ -30,17 +30,13 @@ func getSavedTransactionPriority() -> TransactionPriority {
 
 extension TimeZone {
     var isEurope: Bool {
-        let s = self.identifier.split(separator: "/")
-        let isEu = s.first?.lowercased() == "europe"
-        print(s)
-        print(isEu)
-        return isEu
+        return self.identifier.split(separator: "/").first?.lowercased() == "europe"
     }
 }
 
 func getSavedNode(userDefaults: UserDefaults = UserDefaults.standard) -> NodeDescription? {
     guard
-    var uri = userDefaults.string(forKey: Configurations.DefaultsKeys.nodeUri),
+    let uri = userDefaults.string(forKey: Configurations.DefaultsKeys.nodeUri),
     let login = userDefaults.string(forKey: Configurations.DefaultsKeys.nodeLogin),
         let password = userDefaults.string(forKey: Configurations.DefaultsKeys.nodePassword) else {
             userDefaults.set(true, forKey: Configurations.DefaultsKeys.checkForIsEu)
@@ -57,7 +53,11 @@ func getSavedNode(userDefaults: UserDefaults = UserDefaults.standard) -> NodeDes
         
         if uri == Configurations.defaultMoneroNode.uri {
             if TimeZone.current.isEurope {
-                uri = Configurations.defaultEuMoneroNode.uri
+                let node = Configurations.defaultEuMoneroNode
+                userDefaults.set(node.uri, forKey: Configurations.DefaultsKeys.nodeUri)
+                userDefaults.set(node.login, forKey: Configurations.DefaultsKeys.nodeLogin)
+                userDefaults.set(node.password, forKey: Configurations.DefaultsKeys.nodePassword)
+                return node
             }
         }
     }

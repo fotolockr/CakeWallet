@@ -185,7 +185,7 @@
 // Settings sections
 
 "personal" = "Персональные";
-"wallets" = "Кошелек";
+"wallets" = "Кошелеки";
 "advanced" = "Продвинутые";
 "backup" = "Бэкап";
 "manual_backup" = "Мануальный бэкап";
@@ -297,4 +297,3 @@
 "i_saved_sec_key" = "Я сохранил ID сделки";
 "please_save_sec_key" = "Скопируйте или запишите ID сделки, чтобы продолжить..\n\nID сделки: %@";
 "edit" = "Редактировать";
-"change_current_wallet" = "Изменить текущий кошелек";
