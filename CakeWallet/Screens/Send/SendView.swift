@@ -42,7 +42,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         estimatedDescriptionLabel = UILabel.withLightText(fontSize: 12)
         sendButton = PrimaryLoadingButton()
         walletContainer = UIView()
-        walletTitleLabel = UILabel(text: "Your Wallet")
+        walletTitleLabel = UILabel(text: NSLocalizedString("your_wallet", comment: ""))
         walletNameLabel = UILabel()
         cryptoAmountValueLabel = UILabel()
         cryptoAmountTitleLabel = UILabel()

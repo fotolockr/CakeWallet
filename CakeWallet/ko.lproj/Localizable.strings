@@ -111,10 +111,15 @@
 "removing_wallet" = "명명된 지갑 제거 ";
 "loading_wallet" = "명명된 지갑 로딩 ";
 "create_new_wallet" = "새로운 지갑 생성 ";
+"accounts" = "계정";
+
 
 // Address book
 
 "address_book" = "주소록";
+"no_contacts" = "연락처가 없습니다";
+"contact" = "접촉";
+"contact_name" = "담당자 이름";
 
 
 // Rescan
@@ -124,6 +129,7 @@
 
 // Send
 
+"your_wallet" = "지갑";
 "all" = "모두";
 "optional" = "옵션";
 "estimated_fee" = "예상된 수수료 ";
@@ -140,7 +146,6 @@
 
 // Receive
 
-
 "copy_address" = "지갑주소 복사 ";
 "more_options" = "더 많은 옵션 ";
 "hide_options" = "옵션 숨기기 ";
@@ -149,14 +154,12 @@
 
 // Subs
 
-
 "subaddresses" = "서브 주소";
 "new_subaddress_label" = "새로운 서브주소 레이블 ";
 "add" = "추가";
 
 
 // Settings
-
 
 "settings" = "세팅";
 "currency" = "통화";
@@ -165,33 +168,47 @@
 "allow_biometric_authentication" = "바이오메트릭 승인 ";
 "remember_pin" = "핀 기억하기 ";
 "node_settings" = "데몬 세팅 ";
+"backup_password" = "백업 비밀번호";
+"show_backup_password" = "백업 비밀번호가 성공적으로 변경되었습니다.";
+"show_password" = "암호 표시";
+"save_backup_password" = "백업 암호를 저장 했습니까?";
+"save_backup_file" = "다른 위치에 백업 파일 저장";
+"enable_icloud" = "iPhone 설정에서 iCloud를 활성화하십시오";
+"backup_password_has_changed" = "백업 비밀번호가 성공적으로 변경되었습니다.";
+"change_backup_password" = "백업 비밀번호 변경";
+"auto_backup" = "iCloud에 자동 백업";
+"backup_now" = "iCloud에 지금 백업하십시오.";
+"creating_backup" = "백업 만들기";
+"change_backup_warning" = "백업용 백업 비밀번호를 변경하면 이전 수동 백업은 새 비밀번호로 작동하지 않습니다. 자동 백업은 새 비밀번호로 계속 작동합니다.";
 
 
 // Settings sections
 
-
 "personal" = "개인";
 "wallets" = "지갑";
 "advanced" = "고급설정";
+"backup" = "지원";
+"manual_backup" = "수동 백업";
 
 
 // Nodes
 
-
 "nodes" = "노드";
 "auto_switch_node" = "자동 스위치 노드 ";
+"node_new" = "새 노드";
 
 
 // Exchange
 
-
 "exchange" = "거래소";
+"switch_exchange" = "스위치 교환기";
 "refund_address_is_empty" = "환불주소가 비어있습니다 ";
 "create_exchange" = "새로운 거래소 생성 ";
 "deposit" = "예금";
 "refund_address" = "환불 주소 ";
 "you_will_receive" = "받을 양은 ";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "보내 주겠다";
+"you_will_get" = "너는 얻을 것이다";
 "clear" = "지우기";
 "copy_id" = " ID복사";
 "confirm" = "확인";
@@ -203,10 +220,11 @@
 "exchange_result_confirm_sending" = "계속하시려면 승인을 누르거나 보낼 양을 수정하세요 ";
 "exchange_result_write_down_trade_id" = "위에 표시된 ID를 복사하거나 종이에 적으세요 ";
 "trade_not_found" = "거래를 찾을 수 없습니다 ";
+"amount_is_guaranteed" = "수신 금액 보장";
+"amount_is_estimate" = "수신 금액은 예상 금액입니다";
 
 
 // Auth
-
 
 "loading_wallet" = "지갑 불러오기 ";
 "authentication" = "승인";
@@ -216,7 +234,6 @@
 
 // Wallets keys
 
-
 "wallet_keys" = "지갑 키 ";
 "view_key_public" = "키 보기 (퍼블릭)";
 "spend_key_public" = "키 사용 (퍼블릭)";
@@ -224,12 +241,10 @@
 
 // Seed
 
-
 "seed_disclaimer" = "시드를 복사하거나 종이에 적으세요. 이 시드를 통해 지갑을 복구할 수 있습니다. 이건 본인 고유 시드 정보이기에 다른사람과 공유하지 마세요!!";
 
 
 // Transactions details
-
 
 "height" = "값";
 "date" = "일정";
@@ -238,7 +253,6 @@
 
 
 // Exchange trade states
-
 
 "exchange_trade_state_pending" = "보내는중";
 "exchange_trade_state_confirming" = "승인중";
@@ -267,6 +281,7 @@
 "delete_node_message"= "선택한 노드를 삭제 하시겠습니까?";
 "change_current_node_message"= "현재 노드를 %@ (으)로 변경 하시겠습니까?";
 "change" = "변화";
+"done" = "끝난";
 "yes" = "예";
 "terms" = "이용 약관";
 "terms_accepting_message" = "이 앱을 사용하면 아래 명시된 이용 약관에 동의하게됩니다.";

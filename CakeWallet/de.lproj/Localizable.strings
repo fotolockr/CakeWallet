@@ -17,6 +17,7 @@
 "restore_from_seed_keys" = "Wiederherstellen";
 "please_make_selection" = "Bitte treffen Sie eine Auswahl, um entweder eine neue Brieftasche zu erstellen oder eine Brieftasche wiederherzustellen";
 
+
 // Pin
 
 "use_6_pin" = "Eine 6-stellige PIN verwenden";
@@ -28,12 +29,14 @@
 "pin_setup_success" = "Ihre PIN wurde erfolgreich eingerichtet!";
 "incorrect_pin" = "Falsche PIN";
 
+
 // Restore root
 
 "restore_from_seed_keys" = "Wiederherstellen aus Seed / Keys";
 "restore_from_seed_keys_long" = "Stellen Sie Ihre Brieftasche aus Ihrem Seed oder Schlüssel wieder her";
 "restore_from_backup" = "Wiederherstellen aus einer Sicherungsdatei";
 "restore_from_backup_long" = "Stellen Sie die gesamte Cake Wallet-App aus Ihrer Sicherungsdatei wieder her";
+
 
 // Restore cards
 
@@ -42,14 +45,15 @@
 "restore_keys_card_title" = "Wiederherstellen von Schlüsseln";
 "restore_keys_card_description" = "Stellen Sie Ihre Brieftasche mit Ihren privaten Schlüsseln wieder her";
 
+
 // Restore
+
 "recover" = "Genesen";
 "restore_your_wallet" = "Wallet wiederherstellen";
 "restore_selection_text" = "Es gibt zwei Möglichkeiten, um Ihre Wallet wiederherzustellen. Sie können entweder Ihre Seed eingeben, was eine 25-Wort-Phrase ist, oder Sie können Ihre privaten Schlüssel eingeben. Bitte wählen Sie eine Option aus";
 "from_seed" = "Mit der Seed";
 "from_keys" = "Mit dem privaten Schlüssel";
 "or" = "oder";
-
 
 "restore_wallet" = "Wallet wiederherstellen";
 "enter_wallet_name" = "Benennen Sie Ihre Wallet";
@@ -61,24 +65,20 @@
 "continue_restore" = "Setzen Sie die Wiederherstellung fort";
 "set_restore_height" = "Stellen Sie die Wiederherstellungshöhe ein";
 
-
 "restore_height" = "Höhe wiederherstellen";
 "restore_from_date" = "Wiederherstellen vom Datum";
 "address" = "Address";
 "view_key_(private)" = "Ansichtsschlüssel (privat)";
 "spend_key_(private)" = "Ausgaben-Schlüssel (privat)";
 
-
 "continue" = "Fortsetzen";
 "new_wallet" = "Neue wallet";
 "creating_wallet" = "Erstellen einer neuen Wallet mit Namen -";
-
 
 "wallet" = "Wallet";
 
 
 // Connection state
-
 
 "blocks_remaining" = "Verbliebene Blöcke";
 "connecting" = "Verbinden";
@@ -89,7 +89,6 @@
 
 
 // Wallet
-
 
 "available_balance" = "Verfügbares Guthaben";
 "reconnection" = "Wiederverbindung";
@@ -113,10 +112,15 @@
 "removing_wallet" = "Wallet mit Namen entfernen";
 "loading_wallet" = "Wallet mit den Namen laden";
 "create_new_wallet" = "Neue Wallet erstellen";
+"accounts" = "Konten";
+
 
 // Address book
 
 "address_book" = "Adressbuch";
+"no_contacts" = "Noch keine Kontakte";
+"contact" = "Kontakt";
+"contact_name" = "Kontaktname";
 
 
 // Rescan
@@ -126,7 +130,7 @@
 
 // Send
 
-
+"your_wallet" = "Deine geldbörse";
 "all" = "Alle";
 "optional" = "Optional";
 "estimated_fee" = "Geschätzte Gebühr";
@@ -141,10 +145,7 @@
 "change_transaction_priority" = "Die Transaktionspriorität kann in den Einstellungen angepasst werden";
 
 
-
-
 // Receive
-
 
 "copy_address" = "Adresse kopieren";
 "more_options" = "Mehr Optionen";
@@ -154,14 +155,12 @@
 
 // Subs
 
-
 "subaddresses" = "Unteradressen";
 "new_subaddress_label" = "Neues Unteradressen-Etikett";
 "add" = "Hinzufügen";
 
 
 // Settings
-
 
 "settings" = "Einstellungen";
 "currency" = "Währung";
@@ -170,33 +169,47 @@
 "allow_biometric_authentication" = "Biometrische Authentifizierung erlauben";
 "remember_pin" = "PIN merken";
 "node_settings" = "Daemon-Einstellungen";
+"backup_password" = "Sicherungskennwort";
+"show_backup_password" = "Das Sicherungskennwort wurde erfolgreich geändert";
+"show_password" = "Passwort anzeigen";
+"save_backup_password" = "Haben sie Ihr sicherungskennwort gespeichert?";
+"save_backup_file" = "Speichern Sie die Sicherungsdatei an einem anderen Ort";
+"enable_icloud" = "Bitte aktiviere iCloud in den iPhone Einstellungen";
+"backup_password_has_changed" = "Das Sicherungskennwort wurde erfolgreich geändert";
+"change_backup_password" = "Sicherungskennwort ändern";
+"auto_backup" = "Automatische Sicherung in iCloud";
+"backup_now" = "Jetzt auf iCloud sichern";
+"creating_backup" = "Backup erstellen";
+"change_backup_warning" = "Wenn Sie das Sicherungskennwort für Sicherungen ändern, funktionieren die vorherigen MANUELLEN Sicherungen nicht mit dem neuen Kennwort. Automatische Sicherungen funktionieren weiterhin mit dem neuen Kennwort.";
 
 
 // Settings sections
 
-
 "personal" = "Persönlich";
 "wallets" = "Wallets";
 "advanced" = "Fortgeschritten";
+"backup" = "Backup";
+"manual_backup" = "Manuelle sicherung";
 
 
 // Nodes
 
-
 "nodes" = "Knoten";
 "auto_switch_node" = "Knoten automatisch wechseln";
+"node_new" = "Neuer knoten";
 
 
 // Exchange
 
-
 "exchange" = "Währungen wechseln";
+"switch_exchange" = "Vermittlungsstelle";
 "refund_address_is_empty" = "Die Rückerstattungsadresse ist leer";
 "create_exchange" = "Erstellen Sie einen neuen Wechsel";
 "deposit" = "Einzahlen";
 "refund_address" = "Rückerstattungsadresse";
 "you_will_receive" = "Sie bekommen";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "Du wirst senden";
+"you_will_get" = "Sie erhalten";
 "clear" = "Leeren";
 "copy_id" = "ID kopieren";
 "confirm" = "Bestätigen";
@@ -208,10 +221,11 @@
 "exchange_result_confirm_sending" = "Bitte bestätigen Sie den Wechsel, um fortzufahren oder gehen Sie zurück, um die Beträge zu ändern.";
 "exchange_result_write_down_trade_id" = "Bitte kopieren oder notieren Sie Ihre oben angezeigte ID";
 "trade_not_found" = "Wechsel nicht gefunden";
+"amount_is_guaranteed" = "Der empfangsbetrag ist garantiert";
+"amount_is_estimate" = "Der empfangene betrag ist eine schätzung";
 
 
 // Auth
-
 
 "loading_wallet" = "Wallet wird geladen";
 "authentication" = "Authentifizierung";
@@ -221,7 +235,6 @@
 
 // Wallets keys
 
-
 "wallet_keys" = "Wallet-Schlüssel";
 "view_key_public" = "Schlüssel anzeigen (öffentlich)";
 "spend_key_public" = "Ausgaben-Schlüssel (öffentlich)";
@@ -229,12 +242,10 @@
 
 // Seed
 
-
 "seed_disclaimer" = "Bitte teilen, kopieren oder schreiben Sie Ihre Seed auf. Die Seed wird verwendet, um Ihre Wallet wiederherzustellen. Das ist Ihre PRIVATE Seed. Bewahren Sie Ihre Seed sicher auf!";
 
 
 // Transactions details
-
 
 "height" = "Höhe";
 "date" = "Datum";
@@ -243,7 +254,6 @@
 
 
 // Exchange trade states
-
 
 "exchange_trade_state_pending" = "Ausstehend";
 "exchange_trade_state_confirming" = "Wird bestätigt";
@@ -272,6 +282,7 @@
 "delete_node_message" = "Möchten Sie den ausgewählten Knoten wirklich löschen?";
 "change_current_node_message" = "Möchten Sie den aktuellen Knoten wirklich in% @ ändern?";
 "change" = "Ändern";
+"done" = "Erledigt";
 "yes" = "Ja";
 "terms" = "Allgemeine Geschäftsbedingungen";
 "terms_accepting_message" = "Durch die Verwendung dieser App stimmen Sie den unten aufgeführten Vertragsbedingungen zu.";

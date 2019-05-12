@@ -94,6 +94,7 @@
 "sent" = "发送";
 "pending" = "进行中";
 
+
 // Wallets
 
 "show_seed" = "显示种子";
@@ -104,17 +105,25 @@
 "removing_wallet" = "删除的钱包名称";
 "loading_wallet" = "正在加载的钱包名称";
 "create_new_wallet" = "创建新的钱包";
+"accounts" = "帐号";
+
 
 // Address book
 
 "address_book" = "地址簿";
+"no_contacts" = "还没有联系";
+"contact" = "联系";
+"contact_name" = "联系人姓名";
+
 
 // Rescan
 
 "starting_rescan" = "开始重新扫描";
 
+
 // Send
 
+"your_wallet" = "你的钱包";
 "all" = "全部";
 "optional" = "可选";
 "estimated_fee" = "预估费用";
@@ -136,11 +145,13 @@
 "hide_options" = "隐藏选项";
 "copied" = "已复制";
 
+
 // Subs
 
 "subaddresses" = "子地址";
 "new_subaddress_label" = "新的子地址标签";
 "add" = "添加";
+
 
 // Settings
 
@@ -151,27 +162,47 @@
 "allow_biometric_authentication" = "允许生物识别验证";
 "remember_pin" = "记住 pin";
 "node_settings" = "Daemon 设置";
+"backup_password" = "备份密码";
+"show_backup_password" = "备份密码已成功更改";
+"show_password" = "显示密码";
+"save_backup_password" = "你保存了备份密码吗？";
+"save_backup_file" = "将备份文件保存到其他位置";
+"enable_icloud" = "请在iPhone设置中启用iCloud";
+"backup_password_has_changed" = "备份密码已成功更改";
+"change_backup_password" = "更改备份密码";
+"auto_backup" = "自动备份到iCloud";
+"backup_now" = "立即备份到iCloud";
+"creating_backup" = "创建备份";
+"change_backup_warning" = "如果要更改备份的备份密码，则以前的MANUAL备份将无法使用新密码。自动备份将继续使用新密码。";
+
 
 // Settings sections
 
 "personal" = "个人";
 "wallets" = "钱包";
 "advanced" = "高级";
+"backup" = "备用";
+"manual_backup" = "手动备份";
+
 
 // Nodes
 
 "nodes" = "节点";
 "auto_switch_node" = "自动切换节点";
+"node_new" = "新节点";
+
 
 // Exchange
 
 "exchange" = "交易";
+"switch_exchange" = "交换机交换";
 "refund_address_is_empty" = "退款地址为空";
 "create_exchange" = "创建新的交易";
 "deposit" = "存款";
 "refund_address" = "退款地址";
 "you_will_receive" = "您将收到";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "你会发送";
+"you_will_get" = "你会得到";
 "clear" = "清除";
 "copy_id" = "复制ID";
 "confirm" = "确认";
@@ -183,6 +214,9 @@
 "exchange_result_confirm_sending" = "请点击确认继续或返回更改金额.";
 "exchange_result_write_down_trade_id" = "请复制或写下上面显示的ID";
 "trade_not_found" = "交易未找到";
+"amount_is_guaranteed" = "收款金额有保证";
+"amount_is_estimate" = "收款金额是估计金额";
+
 
 // Auth
 
@@ -191,15 +225,18 @@
 "use_pin_password" = "使用Pin 密码";
 "unlock_wallet" = "解锁钱包";
 
+
 // Wallets keys
 
 "wallet_keys" = "钱包私钥";
 "view_key_public" = "查看密钥(公开)";
 "spend_key_public" = "密钥(公开)";
 
+
 // Seed
 
 "seed_disclaimer" = "请分享，复制或写下您的种子密语。种子密语用于恢复您的钱包。这是您的私钥种子密语。请勿与其他人分享种子密语!";
+
 
 // Transactions details
 
@@ -207,6 +244,7 @@
 "date" = "日期";
 "transaction_id" = "交易ID";
 "transaction_details" = "交易细节";
+
 
 // Exchange trade states
 
@@ -237,6 +275,7 @@
 "delete_node_message" = "您确定要删除所选节点吗？";
 "change_current_node_message" = "您确定将当前节点更改为％@？";
 "change" = "改变";
+"done" = "完成";
 "yes" = "是";
 "terms" = "条款和条件";
 "terms_accepting_message" = "使用此应用程序即表示您同意以下所述的协议条款。";

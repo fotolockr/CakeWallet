@@ -15,6 +15,7 @@
 "restore" = "Recuperar";
 "please_make_selection" = "Realice una selección a continuación para crear una nueva cartera o restaurar una cartera";
 
+
 // Pin
 
 "use_6_pin" = "PIN de 6 dígitos";
@@ -26,6 +27,7 @@
 "pin_setup_success" = "¡Has configurado tu PIN con éxito!";
 "incorrect_pin" = "PIN incorrecto";
 
+
 // Restore root
 
 "restore_from_seed_keys" = "Restaurar desde seed / llaves";
@@ -33,12 +35,14 @@
 "restore_from_backup" = "Restaurar desde un archivo de copia de seguridad";
 "restore_from_backup_long" = "Restaure toda la aplicación de Cake Wallet desde su archivo de respaldo";
 
+
 // Restore cards
 
 "restore_seed_card_title" = "Restaurar desde seed";
 "restore_seed_card_description" = "Restaure su billetera desde la semilla de 25 palabras o 12 palabras seed";
 "restore_keys_card_title" = "Restaurar desde llaves";
 "restore_keys_card_description" = "Restaura tu billetera desde tus llaves privadas";
+
 
 // Restore
 
@@ -71,6 +75,7 @@
 
 "wallet" = "Cartera";
 
+
 // Connection state
 
 "blocks_remaining" = "Bloques restantes";
@@ -79,6 +84,7 @@
 "starting_sync" = "Empezando sincronización";
 "synchronized" = "Sincronizado";
 "failed_connection_to_node" = "Conexión con el nódulo ha fallado";
+
 
 // Wallet
 
@@ -93,6 +99,7 @@
 "sent" = "Enviado";
 "pending" = "Pendiente";
 
+
 // Wallets
 
 "show_seed" = "Mostrar semilla";
@@ -103,17 +110,25 @@
 "removing_wallet" = "Borrando cartera con nombre";
 "loading_wallet" = "Abriendo cartera con nombre";
 "create_new_wallet" = "Crear una cartera nueva";
+"accounts" = "Cuentas";
+
 
 // Address book
 
 "address_book" = "Libreta de direcciones";
+"no_contacts" = "No hay contactos todavía";
+"contact" = "Contacto";
+"contact_name" = "Nombre de contacto";
+
 
 // Rescan
 
 "starting_rescan" = "Empezando sincronización";
 
+
 // Send
 
+"your_wallet" = "Tu billetera";
 "all" = "Todo";
 "optional" = "Opcional";
 "estimated_fee" = "Tasa estimado";
@@ -135,11 +150,13 @@
 "hide_options" = "Esconder opciones";
 "copied" = "Copiado";
 
+
 // Subs
 
 "subaddresses" = "Subdirecciónes";
 "new_subaddress_label" = "Etiqueta nueva de subdirección";
 "add" = "Añadir";
+
 
 // Settings
 
@@ -150,27 +167,47 @@
 "allow_biometric_authentication" = "Usar autenticación biométrica";
 "remember_pin" = "Recordar PIN";
 "node_settings" = "Configuración de demonio";
+"backup_password" = "Contraseña de respaldo";
+"show_backup_password" = "La contraseña de respaldo ha cambiado exitosamente";
+"show_password" = "Mostrar contraseña";
+"save_backup_password" = "Guardaste tu contraseña de respaldo?";
+"save_backup_file" = "Guardar archivo de copia de seguridad en otra ubicación";
+"enable_icloud" = "Por favor habilita iCloud en la configuración del iPhone";
+"backup_password_has_changed" = "La contraseña de respaldo ha cambiado exitosamente";
+"change_backup_password" = "Cambiar contraseña de respaldo";
+"auto_backup" = "Automatische back-up naar iCloud";
+"backup_now" = "Copia de seguridad ahora a iCloud";
+"creating_backup" = "Creación de copia de seguridad";
+"change_backup_warning" = "Si cambia la contraseña de respaldo para los respaldos, los respaldos MANUALES anteriores no funcionarán con el nuevo código. Las copias de seguridad automáticas continuarán funcionando con la nueva contraseña.";
+
 
 // Settings sections
 
 "personal" = "Personal";
 "wallets" = "Carteras";
 "advanced" = "Avanzado";
+"backup" = "Apoyo";
+"manual_backup" = "Copia de seguridad manual";
+
 
 // Nodes
 
 "nodes" = "Nódulos";
 "auto_switch_node" = "Cambiar automáticamente";
+"node_new" = "Nuevo nodo";
+
 
 // Exchange
 
 "exchange" = "Cambio";
+"switch_exchange" = "Cambio de interruptor";
 "refund_address_is_empty" = "Por favor, escribe una dirección de reembolso";
 "create_exchange" = "Crear un cambio nuevo";
 "deposit" = "Depositar";
 "refund_address" = "Dirección de reembolso";
 "you_will_receive" = "Recibirás:";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "Enviarás";
+"you_will_get" = "Conseguirás";
 "clear" = "Quitar";
 "copy_id" = "Copiar ID";
 "confirm" = "Confirmar";
@@ -182,6 +219,9 @@
 "exchange_result_confirm_sending" = "Por favor, oprima 'confirmar' para continuar, o revuelve para cambiar los cantidades.";
 "exchange_result_write_down_trade_id" = "Por favor, copia o escribe el ID.";
 "trade_not_found" = "Error con el cambio";
+"amount_is_guaranteed" = "El importe recibido está garantizado";
+"amount_is_estimate" = "La cantidad recibida es un estimado";
+
 
 // Auth
 
@@ -190,11 +230,13 @@
 "use_pin_password" = "Usa contraseña PIN";
 "unlock_wallet" = "Para abrir la cartera";
 
+
 // Wallets keys
 
 "wallet_keys" = "Claves de cartera";
 "view_key_public" = "Clave de ver (público)";
 "spend_key_public" = "Clave de gastar (público)";
+
 
 // Seed
 
@@ -236,6 +278,7 @@
 "delete_node_message" = "¿Está seguro de que desea eliminar el nodo seleccionado?";
 "change_current_node_message" = "¿Está seguro de cambiar el nodo actual a %@?";
 "change" = "Cambiar";
+"done" = "Hecho";
 "yes" = "Sí";
 "terms" = "Términos y condiciones";
 "terms_accepting_message" = "Al utilizar esta aplicación, usted acepta los Términos del Acuerdo que se detallan a continuación.";

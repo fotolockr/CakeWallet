@@ -37,7 +37,7 @@ final class NewAddressViewController: BaseViewController<NewAddressView>, UIPick
     override func configureBinds() {
         super.configureBinds()
         
-        title = "Contact"
+        title = NSLocalizedString("contact", comment: "")
         contentView.addressView.presenter = self
         contentView.resetButton.addTarget(self, action: #selector(resetAction), for: .touchUpInside)
         contentView.saveButton.addTarget(self, action: #selector(saveAction), for: .touchUpInside)

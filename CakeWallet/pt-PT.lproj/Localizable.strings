@@ -15,6 +15,7 @@
 "restore" = "Restaurar carteira";
 "please_make_selection" = "Por favor, faça uma seleção abaixo para criar uma nova carteira ou restaurar uma carteira";
 
+
 // Pin
 
 "use_6_pin" = "Utilize um PIN de 6 dÌgitos";
@@ -24,12 +25,14 @@
 "pin_setup_success" = "O seu PIN foi configurado!";
 "incorrect_pin" = "PIN incorreto.";
 
+
 // Restore root
 
 "restore_from_seed_keys" = "Restaurar a partir de seed / chaves";
 "restore_from_seed_keys_long" = "Restaure sua carteira de sua seed ou chaves";
 "restore_from_backup" = "Restaurar a partir de um arquivo de backup";
 "restore_from_backup_long" = "Restaurar todo o aplicativo do Cake Wallet do seu arquivo de backup";
+
 
 // Restore cards
 
@@ -38,7 +41,9 @@
 "restore_keys_card_title" = "Restaurar das chaves";
 "restore_keys_card_description" = "Restaure sua carteira das suas chaves privadas";
 
+
 // Restore
+
 "recover" = "Recuperar";
 "restore_your_wallet" = "Restaurar Carteira";
 "restore_selection_text" = "Existem duas maneiras de restaurar uma carteira. VocÍ pode inserir sua chave-semente que È um cÛdigo de 25 palavras, ou vocÍ pode inserir suas chaves privadas. Por favor, selecione uma opÁ„o.";
@@ -68,6 +73,7 @@
 
 "wallet" = "Carteira";
 
+
 // Connection state
 
 "blocks_remaining" = "Blocos restantes";
@@ -76,6 +82,7 @@
 "starting_sync" = "A iniciar sincronizaÁ„o";
 "synchronized" = "Sincronizado";
 "failed_connection_to_node" = "Falha ao ligar ao node";
+
 
 // Wallet
 
@@ -90,6 +97,7 @@
 "sent" = "Enviado";
 "pending" = "Pendente";
 
+
 // Wallets
 
 "show_seed" = "Mostrar chave-semente";
@@ -100,17 +108,25 @@
 "removing_wallet" = "A apagar carteira com o nome";
 "loading_wallet" = "A carregar carteira com o nome";
 "create_new_wallet" = "Criar nova carteira";
+"accounts" = "Contas";
+
 
 // Address book
 
 "address_book" = "Livro de endereços";
+"no_contacts" = "Ainda sem contatos";
+"contact" = "Contato";
+"contact_name" = "Nome de contato";
+
 
 // Rescan
 
 "starting_rescan" = "A comeÁar o reescaneamento";
 
+
 // Send
 
+"your_wallet" = "Sua carteira";
 "all" = "Tudo";
 "optional" = "Opcional";
 "estimated_fee" = "Custo estimado";
@@ -132,11 +148,13 @@
 "hide_options" = "Esconder opÁıes";
 "copied" = "Copiado";
 
+
 // Subs
 
 "subaddresses" = "SubendereÁo";
 "new_subaddress_label" = "Crie uma etiqueta para o SubendereÁo";
 "add" = "Adicionar";
+
 
 // Settings
 
@@ -147,27 +165,47 @@
 "allow_biometric_authentication" = "Utilizar autenticaÁ„o biomÈtrica";
 "remember_pin" = "Lembrar PIN";
 "node_settings" = "ConfiguraÁıes do Daemon";
+"backup_password" = "Senha de backup";
+"show_backup_password" = "A senha de backup foi alterada com sucesso";
+"show_password" = "Mostrar senha";
+"save_backup_password" = "Você salvou sua senha de backup?";
+"save_backup_file" = "Salvar arquivo de backup em outro local";
+"enable_icloud" = "Por favor, ative o iCloud nas configurações do iPhone";
+"backup_password_has_changed" = "A senha de backup foi alterada com sucesso";
+"change_backup_password" = "Alterar senha de backup";
+"auto_backup" = "Backup automático para o iCloud";
+"backup_now" = "Faça o backup agora no iCloud";
+"creating_backup" = "Criando backup";
+"change_backup_warning" = "Se você alterar a senha de backup para backups, os backups manuais anteriores não funcionarão com a nova senha. Os backups automáticos continuarão funcionando com a nova senha.";
+
 
 // Settings sections
 
 "personal" = "Pessoal";
 "wallets" = "Carteiras";
 "advanced" = "AvanÁado";
+"backup" = "Cópia de segurança";
+"manual_backup" = "Backup manual";
+
 
 // Nodes
 
 "nodes" = "Nodes";
 "auto_switch_node" = "MudanÁa autom·tica de node";
+"node_new" = "Novo nó";
+
 
 // Exchange
 
 "exchange" = "Trocar";
+"switch_exchange" = "Troca de troca";
 "refund_address_is_empty" = "EndereÁo de reembolso est· vazio";
 "create_exchange" = "Criar uma nova troca";
 "deposit" = "Depositar";
 "refund_address" = "EndereÁo de reembolso";
 "you_will_receive" = "VocÍ vai receber";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "Você enviará";
+"you_will_get" = "Você vai ter";
 "clear" = "Limpar";
 "copy_id" = "Copiar o ID";
 "confirm" = "Confirmar";
@@ -179,6 +217,9 @@
 "exchange_result_confirm_sending" = "Pressione confirmar para continuar ou volte para alterar as quantias.";
 "exchange_result_write_down_trade_id" = "Copie ou escreva abaixo o seu ID da transaÁ„o mostrado acima";
 "trade_not_found" = "OperaÁ„o n„o encontrada";
+"amount_is_guaranteed" = "O valor de recebimento é garantido";
+"amount_is_estimate" = "O valor de recebimento é uma estimativa";
+
 
 // Auth
 
@@ -187,15 +228,18 @@
 "use_pin_password" = "Use a senha PIN";
 "unlock_wallet" = "Para desbloquear a sua carteira";
 
+
 // Wallets keys
 
 "wallet_keys" = "Chaves da carteira";
 "view_key_public" = "Chave de consulta(p˙blica)";
 "spend_key_public" = "Chave de movimentaÁ„o (p˙blica)";
 
+
 // Seed
 
 "seed_disclaimer" = "Por favor, copie, ou anote num papel a sua chave-semente. A chave-semente È usada para recuperar a sua carteira. Essa È sua chave-semente PRIVADA. N√O COMPARTILHE esta chave com ninguÈm!";
+
 
 // Transactions details
 
@@ -203,6 +247,7 @@
 "date" = "Data";
 "transaction_id" = "ID da transaÁ„o";
 "transaction_details" = "Detalhes da transaÁ„o";
+
 
 // Exchange trade states
 
@@ -241,6 +286,7 @@
 "delete_node_message" = "Tem a certeza que quer remover o node selecionado ?";
 "change_current_node_message" = "Tem a certeza que quer alterar o node atual para %@ ?";
 "change" = "Alterar";
+"done" = "Feito";
 "yes" = "Sim";
 "terms" = "Termos e condiÁıes";
 "terms_accepting_message" = "By using this app, you agree to the Terms of Agreement set forth below";

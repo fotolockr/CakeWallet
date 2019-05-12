@@ -16,6 +16,7 @@
 "restore_from_seed_keys" = "Herstellen";
 "please_make_selection" = "Maak hieronder een selectie om een ​​nieuwe portefeuille te maken of een portefeuille te herstellen";
 
+
 // Pin
 
 "use_6_pin" = "Een 6-cijferige pincode gebruiken";
@@ -27,6 +28,7 @@
 "pin_setup_success" = "Uw pincode is met succes ingesteld!";
 "incorrect_pin" = "Incorrecte pincode";
 
+
 // Restore root
 
 "restore_from_seed_keys" = "Herstel van seed/sleutels";
@@ -34,12 +36,14 @@
 "restore_from_backup" = "Herstellen van een back-upbestand";
 "restore_from_backup_long" = "Herstel de hele Cake Wallet-app vanuit uw back-upbestand";
 
+
 // Restore cards
 
 "restore_seed_card_title" = "Herstel van seed";
 "restore_seed_card_description" = "Herstel je portemonnee uit het 25-woorden- of het 12-woordige seed";
 "restore_keys_card_title" = "Herstellen van toetsen";
 "restore_keys_card_description" = "Herstel je portemonnee met je privésleutels";
+
 
 // Restore
 
@@ -49,7 +53,6 @@
 "from_seed" = "Met de seed";
 "from_keys" = "Met de privésleutels";
 "or" = "of";
-
 
 "restore_wallet" = "Wallet herstellen";
 "enter_wallet_name" = "Voer een naam voor uw wallet in";
@@ -61,24 +64,20 @@
 "continue_restore" = "Doorgaan met herstellen";
 "set_restore_height" = "Stel de herstelhoogte in";
 
-
 "restore_height" = "Herstelhoogte";
 "restore_from_date" = "Herstellen vanaf datum";
 "address" = "Adres";
 "view_key_(private)" = "Leessleutel (privé)";
 "spend_key_(private)" = "Spendeersleutel (privé)";
 
-
 "continue" = "Doorgaan";
 "new_wallet" = "Nieuwe wallet";
 "creating_wallet" = "Aanmaken van een nieuwe wallet met de naam -";
-
 
 "wallet" = "Wallet";
 
 
 // Connection state
-
 
 "blocks_remaining" = "Nog te scannen blokken";
 "connecting" = "Verbinden";
@@ -112,10 +111,15 @@
 "removing_wallet" = "Verwijderen wallet met naam";
 "loading_wallet" = "Laden van wallet met naam";
 "create_new_wallet" = "Nieuwe wallet aanmaken";
+"accounts" = "Accounts";
+
 
 // Address book
 
 "address_book" = "Adresboek";
+"no_contacts" = "Nog geen contacten";
+"contact" = "Contact";
+"contact_name" = "Contactnaam";
 
 
 // Rescan
@@ -125,6 +129,7 @@
 
 // Send
 
+"your_wallet" = "Uw portemonnee";
 "all" = "Alle";
 "optional" = "Optioneel";
 "estimated_fee" = "Geschatte toeslag";
@@ -139,10 +144,7 @@
 "change_transaction_priority" = "De prioriteit van de transactie kan in de instellingen aangepast worden.";
 
 
-
-
 // Receive
-
 
 "copy_address" = "Adres kopiëren";
 "more_options" = "Meer opties";
@@ -152,14 +154,12 @@
 
 // Subs
 
-
 "subaddresses" = "Subadressen";
 "new_subaddress_label" = "Nieuw label voor subadres";
 "add" = "Toevoegen";
 
 
 // Settings
-
 
 "settings" = "Instellingen";
 "currency" = "Valuta";
@@ -168,33 +168,47 @@
 "allow_biometric_authentication" = "Biometrische authenticatie toestaan";
 "remember_pin" = "Pincode onthouden";
 "node_settings" = "Daemoninstellingen";
+"backup_password" = "Back-upwachtwoord";
+"show_backup_password" = "Back-upwachtwoord is succesvol veranderd";
+"show_password" = "Laat wachtwoord zien";
+"save_backup_password" = "Heb je je wachtwoord opgeslagen?";
+"save_backup_file" = "Back-upbestand op een andere locatie opslaan";
+"enable_icloud" = "Bitte aktiviere iCloud in den iPhone Einstellungen";
+"backup_password_has_changed" = "Back-upwachtwoord is succesvol veranderd";
+"change_backup_password" = "Wijzig back-upwachtwoord";
+"auto_backup" = "Automatische back-up naar iCloud";
+"backup_now" = "Maak nu een back-up naar iCloud";
+"creating_backup" = "Back-up maken";
+"change_backup_warning" = "Als u het back-upwachtwoord voor back-ups wilt wijzigen, werken de vorige MANUAL-back-ups niet met het nieuwe wachtwoord. Automatische back-ups blijven werken met het nieuwe wachtwoord.";
 
 
 // Settings sections
 
-
 "personal" = "Persoonlijk";
 "wallets" = "Wallets";
 "advanced" = "Geavanceerd";
+"backup" = "Backup";
+"manual_backup" = "Handmatige back-up";
 
 
 // Nodes
 
-
 "nodes" = "Nodi";
 "auto_switch_node" = "Automatisch van nodus wisselen";
+"node_new" = "Nieuw knooppunt";
 
 
 // Exchange
 
-
 "exchange" = "Omwisselen";
+"switch_exchange" = "Wissel wissel";
 "refund_address_is_empty" = "Het restitutieadres is leeg";
 "create_exchange" = "Een nieuw omwisselverzoek aanmaken";
 "deposit" = "Storten";
 "refund_address" = "Restitutieadres";
 "you_will_receive" = "U ontvangt";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "Je zal versturen";
+"you_will_get" = "Je zult krijgen";
 "clear" = "Legen";
 "copy_id" = "ID kopiëren";
 "confirm" = "Bevestigen";
@@ -206,10 +220,11 @@
 "exchange_result_confirm_sending" = "Klik op bevestigen om door te gaan, of ga terug om de bedragen aan te passen.";
 "exchange_result_write_down_trade_id" = "Kopieer of noteer het bovenstaande ID";
 "trade_not_found" = "Omwisseling is niet gevonden";
+"amount_is_guaranteed" = "Het ontvangstbedrag is gegarandeerd";
+"amount_is_estimate" = "Het ontvangstbedrag is een schatting";
 
 
 // Auth
-
 
 "loading_wallet" = "Wallet wordt geladen";
 "authentication" = "Authenticatie";
@@ -219,7 +234,6 @@
 
 // Wallets keys
 
-
 "wallet_keys" = "Walletsleutels";
 "view_key_public" = "Leessleutel (publiek)";
 "spend_key_public" = "Spendeersleutel (publiek)";
@@ -227,12 +241,10 @@
 
 // Seed
 
-
 "seed_disclaimer" = "Schrijf uw seed op of kopieer deze. Deze seed wordt gebruikt om uw wallet te herstellen. Deze seed is PRIVÉ. Deel deze seed niet met anderen en bewaar hem op een veilige plek.";
 
 
 // Transactions details
-
 
 "height" = "Hoogte";
 "date" = "Datum";
@@ -241,7 +253,6 @@
 
 
 // Exchange trade states
-
 
 "exchange_trade_state_pending" = "In behandeling";
 "exchange_trade_state_confirming" = "Wordt bevestigd";
@@ -270,6 +281,7 @@
 "delete_node_message" = "Weet u zeker dat u de geselecteerde nodus wilt verwijderen?";
 "change_current_node_message" = "Weet u zeker dat u de van huidige nodus wilt wijzigen naar %@?";
 "change" = "Wijzigen";
+"done" = "Gedaan";
 "yes" = "Ja";
 "terms" = "Algemene voorwaarden";
 "terms_accepting_message" = "Door deze app te gebruiken, gaat u akkoord met de hieronder uiteengezette Algemene voorwaarden.";

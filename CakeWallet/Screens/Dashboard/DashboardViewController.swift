@@ -68,7 +68,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     
     private func insertNavigationItems() {
         presentWalletsListButtonTitle = UIBarButtonItem(
-            title: "Change",
+            title: NSLocalizedString("change", comment: ""),
             style: .plain,
             target: self,
             action: #selector(presentWalletsList)
@@ -112,6 +112,12 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         store.unsubscribe(self)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        contentView.scrollView.delegate = self
     }
     
     override func setTitle() {
@@ -465,7 +471,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     
     private func updateStatusSynced() {
         contentView.progressBar.updateProgress(100)
-        contentView.updateStatus(text: NSLocalizedString("synchronized", comment: ""), done: true)
+        contentView.updateStatus(text: NSLocalizedString("synchronized", comment: ""))
     }
     
     private func updateStatusFailed() {

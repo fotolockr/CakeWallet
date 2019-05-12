@@ -12,6 +12,7 @@
 "terms_of_use_agree" = "Я принимаю";
 "please_make_selection" = "Пожалуйста выберите опцию ниже, чтобы создать или восстановить кошелек, а так же приложение целиком";
 
+
 // Pin
 
 "use_6_pin" = "Шестизачный пин-код";
@@ -23,6 +24,7 @@
 "pin_setup_success" = "Ваш пин-код установлен успешно!";
 "incorrect_pin" = "Неверный пин-код";
 
+
 // Restore root
 
 "restore_from_seed_keys" = "Восстановить из код-фразы/ключей";
@@ -30,12 +32,14 @@
 "restore_from_backup" = "Восстановить из резервного копирования";
 "restore_from_backup_long" = "Восстановить приложение полностью из резервного копирования";
 
+
 // Restore cards
 
 "restore_seed_card_title" = "Восстановить с помощью код-фразы";
 "restore_seed_card_description" = "Восстановить с помощью код-фразы из 25 или 12 слов";
 "restore_keys_card_title" = "Восстановить с помощью ключей";
 "restore_keys_card_description" = "Восстановить с помощью приватных ключей";
+
 
 // Restore
 
@@ -67,6 +71,7 @@
 
 "wallet" = "Кошелек";
 
+
 // Connection state
 
 "blocks_remaining" = "Осталось блоков";
@@ -75,6 +80,7 @@
 "starting_sync" = "Начало синхронизации";
 "synchronized" = "Синхронизировано";
 "failed_connection_to_node" = "Не удалось подключиться к удаленному узлу";
+
 
 // Wallet
 
@@ -89,6 +95,7 @@
 "sent" = "Отправлено";
 "pending" = "в ожидании";
 
+
 // Wallets
 
 "show_seed" = "Показать код фразу";
@@ -98,18 +105,26 @@
 "removing_wallet" = "Удаление кошелька с именем";
 "loading_wallet" = "Загрузка кошелька с именем";
 "create_new_wallet" = "Создать новый кошелек";
+"accounts" = "Аккаунты";
+
 
 // Address book
 
 "address_book" = "Книга адресов";
+"no_contacts" = "Пока нет контактов";
+"contact" = "Контакт";
+"contact_name" = "Имя контакта";
+
 
 // Rescan
 
 "rescan" = "Пересканировать";
 "starting_rescan" = "Запуск сканирования";
 
+
 // Send
 
+"your_wallet" = "Ваш кошелек";
 "all" = "Все";
 "optional" = "Необязательный";
 "estimated_fee" = "Оценочный сбор";
@@ -128,6 +143,7 @@
 "OverallBalanceWithAmonut" = "Сума отпавки %@ больше чем ваш баланс %@.";
 "OverallBalance" = "Сума отпаравки больше вашего баланса %@.";
 
+
 // Receive
 
 "copy_address" = "Скопировать адрес";
@@ -135,11 +151,13 @@
 "hide_options" = "Спрятать";
 "copied" = "Скопированно";
 
+
 // Subs
 
-"subaddresses" = "Дополнительный адрес";
-"new_subaddress_label" = "Название нового дополнительного адреса";
+"subaddresses" = "Сабадрес";
+"new_subaddress_label" = "Название нового сабадреса";
 "add" = "Добавить";
+
 
 // Settings
 
@@ -150,27 +168,47 @@
 "allow_biometric_authentication" = "Разрешить биометрическую аутентификацию";
 "remember_pin" = "Запомнить пин-код";
 "node_settings" = "Настройки удаленного узла";
+"backup_password" = "Пароль от бэкапа";
+"show_backup_password" = "Показать бэкап-пароль";
+"show_password" = "Показать пароль";
+"save_backup_password" = "Вы сохранили свой бэкап-пароль?";
+"save_backup_file" = "Сохранить бэкап-файл отдельно";
+"enable_icloud" = "Пожалуйста активируйте iCloud в настройках iPhone";
+"backup_password_has_changed" = "Бэкап-пароль был успешно изменен";
+"change_backup_password" = "Изменить бэкап-пароль";
+"auto_backup" = "Автобэкап в iCloud";
+"backup_now" = "Сохранить сейчас бэкап в ICloud";
+"creating_backup" = "Создание бэкапа";
+"change_backup_warning" = "Если вы поменяете бэкап-пароль, предыдущие мануальные бэкапы перестанут работать с новым паролем. Автоматические бэкапы смогут работать с новым паролем.";
+
 
 // Settings sections
 
 "personal" = "Персональные";
 "wallets" = "Кошелек";
 "advanced" = "Продвинутые";
+"backup" = "Бэкап";
+"manual_backup" = "Мануальный бэкап";
+
 
 // Nodes
 
 "nodes" = "Узлы";
 "auto_switch_node" = "Авто. переключение узлов";
+"node_new" = "Новый узел";
+
 
 // Exchange
 
 "exchange" = "Обмен";
+"switch_exchange" = "Переключить платформу для обмена";
 "refund_address_is_empty" = "Адрес для возврата пуст";
 "create_exchange" = "Создать новый обмен";
 "deposit" = "Депозит";
 "refund_address" = "Адрес для возврата";
 "you_will_receive" = "Вы получите";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "Вы отправите";
+"you_will_get" = "Вы получите";
 "clear" = "Очистить";
 "copy_id" = "Скопировать ID";
 "confirm" = "Подтвердить";
@@ -183,6 +221,9 @@
 "exchange_result_confirm_sending" = "Пожалуйта, нажмите подтвердить или вернитесь назад, чтобы изменить сумму.";
 "exchange_result_write_down_trade_id" = "Пожалуйста, скопируйте или запишите идентификатор вашего обмена";
 "trade_not_found" = "Обмен не найден";
+"amount_is_guaranteed" = "Получаемая сумма гарантирована";
+"amount_is_estimate" = "Получаемая сумма является оценочной";
+
 
 // Auth
 
@@ -191,15 +232,18 @@
 "use_pin_password" = "Использовать пин-код";
 "unlock_wallet" = "Чтобы разблокировать кошелек";
 
+
 // Wallets keys
 
 "wallet_keys" = "Ключи";
 "view_key_public" = "Ключ для просмотра(публичный)";
 "spend_key_public" = "Ключ для просмотра(публичный)";
 
+
 // Seed
 
 "seed_disclaimer" = "Пожалуйста скопируйте или запишите вашу код фразу. Код фраза используется для восстановления вашего кошелька. Это ПРИВАТНАЯ код фраза. НЕ ДЕЛИТЕСЬ этим семенем с другими людьми(и не только)!";
+
 
 // Transactions details
 
@@ -207,6 +251,7 @@
 "date" = "Дата";
 "transaction_id" = "Индификатор транзакции";
 "transaction_details" = "Описание транзакции";
+
 
 // Exchange trade states
 
@@ -237,6 +282,7 @@
 "delete_node_message" = "Вы уверены что хотите удалить выбраный узел ?";
 "change_current_node_message" = "Вы уверены что хотите изменить текущий узел на %@ ?";
 "change" = "Изменить";
+"done" = "Готово";
 "yes" = "Да";
 "terms" = "Условия и положения";
 "terms_accepting_message" = "Используя это приложение, вы соглашаетесь с условиями Соглашения, изложенными ниже.";

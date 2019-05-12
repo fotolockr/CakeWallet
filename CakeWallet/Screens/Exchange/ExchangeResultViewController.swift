@@ -218,6 +218,10 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
             contentView.paymentIDLabel.text = paymentId
             contentView.paymentIDLabel.flex.markDirty()
             contentView.paymentIDRow.flex.layout()
+        } else {
+            contentView.paymentIDRow.flex.height(0)
+            contentView.paymentIDRow.flex.markDirty()
+            contentView.flex.layout()
         }
         
         let resultDescription: String

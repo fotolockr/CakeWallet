@@ -16,6 +16,7 @@
 "restore_from_seed_keys" = "リストア";
 "please_make_selection" = "新しい財布を作成するか、財布を復元するには、下の選択をしてください";
 
+
 // Pin
 
 "use_6_pin" = "6ケタのピンを使う";
@@ -27,12 +28,14 @@
 "pin_setup_success" = "ピンのセットアップが完了！";
 "incorrect_pin" = "不正なピンです";
 
+
 // Restore root
 
 "restore_from_seed_keys" = "シード/キーから復元";
 "restore_from_seed_keys_long" = "あなたの種または鍵からあなたの財布を復元する";
 "restore_from_backup" = "バックアップファイルから復元する";
 "restore_from_backup_long" = "バックアップファイルからCake Walletアプリ全体を復元する";
+
 
 // Restore cards
 
@@ -41,7 +44,9 @@
 "restore_keys_card_title" = "キーから復元";
 "restore_keys_card_description" = "あなたの秘密鍵からあなたの財布を復元する";
 
+
 // Restore
+
 "recover" = "回復する";
 "restore_your_wallet" = "ウォレットをリストア";
 "restore_selection_text" = "あなたのウォレットを復元するには2つの方法があります。あなたは、25語のシードを入力するか、または鍵を入力することができます。選択してください。";
@@ -71,6 +76,7 @@
 
 "wallet" = "ウォレット";
 
+
 // Connection state
 
 "blocks_remaining" = "ブロック残り";
@@ -79,6 +85,7 @@
 "starting_sync" = "同期開始";
 "synchronized" = "同期済み";
 "failed_connection_to_node" = "ノードとの接続失敗";
+
 
 // Wallet
 
@@ -93,6 +100,7 @@
 "sent" = "送信";
 "pending" = "保留";
 
+
 // Wallets
 
 "show_seed" = "シード表示";
@@ -103,17 +111,25 @@
 "removing_wallet" = "名前でウォレットを削除";
 "loading_wallet" = "名前でウォレットをロード";
 "create_new_wallet" = "ウォレット新規作成";
+"accounts" = "アカウント";
+
 
 // Address book
 
 "address_book" = "アドレス帳";
+"no_contacts" = "連絡先はまだありません";
+"contact" = "接触";
+"contact_name" = "連絡先";
+
 
 // Rescan
 
 "starting_rescan" = "再スキャン開始";
 
+
 // Send
 
+"your_wallet" = "あなたの財布";
 "all" = "すべて";
 "optional" = "任意";
 "estimated_fee" = "予測手数料";
@@ -135,11 +151,13 @@
 "hide_options" = "オプションを隠す";
 "copied" = "コピーしました";
 
+
 // Subs
 
 "subaddresses" = "サブアドレス";
 "new_subaddress_label" = "新しいサブアドレスラベル";
 "add" = "追加";
+
 
 // Settings
 
@@ -150,27 +168,47 @@
 "allow_biometric_authentication" = "生体認証を許可";
 "remember_pin" = "ピンを記憶";
 "node_settings" = "デーモン設定";
+"backup_password" = "バックアップパスワード";
+"show_backup_password" = "バックアップパスワードが正常に変更されました";
+"show_password" = "パスワードを表示";
+"save_backup_password" = "バックアップパスワードを保存しましたか？";
+"save_backup_file" = "バックアップファイルを他の場所に保存する";
+"enable_icloud" = "iPhoneの設定でiCloudを有効にしてください";
+"backup_password_has_changed" = "バックアップパスワードが正常に変更されました";
+"change_backup_password" = "バックアップパスワードを変更する";
+"auto_backup" = "iCloudへの自動バックアップ";
+"backup_now" = "今すぐiCloudにバックアップ";
+"creating_backup" = "バックアップを作成する";
+"change_backup_warning" = "バックアップ用のバックアップパスワードを変更した場合、以前のMANUALバックアップは新しいパスワードでは機能しません。自動バックアップは新しいパスワードでも引き続き機能します。";
+
 
 // Settings sections
 
 "personal" = "個人";
 "wallets" = "ウォレット";
 "advanced" = "アドバンスド";
+"backup" = "バックアップ";
+"manual_backup" = "手動バックアップ";
+
 
 // Nodes
 
 "nodes" = "ノード";
 "auto_switch_node" = "自動スイッチモード";
+"node_new" = "新しいノード";
+
 
 // Exchange
 
 "exchange" = "取引";
+"switch_exchange" = "交換を切り替える";
 "refund_address_is_empty" = "リファンドアドレスが空です";
 "create_exchange" = "取引を新規作成";
 "deposit" = "デポジット";
 "refund_address" = "リファンドアドレス";
 "you_will_receive" = "受け取り";
-"you_will_send" = "You will send (estimated)";
+"you_will_send" = "あなたが送ります";
+"you_will_get" = "あなたが得るでしょう";
 "clear" = "クリア";
 "copy_id" = "IDコピー";
 "confirm" = "確認";
@@ -182,6 +220,9 @@
 "exchange_result_confirm_sending" = "続けるには確定を押してください";
 "exchange_result_write_down_trade_id" = "上記のIDをコピーするか控えてください";
 "trade_not_found" = "トレードが見つかりません";
+"amount_is_guaranteed" = "受け取り金額は保証されています";
+"amount_is_estimate" = "受け取り金額は概算です";
+
 
 // Auth
 
@@ -190,15 +231,18 @@
 "use_pin_password" = "ピンパスワードを利用";
 "unlock_wallet" = "ウォレットをアンロック";
 
+
 // Wallets keys
 
 "wallet_keys" = "ウォレットキー";
 "view_key_public" = "確認キー (パブリック)";
 "spend_key_public" = "送信キー (パブリック)";
 
+
 // Seed
 
 "seed_disclaimer" = "あなたのシードを共有、コピー、または書き留めてください。シードはウォレットをリストアするために使われます。これはあなたのプライベートシードです。このシードを他の人と共有しないでください！";
+
 
 // Transactions details
 
@@ -206,6 +250,7 @@
 "date" = "日付";
 "transaction_id" = "トランザクションID";
 "transaction_details" = "トランザクション詳細";
+
 
 // Exchange trade states
 
@@ -236,6 +281,7 @@
 "delete_node_message" = "選択したノードを削除してもよろしいですか？";
 "change_current_node_message" = "現在のノードを％@に変更してもよろしいですか？";
 "change" = "変化する";
+"done" = "完了";
 "yes" = "はい";
 "terms" = "利用規約";
 "terms_accepting_message" = "このアプリを使用することにより、下記の契約条件に同意したことになります。";

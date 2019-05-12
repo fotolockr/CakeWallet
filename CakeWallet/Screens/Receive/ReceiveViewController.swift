@@ -69,6 +69,8 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
             )
         ]
         changeAddress(store.state.walletState.address)
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backButton
     }
 
     override func viewWillAppear(_ animated: Bool) {
