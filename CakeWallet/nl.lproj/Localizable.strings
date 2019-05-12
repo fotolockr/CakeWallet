@@ -297,3 +297,4 @@
 
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
 "edit" = "Bewerk";
+"change_current_wallet" = "Change current wallet";

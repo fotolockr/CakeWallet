@@ -9,8 +9,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     let walletNameView = WalletNameView()
     weak var dashboardFlow: DashboardFlow?
     private var showAbleBalance: Bool
-    private(set) var presentWalletsListButtonTitle: UIBarButtonItem?
-    private(set) var presentWalletsListButtonImage: UIBarButtonItem?
     private var sortedTransactions:  [DateComponents : [TransactionDescription]] = [:] {
         didSet {
             transactionsKeys = sort(dateComponents: Array(sortedTransactions.keys))
@@ -68,41 +66,8 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
     }
     
     private func insertNavigationItems() {
-        presentWalletsListButtonTitle = UIBarButtonItem(
-            title: NSLocalizedString("change", comment: ""),
-            style: .plain,
-            target: self,
-            action: #selector(presentWalletsList)
-        )
-        
-        presentWalletsListButtonImage = UIBarButtonItem(
-            image: UIImage(named: "arrow_bottom_purple_icon")?
-                .resized(to: CGSize(width: 11, height: 9)).withRenderingMode(.alwaysOriginal),
-            style: .plain,
-            target: self,
-            action: #selector(presentWalletsList)
-        )
-        
-        presentWalletsListButtonImage?.tintColor = .vividBlue
-
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "more")?.resized(to: CGSize(width: 28, height: 28)), style: .plain, target: self, action: #selector(presentWalletActions))
         navigationItem.titleView = walletNameView
-        
-        if let presentWalletsListButtonTitle = presentWalletsListButtonTitle,
-           let presentWalletsListButtonImage = presentWalletsListButtonImage {
-            
-            presentWalletsListButtonTitle.setTitleTextAttributes([
-                NSAttributedStringKey.font: applyFont(ofSize: 13),
-                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
-            ], for: .normal)
-            
-            presentWalletsListButtonTitle.setTitleTextAttributes([
-                NSAttributedStringKey.font: applyFont(ofSize: 13),
-                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
-            ], for: .highlighted)
-            
-            navigationItem.rightBarButtonItems = [presentWalletsListButtonImage, presentWalletsListButtonTitle]
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -307,11 +272,16 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.dashboardFlow?.change(route: .accounts)
         }
         
+        let presentWalletsListAction = UIAlertAction(title: NSLocalizedString("change_current_wallet", comment: ""), style: .default) { [weak self] _ in
+            self?.presentWalletsList()
+        }
+        
         alertViewController.addAction(presentReconnectAction)
         alertViewController.addAction(showSeedAction)
         alertViewController.addAction(showKeysAction)
         alertViewController.addAction(presentAccountsAction)
         alertViewController.addAction(presentAddressBookAction)
+        alertViewController.addAction(presentWalletsListAction)
         alertViewController.addAction(cancelAction)
         DispatchQueue.main.async {
             self.present(alertViewController, animated: true)

@@ -54,8 +54,6 @@ struct WalletCellItem: CellItem {
 final class WalletsViewController: BaseViewController<WalletsView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
     let navigationTitleView: WalletsNavigationTitle
     weak var walletsFlow: WalletsFlow?
-    private(set) var hideWalletsListButtonTitle: UIBarButtonItem?
-    private(set) var hideWalletsListButtonImage: UIBarButtonItem?
     private lazy var signUpFlow: SignUpFlow? = { [weak self] in
         let navigationController: UINavigationController
         
@@ -134,39 +132,10 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     }
     
     private func insertNavigationItems() {
-        hideWalletsListButtonTitle = UIBarButtonItem(
-            title: NSLocalizedString("done", comment: ""),
-            style: .plain,
-            target: self,
-            action: #selector(dismissAction)
-        )
-        
-        hideWalletsListButtonImage = UIBarButtonItem(
-            image: UIImage(named: "arrow_bottom_purple_icon")?
-                .resized(to: CGSize(width: 11, height: 9)).withRenderingMode(.alwaysOriginal),
-            style: .plain,
-            target: self,
-            action: #selector(dismissAction)
-        )
-        
-        hideWalletsListButtonTitle?.tintColor = .vividBlue
-        hideWalletsListButtonImage?.tintColor = .vividBlue
-        
-        if let hideWalletsListButtonTitle = hideWalletsListButtonTitle,
-            let hideWalletsListButtonImage = hideWalletsListButtonImage {
-            
-            hideWalletsListButtonTitle.setTitleTextAttributes([
-                NSAttributedStringKey.font: applyFont(ofSize: 13),
-                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
-                ], for: .normal)
-            
-            hideWalletsListButtonTitle.setTitleTextAttributes([
-                NSAttributedStringKey.font: applyFont(ofSize: 13),
-                NSAttributedStringKey.foregroundColor: UIColor.wildDarkBlue
-                ], for: .highlighted)
-            
-            navigationItem.rightBarButtonItems = [hideWalletsListButtonImage, hideWalletsListButtonTitle]
-        }
+        let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 10, height: 10)))
+        doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
+        doneButton.addTarget(self, action: #selector(dismissAction), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: doneButton)
     }
     
     @objc
