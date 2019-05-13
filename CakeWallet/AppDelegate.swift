@@ -264,25 +264,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     return
                                 }
                                 
-                                store._defaultDispatch(action)
+                                store.dispatch(action)
+                                store.dispatch(WalletActions.connectToCurrentNode)
                                 
-                                if
-                                    let action = action as? ApplicationState.Action,
-                                    case let .changedError(_error) = action,
-                                    let error = _error {
-                                    spinner.dismiss(animated: true) {
-                                        UIApplication.topViewController()?.showErrorAlert(error: error)
-                                    }
-                                    return
-                                }
-                                
-                                if let action = action as? WalletState.Action, case .loaded(_) = action {
-                                    spinner.dismiss(animated: true) {
-                                        self?.walletFlow = WalletFlow()
-                                        self?.walletFlow?.change(route: .start)
+                                spinner.dismiss(animated: true) {
+                                    if
+                                        let action = action as? ApplicationState.Action,
+                                        case let .changedError(_error) = action,
+                                        let error = _error {
                                         
-                                        self?.window?.rootViewController = self?.walletFlow?.rootController
+                                        UIApplication.topViewController()?.showErrorAlert(error: error)
+                                        return
                                     }
+                                    
+                                    
+                                    self?.walletFlow = WalletFlow()
+                                    self?.walletFlow?.change(route: .start)
+                                    
+                                    self?.window?.rootViewController = self?.walletFlow?.rootController
                                 }
                             }
                         })
@@ -294,9 +293,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }))
             
-            alert.dismiss(animated: true) {
-                UIApplication.topViewController()?.present(alert, animated: true)
-            }
+            UIApplication.topViewController()?.present(alert, animated: true)
         }
         UIApplication.topViewController()?.showInfoAlert(
             title: "Restore from backup",

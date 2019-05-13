@@ -22,7 +22,7 @@
 				<string>public.data</string>
 			</array>
 			<key>LSSupportsOpeningDocumentsInPlace</key>
-			<true/>
+			<false/>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
