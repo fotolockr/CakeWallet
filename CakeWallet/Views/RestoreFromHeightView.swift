@@ -120,6 +120,7 @@ final class RestoreFromHeightView: BaseFlexView {
     let wrapper: UIView
     let restoreHeightTextField: CWTextField
     let dateTextField: CWTextField
+    let separatorLabel: UILabel
     let datePicker: UIDatePicker
     var restoreHeight: UInt64 {
         var height: UInt64 = 0
@@ -135,12 +136,16 @@ final class RestoreFromHeightView: BaseFlexView {
         wrapper = UIView()
         restoreHeightTextField = CWTextField(placeholder: NSLocalizedString("restore_height", comment: ""), fontSize: 16)
         dateTextField = CWTextField(placeholder: NSLocalizedString("restore_from_date", comment: ""), fontSize: 16)
+        separatorLabel = UILabel()
         datePicker = UIDatePicker()
         super.init()
     }
     
     override func configureView() {
         super.configureView()
+        
+        separatorLabel.text = "or"
+        
         
         backgroundColor = .clear
         restoreHeightTextField.keyboardType = .numberPad
@@ -175,17 +180,12 @@ final class RestoreFromHeightView: BaseFlexView {
     }
     
     override func configureConstraints() {
-        var adaptiveMargin: CGFloat
-        adaptiveMargin = adaptiveLayout.getSize(forLarge: 34, forBig: 32, defaultSize: 30)
-        
-        if adaptiveLayout.screenType == .iPhones_5_5s_5c_SE {
-            adaptiveMargin = 18
-        }
-        
         rootFlexContainer.flex
+            .justifyContent(.center)
             .backgroundColor(.clear)
             .define { flex in
-                flex.addItem(restoreHeightTextField).marginBottom(adaptiveMargin).width(100%)
+                flex.addItem(restoreHeightTextField).width(100%).marginBottom(20)
+                flex.addItem(separatorLabel).width(20).height(15).marginBottom(5)
                 flex.addItem(dateTextField).width(100%)
         }
     }

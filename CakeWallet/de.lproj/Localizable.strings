@@ -175,11 +175,16 @@
 "save_backup_password" = "Haben sie Ihr sicherungskennwort gespeichert?";
 "save_backup_file" = "Speichern Sie die Sicherungsdatei an einem anderen Ort";
 "enable_icloud" = "Bitte aktiviere iCloud in den iPhone Einstellungen";
+"change_master_password" = "Master-Passwort ändern / setzen";
+"enter_new_password" = "Neues Passwort eingeben";
 "backup_password_has_changed" = "Das Sicherungskennwort wurde erfolgreich geändert";
 "change_backup_password" = "Sicherungskennwort ändern";
 "auto_backup" = "Automatische Sicherung in iCloud";
+"generate_new_password" = "Neu generieren";
 "backup_now" = "Jetzt auf iCloud sichern";
 "creating_backup" = "Backup erstellen";
+"backup_uploaded" = "Backup hochgeladen";
+"backup_uploaded_icloud" = "Backup wurde auf Ihre iCloud hochgeladen";
 "change_backup_warning" = "Wenn Sie das Sicherungskennwort für Sicherungen ändern, funktionieren die vorherigen MANUELLEN Sicherungen nicht mit dem neuen Kennwort. Automatische Sicherungen funktionieren weiterhin mit dem neuen Kennwort.";
 
 

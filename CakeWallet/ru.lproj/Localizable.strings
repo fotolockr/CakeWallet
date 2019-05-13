@@ -59,8 +59,8 @@
 "continue_restore" = "Продолжить восстановление";
 "set_restore_height" = "Ввести высоту для восстановления";
 
-"restore_height" = "Востановить из высоты";
-"restore_from_date" = "Ввостановить из даты";
+"restore_height" = "Восстановить из высоты";
+"restore_from_date" = "Восстановить из даты";
 "address" = "Адрес";
 "view_key_(private)" = "Ключ для просмотра (приватный)";
 "spend_key_(private)" = "Ключ для отправки (приватный)";
@@ -174,18 +174,23 @@
 "save_backup_password" = "Вы сохранили свой бэкап-пароль?";
 "save_backup_file" = "Сохранить бэкап-файл отдельно";
 "enable_icloud" = "Пожалуйста активируйте iCloud в настройках iPhone";
+"change_master_password" = "Изменить/установить мастер-пароль";
+"enter_new_password" = "Введите новый пароль";
 "backup_password_has_changed" = "Бэкап-пароль был успешно изменен";
 "change_backup_password" = "Изменить бэкап-пароль";
 "auto_backup" = "Автобэкап в iCloud";
 "backup_now" = "Сохранить сейчас бэкап в ICloud";
+"generate_new_password" = "Сгенерировать новый";
 "creating_backup" = "Создание бэкапа";
+"backup_uploaded" = "Бэкап загружен";
+"backup_uploaded_icloud" = "Бэкап загружен в Ваш iCloud";
 "change_backup_warning" = "Если вы поменяете бэкап-пароль, предыдущие мануальные бэкапы перестанут работать с новым паролем. Автоматические бэкапы смогут работать с новым паролем.";
 
 
 // Settings sections
 
 "personal" = "Персональные";
-"wallets" = "Кошелеки";
+"wallets" = "Кошельки";
 "advanced" = "Продвинутые";
 "backup" = "Бэкап";
 "manual_backup" = "Мануальный бэкап";

@@ -161,16 +161,21 @@
 "remember_pin" = "पिन याद करें";
 "node_settings" = "डेमॉन सेटिंग ";
 "backup_password" = "बैकअप पासवर्ड";
+"generate_new_password" = "नया पैदा करो";
 "show_backup_password" = "बैकअप पासवर्ड सफल बदल गया है";
 "show_password" = "शो पासवर्ड";
 "save_backup_password" = "क्या आपने अपना बैकअप पासवर्ड सहेजा है?";
 "save_backup_file" = "बैकअप फ़ाइल को अन्य स्थान पर सहेजें";
 "enable_icloud" = "कृपया iPhone सेटिंग्स में iCloud सक्षम करें";
+"change_master_password" = "मास्टर पासवर्ड बदलें / सेट करें";
+"enter_new_password" = "नया पासवर्ड दर्ज करें";
 "backup_password_has_changed" = "बैकअप पासवर्ड सफल बदल गया है";
 "change_backup_password" = "बैकअप पासवर्ड बदलें";
 "auto_backup" = "ICloud के लिए ऑटो बैकअप";
 "backup_now" = "अब iCloud पर बैकअप लें";
 "creating_backup" = "बैकअप बनाना";
+"backup_uploaded" = "बैकअप अपलोड किया गया";
+"backup_uploaded_icloud" = "बैकअप ने आपके iCloud पर अपलोड कर दिया है";
 "change_backup_warning" = "यदि आप बैकअप के लिए बैकअप पासवर्ड को बदल देंगे, तो पिछले MANUAL बैकअप नए पासवर्ड के साथ काम नहीं करेंगे। नए पासवर्ड के साथ ऑटो बैकअप काम करना जारी रखेगा।";
 
 

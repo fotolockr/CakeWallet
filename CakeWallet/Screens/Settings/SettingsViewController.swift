@@ -274,7 +274,10 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                         autoBackup(force: true, handler: { error in
                             alert.dismiss(animated: true) {
                                 guard let error = error else {
-                                    self?.showOKInfoAlert(title: "Backup uploaded", message: "Backup has uploaded to your iCloud")
+                                    self?.showOKInfoAlert(
+                                        title: NSLocalizedString("backup_uploaded", comment: ""),
+                                        message: NSLocalizedString("backup_uploaded_icloud", comment: "")
+                                    )
                                     return
                                 }
                                 
@@ -348,13 +351,16 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                                     self?.showErrorAlert(error: error)
                                 }
                             }
-                            let alert = UIAlertController(title: "Change/Set master password", message: "Enter new password", preferredStyle: .alert)
+                            let alert = UIAlertController(
+                                title: NSLocalizedString("change_master_password", comment: ""),
+                                message: NSLocalizedString("enter_new_password", comment: ""), preferredStyle: .alert
+                            )
                             
                             alert.addTextField { textField in
                                 textField.isSecureTextEntry = true
                             }
                             
-                            alert.addAction(UIAlertAction(title: "Generate new", style: .default, handler: { _ in
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("generate_new", comment: ""), style: .default, handler: { _ in
                                 let password = UUID().uuidString
                                 changePassword(password) {
                                     let copyAction = UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default) { [weak self] _ in
@@ -408,8 +414,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             changePinCellItem,
             changeLanguage,
             biometricCellItem,
-            rememberPasswordCellItem,
-            //            toggleNightModeCellItem
+            rememberPasswordCellItem
         ]
         sections[.advanced] = [
             daemonSettingsCellItem

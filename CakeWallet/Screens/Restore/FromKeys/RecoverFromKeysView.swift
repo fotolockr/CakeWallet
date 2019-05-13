@@ -40,7 +40,7 @@ final class RecoverFromKeysView: BaseFlexView {
             .alignItems(.center)
             .padding(30, 10, 10, 10)
             .define{ flex in
-                flex.addItem(walletNameField).width(100%).marginBottom(adaptiveMargin - 10)
+                flex.addItem(walletNameField).width(100%).marginBottom(adaptiveMargin)
                 flex.addItem(addressTextView).width(100%).marginBottom(adaptiveMargin)
                 flex.addItem(viewKeyField).width(100%).marginBottom(adaptiveMargin)
                 flex.addItem(spendKeyField).width(100%).marginBottom(adaptiveMargin)

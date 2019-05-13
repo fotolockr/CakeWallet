@@ -43,12 +43,18 @@ class CWTextField: UITextField {
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         let dx = leftView?.frame.size.width ?? insetX
-        return bounds.insetBy(dx: dx, dy: insetY)
+        let rightOffset = (rightView?.frame.size.width ?? 0)
+        var frame = bounds.insetBy(dx: dx, dy: insetY)
+        frame.size.width = frame.size.width - rightOffset
+        return frame
     }
 
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         let dx = leftView?.frame.size.width ?? insetX
-        return bounds.insetBy(dx: dx, dy: insetY)
+        let rightOffset = (rightView?.frame.size.width ?? 0)
+        var frame = bounds.insetBy(dx: dx, dy: insetY)
+        frame.size.width = frame.size.width - rightOffset
+        return frame
     }
     
     override func layoutSubviews() {

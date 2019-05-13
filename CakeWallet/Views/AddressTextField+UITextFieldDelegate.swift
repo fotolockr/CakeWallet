@@ -20,7 +20,8 @@ extension AddressTextField: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        originText.accept(string)
+        let newOriginText = originText.value + string
+        originText.accept(newOriginText)
         return true
     }
 }

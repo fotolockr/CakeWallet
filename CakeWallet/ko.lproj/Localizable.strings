@@ -174,11 +174,16 @@
 "save_backup_password" = "백업 암호를 저장 했습니까?";
 "save_backup_file" = "다른 위치에 백업 파일 저장";
 "enable_icloud" = "iPhone 설정에서 iCloud를 활성화하십시오";
+"change_master_password" = "마스터 비밀번호 변경 / 설정";
+"enter_new_password" = "새로운 비밀번호를 입력하세요";
+"generate_new_password" = "새로운 생성";
 "backup_password_has_changed" = "백업 비밀번호가 성공적으로 변경되었습니다.";
 "change_backup_password" = "백업 비밀번호 변경";
 "auto_backup" = "iCloud에 자동 백업";
 "backup_now" = "iCloud에 지금 백업하십시오.";
 "creating_backup" = "백업 만들기";
+"backup_uploaded" = "백업 업로드 됨";
+"backup_uploaded_icloud" = "iCloud에 백업이 업로드되었습니다.";
 "change_backup_warning" = "백업용 백업 비밀번호를 변경하면 이전 수동 백업은 새 비밀번호로 작동하지 않습니다. 자동 백업은 새 비밀번호로 계속 작동합니다.";
 
 

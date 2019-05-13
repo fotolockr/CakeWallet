@@ -173,11 +173,16 @@
 "save_backup_password" = "Guardaste tu contraseña de respaldo?";
 "save_backup_file" = "Guardar archivo de copia de seguridad en otra ubicación";
 "enable_icloud" = "Por favor habilita iCloud en la configuración del iPhone";
+"change_master_password" = "Cambiar / configurar contraseña maestra";
+"enter_new_password" = "Introduzca nueva contraseña";
 "backup_password_has_changed" = "La contraseña de respaldo ha cambiado exitosamente";
 "change_backup_password" = "Cambiar contraseña de respaldo";
 "auto_backup" = "Automatische back-up naar iCloud";
 "backup_now" = "Copia de seguridad ahora a iCloud";
 "creating_backup" = "Creación de copia de seguridad";
+"generate_new_password" = "Generar nuevo";
+"backup_uploaded" = "Copia de seguridad cargada";
+"backup_uploaded_icloud" = "La copia de seguridad se ha cargado en tu iCloud";
 "change_backup_warning" = "Si cambia la contraseña de respaldo para los respaldos, los respaldos MANUALES anteriores no funcionarán con el nuevo código. Las copias de seguridad automáticas continuarán funcionando con la nueva contraseña.";
 
 
