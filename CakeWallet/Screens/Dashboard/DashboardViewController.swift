@@ -115,10 +115,18 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         return DashboardView.tableSectionHeaderHeight
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let key = transactionsKeys[section]
         let dateFormatter = DateFormatter()
-        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: tableView.frame.size.width, height: 45)))
+        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: tableView.frame.size.width, height: DashboardView.tableSectionHeaderHeight)))
         let date = NSCalendar.current.date(from: key)!
         label.textColor = UIColor(hex: 0x9BACC5)
         label.font = applyFont(ofSize: 14, weight: .semibold)
@@ -360,7 +368,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         ))
         
         alertController.addAction(UIAlertAction(
-            title: "Cancel",
+            title: NSLocalizedString("cancel", comment: ""),
             style: .cancel,
             handler: nil
         ))

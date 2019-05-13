@@ -68,7 +68,7 @@ final class DashboardActionButton: BaseFlexView {
     
     override func configureView() {
         super.configureView()
-        label.font = applyFont(ofSize: 17, weight: .semibold)
+        label.font = applyFont(ofSize: 17)
         
         wrapper.applyCardSketchShadow()
         wrapper.frame = CGRect(x: 0, y: 0, width: 200, height: 60)
@@ -175,8 +175,8 @@ final class DashboardView: BaseScrollFlexView {
             .paddingHorizontal(buttonsRowPadding)
             .backgroundColor(.clear)
             .define { flex in
-                flex.addItem(sendButton).width(45%).height(100%).marginRight(7)
-                flex.addItem(receiveButton).width(45%).height(100%).marginLeft(7)
+                flex.addItem(sendButton).width(47%).height(100%).marginRight(7)
+                flex.addItem(receiveButton).width(47%).height(100%).marginLeft(7)
         }
         
         fixedHeader.flex
@@ -187,8 +187,6 @@ final class DashboardView: BaseScrollFlexView {
                 flex.addItem(cardViewCoreDataWrapper).width(100%).position(.absolute).top(DashboardView.fixedHeaderTopOffset)
                 flex.addItem(progressBar).width(200).height(22).marginBottom(120)
                 flex.addItem(buttonsRow).height(DashboardView.headerButtonsHeight).position(.absolute).bottom(35)
-                
-                
         }
         
         rootFlexContainer.flex
