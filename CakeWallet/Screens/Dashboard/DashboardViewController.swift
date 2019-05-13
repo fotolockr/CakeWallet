@@ -272,10 +272,6 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.showKeysAction()
         }
         
-        let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("address_book", comment: ""), style: .default) { [weak self] _ in
-            self?.dashboardFlow?.change(route: .addressBook)
-        }
-        
         let presentAccountsAction = UIAlertAction(title: NSLocalizedString("accounts", comment: ""), style: .default) { [weak self] _ in
             self?.dashboardFlow?.change(route: .accounts)
         }
@@ -284,12 +280,16 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             self?.presentWalletsList()
         }
         
+        let presentAddressBookAction = UIAlertAction(title: NSLocalizedString("address_book", comment: ""), style: .default) { [weak self] _ in
+            self?.dashboardFlow?.change(route: .addressBook)
+        }
+    
         alertViewController.addAction(presentReconnectAction)
+        alertViewController.addAction(presentAccountsAction)
+        alertViewController.addAction(presentWalletsListAction)
         alertViewController.addAction(showSeedAction)
         alertViewController.addAction(showKeysAction)
-        alertViewController.addAction(presentAccountsAction)
         alertViewController.addAction(presentAddressBookAction)
-        alertViewController.addAction(presentWalletsListAction)
         alertViewController.addAction(cancelAction)
         DispatchQueue.main.async {
             self.present(alertViewController, animated: true)

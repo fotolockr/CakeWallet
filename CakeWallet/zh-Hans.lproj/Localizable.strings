@@ -168,11 +168,16 @@
 "save_backup_password" = "你保存了备份密码吗？";
 "save_backup_file" = "将备份文件保存到其他位置";
 "enable_icloud" = "请在iPhone设置中启用iCloud";
+"change_master_password" = "更改/设置主密码";
+"enter_new_password" = "输入新密码";
+"generate_new_password" = "生成新的";
 "backup_password_has_changed" = "备份密码已成功更改";
 "change_backup_password" = "更改备份密码";
 "auto_backup" = "自动备份到iCloud";
 "backup_now" = "立即备份到iCloud";
 "creating_backup" = "创建备份";
+"backup_uploaded" = "备份已上传";
+"backup_uploaded_icloud" = "备份已上传到您的iCloud";
 "change_backup_warning" = "如果要更改备份的备份密码，则以前的MANUAL备份将无法使用新密码。自动备份将继续使用新密码。";
 
 

@@ -173,11 +173,16 @@
 "save_backup_password" = "Czy zapisałeś swoje hasło zapasowe?";
 "save_backup_file" = "Zapisz plik kopii zapasowej w innej lokalizacji";
 "enable_icloud" = "Włącz iCloud w ustawieniach iPhone'a";
+"change_master_password" = "Zmień / ustaw hasło główne";
+"enter_new_password" = "Wprowadź nowe hasło";
+"generate_new_password" = "Wygeneruj nowy";
 "backup_password_has_changed" = "Hasło zapasowe zmieniło się pomyślnie";
 "change_backup_password" = "Zmień hasło zapasowe";
 "auto_backup" = "Automatyczne tworzenie kopii zapasowych na iCloud";
 "backup_now" = "Utwórz kopię zapasową teraz na iCloud";
 "creating_backup" = "Tworzenie kopii zapasowej";
+"backup_uploaded" = "Przesłano kopię zapasową";
+"backup_uploaded_icloud" = "Kopia zapasowa została przesłana do Twojej iCloud";
 "change_backup_warning" = "Jeśli zmienisz hasło kopii zapasowej dla kopii zapasowych, poprzednie kopie zapasowe RĘCZNE nie będą działać z nowym hasłem. Automatyczne kopie zapasowe będą nadal działać z nowym hasłem.";
 
 

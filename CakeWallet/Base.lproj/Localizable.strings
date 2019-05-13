@@ -173,12 +173,16 @@
 "save_backup_password" = "Did you save your backup password?";
 "save_backup_file" = "Save backup file to other location";
 "enable_icloud" = "Please enable iCloud in the iPhone settings";
+"change_master_password" = "Change/Set master password";
+"enter_new_password" = "Enter new password";
+"generate_new_password" = "Generate new";
 "backup_password_has_changed" = "Backup password has changed successfuly";
 "change_backup_password" = "Change backup password";
 "auto_backup" = "Auto backup to iCloud";
 "backup_now" = "Backup now to iCloud";
 "creating_backup" = "Creating backup";
-
+"backup_uploaded" = "Backup uploaded";
+"backup_uploaded_icloud" = "Backup has uploaded to your iCloud";
 "change_backup_warning" = "If you will change the Backup password for backups, the previous MANUAL backups will not work with the new password. Auto backups will continue to work with the new password.";
 
 

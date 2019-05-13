@@ -18,7 +18,6 @@ final class RecoverFromSeedViewCntroller: BaseViewController<RecoverFromSeedView
     override func configureBinds() {
         title = NSLocalizedString("restore_seed_card_title", comment: "")
         contentView.doneButton.addTarget(self, action: #selector(recoverAction), for: .touchUpInside)
-        contentView.pasteSeedButton.addTarget(self, action: #selector(pasteSeedAction), for: .touchUpInside)
         
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem = backButton
@@ -35,19 +34,6 @@ final class RecoverFromSeedViewCntroller: BaseViewController<RecoverFromSeedView
         }
         
         restoreWalletFlow?.doneHandler?()
-    }
-    
-    @objc
-    private func pasteSeedAction() {
-        let pasteboardString: String? = UIPasteboard.general.string
-        if let expectedSeed = pasteboardString {
-//            contentView.seedField.paste(expectedSeed)
-            
-//            contentView.seedField.textField.text = expectedSeed
-//            contentView.seedField.textField.placeholder = ""
-//            contentView.seedField.flex.markDirty()
-//            contentView.flex.layout()
-        }
     }
     
     @objc

@@ -100,6 +100,9 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         scanQrForPaymentId.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         scanQrForPaymentId.layer.cornerRadius = 5
         scanQrForPaymentId.backgroundColor = UIColor.whiteSmoke
+        
+        paymentIdTextField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
+        paymentIdTextField.rightViewMode = .always
     }
     
     override func configureConstraints() {
@@ -142,7 +145,7 @@ final class SendView: BaseScrollFlexViewWithBottomSection {
         
         paymentIdContainer.flex.define { flex in
             flex.addItem(paymentIdTextField).width(100%)
-            flex.addItem(scanQrForPaymentId).width(35).height(35).position(.absolute).right(0)
+            flex.addItem(scanQrForPaymentId).width(35).height(35).position(.absolute).right(0).bottom(5)
         }
         
         mainContentHolder.flex

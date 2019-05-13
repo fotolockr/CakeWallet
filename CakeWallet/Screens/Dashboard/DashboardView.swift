@@ -68,7 +68,7 @@ final class DashboardActionButton: BaseFlexView {
     
     override func configureView() {
         super.configureView()
-        label.font = applyFont(ofSize: 17)
+        label.font = applyFont(ofSize: 16)
         
         wrapper.applyCardSketchShadow()
         wrapper.frame = CGRect(x: 0, y: 0, width: 200, height: 60)

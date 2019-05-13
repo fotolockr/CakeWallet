@@ -171,11 +171,16 @@
 "save_backup_password" = "Você salvou sua senha de backup?";
 "save_backup_file" = "Salvar arquivo de backup em outro local";
 "enable_icloud" = "Por favor, ative o iCloud nas configurações do iPhone";
+"change_master_password" = "Alterar / definir senha mestra";
+"enter_new_password" = "Insira a nova senha";
+"generate_new_password" = "Gerar novo";
 "backup_password_has_changed" = "A senha de backup foi alterada com sucesso";
 "change_backup_password" = "Alterar senha de backup";
 "auto_backup" = "Backup automático para o iCloud";
 "backup_now" = "Faça o backup agora no iCloud";
 "creating_backup" = "Criando backup";
+"backup_uploaded" = "Backup enviado";
+"backup_uploaded_icloud" = "O backup foi enviado para o seu iCloud";
 "change_backup_warning" = "Se você alterar a senha de backup para backups, os backups manuais anteriores não funcionarão com a nova senha. Os backups automáticos continuarão funcionando com a nova senha.";
 
 

@@ -174,11 +174,16 @@
 "save_backup_password" = "Heb je je wachtwoord opgeslagen?";
 "save_backup_file" = "Back-upbestand op een andere locatie opslaan";
 "enable_icloud" = "Bitte aktiviere iCloud in den iPhone Einstellungen";
+"change_master_password" = "Verander / stel hoofdwachtwoord in";
+"enter_new_password" = "Voer een nieuw wachtwoord in";
+"generate_new_password" = "Genereer nieuw";
 "backup_password_has_changed" = "Back-upwachtwoord is succesvol veranderd";
 "change_backup_password" = "Wijzig back-upwachtwoord";
 "auto_backup" = "Automatische back-up naar iCloud";
 "backup_now" = "Maak nu een back-up naar iCloud";
 "creating_backup" = "Back-up maken";
+"backup_uploaded" = "Back-up geüpload";
+"backup_uploaded_icloud" = "Back-up is geüpload naar uw iCloud";
 "change_backup_warning" = "Als u het back-upwachtwoord voor back-ups wilt wijzigen, werken de vorige MANUAL-back-ups niet met het nieuwe wachtwoord. Automatische back-ups blijven werken met het nieuwe wachtwoord.";
 
 

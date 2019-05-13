@@ -1,6 +1,7 @@
 import UIKit
 import CakeWalletLib
 import CakeWalletCore
+import SwipeCellKit
 
 
 let nodesQueue = DispatchQueue(label: "app.cakewallet.nodes-queue", qos: .default, attributes: DispatchQueue.Attributes.concurrent)
@@ -22,7 +23,7 @@ final class NodeCellItem: CellItem {
 }
 
 
-final class NodesViewController: BaseViewController<NodesView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber {
+final class NodesViewController: BaseViewController<NodesView>, UITableViewDelegate, UITableViewDataSource, StoreSubscriber, SwipeTableViewCellDelegate {
     weak var nodesFlow: NodesFlow?
     let store: Store<ApplicationState>
     private(set) var nodes: [NodeCellItem]
@@ -89,7 +90,9 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let nodeItem = nodes[indexPath.row]
-        return tableView.dequeueReusableCell(withItem: nodeItem, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withItem: nodeItem, for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -102,16 +105,21 @@ final class NodesViewController: BaseViewController<NodesView>, UITableViewDeleg
         return true
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        //fixme
-    
-        guard !nodes[indexPath.row].node.compare(with: store.state.settingsState.node!) else {
-            return []
-        }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
         
-        let deleteAction = UITableViewRowAction(style: .default, title: NSLocalizedString("delete", comment: "")) { [weak self] (_, indexPath) in
+        let selectedNode = nodes[indexPath.row].node
+        
+        guard
+            let currentNode = store.state.settingsState.node,
+            !selectedNode.compare(with: currentNode) else {
+                return nil
+        }
+  
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
             self?.removeNode(at: indexPath)
         }
+        deleteAction.image = UIImage(named: "trash_icon")?.resized(to: CGSize(width: 23, height: 23))
         
         return [deleteAction]
     }

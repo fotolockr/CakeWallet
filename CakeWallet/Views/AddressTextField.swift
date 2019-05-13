@@ -15,7 +15,12 @@ final class AddressTextField: UITextField {
         super.init(frame: frame)
         delegate = self
         originText
-            .subscribe(onNext: { [weak self] text in self?.change(text: text) })
+            .subscribe(onNext: { [weak self] text in
+                guard !(self?.isEditing ?? false) else {
+                    return
+                }
+                
+                self?.change(text: text) })
             .disposed(by: disposeBag)
     }
     
