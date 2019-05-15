@@ -360,7 +360,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                                 textField.isSecureTextEntry = true
                             }
                             
-                            alert.addAction(UIAlertAction(title: NSLocalizedString("generate_new", comment: ""), style: .default, handler: { _ in
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("generate_new_password", comment: ""), style: .default, handler: { _ in
                                 let password = UUID().uuidString
                                 changePassword(password) {
                                     let copyAction = UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default) { [weak self] _ in
