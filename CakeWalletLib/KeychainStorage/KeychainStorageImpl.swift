@@ -35,14 +35,7 @@ public final class KeychainStorageImpl: KeychainStorage {
     
     public func fetch(forKey key: KeychainKey) throws -> String {
         let path = key.patch
-        
-        guard
-            let result = try? keychain.getString(path),
-            let string = result else {
-            throw KeychainStorageError.cannotFindValue(path)
-        }
-        
-        return string
+        return try getValue(forKey: path)
     }
     
     public func remove(forKey key: KeychainKey) throws {
@@ -53,6 +46,28 @@ public final class KeychainStorageImpl: KeychainStorage {
         } catch {
             throw KeychainStorageError.cannotRemoveValue(path)
         }
+    }
+    
+    private func getValue(forKey key: String) throws -> String {
+        if
+            let value = try? keychain.getString(key),
+            let string = value {
+            return string
+        }
+        
+        // Case if origin string is broken string with non acsii characters. Keychain will not return value for this case, but we can filter all keys from keychain and compare with origin string for get correct key.
+        
+        if
+            let attr = keychain.allKeys().filter({ $0 == key }).first,
+            let value = try? keychain.getString(attr),
+            let _value = value {
+            // Resave value for origin key
+            try keychain.set(_value, key: key)
+            
+            return _value
+        }
+        
+        throw KeychainStorageError.cannotFindValue(key)
     }
 }
 

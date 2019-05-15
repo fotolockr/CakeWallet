@@ -203,10 +203,10 @@ public final class MoneroWallet: Wallet {
         isBlocking = true
         moneroAdapter.delegate = nil
         
-        walletQueue.async { [weak self] in
-            self?.moneroAdapter.close()
-            self?.moneroAdapter.clear()
-            self?.isBlocking = false
+        walletQueue.async {
+            self.moneroAdapter.close()
+            self.moneroAdapter.clear()
+            self.isBlocking = false
         }
     }
     
