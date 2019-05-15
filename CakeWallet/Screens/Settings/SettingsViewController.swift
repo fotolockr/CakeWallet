@@ -219,12 +219,12 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
                     })
                 )
         })
-        let rememberPasswordCellItem = SettingsSwitchCellItem(
-            title: NSLocalizedString("remember_pin", comment: ""),
-            isOn: false // accountSettings.isPasswordRemembered
-        ) { [weak self] isOn, item in
-            //                self?.accountSettings.isPasswordRemembered = isOn
-        }
+//        let rememberPasswordCellItem = SettingsSwitchCellItem(
+//            title: NSLocalizedString("remember_pin", comment: ""),
+//            isOn: false // accountSettings.isPasswordRemembered
+//        ) { [weak self] isOn, item in
+//            //                self?.accountSettings.isPasswordRemembered = isOn
+//        }
         let daemonSettingsCellItem = SettingsCellItem(
             title: NSLocalizedString("node_settings", comment: ""),
             action: { [weak self] in
@@ -414,7 +414,7 @@ final class SettingsViewController: BaseViewController<SettingsView>, UITableVie
             changePinCellItem,
             changeLanguage,
             biometricCellItem,
-            rememberPasswordCellItem
+//            rememberPasswordCellItem
         ]
         sections[.advanced] = [
             daemonSettingsCellItem
