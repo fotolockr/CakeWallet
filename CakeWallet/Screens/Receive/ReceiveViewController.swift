@@ -11,7 +11,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
     var amount: Amount? {
         get {
             if let rawString = contentView.amountTextField.text {
-                return MoneroAmount(from: rawString)
+                return MoneroAmount(from: rawString.replacingOccurrences(of: ",", with: "."))
             }
             
             return nil
@@ -59,6 +59,7 @@ final class ReceiveViewController: BaseViewController<ReceiveView>, StoreSubscri
         contentView.qrImage.addGestureRecognizer(onQrImageTapGesture)
         contentView.qrImage.isUserInteractionEnabled = true
         contentView.addSubaddressButton.addTarget(self, action: #selector(addSubaddressAction), for: .touchUpInside)
+        contentView.amountTextField.addTarget(self, action: #selector(onAmountChange), for: .editingChanged)
         let doneButton = StandartButton(image: UIImage(named: "close_symbol")?.resized(to: CGSize(width: 10, height: 12)))
         doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
         doneButton.addTarget(self, action: #selector(dismissAction), for: .touchUpInside)

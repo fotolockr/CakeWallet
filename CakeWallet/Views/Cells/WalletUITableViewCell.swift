@@ -4,6 +4,7 @@ import PinLayout
 import CakeWalletLib
 
 final class WalletUITableViewCell: FlexCell {
+    static let height = 60 as CGFloat
     let nameLabel: UILabel
     var showSeedButton: UIButton?
     var showKeysButton: UIButton?

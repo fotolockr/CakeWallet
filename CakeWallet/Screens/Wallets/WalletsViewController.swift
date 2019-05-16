@@ -166,7 +166,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return WalletUITableViewCell.height
     }
     
     private func updateWallets(_ wallets: [WalletIndex]) {
@@ -185,7 +185,7 @@ final class WalletsViewController: BaseViewController<WalletsView>, UITableViewD
             return walletItem
         }
         
-        let tableViewHeigth = CGFloat(50) * CGFloat(wallets.count) + 50.0 // fixme: Hardcoded row height
+        let tableViewHeigth = WalletUITableViewCell.height * CGFloat(wallets.count)
         contentView.walletsTableView.reloadData()
         contentView.walletsTableView.flex.height(tableViewHeigth).markDirty()
         contentView.walletsCardView.flex.markDirty()
