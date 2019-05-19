@@ -36,7 +36,7 @@ struct BitcoinQRResult: QRUri {
     let uri: String
     
     var address: String {
-        return self.uri.slice(from: "bitcoin", to: "?") ?? self.uri
+        return self.uri.slice(from: "bitcoin:", to: "?") ?? self.uri
     }
     
     var amount: Amount? {

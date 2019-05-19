@@ -50,9 +50,5 @@
 		<key>uri</key>
 		<string>node.viaxmr.com:18081</string>
 	</dict>
-	<dict>
-		<key>uri</key>
-		<string>ushouldrunyourownnode.moneroworld.com:18089</string>
-	</dict>
 </array>
 </plist>
