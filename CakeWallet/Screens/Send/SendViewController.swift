@@ -137,7 +137,6 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
         doneButton.frame = CGRect(origin: .zero, size: CGSize(width: 32, height: 32))
         doneButton.addTarget(self, action: #selector(dismissAction), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: doneButton)
-        
         contentView.sendButton.addTarget(self, action: #selector(sendAction), for: .touchUpInside)
         
         store.subscribe(self, onlyOnChange: [
@@ -274,8 +273,7 @@ final class SendViewController: BaseViewController<SendView>, StoreSubscriber, Q
     }
     
     private func updateFiat(_ fiat: FiatCurrency) {
-//        contentView.fiatAmountTextField.placeholder = fiat.formatted()
-//        contentView.fiatAmountTextField.title = fiat.formatted()
+        contentView.fiatAmountTextFieldLeftView.text = store.state.settingsState.fiatCurrency.formatted()
     }
     
     @objc

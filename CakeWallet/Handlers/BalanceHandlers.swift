@@ -114,11 +114,10 @@ func calculateFiatAmount(_ currency: FiatCurrency, price: Double, balance: Amoun
 
 public struct UpdateFiatPriceHandler: AsyncHandler {
     public func handle(action: BalanceActions, store: Store<ApplicationState>, handler: @escaping (AnyAction?) -> Void) {
-        guard case .updateFiatPrice = action else { return }
+        guard case let .updateFiatPrice(fiatCurrency) = action else { return }
         
         workQueue.async {
             let currency = store.state.balanceState.balance.currency
-            let fiatCurrency = store.state.settingsState.fiatCurrency
             updateFiatPrice(for: currency, to: fiatCurrency, handler: { price in
                 handler(BalanceState.Action.changedPrice(price))
             })

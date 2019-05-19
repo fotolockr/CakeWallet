@@ -45,7 +45,7 @@ private func onWalletChange(_ wallet: Wallet) {
         )
         
         store.dispatch(
-            BalanceActions.updateFiatPrice
+            BalanceActions.updateFiatPrice(currency: store.state.settingsState.fiatCurrency)
         )
     }
     

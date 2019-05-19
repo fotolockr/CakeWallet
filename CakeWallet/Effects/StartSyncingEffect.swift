@@ -31,7 +31,7 @@ public final class ChangeFiatPriceEffect: Effect {
         }
         
         store.dispatch(
-            BalanceActions.updateFiatPrice
+            BalanceActions.updateFiatPrice(currency: store.state.settingsState.fiatCurrency)
         )
         
         return action
@@ -41,12 +41,12 @@ public final class ChangeFiatPriceEffect: Effect {
 public final class UpdateFiatPriceAfterFiatChangeEffect: Effect {
     public init() {}
     public func effect(_ store: Store<ApplicationState>, action: SettingsState.Action) -> AnyAction? {
-        guard case .changedFiatCurrency = action else {
+        guard case let .changedFiatCurrency(currency) = action else {
             return action
         }
         
         store.dispatch(
-            BalanceActions.updateFiatPrice
+            BalanceActions.updateFiatPrice(currency: currency)
         )
         
         return action
