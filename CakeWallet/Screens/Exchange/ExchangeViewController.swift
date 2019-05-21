@@ -8,6 +8,7 @@ import CWMonero
 import RxSwift
 import RxCocoa
 import RxBiBinding
+import SwiftSVG
 
 // fixme!!!
 
@@ -1262,7 +1263,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
         switch exchange.provider {
         case .changenow:
             title = "Powered by Changenow.io"
-            icon = ""
+            icon = "cn_logo"
         case .morph:
             title = "Powered by Morphtoken"
             icon = "xmr_to_logo"
@@ -1337,7 +1338,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
                 amount: amountString,
                 refundAddress: depositRefundAddress.value)
         case .morph:
-            request = MorphTradeRequest(from: depositCrypto.value, to: receiveCrypto.value, refundAddress: receiveAddress.value, outputAdress: "")
+            request = MorphTradeRequest(from: depositCrypto.value, to: receiveCrypto.value, refundAddress: depositRefundAddress.value, outputAdress: receiveAddress.value, amount: amount)
         case .xmrto:
             request = XMRTOTradeRequest(amount: amount, address: receiveAddress.value)
         }

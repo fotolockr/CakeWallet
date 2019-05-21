@@ -45,7 +45,108 @@ final class MorphExchange: Exchange {
     
     func createTrade1(from request: MorphTradeRequest) -> Observable<MorphTrade> {
         return Observable.create({ o -> Disposable in
-            
+            exchangeQueue.async {
+                let url =  URLComponents(string: "\(MorphExchange.morphTokenUri)/morph")!
+                var urlRequest = URLRequest(url: url.url!)
+                urlRequest.httpMethod = "POST"
+                urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+                let bodyJSON: JSON = [
+                    "input": [
+                        "asset": request.from.formatted(),
+                        "refund": request.refundAddress
+                    ],
+                    "output": [[
+                        "asset": request.to.formatted(),
+                        "weight": request.weight,
+                        "address": request.outputAdress
+                    ]],
+                    "tag": MorphExchange.ref
+                ]
+                
+                print("bodyJSON", bodyJSON)
+                
+                do {
+                    urlRequest.httpBody = try bodyJSON.rawData(options: .prettyPrinted)
+                } catch {
+                    o.onError(error)
+                    return
+                }
+                
+                Alamofire.request(urlRequest).responseData(completionHandler: { response in
+                    if let error = response.error {
+                        o.onError(error)
+                        return
+                    }
+                    
+                    guard
+                        let data = response.data,
+                        let json = try? JSON(data: data) else {
+                            return
+                    }
+                    
+                    if json["success"].exists() && !json["success"].boolValue {
+                        o.onError(ExchangerError.credentialsFailed(json["description"].stringValue))
+                        return
+                    }
+                    
+                    guard
+                        let depositAddress = json["input"]["deposit_address"].string,
+                        let id = json["id"].string,
+                        let minAmount = json["input"]["limits"]["min"].uInt64,
+                        let maxAmount = json["input"]["limits"]["max"].uInt64 else {
+                            return
+                    }
+                    
+                    let min: Amount
+                    let max: Amount
+                    
+                    switch request.to {
+                    case .bitcoin:
+                        min = BitcoinAmount(value: minAmount)
+                        max = BitcoinAmount(value: maxAmount)
+                    case .monero:
+                        min = MoneroAmount(value: UInt64(minAmount))
+                        max = MoneroAmount(value: UInt64(maxAmount))
+                    case .bitcoinCash, .dash, .liteCoin:
+                        min = EDAmount(value: minAmount, currency: request.to)
+                        max = EDAmount(value: maxAmount, currency: request.to)
+                    case .ethereum:
+                        min = EthereumAmount(value: minAmount)
+                        max = EthereumAmount(value: maxAmount)
+                    }
+                    
+                    let state = ExchangeTradeState(rawValue: json["state"].stringValue.lowercased()) ?? .pending
+                    let trade = MorphTrade(
+                        id: id,
+                        from: request.from,
+                        to: request.to,
+                        inputAddress: depositAddress,
+                        outputAdress: request.outputAdress,
+                        amount: request.amount,
+                        min: min,
+                        max: max,
+                        state: state,
+                        extraId: nil,
+                        provider: .morph,
+                        outputTransaction: nil)
+                    
+//                    let trade = ExchangeTrade(
+//                        id: id,
+//                        inputCurrency: request.to,
+//                        outputCurrency: request.to,
+//                        inputAddress: depositAddress,
+//                        min: min,
+//                        max: max,
+//                        status: ExchangeTradeState(rawValue: json["state"].stringValue.lowercased()) ?? .pending,
+//                        provider: .morph
+//                    )
+                    
+                    o.onNext(trade)
+                })
+            }
+
+                
             return Disposables.create()
         })
     }

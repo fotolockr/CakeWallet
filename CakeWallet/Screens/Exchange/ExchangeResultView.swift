@@ -66,6 +66,7 @@ final class ExchangeResultView: BaseScrollFlexView {
     let btcTxIDRow: UILabel
     let btcTxIDTextLabel: CopyableLabel
     let timeoutLabel: UILabel
+    let providerLabel: UILabel
     
     required init() {
         idLabel = UILabel()
@@ -89,6 +90,7 @@ final class ExchangeResultView: BaseScrollFlexView {
         btcTxIDRow = UILabel(fontSize: 14)
         btcTxIDTextLabel = CopyableLabel(fontSize: 14)
         timeoutLabel = UILabel(fontSize: 14)
+        providerLabel = UILabel(font: applyFont(ofSize: 16, weight: .bold))
         super.init()
     }
     
@@ -128,6 +130,7 @@ final class ExchangeResultView: BaseScrollFlexView {
         btcTxIDTextLabel.font = applyFont(ofSize: 14)
         btcTxIDTextLabel.numberOfLines = 0
         paymentIDLabel.numberOfLines =  0
+        providerLabel.textAlignment = .center
     }
     
     override func configureConstraints() {
@@ -178,6 +181,7 @@ final class ExchangeResultView: BaseScrollFlexView {
         
         cardView.flex.padding(20).define { flex in
             flex.addItem(topRow)
+            flex.addItem(providerLabel).height(40).width(100%)
             flex.addItem(addressLabel).marginTop(20)
             flex.addItem(copyButtonsRow)
             flex.addItem(resultDescriptionLabel).grow(1).marginTop(20).width(100%) //.height(50)

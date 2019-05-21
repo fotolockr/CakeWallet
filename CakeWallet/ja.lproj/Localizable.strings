@@ -299,3 +299,4 @@
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nsTrade ID: %@";
 "edit" = "編集する";
+"trade_is_powered" = "この取引はによって供給されています %@";

@@ -107,7 +107,7 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
             return self?.contentView.idLabel.text ?? ""
         }
         contentView.copyAddressButton.alertPresenter = self
-        
+        contentView.providerLabel.text = String(format: NSLocalizedString("trade_is_powered", comment: ""), trade.value.provider.formatted())
         let tradeObserver = trade.asObservable()
         
         tradeObserver.subscribe(onNext: { [weak self] trade in
