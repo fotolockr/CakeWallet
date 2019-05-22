@@ -744,7 +744,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     private var didSetCurrentAddressForDeposit: Bool
     private var didSetCurrentAddressForReceive: Bool
-    private var exchangeNameView: WalletNameView = WalletNameView()
+    private var exchangeNameView: ExchangeNameView = ExchangeNameView()
     private var isXMRTO: Bool {
         return exchange.provider == .xmrto
     }
