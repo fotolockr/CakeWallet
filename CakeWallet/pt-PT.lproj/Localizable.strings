@@ -1,25 +1,25 @@
 "welcome" = "Bem vindo\n a %@";
 "first_wallet_text" = "Primeira carteira iOS/npara Monero";
-"InsufficientFundsWithAmount" = "A quantia a ser enviada de %@ (quantia de %@ + taxa de %@ é superior ao seu saldo de %@).";
-"InsufficientFunds" = "A quantia a ser enviada é superior ao seu saldo de %@.";
-"OverallBalanceWithAmonut" = "A quantia a ser enviada de %@ é superior ao seu saldo de %@.";
-"OverallBalance" = "A quantia a ser enviada é superior ao seu saldo de %@.";
+"InsufficientFundsWithAmount" = "A quantia a ser enviada de %@ (quantia de %@ + taxa de %@ Ãˆ superior ao seu saldo de %@).";
+"InsufficientFunds" = "A quantia a ser enviada Ãˆ superior ao seu saldo de %@.";
+"OverallBalanceWithAmonut" = "A quantia a ser enviada de %@ Ãˆ superior ao seu saldo de %@.";
+"OverallBalance" = "A quantia a ser enviada Ãˆ superior ao seu saldo de %@.";
 
 "starting_creation_selection" = "Por favor selecione abaixo entre criar uma carteira nova ou restaurar uma carteira existente.";
 "enjoy_this_wallet" = "Desfrute da sua carteira!";
-"love_your_feedback" = "Nós adoraríamos seu feedback!";
+"love_your_feedback" = "NÃ›s adorarÃŒamos seu feedback!";
 
 "terms_of_use_agree" = "Eu concordo com os Termos de Uso";
 "accept" = "Aceitar";
 "create_new" = "Criar nova carteira";
 "restore" = "Restaurar carteira";
-"please_make_selection" = "Por favor, faa uma sele‹o abaixo para criar uma nova carteira ou restaurar uma carteira";
+"please_make_selection" = "Por favor, faÃ§a uma seleÃ§Ã£o abaixo para criar uma nova carteira ou restaurar uma carteira";
 
 
 // Pin
 
-"use_6_pin" = "Utilize um PIN de 6 dígitos";
-"use_4_pin" = "Utilize um PIN de 4 dígitos";
+"use_6_pin" = "Utilize um PIN de 6 dÃŒgitos";
+"use_4_pin" = "Utilize um PIN de 4 dÃŒgitos";
 "enter_your_pin" = "Insira o seu PIN";
 "setup_pin" = "Configurar PIN";
 "pin_setup_success" = "O seu PIN foi configurado!";
@@ -46,7 +46,7 @@
 
 "recover" = "Recuperar";
 "restore_your_wallet" = "Restaurar Carteira";
-"restore_selection_text" = "Existem duas maneiras de restaurar uma carteira. Você pode inserir sua chave-semente que é um código de 25 palavras, ou você pode inserir suas chaves privadas. Por favor, selecione uma opção.";
+"restore_selection_text" = "Existem duas maneiras de restaurar uma carteira. VocÃ pode inserir sua chave-semente que Ãˆ um cÃ›digo de 25 palavras, ou vocÃ pode inserir suas chaves privadas. Por favor, selecione uma opÃâ€o.";
 "from_seed" = "Utilizar a chave-semente";
 "from_keys" = "Utilizar as chaves privadas";
 "or" = "ou";
@@ -57,15 +57,15 @@
 "seed" = "Chave-semente";
 "restore" = "Restaurar";
 "restoring_wallet" = "A restaurar a carteira";
-"enter_height_while_restore_alert" = "Não seja otário, introduza o número do bloco a partir do qual se fará o restauro da carteira!";
+"enter_height_while_restore_alert" = "Nâ€o seja otÂ·rio, introduza o nË™mero do bloco a partir do qual se farÂ· o restauro da carteira!";
 "continue_restore" = "Continuar o restauro";
-"set_restore_height" = "Escolher o número do bloco inicial para restauro";
+"set_restore_height" = "Escolher o nË™mero do bloco inicial para restauro";
 
-"restore_height" = "Restaurar a partir de número de bloco";
+"restore_height" = "Restaurar a partir de nË™mero de bloco";
 "restore_from_date" = "Restaurar a partir de uma data";
-"address" = "Endereço";
-"view_key_(private)" = "Chave de visualização (privada)";
-"spend_key_(private)" = "Chave de movimentação (privada)";
+"address" = "EndereÃo";
+"view_key_(private)" = "Chave de visualizaÃâ€o (privada)";
+"spend_key_(private)" = "Chave de movimentaÃâ€o (privada)";
 
 "continue" = "Continuar";
 "new_wallet" = "Nova carteira";
@@ -79,21 +79,21 @@
 "blocks_remaining" = "Blocos restantes";
 "connecting" = "Conectando";
 "not_connected" = "Desconectado";
-"starting_sync" = "A iniciar sincronização";
+"starting_sync" = "A iniciar sincronizaÃâ€o";
 "synchronized" = "Sincronizado";
 "failed_connection_to_node" = "Falha ao ligar ao node";
 
 
 // Wallet
 
-"available_balance" = "Saldo disponível";
-"reconnection" = "Reconexão";
+"available_balance" = "Saldo disponÃŒvel";
+"reconnection" = "Reconexâ€o";
 "reconnect" = "Reconectar";
-"reconnect_alert_text" = "Você tem certeza que quer reconectar ?";
+"reconnect_alert_text" = "VocÃ tem certeza que quer reconectar ?";
 "cancel" = "Cancelar";
 "receive" = "Receber";
 "send" = "Enviar";
-"transactions" = "Transações";
+"transactions" = "TransaÃÄ±es";
 "sent" = "Enviado";
 "pending" = "Pendente";
 
@@ -113,7 +113,7 @@
 
 // Address book
 
-"address_book" = "Livro de endereos";
+"address_book" = "Livro de endereÃ§os";
 "no_contacts" = "Ainda sem contatos";
 "contact" = "Contato";
 "contact_name" = "Nome de contato";
@@ -121,7 +121,7 @@
 
 // Rescan
 
-"starting_rescan" = "A começar o reescaneamento";
+"starting_rescan" = "A comeÃar o reescaneamento";
 
 
 // Send
@@ -130,87 +130,87 @@
 "all" = "Tudo";
 "optional" = "Opcional";
 "estimated_fee" = "Custo estimado";
-"creating_transaction" = "A criar a transação";
+"creating_transaction" = "A criar a transaÃâ€o";
 "confirm_sending" = "Confirme o envio";
-"commit_transaction" = "Enviar transação";
+"commit_transaction" = "Enviar transaÃâ€o";
 "amount" = "Quantia";
 "fee" = "Custo";
-"transaction_created" = "Transação criada";
-"currently the fee is set at" = "O custo atualmente é";
+"transaction_created" = "TransaÃâ€o criada";
+"currently the fee is set at" = "O custo atualmente Ãˆ";
 "priority" = "prioridade";
-"change_transaction_priority" = "A prioridade da sua transação pode ser ajustada nas configurações";
+"change_transaction_priority" = "A prioridade da sua transaÃâ€o pode ser ajustada nas configuraÃÄ±es";
 
 
 // Receive
 
-"copy_address" = "Copiar Endereço";
-"more_options" = "Mais opções";
-"hide_options" = "Esconder opções";
+"copy_address" = "Copiar EndereÃo";
+"more_options" = "Mais opÃÄ±es";
+"hide_options" = "Esconder opÃÄ±es";
 "copied" = "Copiado";
 
 
 // Subs
 
-"subaddresses" = "Subendereço";
-"new_subaddress_label" = "Crie uma etiqueta para o Subendereço";
+"subaddresses" = "SubendereÃo";
+"new_subaddress_label" = "Crie uma etiqueta para o SubendereÃo";
 "add" = "Adicionar";
 
 
 // Settings
 
-"settings" = "Configurações";
+"settings" = "ConfiguraÃÄ±es";
 "currency" = "Moeda";
-"fee_priority" = "Prioridade da Transação";
+"fee_priority" = "Prioridade da TransaÃâ€o";
 "change_pin" = "Alterar PIN";
-"allow_biometric_authentication" = "Utilizar autenticação biométrica";
+"allow_biometric_authentication" = "Utilizar autenticaÃâ€o biomÃˆtrica";
 "remember_pin" = "Lembrar PIN";
-"node_settings" = "Configurações do Daemon";
+"node_settings" = "ConfiguraÃÄ±es do Daemon";
 "backup_password" = "Senha de backup";
 "show_backup_password" = "A senha de backup foi alterada com sucesso";
 "show_password" = "Mostrar senha";
-"save_backup_password" = "Voc salvou sua senha de backup?";
+"save_backup_password" = "VocÃª salvou sua senha de backup?";
 "save_backup_file" = "Salvar arquivo de backup em outro local";
-"enable_icloud" = "Por favor, ative o iCloud nas configura›es do iPhone";
+"enable_icloud" = "Por favor, ative o iCloud nas configuraÃ§Ãµes do iPhone";
 "change_master_password" = "Alterar / definir senha mestra";
 "enter_new_password" = "Insira a nova senha";
 "generate_new_password" = "Gerar novo";
 "backup_password_has_changed" = "A senha de backup foi alterada com sucesso";
 "change_backup_password" = "Alterar senha de backup";
-"auto_backup" = "Backup autom‡tico para o iCloud";
-"backup_now" = "Faa o backup agora no iCloud";
+"auto_backup" = "Backup automÃ¡tico para o iCloud";
+"backup_now" = "FaÃ§a o backup agora no iCloud";
 "creating_backup" = "Criando backup";
 "backup_uploaded" = "Backup enviado";
 "backup_uploaded_icloud" = "O backup foi enviado para o seu iCloud";
-"change_backup_warning" = "Se voc alterar a senha de backup para backups, os backups manuais anteriores n‹o funcionar‹o com a nova senha. Os backups autom‡ticos continuar‹o funcionando com a nova senha.";
+"change_backup_warning" = "Se vocÃª alterar a senha de backup para backups, os backups manuais anteriores nÃ£o funcionarÃ£o com a nova senha. Os backups automÃ¡ticos continuarÃ£o funcionando com a nova senha.";
 
 
 // Settings sections
 
 "personal" = "Pessoal";
 "wallets" = "Carteiras";
-"advanced" = "Avançado";
-"backup" = "C—pia de segurana";
+"advanced" = "AvanÃado";
+"backup" = "CÃ³pia de seguranÃ§a";
 "manual_backup" = "Backup manual";
 
 
 // Nodes
 
 "nodes" = "Nodes";
-"auto_switch_node" = "Mudança automática de node";
-"node_new" = "Novo n—";
+"auto_switch_node" = "MudanÃa automÂ·tica de node";
+"node_new" = "Novo nÃ³";
 
 
 // Exchange
 
 "exchange" = "Trocar";
 "switch_exchange" = "Troca de troca";
-"refund_address_is_empty" = "Endereço de reembolso está vazio";
+"refund_address_is_empty" = "EndereÃo de reembolso estÂ· vazio";
 "create_exchange" = "Criar uma nova troca";
 "deposit" = "Depositar";
-"refund_address" = "Endereço de reembolso";
-"you_will_receive" = "Você vai receber";
-"you_will_send" = "Voc enviar‡";
-"you_will_get" = "Voc vai ter";
+"refund_address" = "EndereÃo de reembolso";
+"you_will_receive" = "VocÃ vai receber";
+"you_will_send" = "VocÃª enviarÃ¡";
+"you_will_get" = "VocÃª vai ter";
 "clear" = "Limpar";
 "copy_id" = "Copiar o ID";
 "confirm" = "Confirmar";
@@ -218,18 +218,18 @@
 "max" = "Max";
 "state" = "Estado";
 "status" = "Status";
-"exchange_result_confirm_text" = "Pressionando confirmar, você estará enviando %@ da sua carteira  %@ para o endereço mostrado acima.  Or you can send from your external wallet to the above address/QR code.";
+"exchange_result_confirm_text" = "Pressionando confirmar, vocÃ estarÂ· enviando %@ da sua carteira  %@ para o endereÃo mostrado acima.  Or you can send from your external wallet to the above address/QR code.";
 "exchange_result_confirm_sending" = "Pressione confirmar para continuar ou volte para alterar as quantias.";
-"exchange_result_write_down_trade_id" = "Copie ou escreva abaixo o seu ID da transação mostrado acima";
-"trade_not_found" = "Operação não encontrada";
-"amount_is_guaranteed" = "O valor de recebimento  garantido";
-"amount_is_estimate" = "O valor de recebimento  uma estimativa";
+"exchange_result_write_down_trade_id" = "Copie ou escreva abaixo o seu ID da transaÃâ€o mostrado acima";
+"trade_not_found" = "OperaÃâ€o nâ€o encontrada";
+"amount_is_guaranteed" = "O valor de recebimento Ã© garantido";
+"amount_is_estimate" = "O valor de recebimento Ã© uma estimativa";
 
 
 // Auth
 
 "loading_wallet" = "A carregar a carteira";
-"authentication" = "Autenticação";
+"authentication" = "AutenticaÃâ€o";
 "use_pin_password" = "Use a senha PIN";
 "unlock_wallet" = "Para desbloquear a sua carteira";
 
@@ -237,21 +237,21 @@
 // Wallets keys
 
 "wallet_keys" = "Chaves da carteira";
-"view_key_public" = "Chave de consulta(pública)";
-"spend_key_public" = "Chave de movimentação (pública)";
+"view_key_public" = "Chave de consulta(pË™blica)";
+"spend_key_public" = "Chave de movimentaÃâ€o (pË™blica)";
 
 
 // Seed
 
-"seed_disclaimer" = "Por favor, copie, ou anote num papel a sua chave-semente. A chave-semente é usada para recuperar a sua carteira. Essa é sua chave-semente PRIVADA. NÃO COMPARTILHE esta chave com ninguém!";
+"seed_disclaimer" = "Por favor, copie, ou anote num papel a sua chave-semente. A chave-semente Ãˆ usada para recuperar a sua carteira. Essa Ãˆ sua chave-semente PRIVADA. NâˆšO COMPARTILHE esta chave com ninguÃˆm!";
 
 
 // Transactions details
 
-"height" = "Número do bloco";
+"height" = "NË™mero do bloco";
 "date" = "Data";
-"transaction_id" = "ID da transação";
-"transaction_details" = "Detalhes da transação";
+"transaction_id" = "ID da transaÃâ€o";
+"transaction_details" = "Detalhes da transaÃâ€o";
 
 
 // Exchange trade states
@@ -261,13 +261,13 @@
 "exchange_trade_state_processing" = "A Processar";
 "exchange_trade_state_trading" = "A Trocar";
 "exchange_trade_state_traded" = "Trocado";
-"exchange_trade_state_complete" = "Concluído";
+"exchange_trade_state_complete" = "ConcluÃŒdo";
 
 "change_language" = "Alterar idioma";
-"receive_address_is_empty" = "Endereço para receber os fundos não foi preenchido";
-"incorrect_deposit_amount" = "Quantia de depósito incorreta";
-"enter_height_while_restore_alert" = "Introduza o número do bloco ou a data";
-"received" = "“recebido”";
+"receive_address_is_empty" = "EndereÃo para receber os fundos nâ€o foi preenchido";
+"incorrect_deposit_amount" = "Quantia de depÃ›sito incorreta";
+"enter_height_while_restore_alert" = "Introduza o nË™mero do bloco ou a data";
+"received" = "Ã¬recebidoÃ®";
 
 
 //Additional
@@ -277,14 +277,14 @@
 "save" = "Gravar";
 "copy" = "Copiar";
 "full_balance" = "Saldo total";
-"node_address" = "Endereço do node";
+"node_address" = "EndereÃo do node";
 "node_port" = "Porta do node";
 "node_new" = "Novo node";
 "reset" = "Repor";
 "saving"= "A gravar";
 "saved" = "Gravado";
-"node_reset_settings_title" = "Repor definições";
-"nodes_list_reset_to_default_message" = "Tem certeza que quer repor as definições ?";
+"node_reset_settings_title" = "Repor definiÃÄ±es";
+"nodes_list_reset_to_default_message" = "Tem certeza que quer repor as definiÃÄ±es ?";
 "nodes_list_reset_to_default" = "Repor lista de nodes";
 "delete" = "Remover";
 "delete_node" = "Remover node";
@@ -293,10 +293,10 @@
 "change" = "Alterar";
 "done" = "Feito";
 "yes" = "Sim";
-"terms" = "Termos e condições";
+"terms" = "Termos e condiÃÄ±es";
 "terms_accepting_message" = "By using this app, you agree to the Terms of Agreement set forth below";
 "support" = "Apoio";
-"version" = "Versão";
+"version" = "Versâ€o";
 "ok" = "Ok";
 "change_language" = "Alterar idioma";
 "change_language_ask" = "Alterar idioma para %@ ?";
@@ -305,4 +305,4 @@
 "i_saved_sec_key" = "I have saved the trade ID";
 "please_save_sec_key" = "Please copy or write down the trade ID to continue.\n\nTrade ID: %@";
 "edit" = "editar";
-"trade_is_powered" = "Este comrcio  alimentado por %@";
+"trade_is_powered" = "Este comÃ©rcio Ã© alimentado por %@";
