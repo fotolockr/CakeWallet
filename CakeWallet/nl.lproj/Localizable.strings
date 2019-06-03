@@ -40,7 +40,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "Herstel van seed";
-"restore_seed_card_description" = "Herstel je portemonnee uit het 25-woorden- of het 12-woordige seed";
+"restore_seed_card_description" = "Herstel je portemonnee uit het 25-woorden- of het 13-woordige seed";
 "restore_keys_card_title" = "Herstellen van toetsen";
 "restore_keys_card_description" = "Herstel je portemonnee met je privésleutels";
 

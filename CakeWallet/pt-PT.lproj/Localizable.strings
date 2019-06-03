@@ -37,7 +37,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "Restaurar da seed";
-"restore_seed_card_description" = "Restaure sua carteira das seed de 25 ou 12 palavras";
+"restore_seed_card_description" = "Restaure sua carteira das seed de 25 ou 13 palavras";
 "restore_keys_card_title" = "Restaurar das chaves";
 "restore_keys_card_description" = "Restaure sua carteira das suas chaves privadas";
 
@@ -46,7 +46,7 @@
 
 "recover" = "Recuperar";
 "restore_your_wallet" = "Restaurar Carteira";
-"restore_selection_text" = "Existem duas maneiras de restaurar uma carteira. VocÍ pode inserir sua chave-semente que È um cÛdigo de 25 palavras, ou vocÍ pode inserir suas chaves privadas. Por favor, selecione uma opÁ„o.";
+"restore_selection_text" = "Existem duas maneiras de restaurar uma carteira. VocÍ pode inserir sua chave-semente que È um cÛdigo de 25 palavras, ou vocÍ pode inserir suas chaves privadas. Por favor, selecione uma opç„o.";
 "from_seed" = "Utilizar a chave-semente";
 "from_keys" = "Utilizar as chaves privadas";
 "or" = "ou";
@@ -63,9 +63,9 @@
 
 "restore_height" = "Restaurar a partir de n˙mero de bloco";
 "restore_from_date" = "Restaurar a partir de uma data";
-"address" = "EndereÁo";
-"view_key_(private)" = "Chave de visualizaÁ„o (privada)";
-"spend_key_(private)" = "Chave de movimentaÁ„o (privada)";
+"address" = "Endereço";
+"view_key_(private)" = "Ver chave (privada)";
+"spend_key_(private)" = "Gastar chave (privada)";
 
 "continue" = "Continuar";
 "new_wallet" = "Nova carteira";
@@ -79,21 +79,21 @@
 "blocks_remaining" = "Blocos restantes";
 "connecting" = "Conectando";
 "not_connected" = "Desconectado";
-"starting_sync" = "A iniciar sincronizaÁ„o";
+"starting_sync" = "Iniciando a sincronização";
 "synchronized" = "Sincronizado";
 "failed_connection_to_node" = "Falha ao ligar ao node";
 
 
 // Wallet
 
-"available_balance" = "Saldo disponÌvel";
+"available_balance" = "Saldo disponível";
 "reconnection" = "Reconex„o";
 "reconnect" = "Reconectar";
 "reconnect_alert_text" = "VocÍ tem certeza que quer reconectar ?";
 "cancel" = "Cancelar";
 "receive" = "Receber";
 "send" = "Enviar";
-"transactions" = "TransaÁıes";
+"transactions" = "Transaçıes";
 "sent" = "Enviado";
 "pending" = "Pendente";
 
@@ -121,7 +121,7 @@
 
 // Rescan
 
-"starting_rescan" = "A comeÁar o reescaneamento";
+"starting_rescan" = "A começar o reescaneamento";
 
 
 // Send
@@ -130,41 +130,41 @@
 "all" = "Tudo";
 "optional" = "Opcional";
 "estimated_fee" = "Custo estimado";
-"creating_transaction" = "A criar a transaÁ„o";
+"creating_transaction" = "A criar a transaç„o";
 "confirm_sending" = "Confirme o envio";
-"commit_transaction" = "Enviar transaÁ„o";
+"commit_transaction" = "Enviar transaç„o";
 "amount" = "Quantia";
 "fee" = "Custo";
-"transaction_created" = "TransaÁ„o criada";
+"transaction_created" = "Transaç„o criada";
 "currently the fee is set at" = "O custo atualmente È";
 "priority" = "prioridade";
-"change_transaction_priority" = "A prioridade da sua transaÁ„o pode ser ajustada nas configuraÁıes";
+"change_transaction_priority" = "A prioridade da sua transaç„o pode ser ajustada nas configuração";
 
 
 // Receive
 
-"copy_address" = "Copiar EndereÁo";
-"more_options" = "Mais opÁıes";
-"hide_options" = "Esconder opÁıes";
+"copy_address" = "Copiar Endereço";
+"more_options" = "Mais opçıes";
+"hide_options" = "Esconder opçıes";
 "copied" = "Copiado";
 
 
 // Subs
 
-"subaddresses" = "SubendereÁo";
-"new_subaddress_label" = "Crie uma etiqueta para o SubendereÁo";
+"subaddresses" = "Subendereço";
+"new_subaddress_label" = "Crie uma etiqueta para o Subendereço";
 "add" = "Adicionar";
 
 
 // Settings
 
-"settings" = "ConfiguraÁıes";
+"settings" = "Configuração";
 "currency" = "Moeda";
-"fee_priority" = "Prioridade da TransaÁ„o";
+"fee_priority" = "Prioridade da Transaç„o";
 "change_pin" = "Alterar PIN";
-"allow_biometric_authentication" = "Utilizar autenticaÁ„o biomÈtrica";
+"allow_biometric_authentication" = "Permitir autenticação biométrica";
 "remember_pin" = "Lembrar PIN";
-"node_settings" = "ConfiguraÁıes do Daemon";
+"node_settings" = "Configuração do Daemon";
 "backup_password" = "Senha de backup";
 "show_backup_password" = "A senha de backup foi alterada com sucesso";
 "show_password" = "Mostrar senha";
@@ -176,19 +176,19 @@
 "generate_new_password" = "Gerar novo";
 "backup_password_has_changed" = "A senha de backup foi alterada com sucesso";
 "change_backup_password" = "Alterar senha de backup";
-"auto_backup" = "Backup automático para o iCloud";
+"auto_backup" = "Backup automçtico para o iCloud";
 "backup_now" = "Faça o backup agora no iCloud";
 "creating_backup" = "Criando backup";
 "backup_uploaded" = "Backup enviado";
 "backup_uploaded_icloud" = "O backup foi enviado para o seu iCloud";
-"change_backup_warning" = "Se você alterar a senha de backup para backups, os backups manuais anteriores não funcionarão com a nova senha. Os backups automáticos continuarão funcionando com a nova senha.";
+"change_backup_warning" = "Se você alterar a senha de backup para backups, os backups manuais anteriores não funcionarão com a nova senha. Os backups automçticos continuarão funcionando com a nova senha.";
 
 
 // Settings sections
 
 "personal" = "Pessoal";
 "wallets" = "Carteiras";
-"advanced" = "AvanÁado";
+"advanced" = "Avançado";
 "backup" = "Cópia de segurança";
 "manual_backup" = "Backup manual";
 
@@ -196,7 +196,7 @@
 // Nodes
 
 "nodes" = "Nodes";
-"auto_switch_node" = "MudanÁa autom·tica de node";
+"auto_switch_node" = "Nó do comutador automático";
 "node_new" = "Novo nó";
 
 
@@ -204,12 +204,12 @@
 
 "exchange" = "Trocar";
 "switch_exchange" = "Troca de troca";
-"refund_address_is_empty" = "EndereÁo de reembolso est· vazio";
+"refund_address_is_empty" = "Endereço de reembolso est· vazio";
 "create_exchange" = "Criar uma nova troca";
 "deposit" = "Depositar";
-"refund_address" = "EndereÁo de reembolso";
+"refund_address" = "Endereço de reembolso";
 "you_will_receive" = "VocÍ vai receber";
-"you_will_send" = "Você enviará";
+"you_will_send" = "Você enviarç";
 "you_will_get" = "Você vai ter";
 "clear" = "Limpar";
 "copy_id" = "Copiar o ID";
@@ -218,10 +218,11 @@
 "max" = "Max";
 "state" = "Estado";
 "status" = "Status";
-"exchange_result_confirm_text" = "Pressionando confirmar, vocÍ estar· enviando %@ da sua carteira  %@ para o endereÁo mostrado acima.  Or you can send from your external wallet to the above address/QR code.";
+"exchange_result_description_text" = "Por favor, envie %@ para o endereço mostrado acima";
+"exchange_result_confirm_text" = "Pressionando confirmar, vocÍ estar· enviando %@ da sua carteira  %@ para o endereço mostrado acima.  Or you can send from your external wallet to the above address/QR code.";
 "exchange_result_confirm_sending" = "Pressione confirmar para continuar ou volte para alterar as quantias.";
-"exchange_result_write_down_trade_id" = "Copie ou escreva abaixo o seu ID da transaÁ„o mostrado acima";
-"trade_not_found" = "OperaÁ„o n„o encontrada";
+"exchange_result_write_down_trade_id" = "Copie ou escreva abaixo o seu ID da transaç„o mostrado acima";
+"trade_not_found" = "Operaç„o n„o encontrada";
 "amount_is_guaranteed" = "O valor de recebimento é garantido";
 "amount_is_estimate" = "O valor de recebimento é uma estimativa";
 
@@ -229,7 +230,7 @@
 // Auth
 
 "loading_wallet" = "A carregar a carteira";
-"authentication" = "AutenticaÁ„o";
+"authentication" = "Autenticaç„o";
 "use_pin_password" = "Use a senha PIN";
 "unlock_wallet" = "Para desbloquear a sua carteira";
 
@@ -237,21 +238,21 @@
 // Wallets keys
 
 "wallet_keys" = "Chaves da carteira";
-"view_key_public" = "Chave de consulta(p˙blica)";
-"spend_key_public" = "Chave de movimentaÁ„o (p˙blica)";
+"view_key_public" = "Exibir chave (pública)";
+"spend_key_public" = "Gastar chave (pública)";
 
 
 // Seed
 
-"seed_disclaimer" = "Por favor, copie, ou anote num papel a sua chave-semente. A chave-semente È usada para recuperar a sua carteira. Essa È sua chave-semente PRIVADA. N√O COMPARTILHE esta chave com ninguÈm!";
+"seed_disclaimer" = "Por favor, compartilhe, copie ou escreva sua semente. A semente é usada para recuperar sua carteira. Esta é sua semente PRIVATE. NÃO compartilhe esta semente com outras pessoas!";
 
 
 // Transactions details
 
 "height" = "N˙mero do bloco";
 "date" = "Data";
-"transaction_id" = "ID da transaÁ„o";
-"transaction_details" = "Detalhes da transaÁ„o";
+"transaction_id" = "ID da transaç„o";
+"transaction_details" = "Detalhes da transaç„o";
 
 
 // Exchange trade states
@@ -264,7 +265,7 @@
 "exchange_trade_state_complete" = "ConcluÌdo";
 
 "change_language" = "Alterar idioma";
-"receive_address_is_empty" = "EndereÁo para receber os fundos n„o foi preenchido";
+"receive_address_is_empty" = "Endereço para receber os fundos n„o foi preenchido";
 "incorrect_deposit_amount" = "Quantia de depÛsito incorreta";
 "enter_height_while_restore_alert" = "Introduza o n˙mero do bloco ou a data";
 "received" = "ìrecebidoî";
@@ -277,14 +278,14 @@
 "save" = "Gravar";
 "copy" = "Copiar";
 "full_balance" = "Saldo total";
-"node_address" = "EndereÁo do node";
+"node_address" = "Endereço do node";
 "node_port" = "Porta do node";
 "node_new" = "Novo node";
 "reset" = "Repor";
 "saving"= "A gravar";
 "saved" = "Gravado";
-"node_reset_settings_title" = "Repor definiÁıes";
-"nodes_list_reset_to_default_message" = "Tem certeza que quer repor as definiÁıes ?";
+"node_reset_settings_title" = "Repor definiçıes";
+"nodes_list_reset_to_default_message" = "Tem certeza que quer repor as definiçıes ?";
 "nodes_list_reset_to_default" = "Repor lista de nodes";
 "delete" = "Remover";
 "delete_node" = "Remover node";
@@ -293,10 +294,10 @@
 "change" = "Alterar";
 "done" = "Feito";
 "yes" = "Sim";
-"terms" = "Termos e condiÁıes";
+"terms" = "Termos e condiçıes";
 "terms_accepting_message" = "By using this app, you agree to the Terms of Agreement set forth below";
 "support" = "Apoio";
-"version" = "Vers„o";
+"version" = "Versão";
 "ok" = "Ok";
 "change_language" = "Alterar idioma";
 "change_language_ask" = "Alterar idioma para %@ ?";

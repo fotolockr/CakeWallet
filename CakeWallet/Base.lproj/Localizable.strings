@@ -39,7 +39,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "Restore from seed";
-"restore_seed_card_description" = "Restore your wallet from either the 25 word or 12 word seed";
+"restore_seed_card_description" = "Restore your wallet from either the 25 word or 13 word seed";
 "restore_keys_card_title" = "Restore from keys";
 "restore_keys_card_description" = "Restore your wallet from your private keys";
 

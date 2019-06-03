@@ -34,22 +34,6 @@ struct ChangeNowTrade: Trade {
                 
                 do {
                     let json = try JSON(data: data)
-                    
-                    //                    "id": "b712390255",
-                    //                    "status": "finished",
-                    //                    "hash": "transactionhash",
-                    //                    "payinHash": "58eccbfb713d430004aa438a",
-                    //                    "payoutHash": "58eccbfb713d430004aa438a",
-                    //                    "payinAddress": "58eccbfb713d430004aa438a",
-                    //                    "payoutAddress": "0x9d8032972eED3e1590BeC5e9E4ea3487fF9Cf120",
-                    //                    "payinExtraId": "123456",
-                    //                    "payoutExtraId": "123456",
-                    //                    "fromCurrency": "btc",
-                    //                    "toCurrency": "eth",
-                    //                    "amountSend": "1.000001",
-                    //                    "amountReceive": "20.000001",
-                    //                    "networkFee": "0.000001",
-                    //                    "updatedAt": "2017-11-29T19:17:55.130Z"
                     let state = ExchangeTradeState(fromChangenow: json["status"].stringValue) ?? self.state
                     let trade = ChangeNowTrade(
                         id: self.id,

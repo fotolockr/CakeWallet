@@ -13,7 +13,8 @@ func mndecode(seed: String, wordset: Wordset = englishWordset) -> String {
     let n = wordset.words.count
     var out = ""
     var wlist = seed.components(separatedBy: " ")
-    
+    _ = wlist.popLast()
+
     for i in stride(from: 0, to: wlist.count, by: 3) {
         let w1 = Int(wordset.tructWords.index(of: String(wlist[i][0..<wordset.prefixLength]))!)
         let w2 = Int(wordset.tructWords.index(of: String(wlist[i + 1][0..<wordset.prefixLength]))!)

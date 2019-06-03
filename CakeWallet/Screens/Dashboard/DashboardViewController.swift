@@ -228,7 +228,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
         }
         
         if contentView.cardViewCoreDataWrapper.frame.origin.y != offsetTop {
-            contentView.cardViewCoreDataWrapper.flex.top(offsetTop).markDirty()
+            contentView.cardViewCoreDataWrapper.flex.marginTop(offsetTop).markDirty()
         }
         
         contentView.fixedHeader.flex.layout()
@@ -486,6 +486,7 @@ final class DashboardController: BaseViewController<DashboardView>, StoreSubscri
             + " "
             + (showAbleBalance ? NSLocalizedString("available_balance", comment: "") : NSLocalizedString("full_balance", comment: ""))
         contentView.cryptoAmountLabel.text = amount.formatted()
+        contentView.cryptoAmountLabel.sizeToFit()
         contentView.cryptoTitleLabel.flex.markDirty()
         contentView.cryptoAmountLabel.flex.markDirty()
     }

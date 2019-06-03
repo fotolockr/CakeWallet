@@ -39,7 +39,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "Przywróć z seed";
-"restore_seed_card_description" = "Przywróć portfel z 25 lub 12 słów seed";
+"restore_seed_card_description" = "Przywróć portfel z 25 lub 13 słów seed";
 "restore_keys_card_title" = "Przywróć z klawiszy";
 "restore_keys_card_description" = "Przywróć swój portfel ze swoich prywatnych kluczy";
 

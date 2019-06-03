@@ -36,7 +36,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "Восстановить с помощью код-фразы";
-"restore_seed_card_description" = "Восстановить с помощью код-фразы из 25 или 12 слов";
+"restore_seed_card_description" = "Восстановить с помощью код-фразы из 25 или 13 слов";
 "restore_keys_card_title" = "Восстановить с помощью ключей";
 "restore_keys_card_description" = "Восстановить с помощью приватных ключей";
 

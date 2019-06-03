@@ -39,7 +39,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "Restaurar desde seed";
-"restore_seed_card_description" = "Restaure su billetera desde la semilla de 25 palabras o 12 palabras seed";
+"restore_seed_card_description" = "Restaure su billetera desde la semilla de 25 palabras o 13 palabras seed";
 "restore_keys_card_title" = "Restaurar desde llaves";
 "restore_keys_card_description" = "Restaura tu billetera desde tus llaves privadas";
 

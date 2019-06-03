@@ -37,7 +37,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "बीज से पुनर्स्थापित करें";
-"restore_seed_card_description" = "25 शब्द या 12 शब्द बीज में से अपने बटुए को पुनर्स्थापित करें";
+"restore_seed_card_description" = "25 शब्द या 13 शब्द बीज में से अपने बटुए को पुनर्स्थापित करें";
 "restore_keys_card_title" = "कुंजी से पुनर्स्थापित करें";
 "restore_keys_card_description" = "अपने निजी कुंजी से अपने वॉलेट को पुनर्स्थापित करें";
 

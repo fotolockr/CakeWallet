@@ -744,7 +744,7 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     private var didSetCurrentAddressForDeposit: Bool
     private var didSetCurrentAddressForReceive: Bool
-    private var exchangeNameView: WalletNameView = WalletNameView()
+    private var exchangeNameView: ExchangeNameView = ExchangeNameView()
     private var isXMRTO: Bool {
         return exchange.provider == .xmrto
     }
@@ -984,9 +984,11 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let clearButton = UIBarButtonItem()
-        clearButton.title = NSLocalizedString("clear", comment: "")
-        clearButton.action = #selector(clear)
+        let clearButton = UIBarButtonItem(
+            title: NSLocalizedString("clear", comment: ""),
+            style: .plain,
+            target: self,
+            action: #selector(clear))
         
         clearButton.setTitleTextAttributes([
             NSAttributedStringKey.font: applyFont(ofSize: 16, weight: .regular),
@@ -1291,11 +1293,10 @@ final class ExchangeViewController: BaseViewController<ExchangeView>, StoreSubsc
     
     @objc
     private func clear() {
-        contentView.depositCardView.amountTextField.text = ""
-        contentView.depositCardView.addressContainer.textView.text = ""
-        
-        contentView.receiveCardView.amountTextField.text = ""
-        contentView.receiveCardView.addressContainer.textView.text = ""
+        depositAmountString.accept("")
+        receiveAmountString.accept("")
+        contentView.depositCardView.addressContainer.textView.text = depositCrypto.value == .monero ? store.state.walletState.address : ""
+        contentView.receiveCardView.addressContainer.textView.text = receiveCrypto.value == .monero ? store.state.walletState.address : ""
         updateReceiveResult(with: makeAmount(0 as UInt64, currency: receiveCrypto.value))
         store.dispatch(ExchangeState.Action.changedTrade(nil))
     }

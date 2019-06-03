@@ -104,7 +104,8 @@ final class DashboardView: BaseScrollFlexView {
     static let fixedHeaderTopOffset = 45 as CGFloat
     static let headerButtonsHeight = 60 as CGFloat
     static let minHeaderButtonsHeight = 45 as CGFloat
-    static let headerMinHeight: CGFloat = 185
+    static let headerMinHeight: CGFloat = 195
+    static let fixedHeaderHeight = 330 as CGFloat
     let fixedHeader: UIView
     let fiatAmountLabel, cryptoAmountLabel, cryptoTitleLabel, transactionTitleLabel: UILabel
     let progressBar: ProgressBar
@@ -113,7 +114,6 @@ final class DashboardView: BaseScrollFlexView {
     let transactionsTableView: UITableView
     let cardViewCoreDataWrapper: UIView
     let buttonsRowPadding: CGFloat
-    static let fixedHeaderHeight = 320 as CGFloat
     
     required init() {
         fixedHeader = UIView()
@@ -166,7 +166,7 @@ final class DashboardView: BaseScrollFlexView {
             .width(100%)
             .define{ flex in
                 flex.addItem(cryptoTitleLabel).width(100%).height(20).marginBottom(10)
-                flex.addItem(cryptoAmountLabel).width(100%).height(32).marginBottom(10)
+                flex.addItem(cryptoAmountLabel).alignSelf(.center).marginBottom(10)
                 flex.addItem(fiatAmountLabel).width(100%).height(20)
         }
         
@@ -180,13 +180,16 @@ final class DashboardView: BaseScrollFlexView {
         }
         
         fixedHeader.flex
-            .alignItems(.center).justifyContent(.end)
-            .width(100%).height(DashboardView.fixedHeaderHeight)
+            .alignItems(.center)
+            .justifyContent(.spaceBetween)
+            .width(100%)
+            .height(DashboardView.fixedHeaderHeight)
             .backgroundColor(.white)
+            .paddingBottom(31)
             .define { flex in
-                flex.addItem(cardViewCoreDataWrapper).width(100%).position(.absolute).top(DashboardView.fixedHeaderTopOffset)
-                flex.addItem(progressBar).width(200).height(22).marginBottom(120)
-                flex.addItem(buttonsRow).height(DashboardView.headerButtonsHeight).position(.absolute).bottom(35)
+                flex.addItem(cardViewCoreDataWrapper).width(100%).marginTop(DashboardView.fixedHeaderTopOffset)
+                flex.addItem(progressBar).width(200).height(22).bottom(120).position(.absolute)
+                flex.addItem(buttonsRow).height(DashboardView.headerButtonsHeight).marginTop(15)
         }
         
         rootFlexContainer.flex

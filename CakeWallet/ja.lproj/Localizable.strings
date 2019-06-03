@@ -40,7 +40,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "種から復元";
-"restore_seed_card_description" = "25ワードまたは12ワードのシードから財布を復元する";
+"restore_seed_card_description" = "25ワードまたは13ワードのシードから財布を復元する";
 "restore_keys_card_title" = "キーから復元";
 "restore_keys_card_description" = "あなたの秘密鍵からあなたの財布を復元する";
 

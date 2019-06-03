@@ -37,7 +37,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "종자에서 복원";
-"restore_seed_card_description" = "25 단어 또는 12 단어 시드에서 지갑 복원";
+"restore_seed_card_description" = "25 단어 또는 13 단어 시드에서 지갑 복원";
 "restore_keys_card_title" = "키에서 복원";
 "restore_keys_card_description" = "개인 키에서 지갑 복원";
 

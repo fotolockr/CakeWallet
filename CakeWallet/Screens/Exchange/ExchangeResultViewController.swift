@@ -225,15 +225,16 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         }
         
         let resultDescription: String
+        let amount = trade.amount.formatted() + " " + trade.amount.currency.formatted()
         
         if trade.from == store.state.walletState.walletType.currency {
             let name = store.state.walletState.name
             resultDescription = String(
                 format: "%@\n\n%@",
-                String(format: NSLocalizedString("exchange_result_confirm_text", comment: ""), trade.amount.formatted(), name),
+                String(format: NSLocalizedString("exchange_result_confirm_text", comment: ""), amount, name),
                 NSLocalizedString("exchange_result_confirm_sending", comment: ""))
         } else {
-            resultDescription = String(format: NSLocalizedString("exchange_result_description_text", comment: ""), trade.amount.formatted())
+            resultDescription = String(format: NSLocalizedString("exchange_result_description_text", comment: ""), amount)
         }
         
         if let paymentId = trade.extraId {
@@ -406,34 +407,36 @@ final class ExchangeResultViewController: BaseViewController<ExchangeResultView>
         let navController = UINavigationController(rootViewController: authController)
         authController.handler = { [weak self] in
             authController.dismiss(animated: true) {
-                self?.showSpinnerAlert(withTitle: NSLocalizedString("creating_transaction", comment: ""), callback: { alert in
-                    guard let xmrtotrade = self?.trade.value as? XMRTOTrade else {
-                        return
-                    }
-                    let priority = store.state.settingsState.transactionPriority
-                    let address = xmrtotrade.inputAddress
-                    let amount = xmrtotrade.amount
-                    let paymentID = xmrtotrade.extraId ?? ""
-                    
-                    store.dispatch(
-                        WalletActions.send(
-                            amount: amount,
-                            toAddres: address,
-                            paymentID: paymentID,
-                            priority: priority,
-                            handler: { result in
-                                alert.dismiss(animated: true) {
-                                    switch result {
-                                    case let .success(pendingTransaction):
-                                        self?.onTransactionCreated(pendingTransaction)
-                                    case let .failed(error):
-                                        self?.showErrorAlert(error: error)
-                                        break
-                                    }
+                self?.contentView.confirmButton.showLoading()
+                guard let trade = self?.trade.value else {
+                    return
+                }
+                
+                let priority = store.state.settingsState.transactionPriority
+                let address = trade.inputAddress
+                let amount = trade.amount
+                let paymentID = trade.extraId ?? ""
+                
+                store.dispatch(
+                    WalletActions.send(
+                        amount: amount,
+                        toAddres: address,
+                        paymentID: paymentID,
+                        priority: priority,
+                        handler: { result in
+                            DispatchQueue.main.async {
+                                self?.contentView.confirmButton.hideLoading()
+                                
+                                switch result {
+                                case let .success(pendingTransaction):
+                                    self?.onTransactionCreated(pendingTransaction)
+                                case let .failed(error):
+                                    self?.showErrorAlert(error: error)
+                                    break
                                 }
-                        })
-                    )
-                })
+                            }
+                    })
+                )
             }
         }
         

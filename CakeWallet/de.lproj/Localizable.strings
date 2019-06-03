@@ -41,7 +41,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "Wiederherstellen aus Seed";
-"restore_seed_card_description" = "Stellen Sie Ihre Brieftasche entweder aus dem Seed mit 25 oder 12 Wörtern wieder her";
+"restore_seed_card_description" = "Stellen Sie Ihre Brieftasche entweder aus dem Seed mit 25 oder 13 Wörtern wieder her";
 "restore_keys_card_title" = "Wiederherstellen von Schlüsseln";
 "restore_keys_card_description" = "Stellen Sie Ihre Brieftasche mit Ihren privaten Schlüsseln wieder her";
 

@@ -37,7 +37,7 @@
 // Restore cards
 
 "restore_seed_card_title" = "从种子恢复";
-"restore_seed_card_description" = "从25字或12字种子恢复您的钱包";
+"restore_seed_card_description" = "从25字或13字种子恢复您的钱包";
 "restore_keys_card_title" = "从密钥恢复";
 "restore_keys_card_description" = "从您的私钥恢复您的钱包";
 

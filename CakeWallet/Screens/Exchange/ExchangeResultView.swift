@@ -51,7 +51,7 @@ final class ExchangeResultView: BaseScrollFlexView {
     let qrImageView: UIImageView
     let copyAddressButton: CopyButton
     let copyIdButton: CopyButton
-    let confirmButton: UIButton
+    let confirmButton: PrimaryLoadingButton
     let resultDescriptionLabel: UILabel
     let descriptionTextView: UITextView
     let cardView: UIView
@@ -76,7 +76,7 @@ final class ExchangeResultView: BaseScrollFlexView {
         qrImageView = UIImageView(image: nil)
         copyAddressButton = CopyButton(title: NSLocalizedString("copy_address", comment: ""))
         copyIdButton = CopyButton(title: NSLocalizedString("copy_id", comment: ""))
-        confirmButton = PrimaryButton(title: NSLocalizedString("confirm", comment: ""))
+        confirmButton = PrimaryLoadingButton()
         resultDescriptionLabel = UILabel(fontSize: 14)
         descriptionTextView = UITextView(frame: .zero)
         cardView = UIView()
@@ -96,6 +96,7 @@ final class ExchangeResultView: BaseScrollFlexView {
     
     override func configureView() {
         super.configureView()
+        confirmButton.setTitle(NSLocalizedString("confirm", comment: ""), for: .normal)
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         idLabel.numberOfLines = 0
@@ -123,7 +124,6 @@ final class ExchangeResultView: BaseScrollFlexView {
         
         resultDescriptionLabel.numberOfLines = 0
         resultDescriptionLabel.font = applyFont(ofSize: 14)
-        resultDescriptionLabel.textColor = .grayBlue
         
         btcTxIDLabel.numberOfLines = 0
         btcTxIDRow.isUserInteractionEnabled = true
