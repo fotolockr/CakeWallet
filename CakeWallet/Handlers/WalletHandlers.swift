@@ -107,6 +107,12 @@ public struct CommitTransactionHandler: AsyncHandler {
         
         walletQueue.async {
             transaction.commit({ result in
+                do {
+                    try (currentWallet as? MoneroWallet)?.rawsave()
+                } catch {
+                    print("Saving error: ", error)
+                }
+                
                 switch result {
                 case .success():
                     handler(

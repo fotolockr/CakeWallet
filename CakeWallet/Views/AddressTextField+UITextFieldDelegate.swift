@@ -11,11 +11,12 @@ extension AddressTextField: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard text != nil && !text!.isEmpty else {
+        guard let text = text else {
             originText.accept("")
             return
         }
         
+        originText.accept(text)
         change(text: originText.value)
     }
     

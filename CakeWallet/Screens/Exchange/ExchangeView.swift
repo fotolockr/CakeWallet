@@ -285,6 +285,7 @@ final class ExchangeView: BaseScrollFlexView {
     
     override func configureView() {
         super.configureView()
+        depositCardView.addressContainer.tag = 2000
         exchangeDescriptionLabel.textColor = .wildDarkBlue
         dispclaimerLabel.textColor = .lightGray
         dispclaimerLabel.textAlignment = .center

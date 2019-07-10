@@ -190,6 +190,16 @@ public final class MoneroWallet: Wallet {
         }
     }
     
+    public func rawsave() throws {
+        guard !isBlocking || !isSaving else {
+            return
+        }
+        
+        isSaving = true
+        try moneroAdapter.save()
+        isSaving = false
+    }
+    
     public func connect(toNode node: NodeDescription) throws {
         guard !isBlocking else {
             return
