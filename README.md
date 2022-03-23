@@ -1,3 +1,5 @@
+# New repository: https://github.com/cake-tech/cake_wallet/
+
 # Installation
 
 1. Clone the repository.
